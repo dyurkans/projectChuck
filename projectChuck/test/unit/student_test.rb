@@ -36,37 +36,6 @@ class StudentTest < ActiveSupport::TestCase
 	should_not allow_value("412/268/3259").for(:cell_phone)
 	should_not allow_value("412-2683-259").for(:cell_phone)
 
-	# tests for day_phone
-	should allow_value("4122683259").for(:day_phone)
-	should allow_value("412-268-3259").for(:day_phone)
-	should allow_value("412.268.3259").for(:day_phone)
-	should allow_value("(412) 268-3259").for(:day_phone)
-	should allow_value(nil).for(:day_phone)
-	should_not allow_value("2683259").for(:day_phone)
-	should_not allow_value("14122683259").for(:day_phone)
-	should_not allow_value("4122683259x224").for(:day_phone)
-	should_not allow_value("800-EAT-FOOD").for(:day_phone)
-	should_not allow_value("412/268/3259").for(:day_phone)
-	should_not allow_value("412-2683-259").for(:day_phone)	  
-
-	# test receive_texts
-	should allow_value(true).for(:receive_texts)
-	should allow_value(false).for(:receive_texts)
-	should_not allow_value(nil).for(:receive_texts)
-
-	# tests for email
-	should validate_uniqueness_of(:email).case_insensitive
-	should allow_value("fred@fred.com").for(:email)
-	should allow_value("fred@andrew.cmu.edu").for(:email)
-	should allow_value("my_fred@fred.org").for(:email)
-	should allow_value("fred123@fred.gov").for(:email)
-	should allow_value("my.fred@fred.net").for(:email)
-	should_not allow_value("fred").for(:email)
-	should_not allow_value("fred@fred,com").for(:email)
-	should_not allow_value("fred@fred.uk").for(:email)
-	should_not allow_value("my fred@fred.com").for(:email)
-	should_not allow_value("fred@fred.con").for(:email)
-
 	#test gender
 	should allow_value(true).for(:gender)
 	should allow_value(false).for(:gender)
