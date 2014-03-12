@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140312173021) do
+ActiveRecord::Schema.define(:version => 20140312174119) do
 
   create_table "brackets", :force => true do |t|
     t.integer  "tournament_id"
@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(:version => 20140312173021) do
     t.string   "birth_certificate"
     t.text     "allergies"
     t.text     "medications"
-    t.string   "security_question"
-    t.string   "security_response"
+    t.text     "security_question",       :limit => 255
+    t.text     "security_response",       :limit => 255
     t.boolean  "active",                                 :default => true
     t.datetime "created_at",                                               :null => false
     t.datetime "updated_at",                                               :null => false
