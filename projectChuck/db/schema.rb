@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140312161736) do
+ActiveRecord::Schema.define(:version => 20140312171637) do
 
   create_table "brackets", :force => true do |t|
     t.integer  "tournament_id"
@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(:version => 20140312161736) do
     t.date     "dob"
     t.string   "cell_phone"
     t.string   "day_phone"
-    t.boolean  "receive_texts"
+    t.boolean  "receive_texts", :default => true
     t.string   "email"
     t.string   "gender"
-    t.boolean  "active"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.boolean  "active",        :default => true
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "households", :force => true do |t|
@@ -47,9 +47,9 @@ ActiveRecord::Schema.define(:version => 20140312161736) do
     t.string   "insurance_policy_no"
     t.string   "family_physician"
     t.string   "physician_phone"
-    t.boolean  "active"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.boolean  "active",              :default => true
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
   create_table "registrations", :force => true do |t|
@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20140312161736) do
     t.date     "physical_date"
     t.integer  "t_shirt_size"
     t.date     "date"
-    t.boolean  "active"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.boolean  "active",             :default => true
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   create_table "students", :force => true do |t|
@@ -83,9 +83,9 @@ ActiveRecord::Schema.define(:version => 20140312161736) do
     t.text     "medications"
     t.string   "security_question"
     t.string   "security_response"
-    t.boolean  "active"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.boolean  "active",                  :default => true
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   create_table "teams", :force => true do |t|
@@ -100,10 +100,10 @@ ActiveRecord::Schema.define(:version => 20140312161736) do
     t.string   "password_digest"
     t.string   "email"
     t.string   "role"
-    t.boolean  "active"
+    t.boolean  "active",          :default => true
     t.integer  "guardian_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
 end
