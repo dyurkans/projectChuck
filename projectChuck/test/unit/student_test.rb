@@ -1,7 +1,12 @@
 require 'test_helper'
 
 class StudentTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+	#Relationshiop validations
+	should belong_to (:household)
+	should have_many(:registrations)
+	should have_one(:team).through(:registrations)
+
+
+
 end

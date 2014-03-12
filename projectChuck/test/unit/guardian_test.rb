@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class GuardianTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+	#Relationshiop validations
+	should have_many(:users)
+	should belong_to(:household)
+	#next iteration //should have_many(:volunteers)
+
 end
