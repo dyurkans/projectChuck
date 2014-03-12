@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  street: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  home_phone: MyString
+  insurance_provider: MyString
+  insurance_policy_no: MyString
+  family_physician: MyString
+  physician_phone: MyString
+  active: false
+
+two:
+  street: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  home_phone: MyString
+  insurance_provider: MyString
+  insurance_policy_no: MyString
+  family_physician: MyString
+  physician_phone: MyString
+  active: false
