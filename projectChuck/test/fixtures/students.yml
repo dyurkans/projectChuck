@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  household_id: 1
+  first_name: MyString
+  last_name: MyString
+  dob: 2014-03-12
+  cell_phone: MyString
+  school: MyString
+  school_county: MyString
+  grade_integer: MyString
+  gender: false
+  emergency_contact_name: MyString
+  emergency_contact_phone: MyString
+  birth_certificate: MyString
+  allergies: MyText
+  medications: MyText
+  security_question: MyString
+  security_response: MyString
+  active: false
+
+two:
+  household_id: 1
+  first_name: MyString
+  last_name: MyString
+  dob: 2014-03-12
+  cell_phone: MyString
+  school: MyString
+  school_county: MyString
+  grade_integer: MyString
+  gender: false
+  emergency_contact_name: MyString
+  emergency_contact_phone: MyString
+  birth_certificate: MyString
+  allergies: MyText
+  medications: MyText
+  security_question: MyString
+  security_response: MyString
+  active: false

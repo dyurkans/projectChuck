@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  student_id: 1
+  team_id: 1
+  report_card: MyString
+  proof_of_insurance: MyString
+  physical: MyString
+  physical_date: 2014-03-12
+  t_shirt_size: 1
+  date: 2014-03-12
+  active: false
+
+two:
+  student_id: 1
+  team_id: 1
+  report_card: MyString
+  proof_of_insurance: MyString
+  physical: MyString
+  physical_date: 2014-03-12
+  t_shirt_size: 1
+  date: 2014-03-12
+  active: false
