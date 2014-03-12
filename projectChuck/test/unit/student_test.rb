@@ -12,7 +12,6 @@ class StudentTest < ActiveSupport::TestCase
 
 	#test last_name
  	should validate_presence_of(:last_name)
- 
 
 	# test dob
 	should allow_value(29.years.ago.to_date).for(:dob)
