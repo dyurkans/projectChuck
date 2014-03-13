@@ -28,34 +28,58 @@ class HouseholdTest < ActiveSupport::TestCase
 	should_not allow_value(10).for(:state)
 	should allow_value("CA").for(:state)
 
-	# tests for cell_phone
-	should allow_value("4122683259").for(:cell_phone)
-	should allow_value("412-268-3259").for(:cell_phone)
-	should allow_value("412.268.3259").for(:cell_phone)
-	should allow_value("(412) 268-3259").for(:cell_phone)
-	should allow_value(nil).for(:cell_phone)
-	should_not allow_value("2683259").for(:cell_phone)
-	should_not allow_value("14122683259").for(:cell_phone)
-	should_not allow_value("4122683259x224").for(:cell_phone)
-	should_not allow_value("800-EAT-FOOD").for(:cell_phone)
-	should_not allow_value("412/268/3259").for(:cell_phone)
-	should_not allow_value("412-2683-259").for(:cell_phone)
+	# tests for home_phone
+	should allow_value("4122683259").for(:home_phone)
+	should allow_value("412-268-3259").for(:home_phone)
+	should allow_value("412.268.3259").for(:home_phone)
+	should allow_value("(412) 268-3259").for(:home_phone)
+	should allow_value(nil).for(:home_phone)
+	should_not allow_value("2683259").for(:home_phone)
+	should_not allow_value("14122683259").for(:home_phone)
+	should_not allow_value("4122683259x224").for(:home_phone)
+	should_not allow_value("800-EAT-FOOD").for(:home_phone)
+	should_not allow_value("412/268/3259").for(:home_phone)
+	should_not allow_value("412-2683-259").for(:home_phone)
 
 	#test for family physician
 	should validate_presence_of(:family_physician)
+	should allow_value("Dr. John Doe").for(:family_physician)
+	should allow_value("John Doe").for(:family_physician)
+	should allow_value("Dr John Doe").for(:family_physician)
+	should allow_value("John Doe, M.D.").for(:family_physician)
+	should allow_value("john doe").for(:family_physician)
+	should_not allow_value("John").for(:family_physician)
+	should_not allow_value(12345).for(:family_physician)
+	should_not allow_value(nil).for(:family_physician)
+	should_not allow_value("800-EAT-FOOD").for(:family_physician)
 
 	#tests for insurance policy number
 	should validate_presence_of(:insurance_policy_no)
+	should allow_value("1234567890").for(:insurance_policy_no)
+	should allow_value("Ad34134r44").for(:insurance_policy_no)
+	should allow_value("QWERTYUIOO").for(:insurance_policy_no)
+	should_not allow_value(nil).for(:insurance_policy_no)
+	should_not allow_value(1345678902).for(:insurance_policy_no)
 
 	#tests for insurance provider
 	should validate_presence_of(:insurance_provider)
+
+	# tests for physician_phone
+	should allow_value("4122683259").for(:physician_phone)
+	should allow_value("412-268-3259").for(:physician_phone)
+	should allow_value("412.268.3259").for(:physician_phone)
+	should allow_value("(412) 268-3259").for(:physician_phone)
+	should allow_value(nil).for(:physician_phone)
+	should_not allow_value("2683259").for(:physician_phone)
+	should_not allow_value("14122683259").for(:physician_phone)
+	should_not allow_value("4122683259x224").for(:physician_phone)
+	should_not allow_value("800-EAT-FOOD").for(:physician_phone)
+	should_not allow_value("412/268/3259").for(:physician_phone)
+	should_not allow_value("412-2683-259").for(:physician_phone)
 
 	# tests for active
 	should allow_value(true).for(:active)
 	should allow_value(false).for(:active)
 	should_not allow_value(nil).for(:active)
-
-
-	 # Still need should matchers for these :family_physician, :home_phone, :insurance_policy_no, :insurance_provider, :physician_phone
 
 end
