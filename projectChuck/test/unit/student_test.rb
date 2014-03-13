@@ -14,12 +14,12 @@ class StudentTest < ActiveSupport::TestCase
  	should validate_presence_of(:last_name)
 
 	# test dob
-	should allow_value(29.years.ago.to_date).for(:dob)
-	should allow_value(19.years.ago.to_date).for(:dob)
+	should_not allow_value(19.years.ago.to_date).for(:dob)
+	should allow_value(18.years.ago.to_date).for(:dob)
 	should allow_value(14.years.ago.to_date).for(:dob)
 	should allow_value(9.years.ago.to_date).for(:dob)
-	should allow_value(5.years.ago.to_date).for(:dob)
-	should_not allow_value(4.years.ago).for(:dob)
+	should allow_value(7.years.ago.to_date).for(:dob)
+	should_not allow_value(5.years.ago).for(:dob)
 	should_not allow_value("bad").for(:dob)
 	should_not allow_value(nil).for(:dob)
 
