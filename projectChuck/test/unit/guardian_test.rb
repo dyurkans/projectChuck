@@ -3,7 +3,7 @@ require 'test_helper'
 class GuardianTest < ActiveSupport::TestCase
 
 	#Relationshiop validations
-	should have_many(:users)
+	should have_one(:user)
 	should belong_to(:household)
 	#next iteration //should have_many(:volunteers)
 
@@ -15,10 +15,10 @@ class GuardianTest < ActiveSupport::TestCase
 
 	# test dob
 	should allow_value(29.years.ago.to_date).for(:dob)
-	should allow_value(19.years.ago.to_date).for(:dob)
-	should allow_value(14.years.ago.to_date).for(:dob)
-	should allow_value(9.years.ago.to_date).for(:dob)
-	should allow_value(5.years.ago.to_date).for(:dob)
+	should allow_value(18.years.ago.to_date).for(:dob)
+	should_not allow_value(17.years.ago.to_date).for(:dob)
+	should_not allow_value(9.years.ago.to_date).for(:dob)
+	should_not allow_value(5.years.ago.to_date).for(:dob)
 	should_not allow_value(4.years.ago).for(:dob)
 	should_not allow_value("bad").for(:dob)
 	should_not allow_value(nil).for(:dob)

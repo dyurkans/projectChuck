@@ -5,7 +5,7 @@ class StudentTest < ActiveSupport::TestCase
 	#Relationshiop validations
 	should belong_to (:household)
 	should have_many(:registrations)
-	should have_one(:team).through(:registrations)
+	should have_many(:team).through(:registrations)
 
 	#test first_name
  	should validate_presence_of(:first_name)
