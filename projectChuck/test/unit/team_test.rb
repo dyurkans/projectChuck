@@ -14,4 +14,10 @@ class TeamTest < ActiveSupport::TestCase
 	#test name
 	should validate_presence_of(:name)
 
+	#test bracket id
+	should validate_numericality_of(:bracket_id)
+	should_not allow_value(3.14159).for(:bracket_id)
+	should_not allow_value(0).for(:bracket_id)
+	should_not allow_value(-1).for(:bracket_id)
+
 end
