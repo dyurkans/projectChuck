@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class TeamTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+	#Relationship Validations
+	should belong_to(:bracket)
+	should have_many(:registrations)
+
+
 end

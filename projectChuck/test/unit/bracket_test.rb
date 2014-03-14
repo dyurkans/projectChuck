@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class BracketTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+	#Relationship Validations
+	should have_many(:teams)
+	#next iteration //should belong_to(:tournament)
+
 end

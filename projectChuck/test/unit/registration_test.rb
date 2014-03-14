@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class RegistrationTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+	#relationship validations
+	should belong_to(:student)
+	should belong_to(:team)
+
 end
