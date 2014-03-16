@@ -57,10 +57,10 @@ class StudentTest < ActiveSupport::TestCase
 	####This should probably be stored as an int and changed appropriately
 
 	should allow_value("3").for(:grade_integer)
-	should allow_value("12".for(:grade_integer)
-	should allow_value("Sixth".for(:grade_integer)
-	should_not allow_value(0.for(:grade_integer)
-	should_not allow_value(nil.for(:grade_integer)
+	should allow_value("12").for(:grade_integer)
+	should allow_value("Sixth").for(:grade_integer)
+	should_not allow_value(0).for(:grade_integer)
+	should_not allow_value(nil).for(:grade_integer)
 
 	#test gender
 	should allow_value(true).for(:gender)
