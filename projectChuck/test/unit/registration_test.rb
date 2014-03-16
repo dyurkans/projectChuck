@@ -25,21 +25,21 @@ class RegistrationTest < ActiveSupport::TestCase
 
 	#test date
 	#must decide if we want to allow volunteers to change the date
-	should_not allow_value(2.days.ago.to_date).for(:dob)
-	should_not allow_value(2.days.from_now.to_date).for(:dob)
-	should allow_value(Date.now.to_date).for(:dob)
-	should_not allow_value("bad").for(:dob)
-	should_not allow_value(nil).for(:dob)
+	should_not allow_value(2.days.ago.to_date).for(:date)
+	should_not allow_value(2.days.from_now.to_date).for(:date)
+	should allow_value(Date.now.to_date).for(:date)
+	should_not allow_value("bad").for(:date)
+	should_not allow_value(nil).for(:date)
 
 	#test physical
 
 	#test physical date
-	should_not allow_value(2.years.ago.to_date).for(:dob)
+	should_not allow_value(2.years.ago.to_date).for(:physical_date)
 	#not sure about this, we need to check how recent physicals must be
-	should allow_value(1.year.ago.to_date).for(:dob)
-	should allow_value(8.months.ago.to_date).for(:dob)
-	should_not allow_value(1.month.from_now).for(:dob)
-	should_not allow_value("bad").for(:dob)
+	should allow_value(1.year.ago.to_date).for(:physical_date)
+	should allow_value(8.months.ago.to_date).for(:physical_date)
+	should_not allow_value(1.month.from_now).for(:physical_date)
+	should_not allow_value("bad").for(:physical_date)
 
 	#test proof_of_insurance
 
