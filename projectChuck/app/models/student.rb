@@ -25,6 +25,7 @@ class Student < ActiveRecord::Base
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
 
+  GENDER_LIST = [["Male", 1], ["Female", 0]]
 
   # Other methods
   def name

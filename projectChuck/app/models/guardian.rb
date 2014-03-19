@@ -19,6 +19,8 @@ class Guardian < ActiveRecord::Base
   scope :active, where('guardians.active = ?', true)
   scope :inactive, where('guardians.active = ?', false)
 
+  GENDER_LIST = [["Male", 1], ["Female", 0]]
+
   # Other methods
   def name
     "#{last_name}, #{first_name}"
