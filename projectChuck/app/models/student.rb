@@ -8,13 +8,13 @@ class Student < ActiveRecord::Base
 
   #Validations
   validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :birth_certificate, :security_response, :security_question
-  validates_date :dob, :on_or_before => lambda { 7.years.ago }, :on_or_before_message => "must be at least 18 years old" 
-  validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
+  validates_date :dob, :between => [7.years.ago, 19.years.ago]  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
   validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
   validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
   validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
   validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
   validates_numericality_of :household_id, :only_integer => true, :greater_than => 0
+
 
   # Scopes
   scope :alphabetical, order('last_name, first_name')
@@ -25,7 +25,8 @@ class Student < ActiveRecord::Base
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
 
-  GENDER_LIST = [["Male", 1], ["Female", 0]]
+  GENDER_LIST = [["Male", true], ["Female", false]]
+  #add list of security questions
 
   # Other methods
   def name
