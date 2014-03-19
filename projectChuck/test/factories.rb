@@ -6,23 +6,23 @@ FactoryGirl.define do
 		dob 16.years.ago.to_date
 		cell_phone { rand(10 ** 10).to_s.rjust(10,'0') }
 		school "Brentwood High School"
-		school_county "Allegheny County"
+		school_county "Allegheny"
 		grade_integer "Tenth"
 		gender true
 		emergency_contact_name "Mary Gruberman"
 		emergency_contact_phone { rand(10 ** 10).to_s.rjust(10,'0') }
-		birth_certificate "documents/birth_certificates/EGruberman"
+		birth_certificate "documents/birth_certificates/EGruberman.pdf"
 		allergies "none"
 		medications	"none"
-		security_question "What was your first pet's name?"
+		security_question 0
 		security_response "Fido"
 		active true
 	end
 
 	factory :registration do
 		report_card "documents/report_card/EGruberman"
-		proof_of_insurance "documents/proof_of_insurance/EGruberman"
-		physical "documents/physical/EGruberman"
+		proof_of_insurance "documents/proof_of_insurance/EGruberman.pdf"
+		physical "documents/physical/EGruberman.pdf"
 		physical_date 3.months.ago.to_date
 		date Date.today
 		t_shirt_size 2
