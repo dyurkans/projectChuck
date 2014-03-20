@@ -7,7 +7,7 @@ FactoryGirl.define do
 		cell_phone { rand(10 ** 10).to_s.rjust(10,'0') }
 		school "Brentwood High School"
 		school_county "Allegheny"
-		grade_integer "Tenth"
+		grade_integer 10
 		gender true
 		emergency_contact_name "Mary Gruberman"
 		emergency_contact_phone { rand(10 ** 10).to_s.rjust(10,'0') }
