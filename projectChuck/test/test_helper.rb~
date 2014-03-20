@@ -16,14 +16,14 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   def create_student_context
     @ed = FactoryGirl.create(:student)
-    @ted = FactoryGirl.create(:student, first_name: "Ted", phone: "412-268-2323")
-    @fred = FactoryGirl.create(:student, first_name: "Fred", )
-    @ned = FactoryGirl.create(:student, first_name: "Ned", date_of_birth: 13.years.ago.to_date)
-    @noah = FactoryGirl.create(:student, first_name: "Noah", last_name: "Major", rank: 9, date_of_birth: 13.years.ago.to_date)
-    @howard = FactoryGirl.create(:student, first_name: "Howard", last_name: "Minor", rank: 8, date_of_birth: 169.months.ago.to_date)
-    @jen = FactoryGirl.create(:student, first_name: "Jen", last_name: "Hanson", rank: 12, date_of_birth: 167.months.ago.to_date)
-    @julie = FactoryGirl.create(:student, first_name: "Julie", last_name: "Henderson", rank: 11, date_of_birth: 1039.weeks.ago.to_date, waiver_signed: false)
-    @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", rank: 14, active: false, date_of_birth: 36.years.ago.to_date)
+    @ted = FactoryGirl.create(:student, first_name: "Ted", cell_phone: "412-268-2323")
+    @fred = FactoryGirl.create(:student, first_name: "Fred", grade_integer:7, dob:11.years.ago.to_date)
+    @ned = FactoryGirl.create(:student, first_name: "Ned", date_of_birth: 13.years.ago.to_date, school:"Pittsburgh High School", school_county:"Allegheny")
+    @noah = FactoryGirl.create(:student, first_name: "Noah", last_name: "Ark", grade_integer:5, date_of_birth: 9.years.ago.to_date, emergency_contact_name: "Hannah Ark")
+    @howard = FactoryGirl.create(:student, first_name: "Howard", last_name: "Marcus", date_of_birth:169.months.ago.to_date, emergency_contact_phone: "412-555-5555")
+    @jen = FactoryGirl.create(:student, first_name: "Jen", last_name: "Hanson", gender:false, allergies:"nuts,shrimp,lemons", date_of_birth: 167.months.ago.to_date)
+    @julie = FactoryGirl.create(:student, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", date_of_birth: 874.weeks.ago.to_date, waiver_signed: false)
+    @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", gender:false, medications:"theophyline", active: false, grade_integer:6 date_of_birth: 10.years.ago.to_date)
   end
     
   def remove_student_context

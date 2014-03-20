@@ -135,72 +135,84 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal "4125555555", @howard.emergency_contact_phone
     end
 	
-    should "have class method for finding students on a particular team" do
-      @bracket = FactoryGirl.create(:bracket, min_age:9, max_age:12);
-      @knicks = FactoryGirl.create(:team, bracket_id:@bracket.id);
+    should "have class method for finding students in particular bracket" do
+      # add to context for this one test
+      @sparring = FactoryGirl.create(:event)
+      @wy_belt_sparring = FactoryGirl.create(:section, :event => @sparring)
+      @reg_ed = FactoryGirl.create(:registration, :student => @ed, :section => @wy_belt_sparring)
+      @reg_ted = FactoryGirl.create(:registration, :student => @ted, :section => @wy_belt_sparring)
       
-      ##these lines can be uncommented once 'team_id' is relocated from registration, to student
-      #@reg_fred = FactoryGirl.create(:registration, :student => @fred, :team => @knicks)
-      #@reg_jason = FactoryGirl.create(:registration, :student => @jason, :team => @knicks)
-      ## run the test
-      #students = Student.registered_for_team(@knicks.id)
-      #assert_equal ["Fred","Jason"], students.map{|s| s.first_name}.sort!
+      # run the test
+      students = Student.registered_for_section(@wy_belt_sparring.id)
+      assert_equal ["Ed","Ted"], students.map{|s| s.first_name}.sort!
       
       # remove extra context
-      @bracket.destroy
-      @knicks.destroy
-      
-      ##these lines can be uncommented once 'team_id' is relocated from registration, to student
-      #@reg_fred.destroy
-      #@reg_jason.destroy
+      @sparring.destroy
+      @wy_belt_sparring.destroy
+      @reg_ed.destroy
+      @reg_ted.destroy
+    end
+    
+    should "have class method for finding students between two ranks" do 
+      assert_equal ["Gruberman","Major","Minor"], Student.ranks_between(8,10).alphabetical.all.map(&:last_name)
+    end
+    
+    should "allow ranks_between class method to have a nil value for high_rank" do 
+      assert_equal ["Hanson", "Hoover"], Student.ranks_between(12,nil).alphabetical.all.map(&:last_name)
     end
     
     should "have class method for finding students between two ages" do 
-      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Marcus"], Student.ages_between(9,15).alphabetical.all.map(&:last_name)
-      assert_equal ["Gruberman","Gruberman","Gruberman","Gruberman","Marcus"], Student.ages_between(11,14).alphabetical.all.map(&:last_name)
+      assert_equal ["Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Major","Minor"], Student.ages_between(5,14).alphabetical.all.map(&:last_name)
+      assert_equal ["Gruberman","Hanson","Henderson","Major","Minor"], Student.ages_between(11,19).alphabetical.all.map(&:last_name)
     end
     
-    should "have class method for finding students qualified for a bracket" do 
-      #create temporary bracket
-      @bracket = FactoryGirl.create(:bracket, min_age:14, max_age:17);
-      assert_equal ["Gruberman","Gruberman","Henderson","Marcus"], Student.qualies_for_bracket(@bracket.id).alphabetical.all.map(&:last_name)
+    should "allow ages_between class method to have a nil value for high_age" do 
+      assert_equal ["Henderson", "Hoover"], Student.ages_between(18,nil).alphabetical.all.map(&:last_name)
     end
     
-     ###should we have this?
-     #should "not allow ages_between class method to have a nil value for max_age" do 
-     #  assert_equal nil, Student.ranks_between(12,nil).alphabetical.all.map(&:last_name)
-     #end
-    
-    # start testing scopes...
-    ###scopes and custom methods should not return inactive students
+    # start testing scopes...    
     should "have scope for alphabetical listing" do 
-      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.alphabetical.all.map(&:last_name)
+      assert_equal ["Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Hoover","Major","Minor"], Student.alphabetical.all.map(&:last_name)
     end
     
     should "have scope for active students" do 
-      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.active.alphabetical.all.map(&:last_name)
+      assert_equal ["Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Major","Minor"], Student.active.alphabetical.all.map(&:last_name)
     end
     
     should "have scope for inactive students" do 
       assert_equal ["Hoover"], Student.inactive.alphabetical.all.map(&:last_name)
     end
     
-    should "have scope for students with allergies" do 
-      assert_equal ["Hanson"], Student.has_allergies.alphabetical.all.map(&:last_name)
+    should "have scope for students with signed waiver" do 
+      assert_equal ["Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Hoover","Major","Minor"], Student.has_waiver.alphabetical.all.map(&:last_name)
     end
     
-    should "have scope for students who need medications" do 
-      assert_equal ["Henderson"], Student.needs_medication.alphabetical.all.map(&:last_name)
+    should "have scope for students without signed waiver" do 
+      assert_equal ["Henderson"], Student.needs_waiver.alphabetical.all.map(&:last_name)
     end
     
-    ###should this scope include inactive students?
+    should "have scope for ordering by rank" do 
+      assert_equal ["Hoover","Hanson","Henderson","Gruberman","Major","Minor","Gruberman","Gruberman","Gruberman"], Student.by_rank.all.map(&:last_name)
+    end
+    
     should "have scope for ordering by age" do 
-      assert_equal ["Ark","Hoover","Gruberman","Gruberman","Gruberman","Gruberman","Marcus","Henderson"], Student.by_age.all.map(&:last_name)
+      assert_equal ["Hoover","Henderson","Minor","Hanson","Gruberman","Major","Gruberman","Gruberman","Gruberman"], Student.by_age.all.map(&:last_name)
     end
-
-    ###might be useful for demographics?
+    
+    should "have scope for listing all gups" do 
+      assert_equal ["Gruberman","Major","Minor","Gruberman","Gruberman","Gruberman"], Student.gups.by_rank.all.map(&:last_name)
+    end
+    
+    should "have scope for listing all dans" do 
+      assert_equal ["Hoover","Hanson","Henderson"], Student.dans.by_rank.all.map(&:last_name)
+    end
+    
+    should "have scope for listing all juniors" do 
+      assert_equal ["Hanson","Gruberman","Major","Minor","Gruberman","Gruberman","Gruberman"], Student.juniors.by_rank.all.map(&:last_name)
+    end
+    
     should "have scope for listing all seniors" do 
-      assert_equal ["Henderson"], Student.seniors.by_age.all.map(&:last_name)
+      assert_equal ["Hoover","Henderson"], Student.seniors.by_rank.all.map(&:last_name)
     end
     
     # should "deactivate not destroy student and associated user" do

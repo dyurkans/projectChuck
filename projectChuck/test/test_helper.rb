@@ -15,15 +15,24 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   def create_student_context
+    #14 y.o. Ed Gruberman
     @ed = FactoryGirl.create(:student)
+    #14 y.o. Ted Gruberman
     @ted = FactoryGirl.create(:student, first_name: "Ted", cell_phone: "412-268-2323")
+    #11 y.o. Fred Gruberman
     @fred = FactoryGirl.create(:student, first_name: "Fred", grade_integer:7, dob:11.years.ago.to_date)
+    #13 y.o. Ned Gruberman
     @ned = FactoryGirl.create(:student, first_name: "Ned", date_of_birth: 13.years.ago.to_date, school:"Pittsburgh High School", school_county:"Allegheny")
+    #9 y.o. Noah Ark
     @noah = FactoryGirl.create(:student, first_name: "Noah", last_name: "Ark", grade_integer:5, date_of_birth: 9.years.ago.to_date, emergency_contact_name: "Hannah Ark")
-    @howard = FactoryGirl.create(:student, first_name: "Howard", last_name: "Marcus", date_of_birth:169.months.ago.to_date, emergency_contact_phone: { rand(10 ** 10).to_s.rjust(10,'0') })
+    #14 y.o. Howard Marcus
+    @howard = FactoryGirl.create(:student, first_name: "Howard", last_name: "Marcus", date_of_birth:169.months.ago.to_date, emergency_contact_phone: "412-555-5555")
+    #13 y.o Jen Hanson
     @jen = FactoryGirl.create(:student, first_name: "Jen", last_name: "Hanson", gender:false, allergies:"nuts,shrimp,lemons", date_of_birth: 167.months.ago.to_date)
-    @julie = FactoryGirl.create(:student, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", date_of_birth: 1039.weeks.ago.to_date, waiver_signed: false)
-    @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", gender:false, medications:"theophyline", active: false, date_of_birth: 36.years.ago.to_date)
+    #16 y.o. Julie Henderson
+    @julie = FactoryGirl.create(:student, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", date_of_birth: 874.weeks.ago.to_date, waiver_signed: false)
+    #10 y.o Jason Hoover
+    @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", gender:false, medications:"theophyline", active: false, grade_integer:6 date_of_birth: 10.years.ago.to_date)
   end
     
   def remove_student_context
