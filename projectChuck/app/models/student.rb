@@ -8,7 +8,7 @@ class Student < ActiveRecord::Base
 
   #Validations
   validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :birth_certificate, :security_response, :security_question
-  validates_date :dob, :between => [7.years.ago, 19.years.ago]  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
+  validates_date :dob, :between => [7.years.ago, 19.years.ago], :message => "must be between the ages of 7 and 18 included"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
   validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
   validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
   validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
