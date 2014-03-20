@@ -5,9 +5,6 @@ class UserTest < ActiveSupport::TestCase
 	#Relationshiop validations
 	should belong_to(:guardian)
 
-## :active, :email, :guardian_id, :password_digest, :role
-
-
 	# test active
 	should allow_value(true).for(:active)
 	should allow_value(false).for(:active)
