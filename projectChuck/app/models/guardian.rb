@@ -5,7 +5,7 @@ class Guardian < ActiveRecord::Base
   belongs_to :household
 
   validates_presence_of :first_name, :last_name
-  validates_date :dob, :on_or_after => lambda { 18.years.ago }, :on_or_before_message => "must be at least 18 years old" 
+  validates_date :dob, :on_or_before => lambda { 18.years.ago }, :on_or_before_message => "must be at least 18 years old" 
   validates_format_of :day_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
   validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
   validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
