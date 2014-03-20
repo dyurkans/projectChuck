@@ -202,6 +202,14 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal ["Hoover"], Student.inactive.alphabetical.all.map(&:last_name)
     end
     
+    should "have scope for retrieving all male students" do 
+      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Marcus"], Student.males.alphabetical.all.map(&:last_name)
+    end
+    
+    should "have scope for retrieving all female students" do 
+      assert_equal ["Hanson","Henderson"], Student.females.alphabetical.all.map(&:last_name)
+    end
+    
     should "have scope for students with allergies" do 
       assert_equal ["Hanson"], Student.has_allergies.alphabetical.all.map(&:last_name)
     end

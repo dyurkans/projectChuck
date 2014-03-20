@@ -32,7 +32,7 @@ class ActiveSupport::TestCase
     #16 y.o. Julie Henderson (10th grade)
     @julie = FactoryGirl.create(:student, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", date_of_birth: 874.weeks.ago.to_date, waiver_signed: false)
     #10 y.o Jason Hoover (10th grade)
-    @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", gender:false, medications:"theophyline", active: false, grade_integer:6 date_of_birth: 10.years.ago.to_date)
+    @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", gender:true, medications:"theophyline", active: false, grade_integer:6 date_of_birth: 10.years.ago.to_date)
   end
     
   def remove_student_context
