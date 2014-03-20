@@ -110,10 +110,24 @@ class StudentTest < ActiveSupport::TestCase
     teardown do
       remove_student_context
     end
+      
+    # quick test of factories
+    should "have working factories" do
+      assert_equal "Gruberman", @ed.last_name
+      assert_equal "Ted", @ted.first_name
+      assert_equal 9.years.ago.to_date, @noah.dob
+      assert_equal 7, @fred.grade_integer
+      assert_equal false, @jen.gender
+      assert @julie.active
+      deny @jason.active
+    end
 
     should "allow an existing student to be edited" do
       @jason.active = true
       assert @jason.valid?
+      
+      #undo
+      @jason.active = false
     end
     
     should "have working name method" do 
@@ -139,7 +153,7 @@ class StudentTest < ActiveSupport::TestCase
       @bracket = FactoryGirl.create(:bracket, min_age:9, max_age:12);
       @knicks = FactoryGirl.create(:team, bracket_id:@bracket.id);
       
-      ##these lines can be uncommented once 'team_id' is relocated from registration, to student
+      ###these lines can be uncommented once 'team_id' is relocated from registration, to student
       #@reg_fred = FactoryGirl.create(:registration, :student => @fred, :team => @knicks)
       #@reg_jason = FactoryGirl.create(:registration, :student => @jason, :team => @knicks)
       ## run the test
@@ -150,7 +164,7 @@ class StudentTest < ActiveSupport::TestCase
       @bracket.destroy
       @knicks.destroy
       
-      ##these lines can be uncommented once 'team_id' is relocated from registration, to student
+      ###these lines can be uncommented once 'team_id' is relocated from registration, to student
       #@reg_fred.destroy
       #@reg_jason.destroy
     end
@@ -162,17 +176,20 @@ class StudentTest < ActiveSupport::TestCase
     
     should "have class method for finding students qualified for a bracket" do 
       #create temporary bracket
-      @bracket = FactoryGirl.create(:bracket, min_age:14, max_age:17);
+      @bracket = FactoryGirl.create(:bracket, min_age:14, max_age:17)
       assert_equal ["Gruberman","Gruberman","Henderson","Marcus"], Student.qualies_for_bracket(@bracket.id).alphabetical.all.map(&:last_name)
+      
+      #remove temporary bracket
+      @bracket.destroy
     end
     
-     ###should we have this?
+     ###is this neccessary at all?
      #should "not allow ages_between class method to have a nil value for max_age" do 
      #  assert_equal nil, Student.ranks_between(12,nil).alphabetical.all.map(&:last_name)
      #end
     
     # start testing scopes...
-    ###scopes and custom methods should not return inactive students
+    ###should scopes and custom methods return inactive students?
     should "have scope for alphabetical listing" do 
       assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.alphabetical.all.map(&:last_name)
     end
@@ -203,58 +220,10 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal ["Henderson"], Student.seniors.by_age.all.map(&:last_name)
     end
     
-    # should "deactivate not destroy student and associated user" do
-    #   @noah_user = FactoryGirl.create(:user, student: @noah, email: "noah@example.com")
-    #   @noah.destroy
-    #   # test that Noah is now inactive
-    #   # reload Noah again in the database to make sure changes saved
-    #   @noah.reload
-    #   deny @noah.active
-    #   # test that the noah_user is also inactive
-    #   deny @noah.user.active
-    #   @noah_user.delete
-    # end
-    # 
-    # should "deactivate student but not err if no user account" do
-    #   @ted.destroy
-    #   # test that Ted is now inactive
-    #   # find Ted again in the database to make sure changes saved
-    #   @ted.reload
-    #   deny @ted.active
-    # end
-    # 
-    # should "deactivate student should remove any upcoming registrations" do
-    #   # additional context for this test
-    #   sparring = FactoryGirl.create(:event)
-    #   breaking = FactoryGirl.create(:event, name: "Breaking")
-    #   fall = FactoryGirl.create(:tournament)
-    #   wy_belt_sparring = FactoryGirl.create(:section, event: sparring, tournament: fall)
-    #   wy_belt_breaking = FactoryGirl.create(:section, event: breaking, tournament: fall)
-    #   reg_ted_sp = FactoryGirl.create(:registration, student: @ted, section: wy_belt_sparring)
-    #   reg_ted_br = FactoryGirl.create(:registration, student: @ted, section: wy_belt_breaking)
-    #   
-    #   @ted.destroy
-    #   # reload Ted from the database to make sure changes saved
-    #   @ted.reload
-    #   # test that both of Ted's registrations are removed
-    #   assert_equal 0, @ted.registrations.size
-    #   
-    #   # remove additional context
-    #   sparring.delete
-    #   breaking.delete
-    #   fall.delete
-    #   wy_belt_sparring.delete
-    #   wy_belt_breaking.delete
-    #   reg_ted_sp.delete
-    #   reg_ted_br.delete
-    # end
-    # 
-    # should "deactivate student should end any current dojo assignment" do
-    #   cmu = FactoryGirl.create(:dojo)
-    #   ted_assignment = FactoryGirl.create(:dojo_student, student: @ted, dojo: cmu, end_date: nil)
-    #   @ted.destroy
-    #   @ted.reload
-    #   assert_equal Date.today, @ted.dojo_students.last.end_date
-    # end
+    
+    should "have scope for ordering by grade" do 
+      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Hoover","Marcus"], Student.by_grade.all.map(&:last_name)
+    end
+  end
 	
 end
