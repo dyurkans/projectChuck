@@ -25,7 +25,7 @@ class Student < ActiveRecord::Base
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
 
-  GENDER_LIST = [["Male", true], ["Female", false]]
+  # Replaced with gender method GENDER_LIST = [["Male", true], ["Female", false]]
   #add list of security questions
 
   # Other methods
@@ -40,6 +40,11 @@ class Student < ActiveRecord::Base
   def age
     return nil if dob.blank?
     (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i
+  end
+
+  def gender
+    return "Male" if gender == true
+    "Female"
   end
 
   # Private methods
