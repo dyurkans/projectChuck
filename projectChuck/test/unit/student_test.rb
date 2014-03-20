@@ -149,28 +149,18 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal "4125555555", @howard.emergency_contact_phone
     end
 	
-    should "have class method for finding students on a particular team" do
+    should "have class method for finding students eligible for a particular team" do
       @bracket = FactoryGirl.create(:bracket, min_age:9, max_age:12);
       @knicks = FactoryGirl.create(:team, bracket_id:@bracket.id);
-      
-      ###these lines can be uncommented once 'team_id' is relocated from registration, to student
-      #@reg_fred = FactoryGirl.create(:registration, :student => @fred, :team => @knicks)
-      #@reg_jason = FactoryGirl.create(:registration, :student => @jason, :team => @knicks)
-      ## run the test
-      #students = Student.registered_for_team(@knicks.id)
-      #assert_equal ["Fred","Jason"], students.map{|s| s.first_name}.sort!
+      assert_equal ["Ark","Gruberman","Hoover"], Student.qualies_for_team(@knicks.id).alphabetical.all.map(&:last_name)
       
       # remove extra context
       @bracket.destroy
       @knicks.destroy
-      
-      ###these lines can be uncommented once 'team_id' is relocated from registration, to student
-      #@reg_fred.destroy
-      #@reg_jason.destroy
     end
     
     should "have class method for finding students between two ages" do 
-      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Marcus"], Student.ages_between(9,15).alphabetical.all.map(&:last_name)
+      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Hoover","Marcus"], Student.ages_between(9,15).alphabetical.all.map(&:last_name)
       assert_equal ["Gruberman","Gruberman","Gruberman","Gruberman","Marcus"], Student.ages_between(11,14).alphabetical.all.map(&:last_name)
     end
     
@@ -191,7 +181,7 @@ class StudentTest < ActiveSupport::TestCase
     # start testing scopes...
     ###should scopes and custom methods return inactive students?
     should "have scope for alphabetical listing" do 
-      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.alphabetical.all.map(&:last_name)
+      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Hoover","Marcus"], Student.alphabetical.all.map(&:last_name)
     end
     
     should "have scope for active students" do 
@@ -203,11 +193,11 @@ class StudentTest < ActiveSupport::TestCase
     end
     
     should "have scope for retrieving all male students" do 
-      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Marcus"], Student.males.alphabetical.all.map(&:last_name)
+      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hoover","Marcus"], Student.male.alphabetical.all.map(&:last_name)
     end
     
     should "have scope for retrieving all female students" do 
-      assert_equal ["Hanson","Henderson"], Student.females.alphabetical.all.map(&:last_name)
+      assert_equal ["Hanson","Henderson"], Student.female.alphabetical.all.map(&:last_name)
     end
     
     should "have scope for students with allergies" do 
@@ -215,12 +205,11 @@ class StudentTest < ActiveSupport::TestCase
     end
     
     should "have scope for students who need medications" do 
-      assert_equal ["Henderson"], Student.needs_medication.alphabetical.all.map(&:last_name)
+      assert_equal ["Henderson","Hoover"], Student.needs_medication.alphabetical.all.map(&:last_name)
     end
     
-    ###should this scope include inactive students?
     should "have scope for ordering by age" do 
-      assert_equal ["Ark","Hoover","Gruberman","Gruberman","Gruberman","Gruberman","Marcus","Henderson"], Student.by_age.all.map(&:last_name)
+      assert_equal ["Ark","Hoover","Gruberman","Gruberman","Gruberman","Gruberman","Hoover","Marcus","Henderson"], Student.by_age.all.map(&:last_name)
     end
 
     ###might be useful for demographics?
@@ -228,6 +217,9 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal ["Henderson"], Student.seniors.by_age.all.map(&:last_name)
     end
     
+    should "have scope for ordering by county" do
+      assert_equal ["Ark","Gruberman","Hoover","Gruberman","Hanson","Gruberman","Gruberman"], Student.by_county.all.map(&:last_name)
+    end
     
     should "have scope for ordering by grade" do 
       assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Hoover","Marcus"], Student.by_grade.all.map(&:last_name)

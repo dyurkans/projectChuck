@@ -12,8 +12,8 @@ FactoryGirl.define do
 		emergency_contact_name "Mary Gruberman"
 		emergency_contact_phone { rand(10 ** 10).to_s.rjust(10,'0') }
 		birth_certificate "documents/birth_certificates/EGruberman.pdf"
-		allergies nil
-		medications nil
+		allergies "none"
+		medications	"none"
 		security_question 0
 		security_response "Fido"
 		active true
