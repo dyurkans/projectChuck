@@ -184,6 +184,25 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Hoover","Marcus"], Student.alphabetical.all.map(&:last_name)
     end
     
+    should "have a scope for students without all of their forms" do
+      #create temporary factories
+      @bracket = FactoryGirl.create(:bracket, min_age:11, max_age:13)
+      @celtics = FactoryGirl.create(:team, name:"Boston Celtics", bracket_id:@bracket.id)
+      @reg_fred = FactoryGirl.create(:registration, student_id:@fred.id, team_id:@celtics.id,
+                                     proof_of_insurance:"documents/prof_of_insurance/FGruberman.pdf",
+                                     report_card:"documents/report_card/Fred",physical:"documents/physical/FredGruberman")
+      @reg_ned = FactoryGirl.create(:registration, student_id:@ned.id, team_id:@celtics.id,
+				      proof_of_insurance:"documents/prof_of_insurance/NGruberman.png",
+                                     report_card:"documents/report_card/Ned.pdf",physical:"documents/physical/NedGruberman.jpg")
+      assert_equal ["Fred","Ned"], Student.without_forms.alphabetical.all.map(&:first_name)
+      
+      #remove temporary factories
+      @bracket.destroy
+      @celtics.destroy
+      @reg_fred.destroy
+      @reg_ned.destroy
+    end
+    
     should "have scope for active students" do 
       assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.active.alphabetical.all.map(&:last_name)
     end
