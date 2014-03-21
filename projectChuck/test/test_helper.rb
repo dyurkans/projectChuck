@@ -80,11 +80,24 @@ class ActiveSupport::TestCase
   end
 
   def create_guardian_context
-
+    #40 y.o. Mary Gruberman
+    @mary = FactoryGirl.create(:guardian)
+    #45 y.o. Eric Gruberman
+    @eric = FactoryGirl.create(:guardian, first_name:"Eric", dob:45.years.ago.to_date, cell_phone:"412-666-7890")
+    #28 y.o. Alexandra Mill
+    @alex = FactoryGirl.create(:guardian, first_name: "Alexandra", last_name:"Mill", dob:28.years.ago.to_date, cell_phone:nil, day_phone:"412-281-8080")
+    #20 y.o. Leo Sutherland
+    @leo = FactoryGirl.create(:guardian, first_name:"Leo", last_name:"Sutherland", dob:20.years.ago.to_date, receive_texts:false)
+    #37 y.o. James Bambridge
+    @james = FactoryGirl.create(:guardian, first_name: "James", last_name:"Bambridge", dob: 1982.weeks.ago.to_date, email:"james@hotmail.com", active:false)
   end
 
   def remove_guardian_context
-
+    @mary.destroy
+    @eric.destroy
+    @alex.destroy
+    @leo.destroy
+    @james.destroy
   end
 
   def create_user_context

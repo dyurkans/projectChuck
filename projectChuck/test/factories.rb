@@ -59,7 +59,7 @@ FactoryGirl.define do
 		dob 40.years.ago.to_date
 		cell_phone { rand(10 ** 10).to_s.rjust(10,'0') } 
 		day_phone { rand(10 ** 10).to_s.rjust(10,'0') }
-		receive_text_messages true
+		receive_texts true
 		email "marygruberman@example.com"
 		gender false
 		active true

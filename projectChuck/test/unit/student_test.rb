@@ -145,7 +145,7 @@ class StudentTest < ActiveSupport::TestCase
     end
     
     should "strip non-digits from phone" do 
-      assert_equal "4122682323", @ted.phone
+      assert_equal "4122682323", @ted.cell_phone
       assert_equal "4125555555", @howard.emergency_contact_phone
     end
 	
