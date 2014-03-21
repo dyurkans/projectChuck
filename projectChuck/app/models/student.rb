@@ -24,6 +24,9 @@ class Student < ActiveRecord::Base
   scope :in_household, lambda {|household_id| where("household_id = ?", household_id) }
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
+  scope :by_grade, order('grade_integer')
+  scope :grade, lambda {|grade_integer| where ("grade_integer = ?", grade_integer)}
+  scope :by_county, order('county');
 
   GENDER_LIST = [["Male", 1], ["Female", 0]]
 
