@@ -28,11 +28,11 @@ class Student < ActiveRecord::Base
   scope :by_age, order('dob')
   scope :male, where('students.gender = ?', true)
   scope :female, where('students.gender = ?', false)
-  scope :in_household, lambda {|household_id| where("household_id = ?", household_id) }
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
   scope :by_school, order('school')
   scope :by_county, order('school_county')
+  #by_grade
 
   # Replaced with gender method GENDER_LIST = [["Male", true], ["Female", false]]
   #add list of security questions
