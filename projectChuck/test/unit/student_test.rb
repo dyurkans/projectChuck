@@ -148,7 +148,46 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal "4122682323", @ted.cell_phone
       assert_equal "4125555555", @howard.emergency_contact_phone
     end
-	
+    
+    should "not allow student to be added without a parent" do
+      # a student without a household cannot have a guardian
+      # thus a student without a household should also not be a valid student
+      @brent = FactoryGirl.create(:student, household_id:nil)
+      deny @brent.valid?
+      
+      @household1 = FactoryGirl.create(:household)
+      @household2 = FactoryGirl.create(:household, street:"5032 Forbes Ave")
+      @henry = FactoryGirl.create(:guardian, household_id:@household1.id, first_name:"Henry", last_name:"Michaels")
+      @laura = FactoryGirl.create(:student, gende:false, household_id:@household1.id)
+
+      @brent.household_id = @household2.id
+      assert_equal true, @laura.valid?
+      deny @brent.valid?
+    end
+    
+    should "have class method for finding a students guardians" do
+      #setup temporary factories
+      @household1 = FactoryGirl.create(:household)
+      @household2 = FactoryGirl.create(:household, street:"5032 Forbes Ave")
+      @mary = FactoryGirl.create(:guardian, household_id:@household1.id)
+      @grant = FactoryGirl.create(:guardian, household_id:@household1.id, first_name:"Grant", last_name:"Hillworth", gender:true, cell_phone:nil)
+      @stephen = FactoryGirl.create(:guardian, household_id:@household2.id, first_name:"Stephen", last_name:"Francois", gender:true)
+      @fred.household_id = @household1.id
+      @howard.household_id = @household2.id
+      
+      assert_equal ["Gruberman","Hillworth"], Student.guardians(@fred.id).alphabetical.all.map(&:last_name)
+      assert_equal ["Francois"], Student.guardians(@fred.id).alphabetical.all.map(&:last_name)
+      
+      #remove temporary factories
+      @household1.destroy
+      @household2.destroy
+      @mary.destroy
+      @grant.destroy
+      @stephen.destroy
+      @fred.household_id = nil
+      @howard.household_id = nil
+    end
+    
     should "have class method for finding students eligible for a particular team" do
       @bracket = FactoryGirl.create(:bracket, min_age:9, max_age:12);
       @knicks = FactoryGirl.create(:team, bracket_id:@bracket.id);
@@ -173,13 +212,7 @@ class StudentTest < ActiveSupport::TestCase
       @bracket.destroy
     end
     
-     ###is this neccessary at all?
-     #should "not allow ages_between class method to have a nil value for max_age" do 
-     #  assert_equal nil, Student.ranks_between(12,nil).alphabetical.all.map(&:last_name)
-     #end
-    
     # start testing scopes...
-    ###should scopes and custom methods return inactive students?
     should "have scope for alphabetical listing" do 
       assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Hoover","Marcus"], Student.alphabetical.all.map(&:last_name)
     end
@@ -211,11 +244,11 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal ["Hoover"], Student.inactive.alphabetical.all.map(&:last_name)
     end
     
-    should "have scope for retrieving all male students" do 
+    should "have scope for male students" do 
       assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hoover","Marcus"], Student.male.alphabetical.all.map(&:last_name)
     end
     
-    should "have scope for retrieving all female students" do 
+    should "have scope for students" do 
       assert_equal ["Hanson","Henderson"], Student.female.alphabetical.all.map(&:last_name)
     end
     
