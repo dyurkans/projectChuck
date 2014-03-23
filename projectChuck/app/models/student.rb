@@ -5,13 +5,14 @@ class Student < ActiveRecord::Base
   belongs_to :household
   has_many :registrations
   has_many :teams, :through => :registrations
+  has_many :guardians, through: :household
 
-  #Validations
+  #Validations (email commented out b/c not in the database)
   validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :birth_certificate
-  validates_date :dob, :between => [7.years.ago, 19.years.ago], :message => "must be between the ages of 7 and 18 included"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
+  validates_date :dob, :on_or_before => 7.years.ago.to_date, :after => 19.years.ago.to_date, :message => "must be between the ages of 7 and 18 included"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
   validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
   validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
-  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
+  # validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
   validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
   validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
   #validates_inclusion_of :security_question, :in => SECURITY_QUESTIONS.map() #Need to check how mapping works
@@ -53,7 +54,7 @@ class Student < ActiveRecord::Base
 
   #insert age as of june 1 method
 
-  def gender
+  def sex
     return "Male" if gender == true
     "Female"
   end
