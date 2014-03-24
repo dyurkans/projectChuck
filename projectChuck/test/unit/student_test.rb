@@ -274,7 +274,7 @@ class StudentTest < ActiveSupport::TestCase
     end
     
     should "have scope for ordering by grade" do 
-      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Hoover","Marcus"], Student.by_grade.all.map(&:last_name)
+      assert_equal ["Ark","Hoover", "Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.by_grade.alphabetical.all.map(&:last_name)
     end
   end
 	

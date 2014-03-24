@@ -31,7 +31,7 @@ class ActiveSupport::TestCase
     @jen = FactoryGirl.create(:student, first_name: "Jen", last_name: "Hanson", gender:false, allergies:"nuts,shrimp,lemons", dob: 167.months.ago.to_date, school_county:"Philadelphia")
     #16 y.o. Julie Henderson (10th grade)
     @julie = FactoryGirl.create(:student, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", dob: 874.weeks.ago.to_date)
-    #10 y.o Jason Hoover (10th grade)
+    #10 y.o Jason Hoover (6th grade)
     @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", gender: true, medications:"theophyline", active: false, grade_integer: 6, dob: 10.years.ago.to_date)
   end
     
