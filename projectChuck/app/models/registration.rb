@@ -8,6 +8,9 @@ class Registration < ActiveRecord::Base
   belongs_to :student
   belongs_to :team
 
+  #Local Variables
+  SIZE_LIST = [[1, 'S'], [2, 'M'], [3, 'L'], [4, 'XL'], [5, 'XXL'], [6, 'XXXL']]
+  
   #Validations
   validates_numericality_of :student_id, :only_integer => true, :greater_than => 0
   validates_numericality_of :team_id, :only_integer => true, :greater_than => 0
@@ -30,8 +33,6 @@ class Registration < ActiveRecord::Base
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
 
-  #Local Variables
-  SIZE_LIST = [[1, 'S'], [2, 'M'], [3, 'L'], [4, 'XL'], [5, 'XXL'], [6, 'XXXL']]
 
   #Other Methods
 
