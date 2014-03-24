@@ -13,7 +13,7 @@ class Registration < ActiveRecord::Base
   
   #Validations
   validates_numericality_of :student_id, :only_integer => true, :greater_than => 0
-  validates_numericality_of :team_id, :only_integer => true, :greater_than => 0
+  validates_numericality_of :team_id, :only_integer => true, :greater_than => 0, :allow_nil => true # needs to be removed later
   validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
   validates_date :date, :on_or_before => lambda { Date.current }, :on_or_before_message => "cannot be in the future"
   validates_date :physical_date, :on_or_before => lambda { Date.current }, :on_or_before_message => "cannot be in the future"
