@@ -42,7 +42,7 @@ class StudentsController < ApplicationController
   def destroy
     @student = Student.find(params[:id])
     @student.destroy
-    flash[:notice] = "Successfully removed #{@student.proper_name} from Project C.H.U.C.K. system"
+    flash[:notice] = "Successfully removed #{@student.proper_name} from the Project C.H.U.C.K. System"
     redirect_to students_url
   end
 end
