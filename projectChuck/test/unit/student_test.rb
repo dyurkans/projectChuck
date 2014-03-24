@@ -44,7 +44,7 @@ class StudentTest < ActiveSupport::TestCase
 	should allow_value("412-268-3259").for(:emergency_contact_phone)
 	should allow_value("412.268.3259").for(:emergency_contact_phone)
 	should allow_value("(412) 268-3259").for(:emergency_contact_phone)
-	should allow_value(nil).for(:emergency_contact_phone)
+	should_not allow_value(nil).for(:emergency_contact_phone)
 	should_not allow_value("2683259").for(:emergency_contact_phone)
 	should_not allow_value("14122683259").for(:emergency_contact_phone)
 	should_not allow_value("4122683259x224").for(:emergency_contact_phone)
@@ -58,7 +58,7 @@ class StudentTest < ActiveSupport::TestCase
 
 	should allow_value("3").for(:grade_integer)
 	should allow_value("12").for(:grade_integer)
-	should allow_value("Sixth").for(:grade_integer)
+	should_not allow_value("Sixth").for(:grade_integer)
 	should_not allow_value(0).for(:grade_integer)
 	should_not allow_value(nil).for(:grade_integer)
 

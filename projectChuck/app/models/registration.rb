@@ -6,7 +6,7 @@ class Registration < ActiveRecord::Base
 
   #Relationships
   belongs_to :student
-  belongs_to :team_id
+  belongs_to :team
 
   #Validations
   validates_numericality_of :student_id, :only_integer => true, :greater_than => 0
@@ -43,6 +43,13 @@ class Registration < ActiveRecord::Base
     unless age >= min && (max.nil? || age <= max)
       errors.add(:student_id, "is not within the age range for this section")
     end
+  end
+
+
+  #insert age as of june 1 method
+  def age_as_of_june_1
+  	return nil if self.student.dob.blank?
+  	(Date.new(self.date.year, 6, 1).to_time.to_s(:number).to_i - self.student.dob.to_time.to_s(:number).to_i)/10e9.to_i
   end
 
   def registration_is_not_already_in_system
