@@ -158,7 +158,7 @@ class StudentTest < ActiveSupport::TestCase
       @household1 = FactoryGirl.create(:household)
       @household2 = FactoryGirl.create(:household, street:"5032 Forbes Ave")
       @henry = FactoryGirl.create(:guardian, household_id:@household1.id, first_name:"Henry", last_name:"Michaels")
-      @laura = FactoryGirl.create(:student, gende:false, household_id:@household1.id)
+      @laura = FactoryGirl.create(:student, gender:false, household_id:@household1.id)
 
       @brent.household_id = @household2.id
       assert_equal true, @laura.valid?
