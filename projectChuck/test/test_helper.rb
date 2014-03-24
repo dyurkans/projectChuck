@@ -30,9 +30,9 @@ class ActiveSupport::TestCase
     #13 y.o Jen Hanson (10th grade)
     @jen = FactoryGirl.create(:student, first_name: "Jen", last_name: "Hanson", gender:false, allergies:"nuts,shrimp,lemons", dob: 167.months.ago.to_date, school_county:"Philadelphia")
     #16 y.o. Julie Henderson (10th grade)
-    @julie = FactoryGirl.create(:student, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", dob: 874.weeks.ago.to_date, waiver_signed: false)
+    @julie = FactoryGirl.create(:student, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", dob: 874.weeks.ago.to_date)
     #10 y.o Jason Hoover (10th grade)
-    @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", gender:true, medications:"theophyline", active: false, grade_integer:6 dob: 10.years.ago.to_date)
+    @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", gender: true, medications:"theophyline", active: false, grade_integer: 6, dob: 10.years.ago.to_date)
   end
     
   def remove_student_context
@@ -52,7 +52,7 @@ class ActiveSupport::TestCase
   end 
 
   def remove_registration_context
-  	@reg_ed.delete
+
   end
 
   def create_team_context

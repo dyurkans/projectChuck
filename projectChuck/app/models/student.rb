@@ -7,6 +7,11 @@ class Student < ActiveRecord::Base
   has_many :teams, :through => :registrations
   has_many :guardians, through: :household
 
+  #Callbacks
+  before_save :reformat_cell
+  before_save :reformat_emergency_phone
+
+
   #Validations (email commented out b/c not in the database)
   validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :birth_certificate, :security_response, :security_question, :grade_integer
   validates_date :dob, :on_or_before => 7.years.ago.to_date, :after => 19.years.ago.to_date, :message => "must be between the ages of 7 and 18 included"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
@@ -18,7 +23,7 @@ class Student < ActiveRecord::Base
   #validates_inclusion_of :security_question, :in => SECURITY_QUESTIONS.map() #Need to check how mapping works
   #validates_inclusion_of :security_response, :in => SECURITY_RESPONSES.map() #Need to check how mapping works
   #Add these tests to student_test file
-  validates_numericality_of :household_id, :only_integer => true, :greater_than => 0
+  validates_numericality_of :household_id, :only_integer => true, :greater_than => 0, :allow_nil => true #needs to be removed later
   validates_numericality_of :grade_integer, :only_integer => true, :greater_than => 0, :less_than => 14
 
   #SECURITY_QUESTIONS = [[], [], [], [], [], []]
@@ -41,8 +46,6 @@ class Student < ActiveRecord::Base
   scope :inactive, where('active = ?', false)
   scope :by_grade, order('grade_integer')
   scope :grade, lambda {|grade_integer| where("grade_integer = ?", grade_integer)}
-  scope :by_county, order('county');
-
   scope :by_school, order('school')
   scope :by_county, order('school_county')
   #by_grade
