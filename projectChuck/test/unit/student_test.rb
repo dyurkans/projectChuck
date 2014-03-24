@@ -140,7 +140,7 @@ class StudentTest < ActiveSupport::TestCase
     
     should "have working age method" do 
       assert_equal 14, @howard.age
-      assert_equal 13, @noah.age
+      assert_equal 9, @noah.age
       assert_equal 16, @julie.age
     end
     
