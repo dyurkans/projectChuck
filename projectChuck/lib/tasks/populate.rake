@@ -16,7 +16,7 @@ namespace :db do
       h.home_phone = rand(10 ** 10).to_s.rjust(10,'0')
       h.insurance_provider = ["UPMC", "Highmark", "HealthAmerica"].sample
       h.insurance_policy_no = rand(10 ** 10).to_s.rjust(10,'0')
-      h.family_physician = "Dr. #{Faker::Name.last_name}"
+      h.family_physician = "Dr. #{Faker::Name.first_name} #{Faker::Name.last_name}"
       h.physician_phone = rand(10 ** 10).to_s.rjust(10,'0')
       h.active = true
       h.save!
@@ -40,7 +40,11 @@ namespace :db do
         s.dob = months_old.months.ago.to_date
         s.cell_phone = rand(10 ** 10).to_s.rjust(10,'0')
         s.school = "#{h.city} School"
-        s.school_county = "Allegheny"
+        if rand(4).zero?
+          s.school_county = "Howard"
+        else
+          s.school_county = "Allegheny"
+        end
         s.gender = rand(2).zero? # i.e., can only 0 or 1 so 50-50 chance boy or girl
         s.grade_integer = (months_old/12) - 5
         s.emergency_contact_name = Faker::Name.name
@@ -49,14 +53,14 @@ namespace :db do
         if rand(4).zero?
           s.allergies = "#{rand(2).zero? ? 'Peanuts' : 'Bee stings'}"
         else
-          s.allergies = "None that are known"
+          s.allergies = ""
         end
         if rand(4).zero?
           s.medications = "Inhaler"
         else
-          s.medications = "None"
+          s.medications = ""
         end
-        s.security_question = "What is the answer to Life, the Universe and Everything?"
+        s.security_question = 0
         s.security_response = "42"
         s.active = true  
         s.save!      
