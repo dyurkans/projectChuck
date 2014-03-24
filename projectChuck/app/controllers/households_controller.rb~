@@ -4,7 +4,7 @@ class HouseholdsController < ApplicationController
   end
   
   def create
-    @household = Household.new(params[:household])
+    @household = Household.new(params[:student])
     if @household.save
       # if saved to database
       flash[:notice] = "Successfully created household."

@@ -37,7 +37,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="container">
-      <% render :partial => "partials/footer" %>
+      <%= render :partial => "partials/footer" %>
     </div>
   </footer>
 

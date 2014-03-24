@@ -1,0 +1,15 @@
+<div class="fields">
+  <div class="min_attraction">
+      <%= f.association :student %>
+      <%= f.association :team %>
+      <%= f.label "Current Date: ?", Date.today %>
+      <%= f.label "Report Card Upload" %>
+      <%= f.input :report_card, :as => :file_field %>
+      <%= f.label "Physical Form Upload" %>
+      <%= f.input :physical, :as => :file_field %>
+      <%= f.input :physical_date %>
+      <%= f.label "Proof of Insurance Upload" %>
+      <%= f.input :proof_of_insurance, :as => :file_field %>
+      <%= f.input :active, :as => :boolean, :checked_value => true, :unchecked_value => false %>
+  </div>
+</div>
