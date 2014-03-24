@@ -1,0 +1,31 @@
+<div class="nav-collapse">
+  <ul class="nav">
+    <% klass = "" %>
+    <% if (current_page?(:controller=>"students",:action=>"index"))%>
+        <% klass = "active" %>
+    <% end %>
+    <li class=<%= klass%>><%= link_to "Students", students_path %></li>
+
+    <% klass = "" %>
+    <% if (current_page?(:controller=>"guardians",:action=>"index"))%>
+        <% klass = "active" %>
+    <% end %>
+    <li class=<%= klass%>><%= link_to "Guardians", guardians_path %></li>
+
+    <% klass = "" %>
+    <% if (current_page?(:controller=>"households",:action=>"index"))%>
+        <% klass = "active" %>
+    <% end %>
+    <li class=<%= klass%>><%= link_to "Households", households_path %></li>
+
+    <% if (current_user && current_user.role == 'admin') %>
+    <% end %>
+    
+    <% if not logged_in? %>
+        <li><%= link_to "Login", login_path %><li>
+    <% else %>
+        <li><%= link_to "Logout", logout_path %><li>
+    <% end %>
+<!-- <li><%# link_to "Registrations", registrations_path %></li> -->
+  </ul>
+</div>
