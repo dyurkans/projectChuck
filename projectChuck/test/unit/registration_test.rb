@@ -27,7 +27,7 @@ class RegistrationTest < ActiveSupport::TestCase
 	#must decide if we want to allow volunteers to change the date
 	should_not allow_value(2.days.ago.to_date).for(:date)
 	should_not allow_value(2.days.from_now.to_date).for(:date)
-	should allow_value(Date.now.to_date).for(:date)
+	should allow_value(Date.today.to_date).for(:date)
 	should_not allow_value("bad").for(:date)
 	should_not allow_value(nil).for(:date)
 
