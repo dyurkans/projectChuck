@@ -36,7 +36,7 @@ class Registration < ActiveRecord::Base
   #Other Methods
 
   def student_in_appropriate_bracket
-    return true if self.student.nil? || self.team.bracket.nil? # should be caught by other validations; no double error
+    return true if self.student.nil? || self.team.nil? || self.team.bracket.nil? # should be caught by other validations; no double error
     age = self.student.age
     min = self.team.bracket.min_age
     max = self.team.bracket.max_age
