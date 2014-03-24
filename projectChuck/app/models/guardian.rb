@@ -3,6 +3,7 @@ class Guardian < ActiveRecord::Base
 
   has_one :user
   belongs_to :household
+  has_many :students, through: :household
 
   validates_presence_of :first_name, :last_name
   validates_date :dob, :on_or_before => lambda { 18.years.ago }, :on_or_before_message => "must be at least 18 years old" 
@@ -18,8 +19,8 @@ class Guardian < ActiveRecord::Base
   scope :alphabetical, order('last_name, first_name')
   scope :active, where('guardians.active = ?', true)
   scope :inactive, where('guardians.active = ?', false)
-  #double check this scope below
-  scope :children, joins(:household, :student).where('student.household_id => ?', household_id)
+  #double check this scope below (PROF. H NOTE: Not needed b/c of relationship above that I added)
+  # scope :children, joins(:household, :student).where('student.household_id => ?', household_id)
 
   #Replaced with gender method. GENDER_LIST = [["Male", true], ["Female", false]]
 
@@ -37,7 +38,7 @@ class Guardian < ActiveRecord::Base
     (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i
   end
 
-  def gender
+  def sex
     return "Male" if gender == true
     "Female"
   end
