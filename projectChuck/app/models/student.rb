@@ -49,7 +49,8 @@ class Student < ActiveRecord::Base
   scope :by_school, order('school')
   scope :by_county, order('school_county')
   #by_grade
-  scope :grade, lambda {|grade_integer| where("grade_integer = ?", grade_integer)}
+  scope :has_allergies, where('allergies <> ""')
+  scope :needs_medication, where('medications <> ""')
 
   # Replaced with gender method GENDER_LIST = [["Male", true], ["Female", false]]
   #add list of security questions
