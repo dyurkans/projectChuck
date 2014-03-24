@@ -40,7 +40,7 @@ class Student < ActiveRecord::Base
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
   scope :by_grade, order('grade_integer')
-  scope :grade, lambda {|grade_integer| where ("grade_integer = ?", grade_integer)}
+  scope :grade, lambda {|grade_integer| where("grade_integer = ?", grade_integer)}
   scope :by_county, order('county');
 
   scope :by_school, order('school')
