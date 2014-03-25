@@ -20,7 +20,9 @@ class Student < ActiveRecord::Base
   #Add these tests to student_test file
   validates_numericality_of :household_id, :only_integer => true, :greater_than => 0
 
-  #SECURITY_QUESTIONS = [[], [], [], [], [], []]
+  SECURITY_QUESTIONS = [["What was the name of your first pet?",0], ["What is your mother's maiden name?",1],
+                        ["What's your mother's middle name?",2], ["What city were you born in?",3],
+                        ["What was the name of your first church?",4]]
   #SECURITY_RESPONSES = [[], [], [], [], [], []]
   #security questions: "What was the name of your first pet", ""
 
@@ -36,6 +38,10 @@ class Student < ActiveRecord::Base
   #by_grade
 
   # Replaced with gender method GENDER_LIST = [["Male", true], ["Female", false]]
+  GENDER_LIST = [["Male", true], ["Female", false]]
+  GRADES_LIST = [["First",1],["Second",2], ["Third",3],["Fourth",4],["Fifth",5],["Sixth",6],["Seventh",7],["Eigth",8],
+                 ["Freshman",9],["Sophomore",10],["Junior",11],["Senior",12],["Graduated Senior",13]]
+  
   #add list of security questions
 
   # Other methods
@@ -54,9 +60,14 @@ class Student < ActiveRecord::Base
 
   #insert age as of june 1 method
 
+<<<<<<< HEAD
   def sex
     return "Male" if gender == true
     "Female"
+=======
+  def gender_name
+    GENDER_LIST.map{|genders| genders[1] == gender}
+>>>>>>> 788a61aa46779cac36e988d91b2a4b9a92bc36e0
   end
 
   # Private methods

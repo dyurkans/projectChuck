@@ -29,6 +29,7 @@ class Registration < ActiveRecord::Base
   scope :missing_report_card, where('report_card = ?', nil)
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
+  #scope :missing_doc, 
 
   #Local Variables
   SIZE_LIST = [[1, 'S'], [2, 'M'], [3, 'L'], [4, 'XL'], [5, 'XXL'], [6, 'XXXL']]
