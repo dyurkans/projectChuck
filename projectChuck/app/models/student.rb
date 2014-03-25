@@ -60,14 +60,13 @@ class Student < ActiveRecord::Base
 
   #insert age as of june 1 method
 
-<<<<<<< HEAD
   def sex
     return "Male" if gender == true
     "Female"
-=======
+  end 
+
   def gender_name
     GENDER_LIST.map{|genders| genders[1] == gender}
->>>>>>> 788a61aa46779cac36e988d91b2a4b9a92bc36e0
   end
 
   # Private methods
