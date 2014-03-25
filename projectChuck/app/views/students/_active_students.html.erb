@@ -18,7 +18,7 @@
           <td><%= link_to student.name, student_path(student) %></td>
           <td><%= student.date_of_birth.nil? ? "---" : student.age  %></td>
           <td><%= student.team.nil? ? "---" : student.team.name  %></td>
-  				<td><%= student.bracket.nil? ? "---" : "#{student.bracket.min_age} - #{student.bracket.max_age}" %></td>
+  				<td><%= student.bracket.nil? ? "---" : "#{@student.registration.team.bracket.min_age} - #{@student.registration.team.bracket.max_age}" %></td>
           <td><%= if student.registration.missing_doc "Yes" : "No" %></td>
           <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %>
           </td>
