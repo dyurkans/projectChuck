@@ -1,15 +1,13 @@
 <div class="fields">
   <div class="min_attraction">
+      <%= f.label "Date: " + Date.today.strftime("%b %d, %y") %>
       <%= f.association :student %>
       <%= f.association :team %>
-      <%= f.label "Current Date: ?", Date.today %>
-      <%= f.label "Report Card Upload" %>
-      <%= f.input :report_card %>
-      <%= f.label "Physical Form Upload" %>
-      <%= f.input :physical %>
+      <%= f.input :t_shirt_size, :label => "T-Shirt Size (adult sizes)", :collection => Registration::SIZE_LIST %>
+      <%= f.input :report_card, :label => "Report Card Upload" %>
+      <%= f.input :physical, :label => "Physical Form Upload" %>
       <%= f.input :physical_date %>
-      <%= f.label "Proof of Insurance Upload" %>
-      <%= f.input :proof_of_insurance %>
+      <%= f.input :proof_of_insurance, :label => "Proof of Insurance Upload" %>
       <%= f.input :active, :as => :boolean, :checked_value => true, :unchecked_value => false %>
   </div>
 </div>

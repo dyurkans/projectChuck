@@ -13,7 +13,7 @@ class Registration < ActiveRecord::Base
 
   
   #Local Variables
-  SIZE_LIST = [[1, 'S'], [2, 'M'], [3, 'L'], [4, 'XL'], [5, 'XXL'], [6, 'XXXL']]
+  SIZE_LIST = [['S', 1], ['M', 2], ['L',3], ['XL',4], ['XXL',5], ['XXXL',6]]
   
   #Validations
   validates_numericality_of :student_id, :only_integer => true, :greater_than => 0
