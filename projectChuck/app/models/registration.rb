@@ -6,7 +6,7 @@ class Registration < ActiveRecord::Base
 
   #Relationships
   belongs_to :student
-  belongs_to :team_id
+  belongs_to :team
 
   #Validations
   validates_numericality_of :student_id, :only_integer => true, :greater_than => 0
