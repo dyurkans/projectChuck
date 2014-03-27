@@ -22,9 +22,9 @@ class Registration < ActiveRecord::Base
   validate :student_in_appropriate_bracket
 
   #Scopes
-  scope :alphabetical, joins(:student).order('student.last_name')
-  scope :for_team, joins(:team).order('team.name')
-  scope :reg_order, order('created_at')
+  scope :alphabetical, joins(:student).order('last_name')
+  scope :for_team, joins(:team).order('name')
+  scope :reg_order, order('created_at DESC')
   scope :physicals, where('physical IS NOT NULL')
   scope :report_cards, where('report_card IS NOT NULL')
   scope :missing_insurance, where('proof_of_insurance = ?', nil)

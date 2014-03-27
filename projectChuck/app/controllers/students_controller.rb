@@ -8,20 +8,22 @@ class StudentsController < ApplicationController
   end
   
   def index
+    @student = Student.find(params[:id])
     @students = Student.active.alphabetical.paginate(:page => params[:page]).per_page(10)
     @inactive_students = Student.inactive.alphabetical.paginate(:page => params[:page]).per_page(10)
-    @registration = Registration.where(student_id = Student.id)
-    @registrations = @students.registrations.alphabetical.paginate(:page => params[:page]).per_page(10)
-    @team = @registration.team
+    @registration = @student.registrations.reg_order[0]
     @bracket = @team.bracket
 
   end
   
   def show
     @student = Student.find(params[:id])
-    @registrations = @students.registrations.alphabetical.paginate(:page => params[:page]).per_page(10)
-    @team = @registration.team
-    @bracket = @team.bracket
+    @household = Household.find_by_id(@student.household_id)
+    @registration = @student.registrations.reg_order[0]
+    @team = Team.find_by_id(@registration.team_id)
+    @bracket = Bracket.find_by_id(@team.bracket_id)
+    @guardian = @student.guardians
+
   end
   
   def create
