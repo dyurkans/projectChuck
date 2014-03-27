@@ -10,11 +10,19 @@ class StudentsController < ApplicationController
   def index
     @students = Student.active.alphabetical.paginate(:page => params[:page]).per_page(10)
     @inactive_students = Student.inactive.alphabetical.paginate(:page => params[:page]).per_page(10)
+    @registration = Student.find(params[:id]).registration
+    @registrations = @students.registrations.alphabetical.paginate(:page => params[:page]).per_page(10)
+    @team = @registration.team
+    @brakcet = @team.bracket
+
   end
   
   def show
     @student = Student.find(params[:id])
-    @registrations = @student.registrations.by_student_id.paginate(:page => params[:page]).per_page(10)
+    @registrations = @student.registrations.alphabetical.paginate(:page => params[:page]).per_page(10)
+    @registrations = @students.registrations.alphabetical.paginate(:page => params[:page]).per_page(10)
+    @team = @registration.team
+    @brakcet = @team.bracket
   end
   
   def create
@@ -32,7 +40,7 @@ class StudentsController < ApplicationController
   def update
     @student = Student.find(params[:id])
     if @student.update_attributes(params[:student])
-      flash[:notice] = "Successfully updated #{@student.proper_name}."
+      flash[:notice] = "Successfully updated #{@student.name}."
       redirect_to @student
     else
       render :action => 'edit'
@@ -42,7 +50,7 @@ class StudentsController < ApplicationController
   def destroy
     @student = Student.find(params[:id])
     @student.destroy
-    flash[:notice] = "Successfully removed #{@student.proper_name} from Project C.H.U.C.K. system"
+    flash[:notice] = "Successfully removed #{@student.name} from Project C.H.U.C.K. system"
     redirect_to students_url
   end
 end
