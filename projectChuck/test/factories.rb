@@ -24,7 +24,6 @@ FactoryGirl.define do
 		proof_of_insurance "documents/proof_of_insurance/EGruberman.pdf"
 		physical "documents/physical/EGruberman.pdf"
 		physical_date 3.months.ago.to_date
-		date Date.today
 		t_shirt_size 2
 		active true
 	end

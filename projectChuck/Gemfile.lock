@@ -82,6 +82,7 @@ GEM
     mocha (1.0.0)
       metaclass (~> 0.0.1)
     multi_json (1.9.2)
+    nested_form (0.3.2)
     polyglot (0.3.4)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
@@ -174,6 +175,7 @@ DEPENDENCIES
   jquery-rails
   meta_request
   mocha
+  nested_form
   quiet_assets
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)

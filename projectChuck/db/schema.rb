@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140319024556) do
+ActiveRecord::Schema.define(:version => 20140328003402) do
 
   create_table "brackets", :force => true do |t|
     t.integer  "tournament_id"
@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(:version => 20140319024556) do
     t.string   "physical"
     t.date     "physical_date"
     t.integer  "t_shirt_size"
-    t.date     "date"
     t.boolean  "active",             :default => true
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
@@ -94,6 +93,13 @@ ActiveRecord::Schema.define(:version => 20140319024556) do
     t.integer  "max_students"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "tournaments", :force => true do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

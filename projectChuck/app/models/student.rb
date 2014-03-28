@@ -25,8 +25,7 @@ class Student < ActiveRecord::Base
   #SECURITY_RESPONSES = [[], [], [], [], [], []]
   #security questions: "What was the name of your first pet", ""
   SECURITY_QUESTIONS = [["What was the name of your first pet?",0], ["What is your mother's maiden name?",1],
-                        ["What's your mother's middle name?",2], ["What city were you born in?",3],
-                        ["What was the name of your first church?",4]]
+                        ["What was the name of your first church?",3]]
   
   GENDER_LIST = [["Male", true], ["Female", false]]
   GRADES_LIST = [["First",1],["Second",2], ["Third",3],["Fourth",4],["Fifth",5],["Sixth",6],["Seventh",7],["Eigth",8],
