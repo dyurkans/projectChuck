@@ -13,7 +13,6 @@ class Guardian < ActiveRecord::Base
   validates_inclusion_of :receive_texts, :in => [true, false], :message => "must be true or false"
   validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
   validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
-  validates_numericality_of :household_id, :only_integer => true, :greater_than => 0
 
   #Scopes
   scope :alphabetical, order('last_name, first_name')

@@ -67,11 +67,11 @@ class StudentTest < ActiveSupport::TestCase
 	should allow_value(false).for(:gender)
 	should_not allow_value(nil).for(:gender)
 
-	#test household_id
-	should validate_numericality_of(:household_id)
-	should_not allow_value(3.14159).for(:household_id)
-	should_not allow_value(0).for(:household_id)
-	should_not allow_value(-1).for(:household_id)
+	# #test household_id
+	# should validate_numericality_of(:household_id)
+	# should_not allow_value(3.14159).for(:household_id)
+	# should_not allow_value(0).for(:household_id)
+	# should_not allow_value(-1).for(:household_id)
 
 	#test for school
 	should validate_presence_of(:school)
@@ -104,11 +104,15 @@ class StudentTest < ActiveSupport::TestCase
 
     context "Creating a student context" do
     setup do 
+      create_household_context
+      create_guardian_context
       create_student_context
     end
     
     teardown do
       remove_student_context
+      remove_guardian_context
+      remove_household_context
     end
       
     # quick test of factories

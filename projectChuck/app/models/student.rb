@@ -23,7 +23,6 @@ class Student < ActiveRecord::Base
   #validates_inclusion_of :security_question, :in => SECURITY_QUESTIONS.map() #Need to check how mapping works
   #validates_inclusion_of :security_response, :in => SECURITY_RESPONSES.map() #Need to check how mapping works
   #Add these tests to student_test file
-  validates_numericality_of :household_id, :only_integer => true, :greater_than => 0, :allow_nil => true #needs to be removed later
   validates_numericality_of :grade_integer, :only_integer => true, :greater_than => 0, :less_than => 14
 
   #SECURITY_QUESTIONS = [[], [], [], [], [], []]
@@ -72,6 +71,11 @@ class Student < ActiveRecord::Base
   def sex
     return "Male" if gender == true
     "Female"
+  end
+
+  # Method to find student's registration for this year (if there is one)
+  def current_reg
+
   end
 
   # Private methods
