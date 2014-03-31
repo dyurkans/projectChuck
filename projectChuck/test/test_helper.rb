@@ -13,7 +13,6 @@ class ActiveSupport::TestCase
   end
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
-  fixtures :all
 
   # Add more helper methods to be used by all tests here...
 
@@ -72,8 +71,8 @@ class ActiveSupport::TestCase
     @howard = FactoryGirl.create(:student, household: @mill, first_name: "Howard", last_name: "Marcus", dob:169.months.ago.to_date, emergency_contact_phone: "412-555-5555")
     #13 y.o Jen Hanson (10th grade)
     @jen = FactoryGirl.create(:student, household: @mill, first_name: "Jen", last_name: "Hanson", gender:false, allergies:"nuts,shrimp,lemons", dob: 167.months.ago.to_date, school_county:"Philadelphia")
-    #16 y.o. Julie Henderson (10th grade)
-    @julie = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", dob: 874.weeks.ago.to_date)
+    #18 y.o. Julie Henderson (10th grade)
+    @julie = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", dob: 941.weeks.ago.to_date, grade_integer: 13)
     #10 y.o Jason Hoover (6th grade)
     @jason = FactoryGirl.create(:student, household: @bam, first_name: "Jason", last_name: "Hoover", gender: true, medications:"theophyline", active: false, grade_integer: 6, dob: 10.years.ago.to_date)
   end
@@ -90,20 +89,54 @@ class ActiveSupport::TestCase
     @jason.delete
   end
 
-  def create_bracket_context
+  def create_tournament_context
+    @tourn = FactoryGirl.create(:tournament)
+  end
 
+  def remove_tournament_context
+    @tourn.delete
+  end
+
+  def create_bracket_context
+    @boys7to9 = FactoryGirl.create(:bracket, tournament: @tourn, gender: true, min_age: 7, max_age: 9)
+    @boys10to12 = FactoryGirl.create(:bracket, tournament: @tourn, gender: true, min_age: 10, max_age: 12)
+    @boys13to15 = FactoryGirl.create(:bracket, tournament: @tourn, gender: true, min_age: 13, max_age: 15)
+    @boys16to18 = FactoryGirl.create(:bracket, tournament: @tourn, gender: true, min_age: 16, max_age: 18)
+    @littlegirls = FactoryGirl.create(:bracket, tournament: @tourn, gender: false, min_age: 7, max_age:12)
+    @youngwomen = FactoryGirl.create(:bracket, tournament: @tourn, gender: false, min_age: 13, max_age: 18)
   end
 
   def remove_bracket_context
-
+    @boys7to9.delete
+    @boys10to12.delete
+    @boys13to15.delete
+    @boys16to18.delete
+    @littlegirls.delete
+    @youngwomen.delete
   end
 
   def create_team_context
-
+    # Boys 7 to 9 team
+    @pistons = FactoryGirl.create(:team, bracket: @boys7to9, name: "Detroit Pistons")
+    # Boys 10 to 12 team
+    @wizards = FactoryGirl.create(:team, bracket: @boys10to12, name: "Washington Wizards")
+    # Boys 13 to 15 team
+    @heat = FactoryGirl.create(:team, bracket: @boys13to15, name: "Miami Heat")
+    # Boys 16 to 18 team
+    @lakers = FactoryGirl.create(:team, bracket: @boys16to18, name: "Los Angeles Lakers")
+    # Little Girls team
+    @knicks = FactoryGirl.create(:team, bracket: @littlegirls, name: "New York Knicks")
+    # Young Women team
+    @mavs = FactoryGirl.create(:team, bracket: @youngwomen, name: "Dallas Mavericks")
   end
 
   def remove_team_context
-
+    @pistons.delete
+    @wizards.delete
+    @heat.delete
+    @lakers.delete
+    @knicks.delete
+    @mavs.delete
   end
 
   def create_registration_context

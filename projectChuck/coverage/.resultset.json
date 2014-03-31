@@ -1,22 +1,23 @@
 {
   "Unit Tests": {
     "coverage": {
-      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/controllers/application_controller.rb": [
+      "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/controllers/application_controller.rb": [
         1,
         1,
         null
       ],
-      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/helpers/application_helper.rb": [
+      "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/bracket.rb": [
+      "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/bracket.rb": [
+        1,
         1,
         1,
         1,
         null
       ],
-      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/guardian.rb": [
+      "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/guardian.rb": [
         1,
         1,
         null,
@@ -25,7 +26,7 @@
         1,
         null,
         1,
-        119,
+        116,
         1,
         1,
         1,
@@ -77,7 +78,7 @@
         null,
         null
       ],
-      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/household.rb": [
+      "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/household.rb": [
         1,
         1,
         null,
@@ -119,7 +120,7 @@
         null,
         null
       ],
-      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/registration.rb": [
+      "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/registration.rb": [
         1,
         1,
         null,
@@ -138,8 +139,8 @@
         1,
         1,
         1,
-        2,
-        2,
+        1,
+        1,
         1,
         7,
         1,
@@ -160,20 +161,15 @@
         null,
         null,
         1,
-        1,
-        1,
-        1,
-        1,
-        1,
+        0,
+        0,
+        0,
+        0,
+        0,
         0,
         null,
         null,
         null,
-        null,
-        null,
-        1,
-        1,
-        1,
         null,
         null,
         1,
@@ -181,6 +177,11 @@
         0,
         null,
         null,
+        1,
+        0,
+        0,
+        null,
+        null,
         null,
         0,
         0,
@@ -189,9 +190,9 @@
         null,
         1,
         1,
-        1,
-        1,
-        1,
+        0,
+        0,
+        0,
         null,
         0,
         null,
@@ -201,7 +202,7 @@
         null,
         null
       ],
-      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/student.rb": [
+      "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/student.rb": [
         1,
         1,
         null,
@@ -254,22 +255,40 @@
         null,
         1,
         1,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
         1,
         null,
         null,
-        1,
-        1,
+        null,
         null,
         null,
         1,
         4,
-        4,
+        null,
+        null,
+        1,
+        2,
+        2,
+        2,
+        null,
+        0,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        3,
+        3,
         null,
         null,
         1,
@@ -285,38 +304,39 @@
         null,
         1,
         1,
-        208,
-        208,
-        208,
+        207,
+        207,
+        207,
         null,
         null,
         1,
-        208,
-        208,
-        208,
-        null,
-        null
-      ],
-      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/team.rb": [
-        1,
-        1,
-        null,
-        1,
-        1,
+        207,
+        207,
+        207,
         null,
         null
       ],
-      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/tournament.rb": [
+      "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/team.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
+      "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/tournament.rb": [
+        1,
         1,
         1,
         null
       ],
-      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/user.rb": [
+      "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/user.rb": [
         1,
         1,
         null
       ]
     },
-    "timestamp": 1396242894
+    "timestamp": 1396254180
   }
 }

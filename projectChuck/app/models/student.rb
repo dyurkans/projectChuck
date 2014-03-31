@@ -38,7 +38,7 @@ class Student < ActiveRecord::Base
 
   # Scopes
   scope :alphabetical, order('last_name, first_name')
-  scope :by_age, order('dob')
+  scope :by_age, order('dob DESC')
   scope :male, where('students.gender = ?', true)
   scope :female, where('students.gender = ?', false)
   scope :active, where('active = ?', true)
@@ -50,11 +50,29 @@ class Student < ActiveRecord::Base
   #by_grade
   scope :has_allergies, where('allergies <> ""')
   scope :needs_medication, where('medications <> ""')
+  scope :seniors, where('grade_integer = ?', 13)
 
   # Replaced with gender method GENDER_LIST = [["Male", true], ["Female", false]]
   #add list of security questions
 
   # Other methods
+  def self.ages_between(low_age,high_age)
+    Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
+  end
+
+  def self.qualifies_for_bracket(bracket_id)
+    bracket = Bracket.find(bracket_id)
+    if (bracket.gender = true)
+      Student.ages_between(bracket.min_age, bracket.max_age).male
+    else
+      Student.ages_between(bracket.min_age, bracket.max_age).female
+    end
+  end
+
+  def self.qualifies_for_team(team_id)
+    Student.qualifies_for_bracket(Team.find(team_id).bracket_id)
+  end
+
   def name
     "#{last_name}, #{first_name}"
   end
