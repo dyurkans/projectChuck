@@ -15,7 +15,8 @@ class TeamsController < ApplicationController
   def show
   	@team = Team.find(params[:id])
   	@bracket = Bracket.find_by_id(@team.bracket_id) unless @team.nil?
-  	@registrations = @team.registrations unless @team.registrations.nil 
+  	@registrations = Registration.where(:team_id => @team.id) unless Registration.where(:team_id => @team.id).nil?
+  
   end
   
   def create
