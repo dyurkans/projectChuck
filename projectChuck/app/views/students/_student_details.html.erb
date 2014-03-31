@@ -94,7 +94,7 @@
 </p>
 
 <p>
-  <b>Family Physician Phone</b> <%= @household.physician_phone %>
+  <b>Family Physician Phone</b> <%= number_to_phone @household.physician_phone %>
 </p>
 
 <p>
@@ -110,7 +110,7 @@
 </p>
 
 <p>
-  <b>Emergency Contact Phone:</b> <%= @student.emergency_contact_phone %>
+  <b>Emergency Contact Phone:</b> <%= number_to_phone @student.emergency_contact_phone %>
 </p>
 
 <!--              Other                         -->
