@@ -1,11 +1,16 @@
 {
   "Unit Tests": {
     "coverage": {
+<<<<<<< HEAD
       "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/controllers/application_controller.rb": [
+=======
+      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/controllers/application_controller.rb": [
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
         1,
         1,
         null
       ],
+<<<<<<< HEAD
       "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/helpers/application_helper.rb": [
         1,
         null
@@ -13,11 +18,22 @@
       "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/bracket.rb": [
         1,
         1,
+=======
+      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/bracket.rb": [
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
         1,
         1,
         null
       ],
+<<<<<<< HEAD
       "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/guardian.rb": [
+=======
+      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/guardian.rb": [
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
         1,
         1,
         null,
@@ -26,7 +42,11 @@
         1,
         null,
         1,
+<<<<<<< HEAD
         116,
+=======
+        70,
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
         1,
         1,
         1,
@@ -78,7 +98,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/household.rb": [
+=======
+      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/household.rb": [
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
         1,
         1,
         null,
@@ -120,7 +144,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/registration.rb": [
+=======
+      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/registration.rb": [
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
         1,
         1,
         null,
@@ -202,7 +230,11 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/student.rb": [
+=======
+      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/student.rb": [
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
         1,
         1,
         null,
@@ -255,13 +287,17 @@
         null,
         1,
         1,
+<<<<<<< HEAD
         1,
+=======
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
         null,
         null,
         null,
         null,
         null,
         1,
+<<<<<<< HEAD
         4,
         null,
         null,
@@ -289,6 +325,18 @@
         1,
         3,
         3,
+=======
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
         null,
         null,
         1,
@@ -304,6 +352,7 @@
         null,
         1,
         1,
+<<<<<<< HEAD
         207,
         207,
         207,
@@ -327,16 +376,39 @@
       ],
       "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/tournament.rb": [
         1,
+=======
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null
+      ],
+      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/team.rb": [
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
         1,
         1,
         null
       ],
+<<<<<<< HEAD
       "c:/Users/Sam/Documents/S14/IS/CHUCK/projectChuck/projectChuck/app/models/user.rb": [
+=======
+      "c:/Users/Sam/documents/s14/is/chuck/projectchuck/projectChuck/app/models/user.rb": [
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
         1,
         1,
         null
       ]
     },
+<<<<<<< HEAD
     "timestamp": 1396254180
+=======
+    "timestamp": 1396202701
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
   }
 }

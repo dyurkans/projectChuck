@@ -151,7 +151,11 @@ class StudentTest < ActiveSupport::TestCase
     should "have working age method" do 
       assert_equal 14, @howard.age
       assert_equal 9, @noah.age
+<<<<<<< HEAD
       assert_equal 18, @julie.age
+=======
+      assert_equal 16, @julie.age
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
     end
     
     should "strip non-digits from phone" do 
@@ -250,7 +254,11 @@ class StudentTest < ActiveSupport::TestCase
     end
     
     should "have scope for ordering by grade" do 
+<<<<<<< HEAD
       assert_equal ["Ark","Hoover", "Gruberman","Gruberman","Gruberman","Gruberman", "Hanson","Marcus","Henderson"], Student.by_grade.alphabetical.map(&:last_name)
+=======
+      assert_equal ["Ark","Hoover", "Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.by_grade.alphabetical.all.map(&:last_name)
+>>>>>>> ed5d5d4d75dc881197a73241f48b4777c0fae775
     end
   end
 	
