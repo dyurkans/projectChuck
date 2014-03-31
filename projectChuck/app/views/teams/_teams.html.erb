@@ -6,7 +6,7 @@
       <tr>
         <th>Name</th>
   			<th>Bracket</th>
-  			<th>Number of Playerx</th>
+  			<th>Number of Players</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -14,9 +14,10 @@
       <% @teams.each do |team| %>
         <tr>
           <% bracket = Bracket.find_by_id(team.bracket_id) %>
+          <% number_of_players = Registration.where(:team_id => team.id).size() %>
           <td><%= link_to team.name, team_path(team) %></td>
   				<td><%= bracket.nil? ? "---" : "#{bracket.gender} #{bracket.min_age} - #{bracket.max_age}" %></td>
-          <td><%= team.max_students - team.remaining_spots %></td>
+          <td><%= number_of_players %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_team_path(team), :class => 'btn btn-mini' %></td>
         </tr>
       <% end %>
