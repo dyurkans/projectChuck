@@ -102,17 +102,17 @@ namespace :db do
     index_of_team_to_be_created = 0
     team_names = Registration::TEAMS_LIST.map{|team| team[0]}
     
+    boys_min_age = 7
+    boys_max_age = 9
     #Create 4 boys brackets
     4.times do |k|
       b = Bracket.new
-      min_age = 7
-      max_age = 9
-      b.min_age = min_age
-      b.max_age = max_age
+      b.min_age = boys_min_age
+      b.max_age = boys_max_age
       b.gender = true
       b.tournament_id = tourn.id
-      min_age += 3
-      max_age += 3
+      boys_min_age += 3
+      boys_max_age += 3
       b.save!
       puts "Added boys bracket with minimum age #{b.min_age} and maximum age #{b.max_age}"
       
@@ -155,18 +155,18 @@ namespace :db do
       end
     end
     
+      girls_min_age = 7
+      girls_max_age = 12
     #Create 2 girls brackets
      2.times do |l|
       b = Bracket.new
-      min_age = 7
-      max_age = 12
-      b.min_age = min_age
-      b.max_age = max_age
+      b.min_age = girls_min_age
+      b.max_age = girls_max_age
       b.gender = false
       b.tournament_id = tourn.id
-      min_age += 6
-      max_age += 6
       b.save!
+      girls_min_age += 6
+      girls_max_age += 6
       puts "Added girls bracket with minimum age #{b.min_age} and maximum age #{b.max_age}"
       
       eligible_girl_students = Student.active.female.ages_between(b.min_age,b.max_age)

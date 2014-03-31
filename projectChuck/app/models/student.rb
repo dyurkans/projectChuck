@@ -23,7 +23,7 @@ class Student < ActiveRecord::Base
 
   #security questions: "What was the name of your first pet", ""
   SECURITY_QUESTIONS = [["What was the name of your first pet?",0], ["What is your mother's maiden name?",1],
-                        ["What was the name of your first church?",2]
+                        ["What was the name of your first church?",2]]
   
   GENDER_LIST = [["Male", true], ["Female", false]]
   GRADES_LIST = [["First",1],["Second",2], ["Third",3],["Fourth",4],["Fifth",5],["Sixth",6],["Seventh",7],["Eigth",8],
@@ -73,6 +73,7 @@ class Student < ActiveRecord::Base
   def sex
     return "Male" if gender == true
     "Female"
+  end
 
   def gender_name
     GENDER_LIST.map{|genders| genders[1] == gender}
