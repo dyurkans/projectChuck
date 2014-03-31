@@ -75,10 +75,10 @@ class GuardianTest < ActiveSupport::TestCase
 	should_not allow_value(nil).for(:gender)
 
 	#test household_id
-	should validate_numericality_of(:household_id)
-	should_not allow_value(3.14159).for(:household_id)
-	should_not allow_value(0).for(:household_id)
-	should_not allow_value(-1).for(:household_id)
+	# should validate_numericality_of(:household_id)
+	# should_not allow_value(3.14159).for(:household_id)
+	# should_not allow_value(0).for(:household_id)
+	# should_not allow_value(-1).for(:household_id)
 
 	# test active
 	should allow_value(true).for(:active)
@@ -87,20 +87,24 @@ class GuardianTest < ActiveSupport::TestCase
 
     context "Creating a guardian context" do
       setup do
-	create_guardian_context
+		create_household_context
+		create_guardian_context
       end
       
       teardown do
-	remove_guardian_context
+		remove_guardian_context
+		remove_household_context
       end
       
       #test that factories work
-      assert_equal "Mary", @mary.first_name
-      assert_equal "Gruberman", @eric.last_name
-      assert_equal 28.years.ago.to_date, @alex.dob
-      assert_equal false, @leo.receive_texts
-      assert_equal "james@hotmail.com", @james.email
-      assert_equal false, @james.active
+      should "have working factories" do
+	      assert_equal "Mary", @mary.first_name
+	      assert_equal "Gruberman", @eric.last_name
+	      assert_equal 28.years.ago.to_date, @alex.dob
+	      assert_equal false, @leo.receive_texts
+	      assert_equal "james@hotmail.com", @james.email
+	      assert_equal false, @james.active
+	  end
       
       should "allow an existing guardian to be edited" do
 	@james.active = true
@@ -156,5 +160,6 @@ class GuardianTest < ActiveSupport::TestCase
 	@nantucket.destroy
 	@percy.destroy
       end
+  end
 	
 end

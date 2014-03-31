@@ -71,5 +71,10 @@ FactoryGirl.define do
 		role "admin"
 		active true
 	end
+
+	factory :tournament do
+		start_date 2.weeks.from_now
+		end_date 12.weeks.from_now
+	end
 	
 end

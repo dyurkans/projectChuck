@@ -15,7 +15,7 @@ class Student < ActiveRecord::Base
   #Validations (email commented out b/c not in the database)
   validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :birth_certificate, :security_response, :security_question, :grade_integer
   validates_date :dob, :on_or_before => 7.years.ago.to_date, :after => 19.years.ago.to_date, :message => "must be between the ages of 7 and 18 included"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
-  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true
+  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
   validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
   # validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
   validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
@@ -23,7 +23,10 @@ class Student < ActiveRecord::Base
   #validates_inclusion_of :security_question, :in => SECURITY_QUESTIONS.map() #Need to check how mapping works
   #validates_inclusion_of :security_response, :in => SECURITY_RESPONSES.map() #Need to check how mapping works
   #Add these tests to student_test file
+<<<<<<< HEAD
   validates_numericality_of :household_id, :only_integer => true, :greater_than => 0, :allow_nil => true #needs to be removed later
+=======
+>>>>>>> master
   validates_numericality_of :grade_integer, :only_integer => true, :greater_than => 0, :less_than => 14
 
   #SECURITY_QUESTIONS = [[], [], [], [], [], []]
@@ -39,7 +42,7 @@ class Student < ActiveRecord::Base
 
   # Scopes
   scope :alphabetical, order('last_name, first_name')
-  scope :by_age, order('dob')
+  scope :by_age, order('dob DESC')
   scope :male, where('students.gender = ?', true)
   scope :female, where('students.gender = ?', false)
   scope :active, where('active = ?', true)
@@ -51,11 +54,34 @@ class Student < ActiveRecord::Base
   #by_grade
   scope :has_allergies, where('allergies <> ""')
   scope :needs_medication, where('medications <> ""')
+<<<<<<< HEAD
+=======
+  scope :seniors, where('grade_integer = ?', 13)
+  # How to tie in info from registration from the other forms?
+  scope :without_forms, where('birth_certificate = ?', nil)
+>>>>>>> master
 
   # Replaced with gender method GENDER_LIST = [["Male", true], ["Female", false]]
   #add list of security questions
 
   # Other methods
+  def self.ages_between(low_age,high_age)
+    Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
+  end
+
+  def self.qualifies_for_bracket(bracket_id)
+    bracket = Bracket.find(bracket_id)
+    if (bracket.gender)
+      Student.ages_between(bracket.min_age, bracket.max_age).male
+    else
+      Student.ages_between(bracket.min_age, bracket.max_age).female
+    end
+  end
+
+  def self.qualifies_for_team(team_id)
+    Student.qualifies_for_bracket(Team.find(team_id).bracket_id)
+  end
+
   def name
     "#{last_name}, #{first_name}"
   end
@@ -72,6 +98,11 @@ class Student < ActiveRecord::Base
   def sex
     return "Male" if gender == true
     "Female"
+  end
+
+  # Method to find student's registration for this year (if there is one)
+  def current_reg
+
   end
 
   # Private methods
