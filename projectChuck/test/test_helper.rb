@@ -52,7 +52,7 @@ class ActiveSupport::TestCase
   end 
 
   def remove_registration_context
-  	@reg_ed.delete
+
   end
 
   def create_team_context
@@ -93,11 +93,11 @@ class ActiveSupport::TestCase
   end
 
   def remove_guardian_context
-    @mary.destroy
-    @eric.destroy
-    @alex.destroy
-    @leo.destroy
-    @james.destroy
+    @mary.delete
+    @eric.delete
+    @alex.delete
+    @leo.delete
+    @james.delete
   end
 
   def create_user_context
