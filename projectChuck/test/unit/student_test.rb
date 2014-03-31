@@ -156,50 +156,28 @@ class StudentTest < ActiveSupport::TestCase
     should "not allow student to be added without a parent" do
       # a student without a household cannot have a guardian
       # thus a student without a household should also not be a valid student
-      @brent = FactoryGirl.create(:student, household_id:nil)
+      @brent = FactoryGirl.build(:student, household_id:nil)
       deny @brent.valid?
       
-      @household1 = FactoryGirl.create(:household)
-      @household2 = FactoryGirl.create(:household, street:"5032 Forbes Ave")
-      @henry = FactoryGirl.create(:guardian, household_id:@household1.id, first_name:"Henry", last_name:"Michaels")
-      @laura = FactoryGirl.create(:student, gender:false, household_id:@household1.id)
+      @household1 = FactoryGirl.build(:household)
+      @household2 = FactoryGirl.build(:household, street:"5032 Forbes Ave")
+      @henry = FactoryGirl.build(:guardian, household:@household1, first_name:"Henry", last_name:"Michaels")
+      @laura = FactoryGirl.build(:student, gender:false, household:@household1)
 
-      @brent.household_id = @household2.id
+      @brent.household = @household2
       assert_equal true, @laura.valid?
       deny @brent.valid?
     end
     
-    should "have class method for finding a students guardians" do
-      #setup temporary factories
-      @household1 = FactoryGirl.create(:household)
-      @household2 = FactoryGirl.create(:household, street:"5032 Forbes Ave")
-      @mary = FactoryGirl.create(:guardian, household_id:@household1.id)
-      @grant = FactoryGirl.create(:guardian, household_id:@household1.id, first_name:"Grant", last_name:"Hillworth", gender:true, cell_phone:nil)
-      @stephen = FactoryGirl.create(:guardian, household_id:@household2.id, first_name:"Stephen", last_name:"Francois", gender:true)
-      @fred.household_id = @household1.id
-      @howard.household_id = @household2.id
-      
-      assert_equal ["Gruberman","Hillworth"], Student.guardians(@fred.id).alphabetical.all.map(&:last_name)
-      assert_equal ["Francois"], Student.guardians(@fred.id).alphabetical.all.map(&:last_name)
-      
-      #remove temporary factories
-      @household1.destroy
-      @household2.destroy
-      @mary.destroy
-      @grant.destroy
-      @stephen.destroy
-      @fred.household_id = nil
-      @howard.household_id = nil
+    should "have class method for finding a students guardians" do      
+      assert_equal ["Eric","Mary"], Student.guardians(@fred.id).alphabetical.all.map(&:first_name)
+      assert_equal ["James"], Student.guardians(@julie.id).alphabetical.all.map(&:first_name)
     end
     
     should "have class method for finding students eligible for a particular team" do
-      @bracket = FactoryGirl.create(:bracket, min_age:9, max_age:12);
-      @knicks = FactoryGirl.create(:team, bracket_id:@bracket.id);
+      @bracket = FactoryGirl.build(:bracket, min_age:9, max_age:12);
+      @knicks = FactoryGirl.build(:team, bracket_id:@bracket.id);
       assert_equal ["Ark","Gruberman","Hoover"], Student.qualies_for_team(@knicks.id).alphabetical.all.map(&:last_name)
-      
-      # remove extra context
-      @bracket.destroy
-      @knicks.destroy
     end
     
     should "have class method for finding students between two ages" do 
@@ -209,11 +187,8 @@ class StudentTest < ActiveSupport::TestCase
     
     should "have class method for finding students qualified for a bracket" do 
       #create temporary bracket
-      @bracket = FactoryGirl.create(:bracket, min_age:14, max_age:17)
+      @bracket = FactoryGirl.build(:bracket, min_age:14, max_age:17)
       assert_equal ["Gruberman","Gruberman","Henderson","Marcus"], Student.qualies_for_bracket(@bracket.id).alphabetical.all.map(&:last_name)
-      
-      #remove temporary bracket
-      @bracket.destroy
     end
     
     # start testing scopes...
@@ -223,21 +198,15 @@ class StudentTest < ActiveSupport::TestCase
     
     should "have a scope for students without all of their forms" do
       #create temporary factories
-      @bracket = FactoryGirl.create(:bracket, min_age:11, max_age:13)
-      @celtics = FactoryGirl.create(:team, name:"Boston Celtics", bracket_id:@bracket.id)
-      @reg_fred = FactoryGirl.create(:registration, student_id:@fred.id, team_id:@celtics.id,
+      @bracket = FactoryGirl.build(:bracket, min_age:11, max_age:13)
+      @celtics = FactoryGirl.build(:team, name:"Boston Celtics", bracket_id:@bracket.id)
+      @reg_fred = FactoryGirl.build(:registration, student_id:@fred.id, team_id:@celtics.id,
                                      proof_of_insurance:"documents/prof_of_insurance/FGruberman.pdf",
                                      report_card:"documents/report_card/Fred",physical:"documents/physical/FredGruberman")
-      @reg_ned = FactoryGirl.create(:registration, student_id:@ned.id, team_id:@celtics.id,
+      @reg_ned = FactoryGirl.build(:registration, student_id:@ned.id, team_id:@celtics.id,
 				      proof_of_insurance:"documents/prof_of_insurance/NGruberman.png",
                                      report_card:"documents/report_card/Ned.pdf",physical:"documents/physical/NedGruberman.jpg")
       assert_equal ["Fred","Ned"], Student.without_forms.alphabetical.all.map(&:first_name)
-      
-      #remove temporary factories
-      @bracket.destroy
-      @celtics.destroy
-      @reg_fred.destroy
-      @reg_ned.destroy
     end
     
     should "have scope for active students" do 
