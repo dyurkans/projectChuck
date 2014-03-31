@@ -39,11 +39,11 @@ class ActiveSupport::TestCase
     #40 y.o. Mary Gruberman
     @mary = FactoryGirl.create(:guardian, household: @grub)
     #45 y.o. Eric Gruberman
-    @eric = FactoryGirl.create(:guardian, household: @grub, first_name:"Eric", dob:45.years.ago.to_date, cell_phone:"412-666-7890")
+    @eric = FactoryGirl.create(:guardian, household: @grub, first_name:"Eric", email: "eric.grub@gmail.com", dob:45.years.ago.to_date, cell_phone:"412-666-7890")
     #28 y.o. Alexandra Mill
-    @alex = FactoryGirl.create(:guardian, household: @mill, first_name: "Alexandra", last_name:"Mill", dob:28.years.ago.to_date, cell_phone:nil, day_phone:"412-281-8080")
+    @alex = FactoryGirl.create(:guardian, household: @mill, first_name: "Alexandra", last_name:"Mill", email: "amill@yahoo.com", dob:28.years.ago.to_date, cell_phone:nil, day_phone:"412-281-8080")
     #20 y.o. Leo Sutherland
-    @leo = FactoryGirl.create(:guardian, household: @suth, first_name:"Leo", last_name:"Sutherland", dob:20.years.ago.to_date, receive_texts:false)
+    @leo = FactoryGirl.create(:guardian, household: @suth, first_name:"Leo", last_name:"Sutherland", email: "leoSuth@andrew.cmu.edu", dob:20.years.ago.to_date, receive_texts:false)
     #37 y.o. James Bambridge
     @james = FactoryGirl.create(:guardian, household: @bam, first_name: "James", last_name:"Bambridge", dob: 1982.weeks.ago.to_date, email:"james@hotmail.com", active:false)
   end
@@ -70,19 +70,11 @@ class ActiveSupport::TestCase
     #14 y.o. Howard Marcus (10th grade)
     @howard = FactoryGirl.create(:student, household: @mill, first_name: "Howard", last_name: "Marcus", dob:169.months.ago.to_date, emergency_contact_phone: "412-555-5555")
     #13 y.o Jen Hanson (10th grade)
-<<<<<<< HEAD
-    @jen = FactoryGirl.create(:student, first_name: "Jen", last_name: "Hanson", gender:false, allergies:"nuts,shrimp,lemons", dob: 167.months.ago.to_date, school_county:"Philadelphia")
-    #16 y.o. Julie Henderson (10th grade)
-    @julie = FactoryGirl.create(:student, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", dob: 874.weeks.ago.to_date)
-    #10 y.o Jason Hoover (6th grade)
-    @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", gender: true, medications:"theophyline", active: false, grade_integer: 6, dob: 10.years.ago.to_date)
-=======
     @jen = FactoryGirl.create(:student, household: @mill, first_name: "Jen", last_name: "Hanson", gender:false, allergies:"nuts,shrimp,lemons", dob: 167.months.ago.to_date, school_county:"Philadelphia")
     #18 y.o. Julie Henderson (10th grade)
     @julie = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", dob: 941.weeks.ago.to_date, grade_integer: 13)
     #10 y.o Jason Hoover (6th grade)
     @jason = FactoryGirl.create(:student, household: @bam, first_name: "Jason", last_name: "Hoover", gender: true, medications:"theophyline", active: false, grade_integer: 6, dob: 10.years.ago.to_date)
->>>>>>> master
   end
     
   def remove_student_context
@@ -97,17 +89,8 @@ class ActiveSupport::TestCase
     @jason.delete
   end
 
-<<<<<<< HEAD
-  def create_registration_context
-
-  end 
-
-  def remove_registration_context
-
-=======
   def create_tournament_context
     @tourn = FactoryGirl.create(:tournament)
->>>>>>> master
   end
 
   def remove_tournament_context

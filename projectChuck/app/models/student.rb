@@ -23,10 +23,6 @@ class Student < ActiveRecord::Base
   #validates_inclusion_of :security_question, :in => SECURITY_QUESTIONS.map() #Need to check how mapping works
   #validates_inclusion_of :security_response, :in => SECURITY_RESPONSES.map() #Need to check how mapping works
   #Add these tests to student_test file
-<<<<<<< HEAD
-  validates_numericality_of :household_id, :only_integer => true, :greater_than => 0, :allow_nil => true #needs to be removed later
-=======
->>>>>>> master
   validates_numericality_of :grade_integer, :only_integer => true, :greater_than => 0, :less_than => 14
 
   #SECURITY_QUESTIONS = [[], [], [], [], [], []]
@@ -54,12 +50,9 @@ class Student < ActiveRecord::Base
   #by_grade
   scope :has_allergies, where('allergies <> ""')
   scope :needs_medication, where('medications <> ""')
-<<<<<<< HEAD
-=======
   scope :seniors, where('grade_integer = ?', 13)
   # How to tie in info from registration from the other forms?
   scope :without_forms, where('birth_certificate = ?', nil)
->>>>>>> master
 
   # Replaced with gender method GENDER_LIST = [["Male", true], ["Female", false]]
   #add list of security questions

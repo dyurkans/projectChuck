@@ -107,11 +107,11 @@ class GuardianTest < ActiveSupport::TestCase
 	  end
       
       should "allow an existing guardian to be edited" do
-	@james.active = true
-	assert @jason.valid?
-      
-	#undo
-	@james.active = false
+		@james.active = true
+		assert @james.valid?
+	      
+		#undo
+		@james.active = false
       end
       
       should "have working name method" do 
@@ -144,21 +144,6 @@ class GuardianTest < ActiveSupport::TestCase
       
       should "have scope for inactive guardians" do 
 	assert_equal ["Bambridge"], Guardian.inactive.alphabetical.all.map(&:last_name)
-      end
-      
-      should "have scope to find children in same household as guardian" do
-	#create temporary factories
-	@household = FactoryGirl.create(:household)
-	@mary_guardian = FactoryGirl.create(:guardian, household_id:@household.id)
-	@nantucket = FactoryGirl.create(:student, first_name:"Nantucket", last_name:"Pooljoy", household_id:@household.id)
-	@percy = FactoryGirl.create(:student, first_name:"Percy", last_name:"Gorganzola", household_id:@household.id)
-	assert_equal ["Gorgonzola","Pooljoy"], Guardian.children.alphabetical.all.map(&:last_name)
-	
-	#destroy temporary factories
-	@household.destroy
-	@mary_guardian.destroy
-	@nantucket.destroy
-	@percy.destroy
       end
   end
 	
