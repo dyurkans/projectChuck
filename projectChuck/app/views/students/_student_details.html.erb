@@ -24,7 +24,7 @@
 </p>
 
 <p>
-  <b>T-shirt Size</b> <%= Registration::SIZE_LIST[@registration.t_shirt_size][0] %>
+  <b>T-shirt Size</b> <%= Registration::SIZE_LIST[@registration.t_shirt_size][0] unless @registration.nil? %>
 </p>
 
 <!--              Team                         -->
@@ -34,7 +34,7 @@
 </p>
 
 <p>
-  <b>Team:</b> <%= @team.name.nil? ? "---" : @team.name %>
+  <b>Team:</b> <%= @team.nil? ? "---" : @team.name %>
 </p>
 
 <p>
@@ -86,7 +86,7 @@
 </p>
 
 <p>
-  <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") %> Link to Physical goes here
+  <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") unless @registration.nil? %> Link to Physical goes here
 </p>
 
 <p>
