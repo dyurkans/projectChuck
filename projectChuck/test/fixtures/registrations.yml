@@ -8,7 +8,6 @@ one:
   physical: MyString
   physical_date: 2014-03-12
   t_shirt_size: 1
-  date: 2014-03-12
   active: false
 
 two:
@@ -19,5 +18,4 @@ two:
   physical: MyString
   physical_date: 2014-03-12
   t_shirt_size: 1
-  date: 2014-03-12
   active: false
