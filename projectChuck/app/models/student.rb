@@ -51,6 +51,8 @@ class Student < ActiveRecord::Base
   scope :has_allergies, where('allergies <> ""')
   scope :needs_medication, where('medications <> ""')
   scope :seniors, where('grade_integer = ?', 13)
+  # How to tie in info from registration from the other forms?
+  scope :without_forms, where('birth_certificate = ?', nil)
 
   # Replaced with gender method GENDER_LIST = [["Male", true], ["Female", false]]
   #add list of security questions
@@ -62,7 +64,7 @@ class Student < ActiveRecord::Base
 
   def self.qualifies_for_bracket(bracket_id)
     bracket = Bracket.find(bracket_id)
-    if (bracket.gender = true)
+    if (bracket.gender)
       Student.ages_between(bracket.min_age, bracket.max_age).male
     else
       Student.ages_between(bracket.min_age, bracket.max_age).female
