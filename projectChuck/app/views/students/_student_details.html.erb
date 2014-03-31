@@ -20,7 +20,7 @@
 </p>
 
 <p>
-  <b>CT-shirt Size</b> <%= @student.registration.t_shirt_size %>
+  <b>T-shirt Size</b> <%= @registration.t_shirt_size %>
 </p>
 
 <!--              Team                         -->
@@ -30,11 +30,11 @@
 </p>
 
 <p>
-  <b>Team:</b> <%= @student.registration.team.name.nil? ? "---" : student.team.name %>
+  <b>Team:</b> <%= @team.name.nil? ? "---" : @team.name %>
 </p>
 
 <p>
-  <b>Bracket:</b> <%= @student.registration.team.bracket.nil? ? "---" : "#{@student.registration.team.bracket.min_age} - #{@student.registration.team.bracket.max_age}" %>
+  <b>Bracket:</b> <%= @bracket.nil? ? "---" : "#{@bracket.min_age} - #{@bracket.max_age}" %>
 </p>
 
 <p>
@@ -56,50 +56,16 @@
 </p>
 
 <p>
-  <b>Report Card Submitted:</b> <%= @student.registration.missing_report_card ? "No" : "Yes" %> Link to Report Card goes here
+  <b>Report Card Submitted:</b> <%= @registration.missing_report_card ? "No" : "Yes" %> Link to Report Card goes here
 </p>
 
-<!--              Guardian                         -->
+<!--              Guardian Details                        -->
 
 <p>
 	<h3>Guardian Information</h3>
 </p>
 
-<p>
-  <b>Name:</b> <%= @student.guardian.name %>
-</p>
-
-<p>
-  <b>Date of Birth:</b> <%= @student.guardian.dob.strftime("%m/%d/%y") %>
-</p>
-
-<p>
-  <b>Gender:</b> <%= @student.guardian.sex %>
-</p>
-
-<p>
-  <b>Address:</b> <%= @student.household.full_address %>
-</p>
-
-<p>
-  <b>Day Phone:</b> <%= number_to_phone @student.guardian.day_phone unless @student.guardian.day_phone.nil? %>
-</p>
-
-<p>
-  <b>Cell Phone:</b> <%= number_to_phone @student.guardian.cell_phone unless @student.guardian.cell_phone.nil? %>
-</p>
-
-<p>
-  <b>Home Phone:</b> <%= number_to_phone @student.guardian.home_phone unless @student.guardian.home_phone.nil? %>
-</p>
-
-<p>
-  <b>Email:</b> <%= @student.guardian.email unless @student.guardian.email.nil? %>
-</p>
-
-<p>
-  <b>Recieve Text Notifications:</b> <%= @student.registration.receive_texts ? "Yes" : "No" %>
-</p>
+<% guardians.each do |guardian| %> <%= @render :partial => "guardian_details", :locals{:g => guardian, :h => @household, :r => @registration } %> <% end %>
 
 <!--              Medical                         -->
 
@@ -120,19 +86,19 @@
 </p>
 
 <p>
-  <b>Family Physician</b> <%= @student.household.family_physician %>
+  <b>Family Physician</b> <%= @household.family_physician %>
 </p>
 
 <p>
-  <b>Family Physician Phone</b> <%= @student.household.physician_phone %>
+  <b>Family Physician Phone</b> <%= @shousehold.physician_phone %>
 </p>
 
 <p>
-  <b>Insurance Policy Provider</b> <%= @student.household.insurance_provider %>
+  <b>Insurance Policy Provider</b> <%= @household.insurance_provider %>
 </p>
 
 <p>
-  <b>Insurance Policy Number</b> <%= @student.household.insurance_policy_no %> Link to Insurance Card goes here
+  <b>Insurance Policy Number</b> <%= @household.insurance_policy_no %> Link to Insurance Card goes here
 </p>
 
 <p>

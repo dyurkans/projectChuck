@@ -11,7 +11,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @students = Student.active.alphabetical.paginate(:page => params[:page]).per_page(10)
     @inactive_students = Student.inactive.alphabetical.paginate(:page => params[:page]).per_page(10)
-    @registration = @student.registrations.reg_order[0]
+    @registrations = @student.registrations.reg_order[0]
     @bracket = @team.bracket
 
   end
@@ -22,7 +22,7 @@ class StudentsController < ApplicationController
     @registration = @student.registrations.reg_order[0]
     @team = Team.find_by_id(@registration.team_id)
     @bracket = Bracket.find_by_id(@team.bracket_id)
-    @guardian = @student.guardians
+    @guardians = @student.guardians
 
   end
   
