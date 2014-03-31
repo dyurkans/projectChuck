@@ -10,13 +10,14 @@ class TeamsController < ApplicationController
   
   def index
     @teams = Team.alphabetical.paginate(:page => params[:page]).per_page(10)
+
   
   end
   
   def show
   	@team = Team.find(params[:id])
-
-
+  	@bracket = Bracket.find_by_id(@team.bracket_id) unless @team.nil?
+  	@registrations = @team.registrations unless @team.registrations.nil 
   end
   
   def create
