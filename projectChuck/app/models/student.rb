@@ -64,6 +64,13 @@ class Student < ActiveRecord::Base
     (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i
   end
 
+  #I added this for purposes of the populate script
+  #I think this is useful for validating brackets as well
+  def self.ages_between(low_age,high_age)
+    high_age ||= 18
+    where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
+  end
+  
   #insert age as of june 1 method
   
   def sex
