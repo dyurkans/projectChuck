@@ -3,7 +3,7 @@ FactoryGirl.define do
 	factory :student do
 		first_name "Ed"
 		last_name "Gruberman"
-		dob 16.years.ago.to_date
+		dob 14.years.ago.to_date
 		cell_phone { rand(10 ** 10).to_s.rjust(10,'0') }
 		school "Brentwood High School"
 		school_county "Allegheny"
@@ -12,8 +12,8 @@ FactoryGirl.define do
 		emergency_contact_name "Mary Gruberman"
 		emergency_contact_phone { rand(10 ** 10).to_s.rjust(10,'0') }
 		birth_certificate "documents/birth_certificates/EGruberman.pdf"
-		allergies "none"
-		medications	"none"
+		allergies nil
+		medications nil
 		security_question 0
 		security_response "Fido"
 		active true
@@ -24,7 +24,6 @@ FactoryGirl.define do
 		proof_of_insurance "documents/proof_of_insurance/EGruberman.pdf"
 		physical "documents/physical/EGruberman.pdf"
 		physical_date 3.months.ago.to_date
-		date Date.today
 		t_shirt_size 2
 		active true
 	end
@@ -59,7 +58,8 @@ FactoryGirl.define do
 		dob 40.years.ago.to_date
 		cell_phone { rand(10 ** 10).to_s.rjust(10,'0') } 
 		day_phone { rand(10 ** 10).to_s.rjust(10,'0') }
-		receive_text_messages true
+    household_id 3
+		receive_texts true
 		email "marygruberman@example.com"
 		gender false
 		active true

@@ -19,10 +19,6 @@ class Guardian < ActiveRecord::Base
   scope :alphabetical, order('last_name, first_name')
   scope :active, where('guardians.active = ?', true)
   scope :inactive, where('guardians.active = ?', false)
-  #double check this scope below (PROF. H NOTE: Not needed b/c of relationship above that I added)
-  # scope :children, joins(:household, :student).where('student.household_id => ?', household_id)
-
-  #Replaced with gender method. GENDER_LIST = [["Male", true], ["Female", false]]
 
   # Other methods
   def name

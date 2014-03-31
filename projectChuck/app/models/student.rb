@@ -8,9 +8,9 @@ class Student < ActiveRecord::Base
   has_many :guardians, through: :household
 
   #Validations (email commented out b/c not in the database)
-  validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :birth_certificate
+  validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :birth_certificate, :security_response, :security_question, :grade_integer
   validates_date :dob, :on_or_before => 7.years.ago.to_date, :after => 19.years.ago.to_date, :message => "must be between the ages of 7 and 18 included"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
-  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
+  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true
   validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
   # validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
   validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
@@ -19,12 +19,15 @@ class Student < ActiveRecord::Base
   #validates_inclusion_of :security_response, :in => SECURITY_RESPONSES.map() #Need to check how mapping works
   #Add these tests to student_test file
   validates_numericality_of :household_id, :only_integer => true, :greater_than => 0
+  validates_numericality_of :grade_integer, :only_integer => true, :greater_than => 0, :less_than => 14
 
-  SECURITY_QUESTIONS = [["What was the name of your first pet?",0], ["What is your mother's maiden name?",1],
-                        ["What's your mother's middle name?",2], ["What city were you born in?",3],
-                        ["What was the name of your first church?",4]]
-  #SECURITY_RESPONSES = [[], [], [], [], [], []]
   #security questions: "What was the name of your first pet", ""
+  SECURITY_QUESTIONS = [["What was the name of your first pet?",0], ["What is your mother's maiden name?",1],
+                        ["What was the name of your first church?",2]
+  
+  GENDER_LIST = [["Male", true], ["Female", false]]
+  GRADES_LIST = [["First",1],["Second",2], ["Third",3],["Fourth",4],["Fifth",5],["Sixth",6],["Seventh",7],["Eigth",8],
+                 ["Freshman",9],["Sophomore",10],["Junior",11],["Senior",12],["Graduated Senior",13]]
 
   # Scopes
   scope :alphabetical, order('last_name, first_name')
@@ -33,16 +36,16 @@ class Student < ActiveRecord::Base
   scope :female, where('students.gender = ?', false)
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
+  scope :by_grade, order('grade_integer')
+  scope :grade, lambda {|grade_integer| where("grade_integer = ?", grade_integer)}
+  scope :by_county, order('county');
+
   scope :by_school, order('school')
   scope :by_county, order('school_county')
   #by_grade
+  scope :grade, lambda {|grade_integer| where("grade_integer = ?", grade_integer)}
 
-  # Replaced with gender method GENDER_LIST = [["Male", true], ["Female", false]]
-  GENDER_LIST = [["Male", true], ["Female", false]]
-  GRADES_LIST = [["First",1],["Second",2], ["Third",3],["Fourth",4],["Fifth",5],["Sixth",6],["Seventh",7],["Eigth",8],
-                 ["Freshman",9],["Sophomore",10],["Junior",11],["Senior",12],["Graduated Senior",13]]
-  
-  #add list of security questions
+
 
   # Other methods
   def name
@@ -58,12 +61,18 @@ class Student < ActiveRecord::Base
     (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i
   end
 
+  #I added this for purposes of the populate script
+  #I think this is useful for validating brackets as well
+  def self.ages_between(low_age,high_age)
+    high_age ||= 18
+    where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
+  end
+  
   #insert age as of june 1 method
-
+  
   def sex
     return "Male" if gender == true
     "Female"
-  end 
 
   def gender_name
     GENDER_LIST.map{|genders| genders[1] == gender}

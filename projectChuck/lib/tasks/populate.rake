@@ -5,9 +5,18 @@ namespace :db do
   task :populate => :environment do
     # Docs at: http://faker.rubyforge.org/rdoc/
     require 'faker'
+    
+#     [Tournament, Registration, Student, Guardian, Household, User, Bracket, Team].each(&:delete_all)
 
-    # Create 100 households
-    100.times do |i|
+    #Create a tournament
+    tourn = Tournament.new
+    tourn.start_date = Date.today
+    tourn.end_date = tourn.start_date + 3.months
+    tourn.save!
+    
+    
+    # Create 70 households
+    70.times do |i|
       h = Household.new
       h.street = Faker::Address.street_address
       h.city = Faker::Address.city
@@ -85,6 +94,117 @@ namespace :db do
         g.active = true
         if g.save!
           puts "Adding guardian #{g.proper_name} to household"
+        end
+      end
+    end
+
+    
+    index_of_team_to_be_created = 0
+    team_names = Registration::TEAMS_LIST.map{|team| team[0]}
+    
+    #Create 4 boys brackets
+    4.times do |k|
+      b = Bracket.new
+      min_age = 7
+      max_age = 9
+      b.min_age = min_age
+      b.max_age = max_age
+      b.gender = true
+      b.tournament_id = tourn.id
+      min_age += 3
+      max_age += 3
+      b.save!
+      puts "Added boys bracket with minimum age #{b.min_age} and maximum age #{b.max_age}"
+      
+      eligible_boy_students = Student.active.male.ages_between(b.min_age,b.max_age)
+      #not doing anything for students left not on a team here
+      num_teams_to_create = eligible_boy_students.size / 10
+      num_teams_created = 0
+      while num_teams_created < num_teams_to_create do
+        #add new team
+        t = Team.new
+        if index_of_team_to_be_created < team_names.size
+          t.name = team_names[index_of_team_to_be_created]
+        else
+          t.name = team_names[index_of_team_to_be_created % team_names.size] +
+              index_of_team_to_be_created
+        end
+        t.max_students = 10
+        t.bracket_id = b.id
+        t.save!
+        puts "Added team #{t.name}"
+        num_teams_created += 1
+        index_of_team_to_be_created += 1
+            
+        for current_student_index in 0..t.max_students-1 do
+          student = eligible_boy_students[current_student_index]
+          #add new registration
+          r = Registration.new
+          weeks_old = (0..52).to_a.sample
+          r.physical = "#{student.last_name}physical.pdf"
+          r.physical_date = weeks_old.months.ago.to_date
+          r.proof_of_insurance = "#{student.last_name}insurance.pdf"
+          r.report_card = "#{student.last_name}report_card.pdf"
+          r.student_id = student.id
+          r.t_shirt_size = (1..6).to_a.sample
+          r.team_id = t.id
+          r.active = true
+          r.save!
+          puts "Registered #{student.proper_name} to the #{t.name}"
+        end
+      end
+    end
+    
+    #Create 2 girls brackets
+     2.times do |l|
+      b = Bracket.new
+      min_age = 7
+      max_age = 12
+      b.min_age = min_age
+      b.max_age = max_age
+      b.gender = false
+      b.tournament_id = tourn.id
+      min_age += 6
+      max_age += 6
+      b.save!
+      puts "Added girls bracket with minimum age #{b.min_age} and maximum age #{b.max_age}"
+      
+      eligible_girl_students = Student.active.female.ages_between(b.min_age,b.max_age)
+      #not doing anything for students left not on a team here
+      num_teams_to_create = eligible_girl_students.size / 10
+      num_teams_created = 0
+      while num_teams_created < num_teams_to_create do
+        #add new team
+        t = Team.new
+        if index_of_team_to_be_created < team_names.size
+          t.name = team_names[index_of_team_to_be_created]
+        else
+          t.name = team_names[index_of_team_to_be_created % team_names.size] +
+              index_of_team_to_be_created
+        end
+        t.max_students = 10
+        t.bracket_id = b.id
+        t.save!
+        puts "Added team #{t.name}"
+
+        num_teams_created += 1
+        index_of_team_to_be_created += 1
+            
+        for current_student_index in 0..t.max_students-1 do
+          student = eligible_girl_students[current_student_index]
+          #add new registration
+          r = Registration.new
+          days_old = (0..360).to_a.sample
+          r.physical = "#{student.last_name}physical.pdf"
+          r.physical_date = days_old.months.ago.to_date
+          r.proof_of_insurance = "#{student.last_name}insurance.pdf"
+          r.report_card = "#{student.last_name}report_card.pdf"
+          r.student_id = student.id
+          r.t_shirt_size = (1..6).to_a.sample
+          r.team_id = t.id
+          r.active = true
+          r.save!
+          puts "Registered #{student.proper_name} to the #{t.name}"
         end
       end
     end

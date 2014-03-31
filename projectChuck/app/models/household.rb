@@ -24,6 +24,7 @@ class Household < ActiveRecord::Base
   	validates_format_of :physician_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
   	#regex for policy number?
   	validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
+  	# validates_format_of :family_physician, :with => /
 
 
 	# Other methods
