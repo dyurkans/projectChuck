@@ -29,9 +29,8 @@ class Team < ActiveRecord::Base
   end
 
   def remaining_spots
-  	max_students - self.registrations.size()
+  	registrations = Registration.where(team_id = id)
+  	max_students - registrations.size()
   end
-
-
 
 end

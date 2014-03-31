@@ -1,0 +1,31 @@
+<% if @teams.empty? %>
+  &nbsp;&nbsp;<em>None at this time</em>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+  			<th>Bracket</th>
+  			<th>Number of Playerx</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @teams.each do |team| %>
+        <tr>
+          <% bracket = Bracket.find_by_id(team.bracket_id) %>
+          <td><%= link_to team.name, team_path(team) %></td>
+  				<td><%= bracket.nil? ? "---" : "#{bracket.gender} #{bracket.min_age} - #{bracket.max_age}" %></td>
+          <td><%= team.max_students - team.remaining_spots %></td>
+          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_team_path(team), :class => 'btn btn-mini' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="digg_pagination">
+    <div clas="page_info">
+      <%= page_entries_info @teams %>
+    </div>
+    <%= will_paginate @teams, :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
+  </div>
+<% end %>
