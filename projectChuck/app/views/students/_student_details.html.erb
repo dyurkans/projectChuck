@@ -8,7 +8,11 @@
 </p>
 
 <p>
-  <b>Date of Birth:</b> <%= @student.dob.strftime("%m/%d/%y") %> Link to Birth Certificate goes here.
+  <b>Date of Birth:</b> <%= @student.dob.strftime("%B %d, %Y") %> Link to Birth Certificate goes here.
+</p>
+
+<p>
+  <b>Age (as of June 1st): </b> <%= @student.age_as_of_june_1 %>
 </p>
 
 <p>
@@ -20,7 +24,7 @@
 </p>
 
 <p>
-  <b>T-shirt Size</b> <%= @registration.t_shirt_size %>
+  <b>T-shirt Size</b> <%= Registration::SIZE_LIST[@registration.t_shirt_size][0] %>
 </p>
 
 <!--              Team                         -->
@@ -56,7 +60,7 @@
 </p>
 
 <p>
-  <b>Report Card Submitted:</b> <%= @registration.missing_report_card ? "No" : "Yes" %> Link to Report Card goes here
+  <b>Report Card Submitted:</b> <%= @student.missing_report_card ? "No" : "Yes" %> Link to Report Card goes here
 </p>
 
 <!--              Guardian Details                        -->
@@ -65,7 +69,7 @@
 	<h3>Guardian Information</h3>
 </p>
 
-<% guardians.each do |guardian| %> <%= @render :partial => "guardian_details", :locals{:g => guardian, :h => @household, :r => @registration } %> <% end %>
+<% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
 
 <!--              Medical                         -->
 
@@ -82,7 +86,7 @@
 </p>
 
 <p>
-  <b>Last Physical:</b> <%= @student.physical_date.strftime("%m/%d/%y") %> Link to Physical goes here
+  <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") %> Link to Physical goes here
 </p>
 
 <p>
@@ -90,7 +94,7 @@
 </p>
 
 <p>
-  <b>Family Physician Phone</b> <%= @shousehold.physician_phone %>
+  <b>Family Physician Phone</b> <%= @household.physician_phone %>
 </p>
 
 <p>

@@ -24,7 +24,7 @@
 </p>
 
 <p>
-  <b>Home Phone:</b> <%= number_to_phone g.home_phone unless g.home_phone.nil? %>
+  <b>Home Phone:</b> <%= number_to_phone h.home_phone unless h.home_phone.nil? %>
 </p>
 
 <p>
@@ -32,5 +32,5 @@
 </p>
 
 <p>
-  <b>Recieve Text Notifications:</b> <%= r.receive_texts ? "Yes" : "No" %>
+  <b>Recieve Text Notifications:</b> <%= g.receive_texts ? "Yes" : "No" %>
 </p>

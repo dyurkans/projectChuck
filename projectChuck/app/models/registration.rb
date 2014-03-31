@@ -63,13 +63,6 @@ class Registration < ActiveRecord::Base
     end
   end
 
-
-  #insert age as of june 1 method
-  def age_as_of_june_1
-  	return nil if self.student.dob.blank?
-  	(Date.new(self.date.year, 6, 1).to_time.to_s(:number).to_i - self.student.dob.to_time.to_s(:number).to_i)/10e9.to_i
-  end
-
   def registration_is_not_already_in_system
     return true if self.student_id.nil? || self.team_id.nil? # should be caught by other validations; no double error
     possible_repeat = Registration.where(team_id: team_id, student_id: student_id)

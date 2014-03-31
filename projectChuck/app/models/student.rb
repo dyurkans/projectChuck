@@ -78,6 +78,18 @@ class Student < ActiveRecord::Base
   def gender_name
     GENDER_LIST.map{|genders| genders[1] == gender}
   end
+  
+  def missing_report_card
+    if !self.registrations.nil?
+      self.registrations.reg_order[0].report_card.nil?
+    end
+  end
+  
+  #insert age as of june 1 method
+  def age_as_of_june_1
+    return nil if self.dob.blank?
+    (Date.new(Date.today.year, 6, 1).to_time.to_s(:number).to_i - self.dob.to_time.to_s(:number).to_i)/10e9.to_i
+  end
 
   # Private methods
   private
