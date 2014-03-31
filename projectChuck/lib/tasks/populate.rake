@@ -121,13 +121,14 @@ namespace :db do
       num_teams_to_create = eligible_boy_students.size / 10
       num_teams_created = 0
       while num_teams_created < num_teams_to_create do
+        team_name = team_names[index_of_team_to_be_created]
         #add new team
         t = Team.new
         if index_of_team_to_be_created < team_names.size
-          t.name = team_names[index_of_team_to_be_created]
+          t.name = team_name
         else
-          t.name = team_names[index_of_team_to_be_created % team_names.size] +
-              index_of_team_to_be_created
+          team_name = team_names[index_of_team_to_be_created % team_names.size]
+          t.name = "%s %d" % [team_name, index_of_team_to_be_created]
         end
         t.max_students = 10
         t.bracket_id = b.id
@@ -174,13 +175,14 @@ namespace :db do
       num_teams_to_create = eligible_girl_students.size / 10
       num_teams_created = 0
       while num_teams_created < num_teams_to_create do
+        team_name = team_names[index_of_team_to_be_created]
         #add new team
         t = Team.new
         if index_of_team_to_be_created < team_names.size
-          t.name = team_names[index_of_team_to_be_created]
+          t.name = team_name
         else
-          t.name = team_names[index_of_team_to_be_created % team_names.size] +
-              index_of_team_to_be_created
+          team_name = team_names[index_of_team_to_be_created % team_names.size]
+          t.name = "%s %d" % [team_name, index_of_team_to_be_created]
         end
         t.max_students = 10
         t.bracket_id = b.id
