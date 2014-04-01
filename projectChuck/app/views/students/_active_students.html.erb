@@ -13,15 +13,18 @@
       </tr>
     </thead>
     <tbody>
-      <% @students.each do |student| %>
+      <% @students.each do |stu| %>
         <tr>
+          <% student = Student.find(stu.id) %>
+          <% registration = student.registrations.reg_order[0] unless student.registrations.reg_order[0].nil? %>
+          <% team = Team.find_by_id(registration.team_id) unless registration.nil? %>
+          <% bracket = Bracket.find_by_id(team.bracket_id) unless team.nil? %>
           <td><%= link_to student.name, student_path(student) %></td>
-          <td><%= student.date_of_birth.nil? ? "---" : student.age  %></td>
-          <td><%= student.team.nil? ? "---" : student.team.name  %></td>
-  				<td><%= student.bracket.nil? ? "---" : "#{@student.registration.team.bracket.min_age} - #{@student.registration.team.bracket.max_age}" %></td>
-          <td><%= student.registration.missing_doc ? "Yes" : "No" %></td>
-          <%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %>
-          </td>
+          <td><%= student.dob.nil? ? "---" : student.age  %></td>
+          <td><%= team.nil? ? "---" : team.name  %></td>
+  				<td><%= bracket.nil? ? "---" : "#{bracket.min_age} - #{bracket.max_age}" %></td>
+          <td><%= if student.registrations.reg_order[0].nil? then "---" else student.registrations.reg_order[0].missing_doc ? "Yes" : "No"  end%></td>
+          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
         </tr>
       <% end %>
     </tbody>

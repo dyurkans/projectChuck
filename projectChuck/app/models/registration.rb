@@ -74,5 +74,9 @@ class Registration < ActiveRecord::Base
     end
   end
 
+  def missing_doc
+    return true if self.proof_of_insurance.nil? || self.physical.nil? || self.report_card.nil?
+  end
+
 
 end
