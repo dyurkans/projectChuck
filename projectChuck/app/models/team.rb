@@ -10,13 +10,13 @@ class Team < ActiveRecord::Base
                 ["New Orleans Pelicans",18],["New York Knicks",19],["Oklahoma City Thunder",20],
                 ["Orlando Magic",21],["Philadelphia 76ers",22],["Phoenix Suns",23],
                 ["Portland Trail Blazers",24],["Sacramento Kings",25],["San Antonio Spurs",26],
-                ["Toronto Raptors",27],["Utah Jazz",28],["Washington Wizards",30]]
+                ["Toronto Raptors",27],["Utah Jazz",28],["Washington Wizards",29]]
 
   belongs_to :bracket
   has_many :students, :through => :registrations
 
   validates_numericality_of :bracket_id, :only_integer => true, :greater_than => 0
-  validates_inclusion_of :name, :in => TEAMS_LIST, :message => "must be proper team name"
+  validates_inclusion_of :name, :in => TEAMS_LIST.map{ |t| t[0]}, :message => "must be proper team name"
   validates_numericality_of :max_students, :only_integer => true, :greater_than => 2
   validate :max
 
