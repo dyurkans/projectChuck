@@ -4,7 +4,6 @@ class Student < ActiveRecord::Base
   # Relationships
   belongs_to :household
   has_many :registrations
-  has_many :teams, :through => :registrations
   has_many :guardians, through: :household
 
   #Validations (email commented out b/c not in the database)

@@ -13,6 +13,7 @@ class Team < ActiveRecord::Base
                 ["Toronto Raptors",27],["Utah Jazz",28],["Washington Wizards",29]]
 
   belongs_to :bracket
+  has_many :registrations
   has_many :students, :through => :registrations
 
   validates_numericality_of :bracket_id, :only_integer => true, :greater_than => 0
