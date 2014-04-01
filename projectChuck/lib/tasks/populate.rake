@@ -45,7 +45,7 @@ namespace :db do
         else
           s.last_name = household_last_name
         end
-        months_old = (100..180).to_a.sample
+        months_old = (96..216).to_a.sample
         s.dob = months_old.months.ago.to_date
         s.cell_phone = rand(10 ** 10).to_s.rjust(10,'0')
         s.school = "#{h.city} School"
@@ -120,6 +120,7 @@ namespace :db do
       MAX_BOY_STUDENTS = 10
       #not doing anything for students left not on a team here
       num_teams_to_create = eligible_boy_students.size / MAX_BOY_STUDENTS
+      puts "Creating #{num_teams_to_create} teams"
       num_teams_created = 0
       index_of_current_boy_student = 0
       while num_teams_created < num_teams_to_create do
@@ -139,15 +140,15 @@ namespace :db do
         num_teams_created += 1
         index_of_team_to_be_created += 1
             
-        while index_of_current_boy_student < t.max_students do
+        while index_of_current_boy_student < (t.max_students)*(num_teams_created) do
           student = eligible_boy_students[index_of_current_boy_student]
           #add new registration
           r = Registration.new
           weeks_old = (0..52).to_a.sample
-          r.physical = "#{student.last_name}physical.pdf"
+          r.physical.store!(File.open(File.expand_path("./public/example_files/physical.pdf")))
           r.physical_date = weeks_old.months.ago.to_date
-          r.proof_of_insurance = "#{student.last_name}insurance.pdf"
-          r.report_card = "#{student.last_name}report_card.pdf"
+          r.proof_of_insurance.store!(File.open(File.expand_path("./public/example_files/insurance.pdf")))
+          r.report_card.store!(File.open(File.expand_path("./public/example_files/report_card.pdf")))
           r.student_id = student.id
           r.t_shirt_size = (1..6).to_a.sample
           r.team_id = t.id
@@ -177,6 +178,7 @@ namespace :db do
       #not doing anything for students left not on a team here
       MAX_GIRL_STUDENTS = 10
       num_teams_to_create = eligible_girl_students.size / MAX_GIRL_STUDENTS
+      puts "Creating #{num_teams_to_create} teams"
       num_teams_created = 0
       index_of_current_girl_student = 0
       while num_teams_created < num_teams_to_create do
@@ -197,15 +199,15 @@ namespace :db do
         num_teams_created += 1
         index_of_team_to_be_created += 1
             
-        while index_of_current_girl_student < t.max_students do
+        while index_of_current_girl_student < (t.max_students)*(num_teams_created) do
           student = eligible_girl_students[index_of_current_girl_student]
           #add new registration
           r = Registration.new
           days_old = (0..360).to_a.sample
-          r.physical = "#{student.last_name}physical.pdf"
+          r.physical.store!(File.open(File.expand_path("./public/example_files/physical.pdf")))
           r.physical_date = days_old.months.ago.to_date
-          r.proof_of_insurance = "#{student.last_name}insurance.pdf"
-          r.report_card = "#{student.last_name}report_card.pdf"
+          r.proof_of_insurance.store!(File.open(File.expand_path("./public/example_files/insurance.pdf")))
+          r.report_card.store!(File.open(File.expand_path("./public/example_files/report_card.pdf")))
           r.student_id = student.id
           r.t_shirt_size = (1..6).to_a.sample
           r.team_id = t.id
