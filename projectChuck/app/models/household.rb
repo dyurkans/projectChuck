@@ -24,11 +24,11 @@ class Household < ActiveRecord::Base
 	validates_inclusion_of :state, :in => STATES_LIST.map {|k, v| v}, :message => "is not a recognized state in the system"
 	validates_format_of :zip, :with => /^\d{5}$/, :message => "should be five digits long"
 	validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
-  	validates_format_of :home_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
+  	validates_format_of :home_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true
   	validates_format_of :physician_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
   	#regex for policy number?
   	validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
-  	validates_format_of :family_physician, :with => /(Dr\.|Dr|Doctor)?[\w]{2,}/
+  	validates_format_of :family_physician, :with => /((Dr\.|Dr|Doctor)\s)?([^\d\s]+\s?){2,}(\, M\.D\.)?/i
 
 
 	# Other methods
