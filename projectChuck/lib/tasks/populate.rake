@@ -153,6 +153,7 @@ namespace :db do
           r.t_shirt_size = (1..6).to_a.sample
           r.team_id = t.id
           r.active = true
+          r.created_at = (0..56).to_a.sample.days.ago.to_date
           r.save!
           index_of_current_boy_student += 1
           puts "Registered #{student.proper_name} to the #{t.name}"
@@ -212,6 +213,7 @@ namespace :db do
           r.t_shirt_size = (1..6).to_a.sample
           r.team_id = t.id
           r.active = true
+          r.created_at = (0..56).to_a.sample.days.ago.to_date
           r.save!
           index_of_current_girl_student += 1
           puts "Registered #{student.proper_name} to the #{t.name}"
