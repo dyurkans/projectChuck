@@ -6,7 +6,7 @@ namespace :db do
     # Docs at: http://faker.rubyforge.org/rdoc/
     require 'faker'
     
-#     [Tournament, Registration, Student, Guardian, Household, User, Bracket, Team].each(&:delete_all)
+    [Tournament, Registration, Student, Guardian, Household, User, Bracket, Team].each(&:delete_all)
 
     #Create a tournament
     tourn = Tournament.new

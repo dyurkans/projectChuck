@@ -24,7 +24,7 @@
 </p>
 
 <p>
-  <b>T-shirt Size</b> <%= if !@registration.nil? then Registration::SIZE_LIST[@registration.t_shirt_size][0] else "---" end %>
+  <b>T-shirt Size</b> <%= if !@registration.nil? then Registration::SIZE_LIST.map{ |t| t[0]}[@registration.t_shirt_size - 1]  else "---" end %>
 </p>
 
 <!--              Team                         -->
