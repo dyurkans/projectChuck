@@ -1,0 +1,2 @@
+class BracketsController < ApplicationController
+end

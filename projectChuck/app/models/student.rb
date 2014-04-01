@@ -79,7 +79,7 @@ class Student < ActiveRecord::Base
   end
   
   def missing_report_card
-    if !self.registrations.nil?
+    if   !self.registrations.nil? && self.registrations != []
       self.registrations.reg_order[0].report_card.nil?
     end
   end

@@ -16,9 +16,9 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
     @household = Household.find_by_id(@student.household_id)
-    @registration = @student.registrations.reg_order[0]
-    @team = Team.find_by_id(@registration.team_id)
-    @bracket = Bracket.find_by_id(@team.bracket_id)
+    @registration = @student.registrations.reg_order[0] 
+    @team = Team.find_by_id(@registration.team_id) unless @registration.nil?
+    @bracket = Bracket.find_by_id(@team.bracket_id) unless @team.nil?
     @guardians = @student.guardians
 
   end
