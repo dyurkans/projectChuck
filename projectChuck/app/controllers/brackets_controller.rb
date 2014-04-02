@@ -22,7 +22,7 @@ class BracketsController < ApplicationController
     if @bracket.save
       # if saved to database
       flash[:notice] = "Successfully created #{@bracket.name} bracket."
-      redirect_to @bracket # go to show team page
+      redirect_to @bracket # go to show bracket page
     else
       # return to the 'new' form
       render :action => 'new'
@@ -31,7 +31,7 @@ class BracketsController < ApplicationController
   
   def update
     @bracket = Bracket.find(params[:id])
-    if @bracket.update_attributes(params[:team])
+    if @bracket.update_attributes(params[:bracket])
       flash[:notice] = "Successfully updated #{@bracket.name} bracket."
       redirect_to @bracket
     else
@@ -40,7 +40,7 @@ class BracketsController < ApplicationController
   end
   
   def destroy
-    @bracket = Team.find(params[:id])
+    @bracket = Bracket.find(params[:id])
     @bracket.destroy
     flash[:notice] = "Successfully removed #{@bracket.name} bracket from the Project C.H.U.C.K. System"
     redirect_to brackets_url
