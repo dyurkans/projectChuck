@@ -21,8 +21,8 @@
           <% bracket = Bracket.find_by_id(team.bracket_id) unless team.nil? %>
           <td><%= link_to student.name, student_path(student) %></td>
           <td><%= student.dob.nil? ? "---" : student.age  %></td>
-          <td><%= team.nil? ? "---" : team.name  %></td>
-  				<td><%= bracket.nil? ? "---" : "#{bracket.min_age} - #{bracket.max_age}" %></td>
+          <td><%= team.nil? ? "---" : (link_to team.name, team_path(team))  %></td>
+  				<td><%= bracket.nil? ? "---" : (link_to "#{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket)) %></td>
           <td><%= if student.registrations.reg_order[0].nil? then "---" else student.registrations.reg_order[0].missing_doc ? "Yes" : "No"  end%></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
         </tr>
