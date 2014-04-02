@@ -6,7 +6,9 @@ namespace :db do
     # Docs at: http://faker.rubyforge.org/rdoc/
     require 'faker'
     
+    puts "Deleting all previously made entities..."
     [Tournament, Registration, Student, Guardian, Household, User, Bracket, Team].each(&:delete_all)
+    puts "All previously made entities have been deleted!"
 
     #Create a tournament
     tourn = Tournament.new
@@ -99,8 +101,8 @@ namespace :db do
     end
 
     
-    index_of_team_to_be_created = 0
-    team_names = Registration::TEAMS_LIST.map{|team| team[0]}
+    index_of_boys_team_to_be_created = 0
+    boys_team_names = Team::BOYS_TEAM_LIST.map{|team| team[0]}
     
     boys_min_age = 7
     boys_max_age = 9
@@ -124,21 +126,21 @@ namespace :db do
       num_teams_created = 0
       index_of_current_boy_student = 0
       while num_teams_created < num_teams_to_create do
-        team_name = team_names[index_of_team_to_be_created]
+        team_name = boys_team_names[index_of_boys_team_to_be_created]
         #add new team
         t = Team.new
-        if index_of_team_to_be_created < team_names.size
+        if index_of_boys_team_to_be_created < boys_team_names.size
           t.name = team_name
         else
-          team_name = team_names[index_of_team_to_be_created % team_names.size]
-          t.name = "%s %d" % [team_name, index_of_team_to_be_created]
+          team_name = boys_team_names[index_of_boys_team_to_be_created % boys_team_names.size]
+          t.name = "%s %d" % [team_name, index_of_boys_team_to_be_created]
         end
         t.max_students = MAX_BOY_STUDENTS
         t.bracket_id = b.id
         t.save!
         puts "Added team #{t.name}"
         num_teams_created += 1
-        index_of_team_to_be_created += 1
+        index_of_boys_team_to_be_created += 1
             
         while index_of_current_boy_student < (t.max_students)*(num_teams_created) do
           student = eligible_boy_students[index_of_current_boy_student]
@@ -161,8 +163,11 @@ namespace :db do
       end
     end
     
-      girls_min_age = 7
-      girls_max_age = 12
+    index_of_girls_team_to_be_created = 0
+    girls_team_names = Team::GIRLS_TEAM_LIST.map{|team| team[0]}
+    
+    girls_min_age = 7
+    girls_max_age = 12
     #Create 2 girls brackets
      2.times do |l|
       b = Bracket.new
@@ -183,13 +188,13 @@ namespace :db do
       num_teams_created = 0
       index_of_current_girl_student = 0
       while num_teams_created < num_teams_to_create do
-        team_name = team_names[index_of_team_to_be_created]
+        team_name = girls_team_names[index_of_girls_team_to_be_created]
         #add new team
         t = Team.new
-        if index_of_team_to_be_created < team_names.size
+        if index_of_girls_team_to_be_created < girls_team_names.size
           t.name = team_name
         else
-          team_name = team_names[index_of_team_to_be_created % team_names.size]
+          team_name = girls_team_names[index_of_girls_team_to_be_created % girls_team_names.size]
           t.name = "%s %d" % [team_name, index_of_team_to_be_created]
         end
         t.max_students = MAX_GIRL_STUDENTS
@@ -198,7 +203,7 @@ namespace :db do
         puts "Added team #{t.name}"
 
         num_teams_created += 1
-        index_of_team_to_be_created += 1
+        index_of_girls_team_to_be_created += 1
             
         while index_of_current_girl_student < (t.max_students)*(num_teams_created) do
           student = eligible_girl_students[index_of_current_girl_student]
