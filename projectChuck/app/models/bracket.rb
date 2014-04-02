@@ -12,7 +12,7 @@ class Bracket < ActiveRecord::Base
   validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
 
   scope :by_gender, order('gender')
-  scope :by_age, order('min_age, gender')
+  scope :by_age, order('min_age')
 
   def sex
     return "Male" if gender == true
@@ -24,7 +24,7 @@ class Bracket < ActiveRecord::Base
   end
 
   def name
-  	"#{bracket.sex} #{bracket.min_age} - #{bracket.max_age}"
+  	"#{self.sex} #{self.min_age} - #{self.max_age}"
   end
 
 end
