@@ -12,13 +12,18 @@ class Team < ActiveRecord::Base
                 ["Portland Trail Blazers",24],["Sacramento Kings",25],["San Antonio Spurs",26],
                 ["Toronto Raptors",27],["Utah Jazz",28],["Washington Wizards",29]]
 
+  WOMENS_TEAMS_LIST = [["Atlanta Dream",0],["Chicago Sky",1],["Connecticut Sun",2],
+                ["Indiana Fever",3],["Los Angeles Sparks",4],["Minnesota Lynx",5],
+                ["New York Liberty",6],["Phoenix Mercury",7],["San Antonio Silver Stars", 8],
+                ["Seattle Storm",9],["Tulsa Shock",10],["Washington Mystics",11]]
+
   belongs_to :bracket
   has_many :registrations
   has_many :students, :through => :registrations
 
   validates_numericality_of :bracket_id, :only_integer => true, :greater_than => 0
-  validates_inclusion_of :name, :in => TEAMS_LIST.map{ |t| t[0]}, :message => "must be proper team name"
-  validates_numericality_of :max_students, :only_integer => true, :greater_than => 2
+  validates_inclusion_of :name, :in => TEAMS_LIST.map{ |t| t[0]} || WOMENS_TEAMS_LIST.map{ |t| t[0]}, :message => "must be proper team name"
+  validates_numericality_of :max_students, :only_integer => true, :greater_than => 2, :less_than => 16
   validate :max
 
   scope :alphabetical, order('name')
@@ -26,7 +31,7 @@ class Team < ActiveRecord::Base
 
 
   def max
-  	max_students == 10
+  	max_students <= 15 
   end
 
   def remaining_spots
