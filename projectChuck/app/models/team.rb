@@ -1,3 +1,4 @@
+require 'active_support'
 class Team < ActiveRecord::Base
   attr_accessible :bracket_id, :max_students, :name
   
@@ -22,10 +23,9 @@ class Team < ActiveRecord::Base
   belongs_to :bracket
   has_many :registrations
   has_many :students, :through => :registrations
-
   validates_numericality_of :bracket_id, :only_integer => true, :greater_than => 0
   validates_inclusion_of :name, :in => FULL_TEAM_LIST.map{ |t| t[0]}, :message => "must be proper team name"
-  validates_numericality_of :max_students, :only_integer => true, :greater_than => 2
+  validates_numericality_of :max_students, :only_integer => true, :greater_than => 4, :less_than => 10
   # max may not always be 10
   validate :max
 
@@ -35,7 +35,7 @@ class Team < ActiveRecord::Base
 
   # max may not always be 10
   def max
-  	max_students == 10
+  	max_students <= 10 
   end
 
   def remaining_spots
@@ -43,4 +43,18 @@ class Team < ActiveRecord::Base
   	max_students - current_registrants
   end
 
+  def unassigned_teams
+    all_teams = TEAMS_LIST #2d array
+    assigned_teams = [] #1d array
+    unassigned_teams = []
+    for t in Team.all do
+     assigned_teams << t.name
+    end
+    all_teams.each do |team|
+      if !team[0].in?(assigned_teams)
+        unassigned_teams << team
+      end
+    end
+    return unassigned_teams  
+  end
 end

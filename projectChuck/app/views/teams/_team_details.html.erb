@@ -1,9 +1,13 @@
 <p>
-  <b>Team Name:</b> <%= @team.nil? ? "---" : @team.name %>
+  <b>Team Name:</b> <%= @team.nil? ? "---" : team_name(@team.name) %>
 </p>
 
 <p>
-  <b>Bracket:</b> <%= @bracket.nil? ? "---" : "#{@bracket.gender} #{@bracket.min_age} - #{@bracket.max_age}" %>
+  <b>Bracket:</b> <%= @bracket.nil? ? "---" : "#{@bracket.sex} #{@bracket.min_age} - #{@bracket.max_age}" %>
+</p>
+
+<p>
+	<b>Max Students:</b><%= @team.max_students %>
 </p>
 
 <p>

@@ -106,7 +106,7 @@ namespace :db do
 
     
     index_of_boys_team_to_be_created = 0
-    boys_team_names = Team::BOYS_TEAM_LIST.map{|team| team[0]}
+    boys_team_names = Team::BOYS_TEAM_LIST.map{|team| team[1]
     
     boys_min_age = 7
     boys_max_age = 9
@@ -168,7 +168,7 @@ namespace :db do
     end
     
     index_of_girls_team_to_be_created = 0
-    girls_team_names = Team::GIRLS_TEAM_LIST.map{|team| team[0]}
+    girls_team_names = Team::GIRLS_TEAM_LIST.map{|team| team[1]}
     
     girls_min_age = 7
     girls_max_age = 12
