@@ -87,4 +87,20 @@ module ApplicationHelper
     	"Washington Mystics"
     end
   end
+
+  def unassigned_teams()
+    all_teams = Team::TEAMS_LIST #2d array
+    assigned_teams = [] #1d array
+    unassigned_teams = []
+    for t in Team.all do
+     assigned_teams << t.name
+    end
+    all_teams.each do |team|
+      if !team[0].in?(assigned_teams)
+        unassigned_teams << team
+      end
+    end
+    return unassigned_teams  
+  end
+
 end

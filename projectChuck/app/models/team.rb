@@ -23,7 +23,7 @@ class Team < ActiveRecord::Base
 
   validates_numericality_of :bracket_id, :only_integer => true, :greater_than => 0
   validates_inclusion_of :name, :in => TEAMS_LIST.map{ |t| t[1]}, :message => "must be proper team name"
-  validates_numericality_of :max_students, :only_integer => true, :greater_than => 2, :less_than => 16
+  validates_numericality_of :max_students, :only_integer => true, :greater_than => 2, :less_than => 10
   validate :max
 
   scope :alphabetical, order('name')
@@ -31,7 +31,7 @@ class Team < ActiveRecord::Base
 
 
   def max
-  	max_students <= 15 
+  	max_students <= 10 
   end
 
   def remaining_spots
@@ -39,19 +39,18 @@ class Team < ActiveRecord::Base
   	max_students - current_registrants
   end
 
-  #def unassigned_teams
-   # all_teams = TEAMS_LIST + WOMENS_TEAMS_LIST
-   # unassigned_teams = []
-    #assigned_teams = []
-   # for t in Team.all do
-    #  assigned_teams << [t.name]
-    #end
-   # all_teams.each do |team|
-    #  if !team[0].in?(assigned_teams)
-     #   unassigned_teams << team
-     # end
-   # end
-   # return (all_teams + assigned_teams).uniq
- # end
-
+  def unassigned_teams
+    all_teams = TEAMS_LIST #2d array
+    assigned_teams = [] #1d array
+    unassigned_teams = []
+    for t in Team.all do
+     assigned_teams << t.name
+    end
+    all_teams.each do |team|
+      if !team[0].in?(assigned_teams)
+        unassigned_teams << team
+      end
+    end
+    return unassigned_teams  
+  end
 end
