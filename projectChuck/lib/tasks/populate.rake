@@ -100,7 +100,7 @@ namespace :db do
 
     
     index_of_team_to_be_created = 0
-    team_names = Registration::TEAMS_LIST.map{|team| team[0]}
+    team_names = Registration::TEAMS_LIST.map{|team| team[1]}
     
     boys_min_age = 7
     boys_max_age = 9
