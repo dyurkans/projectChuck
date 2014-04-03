@@ -25,9 +25,13 @@ class Registration < ActiveRecord::Base
                 ["Portland Trail Blazers",24],["Sacramento Kings",25],["San Antonio Spurs",26],
                 ["Toronto Raptors",27],["Utah Jazz",28],["Washington Wizards",30]]
   
+  #Local Variables
+  SIZE_LIST = [[1, 'S'], [2, 'M'], [3, 'L'], [4, 'XL'], [5, 'XXL'], [6, 'XXXL']]
+  
   #Validations
+  validate :student_in_allowable_age_range
   validates_numericality_of :student_id, :only_integer => true, :greater_than => 0
-  validates_numericality_of :team_id, :only_integer => true, :greater_than => 0
+  validates_numericality_of :team_id, :only_integer => true, :greater_than => 0, :allow_nil => true # needs to be removed later
   validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
   validates_date :physical_date, :on_or_before => lambda { Date.current }, :on_or_before_message => "cannot be in the future"
   validates_numericality_of :t_shirt_size, :only_integer => true, :greater_than => 0
@@ -77,6 +81,17 @@ class Registration < ActiveRecord::Base
   def missing_doc
     return true if self.proof_of_insurance.nil? || self.physical.nil? || self.report_card.nil?
   end
+
+  private
+  def student_in_allowable_age_range
+  	age = age_as_of_june_1
+  	if age >= 7 or age <= 18
+  		true
+  	else
+  		false
+  	end
+  end
+
 
 
 end

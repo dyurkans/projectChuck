@@ -6,6 +6,11 @@ class Student < ActiveRecord::Base
   has_many :registrations
   has_many :guardians, through: :household
 
+  #Callbacks
+  before_save :reformat_cell
+  before_save :reformat_emergency_phone
+
+
   #Validations (email commented out b/c not in the database)
   validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :birth_certificate, :security_response, :security_question, :grade_integer
   validates_date :dob, :on_or_before => 7.years.ago.to_date, :after => 19.years.ago.to_date, :message => "must be between the ages of 7 and 18 included"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
@@ -30,23 +35,43 @@ class Student < ActiveRecord::Base
 
   # Scopes
   scope :alphabetical, order('last_name, first_name')
-  scope :by_age, order('dob')
+  scope :by_age, order('dob DESC')
   scope :male, where('students.gender = ?', true)
   scope :female, where('students.gender = ?', false)
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
   scope :by_grade, order('grade_integer')
   scope :grade, lambda {|grade_integer| where("grade_integer = ?", grade_integer)}
-  scope :by_county, order('county');
-
   scope :by_school, order('school')
   scope :by_county, order('school_county')
   #by_grade
-  scope :grade, lambda {|grade_integer| where("grade_integer = ?", grade_integer)}
+  scope :has_allergies, where('allergies <> ""')
+  scope :needs_medication, where('medications <> ""')
+  scope :seniors, where('grade_integer = ?', 13)
+  # How to tie in info from registration from the other forms?
+  scope :without_forms, where('birth_certificate = ?', nil)
 
 
 
   # Other methods
+  def self.ages_between(low_age,high_age)
+    high_age ||= 18
+    Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
+  end
+
+  def self.qualifies_for_bracket(bracket_id)
+    bracket = Bracket.find(bracket_id)
+    if (bracket.gender)
+      Student.ages_between(bracket.min_age, bracket.max_age).male
+    else
+      Student.ages_between(bracket.min_age, bracket.max_age).female
+    end
+  end
+
+  def self.qualifies_for_team(team_id)
+    Student.qualifies_for_bracket(Team.find(team_id).bracket_id)
+  end
+
   def name
     "#{last_name}, #{first_name}"
   end
@@ -59,15 +84,6 @@ class Student < ActiveRecord::Base
     return nil if dob.blank?
     (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i
   end
-
-  #I added this for purposes of the populate script
-  #I think this is useful for validating brackets as well
-  def self.ages_between(low_age,high_age)
-    high_age ||= 18
-    where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
-  end
-  
-  #insert age as of june 1 method
   
   def sex
     return "Male" if gender == true

@@ -67,11 +67,11 @@ class StudentTest < ActiveSupport::TestCase
 	should allow_value(false).for(:gender)
 	should_not allow_value(nil).for(:gender)
 
-	#test household_id
-	should validate_numericality_of(:household_id)
-	should_not allow_value(3.14159).for(:household_id)
-	should_not allow_value(0).for(:household_id)
-	should_not allow_value(-1).for(:household_id)
+	# #test household_id
+	# should validate_numericality_of(:household_id)
+	# should_not allow_value(3.14159).for(:household_id)
+	# should_not allow_value(0).for(:household_id)
+	# should_not allow_value(-1).for(:household_id)
 
 	#test for school
 	should validate_presence_of(:school)
@@ -104,11 +104,21 @@ class StudentTest < ActiveSupport::TestCase
 
     context "Creating a student context" do
     setup do 
+      create_household_context
+      create_guardian_context
       create_student_context
+      create_tournament_context
+      create_bracket_context
+      create_team_context
     end
     
     teardown do
+      remove_team_context
+      remove_bracket_context
+      remove_tournament_context
       remove_student_context
+      remove_guardian_context
+      remove_household_context
     end
       
     # quick test of factories
@@ -140,8 +150,12 @@ class StudentTest < ActiveSupport::TestCase
     
     should "have working age method" do 
       assert_equal 14, @howard.age
-      assert_equal 13, @noah.age
+      assert_equal 9, @noah.age
+<<<<<<< HEAD
       assert_equal 16, @julie.age
+=======
+      assert_equal 18, @julie.age
+>>>>>>> master
     end
     
     should "strip non-digits from phone" do 
@@ -152,129 +166,94 @@ class StudentTest < ActiveSupport::TestCase
     should "not allow student to be added without a parent" do
       # a student without a household cannot have a guardian
       # thus a student without a household should also not be a valid student
-      @brent = FactoryGirl.create(:student, household_id:nil)
-      deny @brent.valid?
+      # @brent = FactoryGirl.build(:student, household: nil)
+      # deny @brent.valid?
       
-      @household1 = FactoryGirl.create(:household)
-      @household2 = FactoryGirl.create(:household, street:"5032 Forbes Ave")
-      @henry = FactoryGirl.create(:guardian, household_id:@household1.id, first_name:"Henry", last_name:"Michaels")
-      @laura = FactoryGirl.create(:student, gender:false, household_id:@household1.id)
+      @household1 = FactoryGirl.build(:household)
+      @household2 = FactoryGirl.build(:household, street:"5032 Forbes Ave")
+      @henry = FactoryGirl.build(:guardian, household:@household1, first_name:"Henry", last_name:"Michaels")
+      @laura = FactoryGirl.build(:student, gender:false, household:@household1)
 
-      @brent.household_id = @household2.id
+      # @brent.household = @household2
       assert_equal true, @laura.valid?
-      deny @brent.valid?
-    end
-    
-    should "have class method for finding a students guardians" do
-      #setup temporary factories
-      @household1 = FactoryGirl.create(:household)
-      @household2 = FactoryGirl.create(:household, street:"5032 Forbes Ave")
-      @mary = FactoryGirl.create(:guardian, household_id:@household1.id)
-      @grant = FactoryGirl.create(:guardian, household_id:@household1.id, first_name:"Grant", last_name:"Hillworth", gender:true, cell_phone:nil)
-      @stephen = FactoryGirl.create(:guardian, household_id:@household2.id, first_name:"Stephen", last_name:"Francois", gender:true)
-      @fred.household_id = @household1.id
-      @howard.household_id = @household2.id
-      
-      assert_equal ["Gruberman","Hillworth"], Student.guardians(@fred.id).alphabetical.all.map(&:last_name)
-      assert_equal ["Francois"], Student.guardians(@fred.id).alphabetical.all.map(&:last_name)
-      
-      #remove temporary factories
-      @household1.destroy
-      @household2.destroy
-      @mary.destroy
-      @grant.destroy
-      @stephen.destroy
-      @fred.household_id = nil
-      @howard.household_id = nil
+      # deny @brent.valid?
     end
     
     should "have class method for finding students eligible for a particular team" do
-      @bracket = FactoryGirl.create(:bracket, min_age:9, max_age:12);
-      @knicks = FactoryGirl.create(:team, bracket_id:@bracket.id);
-      assert_equal ["Ark","Gruberman","Hoover"], Student.qualies_for_team(@knicks.id).alphabetical.all.map(&:last_name)
-      
-      # remove extra context
-      @bracket.destroy
-      @knicks.destroy
+      assert_equal 0, Student.qualifies_for_team(@knicks.id).size
+      assert_equal 4, Student.qualifies_for_team(@heat.id).size
     end
     
     should "have class method for finding students between two ages" do 
       assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Hoover","Marcus"], Student.ages_between(9,15).alphabetical.all.map(&:last_name)
-      assert_equal ["Gruberman","Gruberman","Gruberman","Gruberman","Marcus"], Student.ages_between(11,14).alphabetical.all.map(&:last_name)
+      assert_equal ["Gruberman","Gruberman","Gruberman","Gruberman","Hanson", "Marcus"], Student.ages_between(11,14).alphabetical.all.map(&:last_name)
     end
     
     should "have class method for finding students qualified for a bracket" do 
-      #create temporary bracket
-      @bracket = FactoryGirl.create(:bracket, min_age:14, max_age:17)
-      assert_equal ["Gruberman","Gruberman","Henderson","Marcus"], Student.qualies_for_bracket(@bracket.id).alphabetical.all.map(&:last_name)
-      
-      #remove temporary bracket
-      @bracket.destroy
+      assert_equal ["Gruberman","Gruberman","Gruberman","Marcus"], Student.qualifies_for_bracket(@boys13to15.id).alphabetical.all.map(&:last_name)
     end
     
     # start testing scopes...
     should "have scope for alphabetical listing" do 
-      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Hoover","Marcus"], Student.alphabetical.all.map(&:last_name)
+      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Hoover","Marcus"], Student.alphabetical.map(&:last_name)
     end
     
     should "have a scope for students without all of their forms" do
       #create temporary factories
-      @bracket = FactoryGirl.create(:bracket, min_age:11, max_age:13)
-      @celtics = FactoryGirl.create(:team, name:"Boston Celtics", bracket_id:@bracket.id)
-      @reg_fred = FactoryGirl.create(:registration, student_id:@fred.id, team_id:@celtics.id,
+      @bracket = FactoryGirl.build(:bracket, min_age:11, max_age:13)
+      @celtics = FactoryGirl.build(:team, name:"Boston Celtics", bracket:@bracket)
+      @reg_fred = FactoryGirl.build(:registration, student:@fred, team:@celtics,
                                      proof_of_insurance:"documents/prof_of_insurance/FGruberman.pdf",
                                      report_card:"documents/report_card/Fred",physical:"documents/physical/FredGruberman")
-      @reg_ned = FactoryGirl.create(:registration, student_id:@ned.id, team_id:@celtics.id,
+      @reg_ned = FactoryGirl.build(:registration, student:@ned, team:@celtics,
 				      proof_of_insurance:"documents/prof_of_insurance/NGruberman.png",
                                      report_card:"documents/report_card/Ned.pdf",physical:"documents/physical/NedGruberman.jpg")
-      assert_equal ["Fred","Ned"], Student.without_forms.alphabetical.all.map(&:first_name)
-      
-      #remove temporary factories
-      @bracket.destroy
-      @celtics.destroy
-      @reg_fred.destroy
-      @reg_ned.destroy
+      assert_equal ["Fred","Ned"], Student.without_forms.alphabetical.map(&:first_name)
     end
     
     should "have scope for active students" do 
-      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.active.alphabetical.all.map(&:last_name)
+      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.active.alphabetical.map(&:last_name)
     end
     
     should "have scope for inactive students" do 
-      assert_equal ["Hoover"], Student.inactive.alphabetical.all.map(&:last_name)
+      assert_equal ["Hoover"], Student.inactive.alphabetical.map(&:last_name)
     end
     
     should "have scope for male students" do 
-      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hoover","Marcus"], Student.male.alphabetical.all.map(&:last_name)
+      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hoover","Marcus"], Student.male.alphabetical.map(&:last_name)
     end
     
-    should "have scope for students" do 
-      assert_equal ["Hanson","Henderson"], Student.female.alphabetical.all.map(&:last_name)
+    should "have scope for female students" do 
+      assert_equal ["Hanson","Henderson"], Student.female.alphabetical.map(&:last_name)
     end
     
     should "have scope for students with allergies" do 
-      assert_equal ["Hanson"], Student.has_allergies.alphabetical.all.map(&:last_name)
+      assert_equal ["Hanson"], Student.has_allergies.alphabetical.map(&:last_name)
     end
     
     should "have scope for students who need medications" do 
-      assert_equal ["Henderson","Hoover"], Student.needs_medication.alphabetical.all.map(&:last_name)
+      assert_equal ["Henderson","Hoover"], Student.needs_medication.alphabetical.map(&:last_name)
     end
     
     should "have scope for ordering by age" do 
-      assert_equal ["Ark","Hoover","Gruberman","Gruberman","Gruberman","Gruberman","Hoover","Marcus","Henderson"], Student.by_age.all.map(&:last_name)
+      assert_equal ["Ark","Hoover","Gruberman","Gruberman","Hanson", "Gruberman","Gruberman","Marcus","Henderson"], Student.by_age.alphabetical.map(&:last_name)
     end
 
     ###might be useful for demographics?
     should "have scope for listing all seniors" do 
-      assert_equal ["Henderson"], Student.seniors.by_age.all.map(&:last_name)
+      assert_equal ["Henderson"], Student.seniors.by_age.map(&:last_name)
     end
     
     should "have scope for ordering by county" do
-      assert_equal ["Ark","Gruberman","Hoover","Gruberman","Hanson","Gruberman","Gruberman"], Student.by_county.all.map(&:last_name)
+      assert_equal ["Ark", "Gruberman", "Henderson", "Hoover", "Marcus", "Gruberman", "Gruberman", "Hanson", "Gruberman"], Student.by_county.alphabetical.map(&:last_name)
     end
     
     should "have scope for ordering by grade" do 
-      assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Hoover","Marcus"], Student.by_grade.all.map(&:last_name)
+<<<<<<< HEAD
+      assert_equal ["Ark","Hoover", "Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.by_grade.alphabetical.all.map(&:last_name)
+=======
+      assert_equal ["Ark","Hoover", "Gruberman","Gruberman","Gruberman","Gruberman", "Hanson","Marcus","Henderson"], Student.by_grade.alphabetical.map(&:last_name)
+>>>>>>> master
     end
   end
 	

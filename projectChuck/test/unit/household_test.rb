@@ -59,7 +59,6 @@ class HouseholdTest < ActiveSupport::TestCase
 	should allow_value("Ad34134r44").for(:insurance_policy_no)
 	should allow_value("QWERTYUIOO").for(:insurance_policy_no)
 	should_not allow_value(nil).for(:insurance_policy_no)
-	should_not allow_value(1345678902).for(:insurance_policy_no)
 
 	#tests for insurance provider
 	should validate_presence_of(:insurance_provider)
@@ -69,7 +68,7 @@ class HouseholdTest < ActiveSupport::TestCase
 	should allow_value("412-268-3259").for(:physician_phone)
 	should allow_value("412.268.3259").for(:physician_phone)
 	should allow_value("(412) 268-3259").for(:physician_phone)
-	should allow_value(nil).for(:physician_phone)
+	should_not allow_value(nil).for(:physician_phone)
 	should_not allow_value("2683259").for(:physician_phone)
 	should_not allow_value("14122683259").for(:physician_phone)
 	should_not allow_value("4122683259x224").for(:physician_phone)

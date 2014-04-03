@@ -58,9 +58,12 @@ end
 group :test do
   gem 'shoulda'
   gem 'shoulda-matchers'
-  gem 'factory_girl_rails'
   gem 'mocha', require: false
   gem 'simplecov'
   gem 'turn'
   gem 'single_test'
+end
+
+group :development, :test do
+  gem 'factory_girl_rails'
 end
