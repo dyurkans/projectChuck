@@ -1,7 +1,7 @@
 <div class="fields">
   <div class="min_attraction">
     <%= f.input :bracket_id, :collection => Bracket.all %>
-    <%= f.input :name, :collection => Team::TEAMS_LIST + Team::WOMENS_TEAMS_LIST %>
+    <%= f.input :name, :collection => (Team::TEAMS_LIST + Team::WOMENS_TEAMS_LIST). map{ |t| t[0]} %>
     <%= f.input :max_students %>
   </div>
 </div>

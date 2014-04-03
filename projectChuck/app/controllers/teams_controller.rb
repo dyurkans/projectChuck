@@ -32,6 +32,7 @@ class TeamsController < ApplicationController
       redirect_to @team # go to show team page
     else
       # return to the 'new' form
+      flash[:notice] = "failed"
       render :action => 'new'
     end
   end
