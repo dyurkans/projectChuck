@@ -7,6 +7,11 @@ gem 'rails', '3.2.13'
 
 gem 'sqlite3'
 gem 'validates_timeliness', '~> 3.0'
+gem 'simple_form'
+gem 'will_paginate'
+gem 'carrierwave'
+gem 'nested_form'
+gem 'tconsole', '1.2.8'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -53,9 +58,12 @@ end
 group :test do
   gem 'shoulda'
   gem 'shoulda-matchers'
-  gem 'factory_girl_rails'
   gem 'mocha', require: false
   gem 'simplecov'
   gem 'turn'
   gem 'single_test'
+end
+
+group :development, :test do
+  gem 'factory_girl_rails'
 end

@@ -24,7 +24,6 @@ FactoryGirl.define do
 		proof_of_insurance "documents/proof_of_insurance/EGruberman.pdf"
 		physical "documents/physical/EGruberman.pdf"
 		physical_date 3.months.ago.to_date
-		date Date.today
 		t_shirt_size 2
 		active true
 	end
@@ -59,6 +58,7 @@ FactoryGirl.define do
 		dob 40.years.ago.to_date
 		cell_phone { rand(10 ** 10).to_s.rjust(10,'0') } 
 		day_phone { rand(10 ** 10).to_s.rjust(10,'0') }
+    household_id 3
 		receive_texts true
 		email "marygruberman@example.com"
 		gender false
@@ -70,6 +70,11 @@ FactoryGirl.define do
 		email "gruberman@example.com"
 		role "admin"
 		active true
+	end
+
+	factory :tournament do
+		start_date 2.weeks.from_now
+		end_date 12.weeks.from_now
 	end
 	
 end
