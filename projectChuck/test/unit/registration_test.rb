@@ -38,14 +38,12 @@ class RegistrationTest < ActiveSupport::TestCase
 	#test report_card
 
 	#test t_shirt_size
-	#note that size 1=small, size 6=xxxl
-	should validate_presence_of(:t_shirt_size)
+	#note that size 0=small, size 5=xxxl
 	should validate_numericality_of(:t_shirt_size)
-	should allow_value(1).for(:t_shirt_size)
-	should allow_value(6).for(:t_shirt_size)
-	should_not allow_value(0).for(:t_shirt_size)
+	should allow_value(0).for(:t_shirt_size)
+	should allow_value(5).for(:t_shirt_size)
 	should_not allow_value(-1).for(:t_shirt_size)
-	should_not allow_value(7).for(:t_shirt_size)
+	should_not allow_value(6).for(:t_shirt_size)
 	should_not allow_value(nil).for(:t_shirt_size)
 	should_not allow_value("small").for(:t_shirt_size)
 

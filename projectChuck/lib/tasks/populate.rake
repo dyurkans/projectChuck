@@ -156,7 +156,7 @@ namespace :db do
           r.proof_of_insurance.store!(File.open(File.expand_path("./public/example_files/insurance.pdf")))
           r.report_card.store!(File.open(File.expand_path("./public/example_files/report_card.pdf")))
           r.student_id = student.id
-          r.t_shirt_size = (1..6).to_a.sample
+          r.t_shirt_size = (0..5).to_a.sample
           r.team_id = t.id
           r.active = true
           r.created_at = (0..56).to_a.sample.days.ago.to_date
@@ -219,7 +219,7 @@ namespace :db do
           r.proof_of_insurance.store!(File.open(File.expand_path("./public/example_files/insurance.pdf")))
           r.report_card.store!(File.open(File.expand_path("./public/example_files/report_card.pdf")))
           r.student_id = student.id
-          r.t_shirt_size = (1..6).to_a.sample
+          r.t_shirt_size = (0..5).to_a.sample
           r.team_id = t.id
           r.active = true
           r.created_at = (0..56).to_a.sample.days.ago.to_date

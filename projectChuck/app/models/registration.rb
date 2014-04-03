@@ -13,7 +13,7 @@ class Registration < ActiveRecord::Base
 
   
   #Local Variables
-  SIZE_LIST = [['S', 1], ['M', 2], ['L',3], ['XL',4], ['XXL',5], ['XXXL',6]]
+  SIZE_LIST = [['S', 0], ['M', 1], ['L',2], ['XL',3], ['XXL',4], ['XXXL',5]]
   TEAMS_LIST = [["Atlanta Hawks",0],["Brooklyn Nets",1],["Boston Celtics",2],
                 ["Charlotte Bobcats",3],["Chicago Bulls",4],["Cleveland Cavaliers",5],
                 ["Dallas Mavericks",6],["Denver Nuggets",7],["Detroit Pistons", 8],
@@ -25,16 +25,13 @@ class Registration < ActiveRecord::Base
                 ["Portland Trail Blazers",24],["Sacramento Kings",25],["San Antonio Spurs",26],
                 ["Toronto Raptors",27],["Utah Jazz",28],["Washington Wizards",30]]
   
-  #Local Variables
-  SIZE_LIST = [[1, 'S'], [2, 'M'], [3, 'L'], [4, 'XL'], [5, 'XXL'], [6, 'XXXL']]
-  
   #Validations
   validate :student_in_allowable_age_range
   validates_numericality_of :student_id, :only_integer => true, :greater_than => 0
   validates_numericality_of :team_id, :only_integer => true, :greater_than => 0, :allow_nil => true # needs to be removed later
   validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
-  validates_date :physical_date, :on_or_before => lambda { Date.current }, :on_or_before_message => "cannot be in the future"
-  validates_numericality_of :t_shirt_size, :only_integer => true, :greater_than => 0
+  validates_date :physical_date, :on_or_after => lambda { 18.months.ago }, :on_or_before => lambda { Date.today }, :on_or_before_message => "cannot be in the future"
+  validates_numericality_of :t_shirt_size, :allow_blank => false, :allow_nil => false, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => SIZE_LIST.size
   validates_inclusion_of :t_shirt_size, :in => SIZE_LIST.map {|k, v| v}, :message => "unavailable size chosen"
   validate :student_in_appropriate_bracket
 
@@ -47,18 +44,22 @@ class Registration < ActiveRecord::Base
   scope :missing_insurance, where('proof_of_insurance = ?', nil)
   scope :missing_physical, where('physical = ?', nil)
   scope :missing_report_card, where('report_card = ?', nil)
+  scope :current, where('created_at > ?', Date.new(Date.today.year,1,1))
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
-  scope :missing_doc, where('missing_insurance = ? || missing_physical = ? || missing_report_card = ?', nil, nil, nil)
+  scope :incomplete, where('proof_of_insurance = ? || physical = ? || report_card = ?', nil, nil, nil)
 
 
   #Other Methods
 
   def student_in_appropriate_bracket
+    return false if team_id.nil?
     team = Team.find_by_id(team_id)
+    return false if team.nil? || team.bracket_id.nil?
     bracket = Bracket.find_by_id(team.bracket_id)
+    return false if bracket.nil? || student_id.nil?
     student = Student.find_by_id(student_id)
-    return true if student.nil? || team.nil? || bracket.nil? # should be caught by other validations; no double error
+    return true if student.nil? # should be caught by other validations; no double error
     age = student.age
     min = bracket.min_age
     max = bracket.max_age
@@ -78,18 +79,21 @@ class Registration < ActiveRecord::Base
     end
   end
 
-  def missing_doc
+  def missing_docs
     return true if self.proof_of_insurance.nil? || self.physical.nil? || self.report_card.nil?
   end
 
   private
   def student_in_allowable_age_range
-  	age = age_as_of_june_1
-  	if age >= 7 or age <= 18
-  		true
-  	else
-  		false
-  	end
+    return false if student_id.nil?
+    student = Student.find_by_id(student_id)
+    return false if student.nil?
+    age = student.age_as_of_june_1
+    if age >= 7 or age <= 18
+      true
+    else
+      false
+    end
   end
 
 

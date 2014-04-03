@@ -151,11 +151,8 @@ class StudentTest < ActiveSupport::TestCase
     should "have working age method" do 
       assert_equal 14, @howard.age
       assert_equal 9, @noah.age
-<<<<<<< HEAD
       assert_equal 16, @julie.age
-=======
       assert_equal 18, @julie.age
->>>>>>> master
     end
     
     should "strip non-digits from phone" do 
@@ -200,15 +197,26 @@ class StudentTest < ActiveSupport::TestCase
     
     should "have a scope for students without all of their forms" do
       #create temporary factories
-      @bracket = FactoryGirl.build(:bracket, min_age:11, max_age:13)
-      @celtics = FactoryGirl.build(:team, name:"Boston Celtics", bracket:@bracket)
-      @reg_fred = FactoryGirl.build(:registration, student:@fred, team:@celtics,
+      @tourn = FactoryGirl.create(:tournament)
+      @bracket = FactoryGirl.create(:bracket, min_age:11, max_age:13, tournament_id:@tourn.id)
+      @celtics = FactoryGirl.create(:team, name:"Boston Celtics", bracket:@bracket)
+      @bad_ed = FactoryGirl.create(:student, birth_certificate:nil, dob:12.years.ago)
+      @reg_bad_ed = FactoryGirl.create(:registration, student:@bad_ed, team:@celtics)
+      @reg_fred = FactoryGirl.create(:registration, student:@fred, team:@celtics,
+                                     physical:nil,
                                      proof_of_insurance:"documents/prof_of_insurance/FGruberman.pdf",
-                                     report_card:"documents/report_card/Fred",physical:"documents/physical/FredGruberman")
-      @reg_ned = FactoryGirl.build(:registration, student:@ned, team:@celtics,
-				      proof_of_insurance:"documents/prof_of_insurance/NGruberman.png",
-                                     report_card:"documents/report_card/Ned.pdf",physical:"documents/physical/NedGruberman.jpg")
-      assert_equal ["Fred","Ned"], Student.without_forms.alphabetical.map(&:first_name)
+                                     report_card:"documents/report_card/Fred")
+      @reg_ned = FactoryGirl.create(:registration, student:@ned, team:@celtics,
+                                    proof_of_insurance:nil,
+                                    report_card:"documents/report_card/Ned.pdf",physical:"documents/physical/NedGruberman.jpg")
+      assert_equal ["Ed","Fred","Ned"], Student.alphabetical.without_forms.map(&:first_name)
+      
+      @reg_ed.destroy
+      @reg_ned.destroy
+      @bad_ed.destroy
+      @celtics.destroy
+      @bracket.destroy
+      @tourn.destroy
     end
     
     should "have scope for active students" do 
@@ -249,11 +257,8 @@ class StudentTest < ActiveSupport::TestCase
     end
     
     should "have scope for ordering by grade" do 
-<<<<<<< HEAD
       assert_equal ["Ark","Hoover", "Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.by_grade.alphabetical.all.map(&:last_name)
-=======
       assert_equal ["Ark","Hoover", "Gruberman","Gruberman","Gruberman","Gruberman", "Hanson","Marcus","Henderson"], Student.by_grade.alphabetical.map(&:last_name)
->>>>>>> master
     end
   end
 	

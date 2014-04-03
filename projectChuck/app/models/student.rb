@@ -12,7 +12,7 @@ class Student < ActiveRecord::Base
 
 
   #Validations (email commented out b/c not in the database)
-  validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :birth_certificate, :security_response, :security_question, :grade_integer
+  validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :security_response, :security_question, :grade_integer
   validates_date :dob, :on_or_before => 7.years.ago.to_date, :after => 19.years.ago.to_date, :message => "must be between the ages of 7 and 18 included"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
   validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
   validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
@@ -44,18 +44,16 @@ class Student < ActiveRecord::Base
   scope :grade, lambda {|grade_integer| where("grade_integer = ?", grade_integer)}
   scope :by_school, order('school')
   scope :by_county, order('school_county')
-  #by_grade
   scope :has_allergies, where('allergies <> ""')
   scope :needs_medication, where('medications <> ""')
   scope :seniors, where('grade_integer = ?', 13)
-  # How to tie in info from registration from the other forms?
-  scope :without_forms, where('birth_certificate = ?', nil)
+  scope :missing_birth_certificate, where('birth_certificate = ? ', nil)
+  scope :without_forms, joins(:registrations).where('birth_certificate = ? || physical = ? || proof_of_insurance = ? || report_card = ?', nil,nil,nil,nil)
 
 
 
   # Other methods
   def self.ages_between(low_age,high_age)
-    high_age ||= 18
     Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
   end
 
@@ -84,7 +82,7 @@ class Student < ActiveRecord::Base
     return nil if dob.blank?
     (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i
   end
-  
+
   def sex
     return "Male" if gender == true
     "Female"
@@ -93,11 +91,10 @@ class Student < ActiveRecord::Base
   def gender_name
     GENDER_LIST.map{|genders| genders[1] == gender}
   end
-  
-  def missing_report_card
-    if   !self.registrations.nil? && self.registrations != []
-      self.registrations.reg_order[0].report_card.nil?
-    end
+
+  # Method to find student's registration for this year (if there is one)
+  def current_reg
+
   end
   
   #insert age as of june 1 method
