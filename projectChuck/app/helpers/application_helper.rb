@@ -89,7 +89,7 @@ module ApplicationHelper
   end
 
   def unassigned_teams()
-    all_teams = Team::TEAMS_LIST #2d array
+    all_teams = Team::FULL_TEAM_LIST #2d array
     assigned_teams = [] #1d array
     unassigned_teams = []
     for t in Team.all do

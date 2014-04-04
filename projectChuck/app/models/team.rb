@@ -13,10 +13,10 @@ class Team < ActiveRecord::Base
                 ["Portland Trail Blazers",24],["Sacramento Kings",25],["San Antonio Spurs",26],
                 ["Toronto Raptors",27],["Utah Jazz",28],["Washington Wizards",29]]
 
-  GIRLS_TEAM_LIST = [["Atlanta Dream",0],["Chicago Sky",1],["Connecticut Sun",2],
-                      ["Indiana Fever",3],["Los Angeles Sparks",4],["Minnesota Lynx",5],
-                      ["New York Liberty",6], ["Washington Mystics",7],["Phoenix Mercury",8],
-                      ["San Antonio Stars",9],["Seattle Storm Seattle",10],["Tulsa Shock",11]]
+  GIRLS_TEAM_LIST = [["Atlanta Dream",30],["Chicago Sky",31],["Connecticut Sun",32],
+                      ["Indiana Fever",33],["Los Angeles Sparks",34],["Minnesota Lynx",35],
+                      ["New York Liberty",36], ["Washington Mystics",37],["Phoenix Mercury",38],
+                      ["San Antonio Stars",39],["Seattle Storm Seattle",30],["Tulsa Shock",31]]
   
   FULL_TEAM_LIST = BOYS_TEAM_LIST + GIRLS_TEAM_LIST
   
