@@ -1,9 +1,11 @@
 class RegistrationsController < ApplicationController
   def new
     @registration = Registration.new
+    @student = Student.new
   end
   
   def create
+    @student = Student.new(params[:student])
     @registration = Registration.new(params[:registration])
     if @registration.save
       # if saved to database

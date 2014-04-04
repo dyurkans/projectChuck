@@ -1,8 +1,16 @@
-<%= simple_nested_form_for @registration, :html => { :class => 'form-horizontal' } do |registration_form| %>
-  <%= registration_form.simple_fields_for :student do |student_form| %>
-    <fieldset>
-      <legend><%= controller.action_name.capitalize %> Registration </legend>
-      <%= render :partial => "reg_and_student_fields", :locals => { :reg => registration_form, :stu => student_form  } %>
-    </fieldset>
+<%= simple_nested_form_for @student, :html => { :class => 'form-horizontal' } do |student_form| %>
+  <%= student_form.simple_fields_for :registration do |registration_form| %>
+    <%= registration_form.simple_fields_for :household do |household_form| %>
+      <fieldset>
+        <legend><%= controller.action_name.capitalize %> Student Registration </legend>
+        <%= render :partial => "reg_and_student_fields", :locals => { :reg => registration_form, :stu => student_form, :h => household_form  } %>
+      </fieldset>
+    <% end %>
   <% end %>
+  <div class="form-actions">
+    <ul class="pager">
+      <%= link_to 'Cancel', registrations_path, :class => 'btn' %>
+      <%= link_to 'Continue', :class => 'btn btn-primary btn-lg' %>
+    </ul>
+  </div>
 <% end %>

@@ -1,9 +1,11 @@
 class Household < ActiveRecord::Base
-  attr_accessible :active, :city, :family_physician, :home_phone, :insurance_policy_no,:insurance_provider, :physician_phone, :state, :street, :zip
+  attr_accessible :active, :city, :family_physician, :home_phone, :insurance_policy_no,:insurance_provider, :physician_phone, :state, :street, :zip, :students_attributes, :guardians_attributes
   
    	# Relationships
 	has_many :students
 	has_many :guardians
+
+accepts_nested_attributes_for :students, :guardians
 
 	# Callbacks
 	before_save :reformat_phone
