@@ -1,10 +1,9 @@
 class Tournament < ActiveRecord::Base
   attr_accessible :end_date, :start_date
 
-  has_many :brackets, :dependent => :destroy
+  has_many :brackets
 
-  before_create :valid_dates
-  before_update :valid_dates
+  before_save :valid_dates
 
   validates_date :start_date, :message => "must be valid date"
   validates_date :end_date, :message => "must be valid date"
