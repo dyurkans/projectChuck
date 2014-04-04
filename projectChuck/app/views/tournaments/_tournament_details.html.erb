@@ -1,0 +1,44 @@
+<p>
+  <b>Tournament Name:</b> <%= @tournament.name %>
+</p>
+
+<p>
+  <b>Start Date:</b> <%= @tournament.start_date.strftime("%B %d, %Y") %>
+</p>
+
+<p>
+	<b>End Date:</b><%= @tournament.end_date.strftime("%B %d, %Y") %>
+</p>
+
+<p>
+  <b>Students Registered:</b><%= @tournament.number_of_students %>
+</p>
+  
+<p>
+	<h4>Brackets</h4>
+</p>
+
+<% if @brackets.empty? %>
+  &nbsp;&nbsp;<em>None at this time</em>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Ages</th>
+        <th>Gender</th>
+        <th>Number of Teams</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @brackets.each do |bracket| %>
+        <tr>
+          <td><%= link_to "#{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket) %></td>
+          <td><%= bracket.sex %></td>
+          <td><%= bracket.teams.size() unless bracket.teams.nil? %></td>
+          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_bracket_path(bracket), :class => 'btn btn-mini' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
