@@ -53,6 +53,11 @@ class Student < ActiveRecord::Base
 
 
   # Other methods
+  
+  def missing_report_card
+    self.registrations[0].report_card.nil?
+  end
+
   def self.ages_between(low_age,high_age)
     Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
   end

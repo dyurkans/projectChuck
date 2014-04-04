@@ -22,7 +22,7 @@
       <% @teams.each do |team| %>
         <% number_of_players = Registration.where(:team_id => team.id).size() %>
         <tr>
-          <td><%= link_to team.name, team_path(team) %></td>
+          <td><%= link_to team_name(team.name), team_path(team) %></td>
           <td><%= number_of_players %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_team_path(team), :class => 'btn btn-mini' %></td>
         </tr>
