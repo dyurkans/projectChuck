@@ -1,16 +1,21 @@
 class Tournament < ActiveRecord::Base
   attr_accessible :end_date, :start_date
-  has_many :brackets
+  
+  has_many :brackets, :dependent => :destory
+
+  before_create :valid_dates
+  before_update :valid_dates
 
   validates_date :start_date, :message => "must be valid date"
   validates_date :end_date, :message => "must be valid date"
   validate :valid_dates, :message => "end date must later than start date"
 
-  scope :by_date, order('start_date')
+  scope :by_date, order('start_date DESC')
 
   def name
   	"Project C.H.U.C.K. #{self.start_date.year}"
   end
+
 
   def valid_dates
   	return self.end_date > self.start_date

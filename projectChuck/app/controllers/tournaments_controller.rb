@@ -20,7 +20,7 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.new(params[:tournament])
     if @tournament.save
       # if saved to database
-      flash[:notice] = "Successfully created #{@tournament}."
+      flash[:notice] = "Successfully created #{@tournament.name}."
       redirect_to @tournament # go to show Tournament page
     else
       # return to the 'new' form
@@ -31,7 +31,7 @@ class TournamentsController < ApplicationController
   def update
     @tournament = Tournament.find(params[:id])
     if @tournament.update_attributes(params[:tournament])
-      flash[:notice] = "Successfully updated #{@tournament}."
+      flash[:notice] = "Successfully updated #{@tournament.name}."
       redirect_to @tournament
     else
       render :action => 'edit'
