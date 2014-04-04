@@ -1,7 +1,7 @@
 class Tournament < ActiveRecord::Base
   attr_accessible :end_date, :start_date
-  
-  has_many :brackets, :dependent => :destory
+
+  has_many :brackets, :dependent => :destroy
 
   before_create :valid_dates
   before_update :valid_dates
