@@ -1,5 +1,4 @@
 require 'active_support'
-require 'application_helper'
 class Team < ActiveRecord::Base
   attr_accessible :bracket_id, :max_students, :name, :coach
   
@@ -34,14 +33,20 @@ class Team < ActiveRecord::Base
   scope :by_bracket, joins(:bracket).order('min_age, name')
 
 
-  # max may not always be 10
   def max
-  	max_students <= 10 
-  end
+    return false if self.nil? || self.students.nil? || self.students.empty?
+    self.registrations.active.select{|s| s.active == true }.size() <= max_students
+  end   
 
   def remaining_spots
-  	current_registrants = Registration.where(:team_id => id).size()
-  	max_students - current_registrants
+  	current_registrants = Registration.where(':team_id = ?', id)
+    active_students = 0
+    for reg in current_registrants
+      if reg.active
+        active_students += 1
+      end
+    end
+  	return (max_students - active_students)
   end
 
   def self.unassigned_teams

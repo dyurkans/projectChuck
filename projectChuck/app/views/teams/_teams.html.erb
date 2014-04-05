@@ -8,6 +8,7 @@
   			<th>Bracket</th>
         <th>Coach</th>
   			<th>Number of Players</th>
+        <th>Spots Remaining</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -20,6 +21,7 @@
   				<td><%= bracket.nil? ? "---" : (link_to "#{bracket.sex} #{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket)) %></td>
           <td><%= team.coach %></td>
           <td><%= number_of_players %></td>
+          <td><%= team.remaining_spots %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_team_path(team), :class => 'btn btn-mini' %></td>
         </tr>
       <% end %>

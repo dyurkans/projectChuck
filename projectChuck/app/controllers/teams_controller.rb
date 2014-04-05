@@ -3,10 +3,12 @@ class TeamsController < ApplicationController
 
   def new
     @team = Team.new
+    @teams = Team.unassigned_teams
   end
   
   def edit
     @team = Team.find(params[:id])
+    @teams = (Team.unassigned_teams << [team_name(@team.name), @team.name]).sort{|t1,t2| t1[1] <=> t2[1]}
   end
   
   def index
@@ -29,7 +31,7 @@ class TeamsController < ApplicationController
     @team = Team.new(params[:team])
     if @team.save
       # if saved to database
-      flash[:notice] = "Successfully created #{@team.name}."
+      flash[:notice] = "Successfully created #{team_name(@team.name)}."
       redirect_to @team # go to show team page
     else
       # return to the 'new' form
@@ -40,8 +42,9 @@ class TeamsController < ApplicationController
   
   def update
     @team = Team.find(params[:id])
+    @teams = (Team.unassigned_teams << [team_name(@team.name), @team.name]).sort{|t1,t2| t1[1] <=> t2[1]}
     if @team.update_attributes(params[:team])
-      flash[:notice] = "Successfully updated #{@team.name}."
+      flash[:notice] = "Successfully updated #{team_name(@team.name)}."
       redirect_to @team
     else
       render :action => 'edit'
@@ -51,7 +54,7 @@ class TeamsController < ApplicationController
   def destroy
     @team = Team.find(params[:id])
     @team.destroy
-    flash[:notice] = "Successfully removed #{@team.name} from the Project C.H.U.C.K. System"
+    flash[:notice] = "Successfully removed #{team_name(@team.name)} from the Project C.H.U.C.K. System"
     redirect_to teams_url
   end
 
