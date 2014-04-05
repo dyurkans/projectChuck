@@ -1,7 +1,7 @@
 require 'active_support'
 require 'application_helper'
 class Team < ActiveRecord::Base
-  attr_accessible :bracket_id, :max_students, :name
+  attr_accessible :bracket_id, :max_students, :name, :coach
   
   BOYS_TEAM_LIST = [["Atlanta Hawks",0],["Brooklyn Nets",1],["Boston Celtics",2],
                 ["Charlotte Bobcats",3],["Chicago Bulls",4],["Cleveland Cavaliers",5],
@@ -45,8 +45,8 @@ class Team < ActiveRecord::Base
   end
 
   def self.unassigned_teams
-    assigned_teams = self.all.map{ |t| team_name(t.name) }
-    Team::FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[0]) }
+    assigned_teams = self.all.map{ |t| t.name }
+    Team::FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[1]) }
   end
 
 end
