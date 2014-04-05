@@ -141,6 +141,7 @@ namespace :db do
         end
         t.max_students = MAX_BOY_STUDENTS
         t.bracket_id = b.id
+        t.coach = "#{Faker::Name.first_name} #{Faker::Name.last_name}"
         t.save!
         puts "Added team #{t.name}"
         num_teams_created += 1
@@ -203,6 +204,7 @@ namespace :db do
         end
         t.max_students = MAX_GIRL_STUDENTS
         t.bracket_id = b.id
+        t.coach = "#{Faker::Name.first_name} #{Faker::Name.last_name}"
         t.save!
         puts "Added team #{t.name}"
 

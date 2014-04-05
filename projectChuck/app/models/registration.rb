@@ -38,7 +38,12 @@ class Registration < ActiveRecord::Base
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
   scope :incomplete, where('proof_of_insurance = ? || physical = ? || report_card = ?', nil, nil, nil)
-
+  scope :s_jerseys, where('t_shirt_size = ?, 0 ')
+  scope :m_jerseys, where('t_shirt_size = ?, 1 ')
+  scope :l_jerseys, where('t_shirt_size = ?, 2 ')
+  scope :xl_jerseys, where('t_shirt_size = ?, 3 ')
+  scope :xxl_jerseys, where('t_shirt_size = ?, 4 ')
+  scope :xxxl_jersey, where('t_shirt_size = ?, 5 ')
 
   #Other Methods
 
