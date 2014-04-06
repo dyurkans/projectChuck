@@ -53,5 +53,32 @@
     </tbody>
   </table>
 <% end %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+      <th>Age</th>
+        <th>Missing Document(s)</th>
+        <th>Phone Number</th>
+        <th>Study Halls</th> 
+        <th>Active</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @eligible_students.each do |student| %>
+        <tr>
+          <% registration = student.registrations.reg_order[0] unless student.registrations.reg_order[0].nil? %>
+          <td><%= link_to student.name, student_path(student) %></td>
+          <td><%= student.dob.nil? ? "---" : student.age  %></td>
+          <td><%= if student.registrations.reg_order[0].nil? then "---" else student.registrations.reg_order[0].missing_doc ? "Yes" : "No"  end%></td>
+          <td><%= number_to_phone student.cell_phone %></td>
+          <td>study halls complete or not complete</td>
+          <td><%= registration.active ? "Yes" : "No" %></td>
+          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 	
 

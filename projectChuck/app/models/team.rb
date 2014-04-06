@@ -60,4 +60,13 @@ class Team < ActiveRecord::Base
     Team::FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[index_of_team_id]) ||  (team_id == t[index_of_team_id]) }
   end
 
+  def eligible_students
+    bracket = Bracket.find(self.bracket_id)
+    min_age =  bracket.min_age
+    max_age = bracket.max_age
+    team_gender = bracket.gender
+    registered_students = Student.active.select{ |s| s.registrations.reg_order[0].active == true unless (s.registrations.nil? || s.registrations.empty?) }
+    eligible_students = registered_students.select { |s| s.age_as_of_june_1 >= min_age and s.age_as_of_june_1 <= max_age and s.gender = team_gender }
+  end
+
 end
