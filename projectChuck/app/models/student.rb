@@ -9,6 +9,7 @@ class Student < ActiveRecord::Base
   #Callbacks
   before_save :reformat_cell
   before_save :reformat_emergency_phone
+  after_destroy :deactivate_registration
 
 
   #Validations (email commented out b/c not in the database)
@@ -53,6 +54,11 @@ class Student < ActiveRecord::Base
 
 
   # Other methods
+
+  def deactivate_registration
+    self.registrations.reg_order[0].active = false
+    self.registrations.save!
+  end
   
   def missing_report_card
     self.registrations[0].report_card.nil?
