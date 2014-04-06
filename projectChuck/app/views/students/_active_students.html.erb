@@ -9,11 +9,12 @@
   			<th>Team</th>
         <th>Bracket</th>
         <th>Missing Document(s)</th>
+        <th>Active</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
-      <% @students.each do |stu| %>
+      <% @all_students.each do |stu| %>
         <tr>
           <% student = Student.find(stu.id) %>
           <% registration = student.registrations.reg_order[0] unless student.registrations.reg_order[0].nil? %>
@@ -24,7 +25,8 @@
           <td><%= team.nil? ? "---" : (link_to team_name(team.name), team_path(team))  %></td>
   				<td><%= bracket.nil? ? "---" : (link_to "#{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket)) %></td>
           <td><%= if student.registrations.reg_order[0].nil? then "---" else student.registrations.reg_order[0].missing_doc ? "Yes" : "No"  end%></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
+          <th><%= if stu.registrations.reg_order[0].nil? then "---" else stu.registrations.reg_order[0].active ? "Yes" : "No" end %></th>
+          <th><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></th>
         </tr>
       <% end %>
     </tbody>

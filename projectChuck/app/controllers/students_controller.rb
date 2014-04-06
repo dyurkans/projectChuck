@@ -10,6 +10,7 @@ class StudentsController < ApplicationController
   def index
     @students = Student.active.alphabetical.paginate(:page => params[:page]).per_page(10)
     @inactive_students = Student.inactive.alphabetical.paginate(:page => params[:page]).per_page(10)
+    @all_students = @students + @inactive_students
 
   end
   
