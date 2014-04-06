@@ -9,7 +9,7 @@ class Student < ActiveRecord::Base
   #Callbacks
   before_save :reformat_cell
   before_save :reformat_emergency_phone
-  after_destroy :deactivate_registration
+  #after_destroy :deactivate_registration
 
 
   #Validations (email commented out b/c not in the database)
