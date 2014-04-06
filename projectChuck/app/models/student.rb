@@ -69,7 +69,7 @@ class Student < ActiveRecord::Base
   end
   
   def missing_report_card
-    self.registrations.reg_order[0].report_card.nil?
+    self.registrations.reg_order[0].report_card.nil? unless self.registrations
   end
 
   def self.ages_between(low_age,high_age)

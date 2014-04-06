@@ -49,8 +49,8 @@ class StudentsController < ApplicationController
   def destroy
     @student = Student.find(params[:id])
     @student.active = false
-    @student.registrations.reg_order[0].active = false unless @student.registrations.nil?
-    @student.registrations.reg_order[0].save
+    @student.registrations.reg_order[0].active = false unless (@student.registrations.nil? || @student.registrations.empty?)
+    @student.registrations.reg_order[0].save unless (@student.registrations.nil? || @student.registrations.empty?)
     @student.save!
     flash[:notice] = "Successfully deactivated #{@student.proper_name} from the Project C.H.U.C.K. System"
     redirect_to students_url
