@@ -17,7 +17,7 @@
         <tr>
           <% bracket = Bracket.find_by_id(team.bracket_id) %>
           <%# restrict to only active reg in number_of_players %>
-          <% number_of_players = Registration.where(:team_id => team.id).size() %>
+          <% number_of_players = Registration.where('team_id = ? and active = ?', team.id, true).size() %>
           <td><%= link_to team_name(team.name), team_path(team) %></td>
   				<td><%= bracket.nil? ? "---" : (link_to "#{bracket.sex} #{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket)) %></td>
           <td><%= team.coach %></td>

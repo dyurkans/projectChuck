@@ -32,21 +32,21 @@ class Team < ActiveRecord::Base
   scope :alphabetical, order('name')
   scope :by_bracket, joins(:bracket).order('min_age, name')
 
-
+  def current_number_of_students
+    self.registrations.active.select{|r| r.active == true }.size
+  end
+  
   def max
-    return false if self.nil? || self.students.nil? || self.students.empty?
-    self.registrations.active.select{|s| s.active == true }.size() <= max_students
-  end   
+    return false if self.nil? || self.registrations.nil? || self.registrations.empty? || max_students.nil?
+    current_number_of_students <= max_students
+  end
 
   def remaining_spots
-  	current_registrants = Registration.where(':team_id = ?', id)
-    active_students = 0
-    for reg in current_registrants
-      if reg.active
-        active_students += 1
-      end
+    if !max_students.nil? 
+      return (max_students - current_number_of_students) 
+    else 
+      "---"
     end
-  	return (max_students - active_students)
   end
 
   #def self.unassigned_teams
