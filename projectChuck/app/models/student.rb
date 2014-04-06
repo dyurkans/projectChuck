@@ -72,22 +72,23 @@ class Student < ActiveRecord::Base
     self.registrations.reg_order[0].report_card.nil? unless self.registrations
   end
 
-  def self.ages_between(low_age,high_age)
-    Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
-  end
+  #Currently not in use/ or not functioning. Replaced by eligible_students method in team.rb
+  # def self.ages_between(low_age,high_age)
+  #   Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
+  # end
 
-  def self.qualifies_for_bracket(bracket_id)
-    bracket = Bracket.find(bracket_id)
-    if (bracket.gender)
-      Student.ages_between(bracket.min_age, bracket.max_age).male
-    else
-      Student.ages_between(bracket.min_age, bracket.max_age).female
-    end
-  end
+  # def self.qualifies_for_bracket(bracket_id)
+  #   bracket = Bracket.find(bracket_id)
+  #   if (bracket.gender)
+  #     Student.ages_between(bracket.min_age, bracket.max_age).male
+  #   else
+  #     Student.ages_between(bracket.min_age, bracket.max_age).female
+  #   end
+  # end
 
-  def self.qualifies_for_team(team_id)
-    self.qualifies_for_bracket(Team.find(team_id).bracket_id)
-  end
+  # def self.qualifies_for_team(team_id)
+  #   self.qualifies_for_bracket(Team.find(team_id).bracket_id)
+  # end
 
   def name
     "#{last_name}, #{first_name}"
