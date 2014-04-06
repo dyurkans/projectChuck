@@ -57,7 +57,7 @@ class Team < ActiveRecord::Base
   def self.unassigned_teams(team_id)
     index_of_team_id = 1
     assigned_teams = self.all.map{ |t| t.name }
-    Team::FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[index_of_team_id]) unless team_id == t[index_of_team_id] }
+    Team::FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[index_of_team_id]) ||  (team_id == t[index_of_team_id]) }
   end
 
 end

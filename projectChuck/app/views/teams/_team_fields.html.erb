@@ -1,8 +1,8 @@
 <div class="fields">
   <div class="min_attraction">
-    <%= f.input :bracket_id, :collection => Bracket.all %>
+    <%= f.input :bracket_id, :collection => Bracket.all, :include_blank => false, :selected => (@bracket.id unless @bracket.nil?) %>
 	<%= f.input :name, :collection => @teams, :include_blank => false, :selected => @team.name %>
-    <%= f.input :coach %>
-    <%= f.input :max_students %>
+    <%= f.input :coach, :placeholder => "Full Name" %>
+    <%= f.input :max_students, collection: 5..10, :include_blank => false, :selected => 10 %>
   </div>
 </div>

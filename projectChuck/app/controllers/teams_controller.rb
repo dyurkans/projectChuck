@@ -9,6 +9,7 @@ class TeamsController < ApplicationController
   def edit
     @team = Team.find(params[:id])
     @teams = Team.unassigned_teams(@team.name)
+    @bracket = Bracket.find_by_id(@team.bracket_id)
   end
   
   def index
@@ -43,6 +44,7 @@ class TeamsController < ApplicationController
   def update
     @team = Team.find(params[:id])
     @teams = Team.unassigned_teams(@team.name)
+    @bracket = Bracket.find_by_id(@team.bracket_id)
     if @team.update_attributes(params[:team])
       flash[:notice] = "Successfully updated #{team_name(@team.name)}."
       redirect_to @team
