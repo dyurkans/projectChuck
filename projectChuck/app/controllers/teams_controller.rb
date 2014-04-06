@@ -3,12 +3,12 @@ class TeamsController < ApplicationController
 
   def new
     @team = Team.new
-    @teams = Team.unassigned_teams
+    @teams = Team.unassigned_teams(@team.name)
   end
   
   def edit
     @team = Team.find(params[:id])
-    @teams = (Team.unassigned_teams << [team_name(@team.name), @team.name]).sort{|t1,t2| t1[1] <=> t2[1]}
+    @teams = Team.unassigned_teams(@team.name)
   end
   
   def index
@@ -29,20 +29,20 @@ class TeamsController < ApplicationController
   
   def create
     @team = Team.new(params[:team])
+    @teams = Team.unassigned_teams(@team.name)
     if @team.save
       # if saved to database
       flash[:notice] = "Successfully created #{team_name(@team.name)}."
       redirect_to @team # go to show team page
     else
       # return to the 'new' form
-      flash[:notice] = "failed"
       render :action => 'new'
     end
   end
   
   def update
     @team = Team.find(params[:id])
-    @teams = (Team.unassigned_teams << [team_name(@team.name), @team.name]).sort{|t1,t2| t1[1] <=> t2[1]}
+    @teams = Team.unassigned_teams(@team.name)
     if @team.update_attributes(params[:team])
       flash[:notice] = "Successfully updated #{team_name(@team.name)}."
       redirect_to @team

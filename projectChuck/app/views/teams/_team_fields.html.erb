@@ -1,7 +1,7 @@
 <div class="fields">
   <div class="min_attraction">
     <%= f.input :bracket_id, :collection => Bracket.all %>
-	<%= f.input :name, :collection => @teams %>
+	<%= f.input :name, :collection => @teams, :include_blank => false, :selected => @team.name %>
     <%= f.input :coach %>
     <%= f.input :max_students %>
   </div>

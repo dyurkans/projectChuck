@@ -16,7 +16,7 @@ class Team < ActiveRecord::Base
   GIRLS_TEAM_LIST = [["Atlanta Dream",30],["Chicago Sky",31],["Connecticut Sun",32],
                       ["Indiana Fever",33],["Los Angeles Sparks",34],["Minnesota Lynx",35],
                       ["New York Liberty",36], ["Washington Mystics",37],["Phoenix Mercury",38],
-                      ["San Antonio Stars",39],["Seattle Storm Seattle",30],["Tulsa Shock",31]]
+                      ["San Antonio Stars",39],["Seattle Storm Seattle",40],["Tulsa Shock",41]]
   
   FULL_TEAM_LIST = BOYS_TEAM_LIST + GIRLS_TEAM_LIST
   
@@ -49,9 +49,15 @@ class Team < ActiveRecord::Base
   	return (max_students - active_students)
   end
 
-  def self.unassigned_teams
+  #def self.unassigned_teams
+    #assigned_teams = self.all.map{ |t| t.name }
+   # Team::FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[1]) }
+  #end
+
+  def self.unassigned_teams(team_id)
+    index_of_team_id = 1
     assigned_teams = self.all.map{ |t| t.name }
-    Team::FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[1]) }
+    Team::FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[index_of_team_id]) unless team_id == t[index_of_team_id] }
   end
 
 end
