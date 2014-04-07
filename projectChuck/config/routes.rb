@@ -8,11 +8,11 @@ ProjectChuck::Application.routes.draw do
   resources :registrations
   resources :brackets
   resources :users
+  resources :tournaments
   
   get "households/new"
   get "students/index" 
 
-  get "registrations/new"
   
   match 'home' => 'home#index', :as => :home
   match 'about' => 'home#about', :as => :about

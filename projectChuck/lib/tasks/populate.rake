@@ -141,6 +141,7 @@ namespace :db do
         end
         t.max_students = MAX_BOY_STUDENTS
         t.bracket_id = b.id
+        t.coach = "#{Faker::Name.first_name} #{Faker::Name.last_name}"
         t.save!
         puts "Added team #{t.name}"
         num_teams_created += 1
@@ -152,7 +153,7 @@ namespace :db do
           r = Registration.new
           weeks_old = (0..52).to_a.sample
           r.physical.store!(File.open(File.expand_path("./public/example_files/physical.pdf")))
-          r.physical_date = (0..18).to_a.sample.months.ago.to_date
+          r.physical_date = (Date.new(Date.today.year-1,8,1)..Date.today).to_a.sample
           r.proof_of_insurance.store!(File.open(File.expand_path("./public/example_files/insurance.pdf")))
           r.report_card.store!(File.open(File.expand_path("./public/example_files/report_card.pdf")))
           r.student_id = student.id
@@ -203,6 +204,7 @@ namespace :db do
         end
         t.max_students = MAX_GIRL_STUDENTS
         t.bracket_id = b.id
+        t.coach = "#{Faker::Name.first_name} #{Faker::Name.last_name}"
         t.save!
         puts "Added team #{t.name}"
 
@@ -215,7 +217,7 @@ namespace :db do
           r = Registration.new
           days_old = (0..360).to_a.sample
           r.physical.store!(File.open(File.expand_path("./public/example_files/physical.pdf")))
-          r.physical_date = (0..18).to_a.sample.months.ago.to_date
+          r.physical_date = (Date.new(Date.today.year-1,8,1)..Date.today).to_a.sample
           r.proof_of_insurance.store!(File.open(File.expand_path("./public/example_files/insurance.pdf")))
           r.report_card.store!(File.open(File.expand_path("./public/example_files/report_card.pdf")))
           r.student_id = student.id

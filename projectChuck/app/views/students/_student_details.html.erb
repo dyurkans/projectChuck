@@ -4,7 +4,7 @@
 </p>
 
 <p>
-	<h4>Name: <%= @student.name %></h4>
+	<h4>Name: <%= @student.proper_name %></h4>
 </p>
 
 <p>
@@ -34,11 +34,11 @@
 </p>
 
 <p>
-  <b>Team:</b> <%= @team.nil? ? "---" : @team.name %>
+  <b>Team:</b> <%= @team.nil? ? "---" : (link_to team_name(@team.name), team_path(@team)) %>
 </p>
 
 <p>
-  <b>Bracket:</b> <%= @bracket.nil? ? "---" : "#{@bracket.min_age} - #{@bracket.max_age}" %>
+  <b>Bracket:</b> <%= @bracket.nil? ? "---" : (link_to "#{@bracket.min_age} - #{@bracket.max_age}", bracket_path(@bracket)) %>
 </p>
 
 <p>
@@ -49,6 +49,10 @@
 
 <p>
 	<h3>School Information</h3>
+</p>
+
+<p>
+  <b>School:</b> <%= @student.school %>
 </p>
 
 <p>
@@ -66,7 +70,7 @@
 <!--              Guardian Details                        -->
 
 <p>
-	<h3>Guardian Information</h3>
+	<h3>Parent/Guardian Information</h3>
 </p>
 
 <% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
