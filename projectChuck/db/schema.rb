@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140403163046) do
+ActiveRecord::Schema.define(:version => 20140404204511) do
 
   create_table "brackets", :force => true do |t|
     t.integer  "tournament_id"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20140403163046) do
     t.integer  "max_students"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.string   "coach"
   end
 
   create_table "tournaments", :force => true do |t|

@@ -8,6 +8,7 @@ ProjectChuck::Application.routes.draw do
   resources :registrations
   resources :brackets
   resources :users
+  resources :tournaments
   
   get "households/new"
   get "students/index" 

@@ -6,6 +6,7 @@
       <tr>
         <th>Name</th>
   			<th>Bracket</th>
+        <th>Coach</th>
   			<th>Number of Players</th>
         <th>&nbsp;</th>
       </tr>
@@ -17,6 +18,7 @@
           <% number_of_players = Registration.where(:team_id => team.id).size() %>
           <td><%= link_to team_name(team.name), team_path(team) %></td>
   				<td><%= bracket.nil? ? "---" : (link_to "#{bracket.sex} #{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket)) %></td>
+          <td><%= team.coach %></td>
           <td><%= number_of_players %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_team_path(team), :class => 'btn btn-mini' %></td>
         </tr>

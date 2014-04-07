@@ -1,7 +1,8 @@
 <div class="fields">
   <div class="min_attraction">
     <%= f.input :bracket_id, :collection => Bracket.all %>
-    <%= f.input :name, :collection => unassigned_teams() %>
+    <%= f.input :name, :collection => Team.unassigned_teams.map{ |team| team[0]} %>
+    <%= f.input :coach %>
     <%= f.input :max_students %>
   </div>
 </div>

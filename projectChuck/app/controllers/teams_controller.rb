@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  include ApplicationHelper
 
   def new
     @team = Team.new
