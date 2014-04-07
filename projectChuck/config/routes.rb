@@ -15,6 +15,7 @@ ProjectChuck::Application.routes.draw do
 
   get "registrations/new"
   
+  
   match 'home' => 'home#index', :as => :home
   match 'about' => 'home#about', :as => :about
   match 'contact' => 'home#contact', :as => :contact

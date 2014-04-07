@@ -20,13 +20,8 @@ class TeamsController < ApplicationController
   	@team = Team.find(params[:id])
     @eligible_students = @team.eligible_students
   	@bracket = Bracket.find_by_id(@team.bracket_id) unless @team.nil?
-  	@registrations = Registration.where(:team_id => @team.id) unless Registration.where(:team_id => @team.id).nil?
-  	@students = []
-  	if !@registrations.nil?
-  		for reg in @registrations do  
-  			@students << (Student.where(:id => reg.student_id)[0])
-  		end
-  	end
+  	@registrations = @team.registrations
+  	@students = @team.students
   end
   
   def create

@@ -9,7 +9,8 @@ class Student < ActiveRecord::Base
   #Callbacks
   before_save :reformat_cell
   before_save :reformat_emergency_phone
-  #after_destroy :deactivate_registration
+  before_destroy :check_if_destroyable
+  after_rollback :deactivate_student_and_registrations, :on => :destory
 
 
   #Validations (email commented out b/c not in the database)
@@ -62,33 +63,42 @@ class Student < ActiveRecord::Base
   #   registered_students = Student.active.where(self.registrations.reg_order[0].active = true unless self.registrations.nil? )
   #   eligible_students = registered_students.select { |s| s.age_as_of_june_1 >= min_age and s.age_as_of_june_1 <= max_age and s.gender = team_gender }
   # end
+  def check_if_destroyable
+    return false
+  end
 
-  def deactivate_registration
-    self.registrations.reg_order[0].active = false
-    self.registrations.save!
+  def deactivate_student_and_registrations
+    self.active = false
+    self.save! 
+    unless self.registrations.nil? || self.registrations.empty?
+      for reg in self.registrations.active
+        reg.active = false
+        reg.save!
+      end      
+    end
   end
   
   def missing_report_card
-    self.registrations.reg_order[0].report_card.nil? unless self.registrations
+    self.registrations.reg_order[0].report_card.nil? unless (self.registrations.nil? || self.registrations.empty?)
   end
 
   #Currently not in use/ or not functioning. Replaced by eligible_students method in team.rb
-  # def self.ages_between(low_age,high_age)
-  #   Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
-  # end
+  def self.ages_between(low_age,high_age)
+    Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
+  end
 
-  # def self.qualifies_for_bracket(bracket_id)
-  #   bracket = Bracket.find(bracket_id)
-  #   if (bracket.gender)
-  #     Student.ages_between(bracket.min_age, bracket.max_age).male
-  #   else
-  #     Student.ages_between(bracket.min_age, bracket.max_age).female
-  #   end
-  # end
+  def self.qualifies_for_bracket(bracket_id)
+    bracket = Bracket.find(bracket_id)
+    if (bracket.gender)
+      Student.ages_between(bracket.min_age, bracket.max_age).male
+    else
+      Student.ages_between(bracket.min_age, bracket.max_age).female
+    end
+  end
 
-  # def self.qualifies_for_team(team_id)
-  #   self.qualifies_for_bracket(Team.find(team_id).bracket_id)
-  # end
+  def self.qualifies_for_team(team_id)
+    self.qualifies_for_bracket(Team.find(team_id).bracket_id)
+  end
 
   def name
     "#{last_name}, #{first_name}"
