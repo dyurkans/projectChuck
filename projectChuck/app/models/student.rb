@@ -10,7 +10,7 @@ class Student < ActiveRecord::Base
   before_save :reformat_cell
   before_save :reformat_emergency_phone
   before_destroy :check_if_destroyable
-  after_rollback :deactivate_student_and_registrations, :on => :destory
+  #after_rollback :deactivate_student_and_registrations, :on => :destory
 
 
   #Validations (email commented out b/c not in the database)
@@ -64,7 +64,7 @@ class Student < ActiveRecord::Base
   #   eligible_students = registered_students.select { |s| s.age_as_of_june_1 >= min_age and s.age_as_of_june_1 <= max_age and s.gender = team_gender }
   # end
   def check_if_destroyable
-    return false
+    return true
   end
 
   def deactivate_student_and_registrations
@@ -72,7 +72,7 @@ class Student < ActiveRecord::Base
     self.save! 
     unless self.registrations.nil? || self.registrations.empty?
       for reg in self.registrations.active
-        reg.active = false
+        reg.update_attribute(:active, false)
         reg.save!
       end      
     end

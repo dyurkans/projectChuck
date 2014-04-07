@@ -13,8 +13,6 @@ ProjectChuck::Application.routes.draw do
   get "households/new"
   get "students/index" 
 
-  get "registrations/new"
-  
   
   match 'home' => 'home#index', :as => :home
   match 'about' => 'home#about', :as => :about
