@@ -50,7 +50,7 @@
           <td>study halls complete or not complete</td>
           <td><%= registration.active ? "Yes" : "No" %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
-<!--           <td><%= link_to raw("<i class='icon-user icon-white'></i> Remove"), team_path(@team), :controller => 'team', :action => 'remove', :origin => 'teams', :class => "btn btn-mini" %></td> -->
+          <td><%= link_to raw("<i class='icon-user icon-white'></i> Remove"), remove_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-mini" %></td>
         </tr>
       <% end %>
     </tbody>

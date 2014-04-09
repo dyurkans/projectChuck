@@ -24,11 +24,13 @@ class TeamsController < ApplicationController
   	@students = @team.students
   end
 
-  # def remove
-  #   @student = Student.find(params[:id])
-  #   @student.registrations.reg_order[0].update_attribute(:team_id, nil)
-  #   @student.save!
-  # end
+  def remove_student
+    @team = Team.find(params[:id])
+    @student = Student.find(params[:student_id])
+    @student.registrations.reg_order[0].update_attribute(:team_id, nil)
+    @student.save!
+    redirect_to team_path(@team)
+  end
   
   def create
     @team = Team.new(params[:team])
