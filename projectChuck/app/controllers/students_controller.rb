@@ -24,12 +24,11 @@ class StudentsController < ApplicationController
 
   end
 
-  def remove
-    @student = Student.find(params[:id])
-    @student.registrations.reg_order[0].update_attribute(:team_id, nil)
-    @team = Team.find(params[:origin])
-    redirect_to @team
-  end
+  # def remove
+  #   @student = Student.find(params[:id])
+  #   @student.registrations.reg_order[0].update_attribute(:team_id, nil)
+  #   @student.save!
+  # end
   
   def create
     @student = Student.new(params[:student])
