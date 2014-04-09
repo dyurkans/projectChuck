@@ -1,5 +1,8 @@
 ProjectChuck::Application.routes.draw do
   
+
+  #match 'teams/remove/:id' => 'teams#remove', :as => :remove_student
+
   # Generated routes
   resources :students
   resources :households
@@ -23,6 +26,8 @@ ProjectChuck::Application.routes.draw do
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
     
+  
+
   # Set the root url
   root :to => 'home#index'
 end

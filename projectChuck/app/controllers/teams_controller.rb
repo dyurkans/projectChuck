@@ -23,6 +23,12 @@ class TeamsController < ApplicationController
   	@registrations = @team.registrations
   	@students = @team.students
   end
+
+  # def remove
+  #   @student = Student.find(params[:id])
+  #   @student.registrations.reg_order[0].update_attribute(:team_id, nil)
+  #   @student.save!
+  # end
   
   def create
     @team = Team.new(params[:team])

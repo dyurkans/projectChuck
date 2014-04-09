@@ -32,6 +32,7 @@ class Team < ActiveRecord::Base
   scope :alphabetical, order('name')
   scope :by_bracket, joins(:bracket).order('min_age, name')
 
+
   def current_number_of_students
     self.registrations.active.size
   end

@@ -25,10 +25,10 @@ class StudentsController < ApplicationController
   end
 
   def remove
-    @student = Student.new(params[:student])
-    @student.registrations.reg_order[0].team_id = nil unless (@student.registrations.nil? || @student.registrations.empty?)
-    @student.save
-    render :action => 'show'
+    @student = Student.find(params[:id])
+    @student.registrations.reg_order[0].update_attribute(:team_id, nil)
+    @team = Team.find(params[:origin])
+    redirect_to @team
   end
   
   def create
