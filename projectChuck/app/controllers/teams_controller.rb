@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   include ApplicationHelper
+  require 'will_paginate/array'
 
   def new
     @team = Team.new
@@ -18,7 +19,7 @@ class TeamsController < ApplicationController
   
   def show
   	@team = Team.find(params[:id])
-    @eligible_students = @team.eligible_students
+    @eligible_students = @team.eligible_students.paginate(:page => params[:page], :per_page => 5)
   	@bracket = Bracket.find_by_id(@team.bracket_id) unless @team.nil?
   	@registrations = @team.registrations
   	@students = @team.students
@@ -28,6 +29,14 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     @student = Student.find(params[:student_id])
     @student.registrations.reg_order[0].update_attribute(:team_id, nil)
+    @student.save!
+    redirect_to team_path(@team)
+  end
+
+  def add_student
+    @team = Team.find(params[:id])
+    @student = Student.find(params[:student_id])
+    @student.registrations.reg_order[0].update_attribute(:team_id, @team.id)
     @student.save!
     redirect_to team_path(@team)
   end

@@ -56,6 +56,10 @@
     </tbody>
   </table>
 <% end %>
+<h4>Eligible Unassigned Students</h4>
+<% if @eligible_students.empty? %>
+  &nbsp;&nbsp;<em>None at this time</em>
+<% else %>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -63,8 +67,8 @@
       <th>Age</th>
         <th>Missing Document(s)</th>
         <th>Phone Number</th>
-        <th>Study Halls</th> 
         <th>Active</th>
+        <th>&nbsp;</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -76,12 +80,19 @@
           <td><%= student.dob.nil? ? "---" : student.age  %></td>
           <td><%= if student.registrations.reg_order[0].nil? then "---" else student.registrations.reg_order[0].missing_doc ? "Yes" : "No"  end%></td>
           <td><%= number_to_phone student.cell_phone %></td>
-          <td>study halls complete or not complete</td>
           <td><%= (registration.active ? "Yes" : "No") unless registration.nil?  %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
+          <td><%= link_to raw("<i class='icon-user icon-white'></i> Add to #{team_name(@team.name)} "), add_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-mini" %></td>
         </tr>
       <% end %>
     </tbody>
+  <div class="digg_pagination">
+    <div clas="page_info">
+      <%= page_entries_info @eligible_students %>
+    </div>
+    <%= will_paginate @eligible_students, :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
+  </div>
   </table>
+<% end %>
 	
 
