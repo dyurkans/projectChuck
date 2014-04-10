@@ -29,6 +29,7 @@ ProjectChuck::Application.routes.draw do
   get 'teams/:id/remove' => 'teams#remove_student', :as => :remove_student  
   get 'brackets/:id/remove' => 'brackets#remove_team', :as => :remove_team
   get 'teams/:id/add' => 'teams#add_student', :as => :add_student  
+  get 'brackets/:id/add' => 'brackets#add_team', :as => :add_team
 
 
   # Set the root url
