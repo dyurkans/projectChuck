@@ -42,9 +42,9 @@ class Household < ActiveRecord::Base
 		index = 0
 		for g in guardians
 			if index != guardians.size - 1
-				name += g.last_name + "/"
+				name += g.first_name + " " + g.last_name + "/"
 			else 
-				name += g.last_name
+				name += g.first_name + " " + g.last_name
 			end
 			index += 1
 		end

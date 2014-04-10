@@ -31,7 +31,7 @@ class GuardiansController < ApplicationController
   def show
     @guardian = Guardian.find(params[:id])
     @students = @guardian.students
-    @household = Household.where(:guardian_id == @guardian.id)
+    @household = Household.select{ |h| h.id == @guardian.household_id }.first
   end
   
   def update
