@@ -9,7 +9,7 @@ class HouseholdsController < ApplicationController
     @household = Household.new(params[:household])
     if @household.save
       # if saved to database
-      flash[:notice] = "Successfully created household."
+      flash[:notice] = "Successfully created #{@household.name}."
       redirect_to @household # go to show student page
     else
       # return to the 'new' form
@@ -18,7 +18,7 @@ class HouseholdsController < ApplicationController
   end
   
   def edit
-    household = Household.find(params[:id])
+    @household = Household.find(params[:id])
   end
   
   def index
@@ -34,19 +34,19 @@ class HouseholdsController < ApplicationController
   end
   
   def update
-    household = Household.find(params[:id])
-    if household.update_attributes(params[:Household])
-      flash[:notice] = "Successfully updated the #{household.name} household."
-      redirect_to household
+    @household = Household.find(params[:id])
+    if @household.update_attributes(params[:Household])
+      flash[:notice] = "Successfully updated the #{@household.name} household."
+      redirect_to @household
     else
       render :action => 'edit'
     end
   end
   
   def destroy
-    household = Household.find(params[:id])
-    household.destroy
-    flash[:notice] = "Successfully removed #{household.name} from the Project C.H.U.C.K. System"
+    @household = Household.find(params[:id])
+    @household.destroy
+    flash[:notice] = "Successfully removed #{@household.name} from the Project C.H.U.C.K. System"
     redirect_to households_url
   end
 
