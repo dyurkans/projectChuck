@@ -10,7 +10,7 @@ class HouseholdsController < ApplicationController
     if @household.save
       # if saved to database
       flash[:notice] = "Successfully created #{@household.name}."
-      redirect_to @household # go to show student page
+      redirect_to @household # go to show household page
     else
       # return to the 'new' form
       render :action => 'new'
@@ -35,7 +35,7 @@ class HouseholdsController < ApplicationController
   
   def update
     @household = Household.find(params[:id])
-    if @household.update_attributes(params[:Household])
+    if @household.update_attributes(params[:household])
       flash[:notice] = "Successfully updated the #{@household.name} household."
       redirect_to @household
     else

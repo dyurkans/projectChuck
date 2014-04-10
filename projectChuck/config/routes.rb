@@ -1,6 +1,7 @@
 ProjectChuck::Application.routes.draw do
   
-
+  get "households/new"
+  get "students/index" 
 
   # Generated routes
   resources :students
@@ -12,8 +13,7 @@ ProjectChuck::Application.routes.draw do
   resources :users
   resources :tournaments
   
-  get "households/new"
-  get "students/index" 
+
 
   
   match 'home' => 'home#index', :as => :home
