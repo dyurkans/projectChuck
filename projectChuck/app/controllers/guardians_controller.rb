@@ -1,0 +1,2 @@
+class GuardiansController < ApplicationController
+end
