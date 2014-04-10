@@ -16,29 +16,6 @@ class BracketsController < ApplicationController
   	@bracket = Bracket.find(params[:id])
   	@teams = @bracket.teams
     @unassigned_teams = Team.select{ |t| t.bracket_id.nil? }
-    @eligible_teams = []
-    for team in @unassigned_teams
-      added = true
-      if team.students.empty?
-        @eligible_teams << team
-      else
-        #Go through each student on the unassigned team
-        for stu in team.students
-          #If unqualified student
-          if stu.age > @bracket.max_age || stu.age < @bracket.min_age
-            added = false
-          else 
-            #if qualified, go on to next student
-            next
-          end
-        end
-        # if there we no unqualified students, add the team to eligible teams for bracket
-        if added = true
-          @eligible_teams << team 
-        end
-      end
-    #Do this for each unassigned team
-    end   
   end
   
   def create

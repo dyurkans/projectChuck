@@ -68,7 +68,7 @@ class Team < ActiveRecord::Base
       max_age = bracket.max_age
       team_gender = bracket.gender
       registered_students = Student.active.select{ |s| ((s.registrations.empty? ||  s.registrations.nil?) || (s.registrations.reg_order[0].active == true and s.registrations.reg_order[0].team_id.nil?)) }
-      eligible_students = registered_students.select { |s| s.age_as_of_june_1 >= min_age and s.age_as_of_june_1 <= max_age and s.gender = team_gender }
+      eligible_students = registered_students.select { |s| s.age_as_of_june_1 >= min_age and s.age_as_of_june_1 <= max_age and s.gender == team_gender }
     else
       eligible_students = Student.active.select{ |s| ((s.registrations.empty? ||  s.registrations.nil?) || (s.registrations.reg_order[0].active == true and s.registrations.reg_order[0].team_id.nil?)) }
     end
