@@ -25,7 +25,7 @@ class GuardiansController < ApplicationController
   def index
     @active_guardians = Guardian.active.paginate(:page => params[:page]).per_page(10)
     @inactive_guardians = Guardian.inactive.paginate(:page => params[:page]).per_page(10)
-    @all_guardians = Guardian.paginate(:page => params[:page]).per_page(10)
+    @all_guardians = Guardian.alphabetical.paginate(:page => params[:page]).per_page(10)
   end
   
   def show
