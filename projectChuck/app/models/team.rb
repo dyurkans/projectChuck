@@ -23,7 +23,7 @@ class Team < ActiveRecord::Base
   belongs_to :bracket
   has_many :registrations
   has_many :students, :through => :registrations
-  validates_numericality_of :bracket_id, :only_integer => true, :greater_than => 0
+  validates_numericality_of :bracket_id, :only_integer => true, :greater_than => 0, :allow_nil => true
   validates_inclusion_of :name, :in => FULL_TEAM_LIST.map{ |t| t[1]}, :message => "must be proper team name"
   validates_numericality_of :max_students, :only_integer => true, :greater_than => 4, :less_than_or_equal_to => 10
   # max may not always be 10
@@ -62,12 +62,16 @@ class Team < ActiveRecord::Base
   end
 
   def eligible_students
-    bracket = Bracket.find(self.bracket_id)
-    min_age =  bracket.min_age
-    max_age = bracket.max_age
-    team_gender = bracket.gender
-    registered_students = Student.active.select{ |s| ((s.registrations.empty? ||  s.registrations.nil?) || (s.registrations.reg_order[0].active == true and s.registrations.reg_order[0].team_id.nil?)) }
-    eligible_students = registered_students.select { |s| s.age_as_of_june_1 >= min_age and s.age_as_of_june_1 <= max_age and s.gender = team_gender }
+    if !self.bracket_id.nil?
+      bracket = Bracket.find(self.bracket_id)
+      min_age =  bracket.min_age
+      max_age = bracket.max_age
+      team_gender = bracket.gender
+      registered_students = Student.active.select{ |s| ((s.registrations.empty? ||  s.registrations.nil?) || (s.registrations.reg_order[0].active == true and s.registrations.reg_order[0].team_id.nil?)) }
+      eligible_students = registered_students.select { |s| s.age_as_of_june_1 >= min_age and s.age_as_of_june_1 <= max_age and s.gender = team_gender }
+    else
+      eligible_students = Student.active.select{ |s| ((s.registrations.empty? ||  s.registrations.nil?) || (s.registrations.reg_order[0].active == true and s.registrations.reg_order[0].team_id.nil?)) }
+    end
   end
 
 end

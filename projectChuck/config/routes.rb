@@ -27,6 +27,7 @@ ProjectChuck::Application.routes.draw do
     
   # add custom routes for certain actions
   get 'teams/:id/remove' => 'teams#remove_student', :as => :remove_student  
+  get 'brackets/:id/remove' => 'brackets#remove_team', :as => :remove_team
 
 
   # Set the root url

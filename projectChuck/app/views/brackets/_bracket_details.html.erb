@@ -17,6 +17,7 @@
         <th>Coach</th>
         <th>Students</th>
         <th>&nbsp;</th>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -27,6 +28,7 @@
           <td><%= team.coach %></td>
           <td><%= number_of_players %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_team_path(team), :class => 'btn btn-mini' %></td>
+          <td><%= link_to raw("<i class='icon-user icon-white'></i> Remove"), remove_team_path(team_id: team.id), :origin => 'brackets', :class => "btn btn-mini" %></td>
         </tr>
       <% end %>
     </tbody>

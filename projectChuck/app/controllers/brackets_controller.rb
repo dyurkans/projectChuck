@@ -28,6 +28,13 @@ class BracketsController < ApplicationController
       render :action => 'new'
     end
   end
+
+  def remove_team
+    @bracket = Bracket.find(params[:id])
+    @team = Team.find(params[:team_id])
+    @team.update_attribute(:bracket_id, nil)
+    redirect_to bracket_path(@bracket)
+  end
   
   def update
     @bracket = Bracket.find(params[:id])
