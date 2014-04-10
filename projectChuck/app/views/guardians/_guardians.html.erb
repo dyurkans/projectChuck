@@ -14,11 +14,11 @@
     </thead>
     <tbody>
       <% @all_guardians.each do |guardian| %>
-        <% household = Household.where(:guardian_id == guardian.id) %>
+        <% household = Household.find(guardian.household_id) %>
         <tr>
           <td><%= link_to guardian.name, guardian_path(guardian) %></td>
-          <td><%= household.name + " Household" %></td>
-          <td><%= guardian.day_phone %></td>
+          <td><%= "#{household.name} Household" %></td>
+          <td><%= number_to_phone guardian.day_phone %></td>
           <td><%= guardian.receive_texts ? "Yes" : "No" %></td>
           <td><%= guardian.active ? "Yes" : "No" %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_guardian_path(guardian), :class => 'btn btn-mini' %></td>
