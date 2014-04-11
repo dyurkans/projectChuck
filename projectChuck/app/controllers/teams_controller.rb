@@ -68,6 +68,10 @@ class TeamsController < ApplicationController
   
   def destroy
     @team = Team.find(params[:id])
+    for reg in @team.registrations
+      reg.team_id = nil
+      reg.save!
+    end
     @team.destroy
     flash[:notice] = "Successfully removed the #{team_name(@team.name)} from the Project C.H.U.C.K. System"
     redirect_to teams_url
