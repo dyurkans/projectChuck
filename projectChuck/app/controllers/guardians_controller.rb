@@ -4,6 +4,7 @@ class GuardiansController < ApplicationController
 
   def new
     @guardian = Guardian.new
+    @households = Household.by_last_name.map { |h| "#{h.name}" }
   end
   
   def create
@@ -20,6 +21,7 @@ class GuardiansController < ApplicationController
   
   def edit
     @guardian = Guardian.find(params[:id])
+    @household = Household.select{ |h| h.id == @guardian.household_id }.first
   end
   
   def index
@@ -36,6 +38,7 @@ class GuardiansController < ApplicationController
   
   def update
     @guardian = Guardian.find(params[:id])
+    @household = Household.select{ |h| h.id == @guardian.household_id }.first
     if @guardian.update_attributes(params[:guardian])
       flash[:notice] = "Successfully updated the #{@guardian.name}."
       redirect_to @guardian
@@ -46,9 +49,11 @@ class GuardiansController < ApplicationController
   
   def destroy
     @guardian = Guardian.find(params[:id])
-    guardian.destroy
-    flash[:notice] = "Successfully removed #{guardian.name} house from the Project C.H.U.C.K. System"
-    redirect_to guardians_url
+    @household = Household.select{ |h| h.id == @guardian.household_id }.first
+    @guardian.active = false
+    @guardian.save!
+    flash[:notice] = "Successfully deactivated #{@guardian.name} from the Project C.H.U.C.K. System"
+    redirect_to @household
   end
 
 end
