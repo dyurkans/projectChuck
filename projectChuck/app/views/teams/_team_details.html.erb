@@ -45,7 +45,7 @@
           <% registration = student.registrations.reg_order[0] unless student.registrations.reg_order[0].nil? %>
           <td><%= link_to student.name, student_path(student) %></td>
           <td><%= student.dob.nil? ? "---" : student.age  %></td>
-          <td><%= if student.registrations.reg_order[0].nil? then "---" else student.registrations.reg_order[0].missing_doc ? "Yes" : "No"  end%></td>
+          <td><%= if student.registrations.reg_order[0].nil? then "Yes" else student.registrations.reg_order[0].missing_doc ? "No" : "Yes"  end%></td>
           <td><%= number_to_phone student.cell_phone %></td>
           <td>study halls complete or not complete</td>
           <td><%= registration.active ? "Yes" : "No" %></td>
@@ -69,7 +69,9 @@
         <th>Phone Number</th>
         <th>Active</th>
         <th>&nbsp;</th>
+        <% if @team.remaining_spots >  0 %>
         <th>&nbsp;</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -78,11 +80,13 @@
           <% registration = student.registrations.reg_order[0] unless student.registrations.reg_order[0].nil? %>
           <td><%= link_to student.name, student_path(student) %></td>
           <td><%= student.dob.nil? ? "---" : student.age  %></td>
-          <td><%= if student.registrations.reg_order[0].nil? then "---" else student.registrations.reg_order[0].missing_doc ? "Yes" : "No"  end%></td>
+          <td><%= if student.registrations.reg_order[0].nil? then "Yes" else (student.registrations.reg_order[0].missing_doc ? "No" : "Yes")  end %></td>
           <td><%= number_to_phone student.cell_phone %></td>
-          <td><%= (registration.active ? "Yes" : "No") unless registration.nil?  %></td>
+          <td><%= if registration.nil? then "No" else (registration.active ? "Yes" : "No") end %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
-          <td><%= link_to raw("<i class='icon-user icon-white'></i> Add to #{team_name(@team.name)} "), add_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-mini" %></td>
+          <% if @team.remaining_spots >  0 %>
+            <td><%= link_to raw("<i class='icon-user icon-white'></i> Add to #{team_name(@team.name)} "), add_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-mini" %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

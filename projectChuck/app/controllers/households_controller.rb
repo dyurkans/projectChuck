@@ -46,9 +46,20 @@ class HouseholdsController < ApplicationController
   def destroy
     @household = Household.find(params[:id])
     @household.active = false
+    for g in @household.guardians
+      g.active = false
+      g.save!
+    end
+    for s in @household.students
+      s.active = false
+      r = s.registrations.reg_order[0]
+      r.active = false
+      r.save!
+      s.save!
+    end
     @household.save!
-    flash[:notice] = "Successfully removed #{@household.name} from the Project C.H.U.C.K. System"
-    redirect_to households_url
+    flash[:notice] = "Successfully deactivated the  #{@household.name} Household from the Project C.H.U.C.K. System"
+    redirect_to household_url
   end
 
 end
