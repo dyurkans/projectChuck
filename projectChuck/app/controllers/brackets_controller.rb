@@ -34,6 +34,10 @@ class BracketsController < ApplicationController
     @bracket = Bracket.find(params[:id])
     @team = Team.find(params[:team_id])
     @team.update_attribute(:bracket_id, nil)
+    for reg in @team.registrations
+      reg.team_id = nil
+      reg.save!
+    end
     redirect_to bracket_path(@bracket)
   end
 
@@ -57,6 +61,14 @@ class BracketsController < ApplicationController
   
   def destroy
     @bracket = Bracket.find(params[:id])
+    for team in @bracket.teams
+      team.bracket_id = nil
+      team.save!
+      for reg in team.registrations
+        reg.team_id = nil
+        reg.save!
+      end
+    end
     @bracket.destroy
     flash[:notice] = "Successfully removed #{@bracket.name} bracket from the Project C.H.U.C.K. System"
     redirect_to brackets_url
