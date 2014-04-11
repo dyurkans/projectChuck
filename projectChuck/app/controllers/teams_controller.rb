@@ -14,7 +14,7 @@ class TeamsController < ApplicationController
   end
   
   def index
-    @teams = Team.alphabetical.paginate(:page => params[:page]).per_page(10)  
+    @teams = Team.alphabetical.by_bracket.paginate(:page => params[:page]).per_page(10)  
   end
   
   def show
@@ -46,7 +46,7 @@ class TeamsController < ApplicationController
     @teams = Team.unassigned_teams(@team.name)
     if @team.save
       # if saved to database
-      flash[:notice] = "Successfully created #{team_name(@team.name)}."
+      flash[:notice] = "Successfully created the #{team_name(@team.name)}."
       redirect_to @team # go to show team page
     else
       # return to the 'new' form
@@ -59,7 +59,7 @@ class TeamsController < ApplicationController
     @teams = Team.unassigned_teams(@team.name)
     @bracket = Bracket.find_by_id(@team.bracket_id)
     if @team.update_attributes(params[:team])
-      flash[:notice] = "Successfully updated #{team_name(@team.name)}."
+      flash[:notice] = "Successfully updated the #{team_name(@team.name)}."
       redirect_to @team
     else
       render :action => 'edit'
@@ -69,7 +69,7 @@ class TeamsController < ApplicationController
   def destroy
     @team = Team.find(params[:id])
     @team.destroy
-    flash[:notice] = "Successfully removed #{team_name(@team.name)} from the Project C.H.U.C.K. System"
+    flash[:notice] = "Successfully removed the #{team_name(@team.name)} from the Project C.H.U.C.K. System"
     redirect_to teams_url
   end
 

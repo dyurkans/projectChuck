@@ -14,7 +14,7 @@ class BracketsController < ApplicationController
   
   def show
   	@bracket = Bracket.find(params[:id])
-  	@teams = @bracket.teams
+  	@teams = @bracket.teams.alphabetical
     @unassigned_teams = Team.select{ |t| t.bracket_id.nil? }
   end
   
