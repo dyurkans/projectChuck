@@ -31,6 +31,7 @@ ProjectChuck::Application.routes.draw do
   get 'teams/:id/add' => 'teams#add_student', :as => :add_student  
   get 'brackets/:id/add' => 'brackets#add_team', :as => :add_team
   get 'guardians/:id/activate' => 'guardians#activate', :as => :activate
+  get 'students/:id/activate' => 'students#activate', :as => :activate
 
   # Set the root url
   root :to => 'home#index'
