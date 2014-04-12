@@ -110,6 +110,7 @@ namespace :db do
     
     boys_min_age = 7
     boys_max_age = 9
+    eligible_boy_students_left = []
     #Create 4 boys brackets
     4.times do |k|
       b = Bracket.new
@@ -124,9 +125,9 @@ namespace :db do
       
       eligible_boy_students = Student.active.male.ages_between(b.min_age,b.max_age)
       MAX_BOY_STUDENTS = 10
-      #not doing anything for students left not on a team here
       num_teams_to_create = eligible_boy_students.size / MAX_BOY_STUDENTS
-      puts "Creating #{num_teams_to_create} teams"
+      num_teams_to_create += 1 if eligible_boy_students.size % MAX_BOY_STUDENTS != 0
+      puts "Creating #{num_teams_to_create} teams..."
       num_teams_created = 0
       index_of_current_boy_student = 0
       while num_teams_created < num_teams_to_create do
@@ -146,8 +147,10 @@ namespace :db do
         puts "Added team #{t.name}"
         num_teams_created += 1
         index_of_boys_team_to_be_created += 1
+        num_boys_registered_to_t = 0
             
-        while index_of_current_boy_student < (t.max_students)*(num_teams_created) do
+        while index_of_current_boy_student < eligible_boy_students.size &&
+            num_boys_registered_to_t < t.max_students do
           student = eligible_boy_students[index_of_current_boy_student]
           #add new registration
           r = Registration.new
@@ -162,11 +165,13 @@ namespace :db do
           r.active = true
           r.created_at = (0..56).to_a.sample.days.ago.to_date
           r.save!
+          num_boys_registered_to_t += 1
           index_of_current_boy_student += 1
           puts "Registered #{student.proper_name} to the #{t.name}"
         end
       end
     end
+
     
     index_of_girls_team_to_be_created = 0
     girls_team_names = Team::GIRLS_TEAM_LIST.map{|team| team[1]}
@@ -186,10 +191,10 @@ namespace :db do
       puts "Added girls bracket with minimum age #{b.min_age} and maximum age #{b.max_age}"
       
       eligible_girl_students = Student.active.female.ages_between(b.min_age,b.max_age)
-      #not doing anything for students left not on a team here
       MAX_GIRL_STUDENTS = 10
       num_teams_to_create = eligible_girl_students.size / MAX_GIRL_STUDENTS
-      puts "Creating #{num_teams_to_create} teams"
+      num_teams_to_create += 1 if eligible_girl_students.size % MAX_GIRL_STUDENTS != 0
+      puts "Creating #{num_teams_to_create} teams..."
       num_teams_created = 0
       index_of_current_girl_student = 0
       while num_teams_created < num_teams_to_create do
@@ -210,8 +215,10 @@ namespace :db do
 
         num_teams_created += 1
         index_of_girls_team_to_be_created += 1
-            
-        while index_of_current_girl_student < (t.max_students)*(num_teams_created) do
+        num_girls_registered_to_t = 0
+           
+        while index_of_current_girl_student < eligible_girl_students.size &&
+            num_girls_registered_to_t < t.max_students do
           student = eligible_girl_students[index_of_current_girl_student]
           #add new registration
           r = Registration.new
@@ -226,6 +233,7 @@ namespace :db do
           r.active = true
           r.created_at = (0..56).to_a.sample.days.ago.to_date
           r.save!
+          num_girls_registered_to_t += 1
           index_of_current_girl_student += 1
           puts "Registered #{student.proper_name} to the #{t.name}"
         end
