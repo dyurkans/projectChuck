@@ -53,7 +53,15 @@ class GuardiansController < ApplicationController
     @guardian.active = false
     @guardian.save!
     flash[:notice] = "Successfully deactivated #{@guardian.name} from the Project C.H.U.C.K. System"
-    redirect_to @household
+    redirect_to @guardian
+  end
+
+  def activate
+    @guardian = Guardian.find(params[:id])
+    @guardian.active = true
+    @guardian.save!
+    flash[:notice] = "Successfully reactivated #{@guardian.name} from the Project C.H.U.C.K. System"
+    redirect_to @guardian
   end
 
 end
