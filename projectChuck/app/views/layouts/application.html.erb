@@ -10,34 +10,31 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-  <div class="wrapper" style="text-align:right;">
     <div class="container">
-      <div id="login">
+    </div>
+
+  <div class="container">
+    <div class="row" style="text-align:right;">
+      <!-- NAV BAR -->
+      <div class="col-sm-10 col-md-10 col-lg-10">
+        <%= render :partial => "partials/navigation" %>
+      </div>
+      
+      <div class="col-sm-2 col-med-2 col-lg-2">
         <% if logged_in? %>
           <%= link_to 'Logout', logout_path, :class => 'btn btn-primary' %>
           <br>[<%= current_user.student.proper_name %>:<%= current_user.role %>]
         <% else %>
-         <%= link_to 'Log In', login_path, :class => 'btn btn-primary' %>
+          <%= link_to(image_tag('bob_logo.png', size: "65x101")+"Login", login_path, :class => 'btn btn-primary')%>
         <% end %>
       </div>
-    </div>
-  </div>
-  <div class="container">
-    <!-- MAIN CONTENT -->
-    <div class="row">
-      <div class="col-sm-2 col-med-2 col-lg-3 sidebar">
+   </div>
+   <div class="row">
+      <div class="col-sm-2 col-med-2 col-lg-2 sidebar">
         <!-- TITLE BAR -->
-        <%= link_to(image_tag('projectChuckLogo.jpg'), home_path) %>
+        <%= image_tag('projectChuckLogo.jpg') %>
       </div>
-      <div class="col-sm-10 col-med-10 col-lg-9 main">
-        <!-- NAV BAR -->
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="container">
-              <%= render :partial => "partials/navigation" %>
-            </div>
-          </div>
-        </div>
+      <div id="main_content" class="col-sm-10 col-med-10 col-lg-10 main">
         <!-- flash messages -->
         <% flash.each do |name, msg| %>
           <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
@@ -45,18 +42,11 @@
             <%= msg %>
           </div>
         <% end %>
-
-
-
-        <div class="row">
-          <!-- main content placed here -->
-          <div class="col-sm-12 col-md-12 col-lg-12">
-            <div id="main_content">
-              <%= yield %>
-            </div>
-          </div>
+        
+        <!-- MAIN CONTENT -->
+        <div>
+          <%= yield %>
         </div>
-
       </div>
     </div>
   </div>
