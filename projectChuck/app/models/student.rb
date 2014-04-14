@@ -9,6 +9,8 @@ class Student < ActiveRecord::Base
   #Callbacks
   before_save :reformat_cell
   before_save :reformat_emergency_phone
+  before_destroy :check_if_destroyable
+  #after_rollback :deactivate_student_and_registrations, :on => :destory
 
 
   #Validations (email commented out b/c not in the database)
@@ -53,11 +55,26 @@ class Student < ActiveRecord::Base
 
 
   # Other methods
-  
-  def missing_report_card
-    self.registrations[0].report_card.nil?
+  def check_if_destroyable
+    return true
   end
 
+  def deactivate_student_and_registrations
+    self.active = false
+    self.save! 
+    unless self.registrations.nil? || self.registrations.empty?
+      for reg in self.registrations.active
+        reg.update_attribute(:active, false)
+        reg.save!
+      end      
+    end
+  end
+  
+  def missing_report_card
+    self.registrations.reg_order[0].report_card.nil? unless (self.registrations.nil? || self.registrations.empty?)
+  end
+
+  #Currently not in use/ or not functioning. Replaced by eligible_students method in team.rb
   def self.ages_between(low_age,high_age)
     Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
   end
@@ -72,7 +89,7 @@ class Student < ActiveRecord::Base
   end
 
   def self.qualifies_for_team(team_id)
-    Student.qualifies_for_bracket(Team.find(team_id).bracket_id)
+    self.qualifies_for_bracket(Team.find(team_id).bracket_id)
   end
 
   def name
@@ -99,12 +116,12 @@ class Student < ActiveRecord::Base
 
   # Method to find student's registration for this year (if there is one)
   def current_reg
-
+    self.registrations.reg_order[0] unless self.registrations.nil?
   end
   
   #insert age as of june 1 method
   def age_as_of_june_1
-    return nil if self.dob.blank?
+    return nil if self.dob.blank? #should never be blank
     (Date.new(Date.today.year, 6, 1).to_time.to_s(:number).to_i - self.dob.to_time.to_s(:number).to_i)/10e9.to_i
   end
 

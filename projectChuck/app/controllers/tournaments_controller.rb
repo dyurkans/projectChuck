@@ -40,8 +40,19 @@ class TournamentsController < ApplicationController
   
   def destroy
     @tournament = Tournament.find(params[:id])
+    @brackets = @tournament.brackets
+    for b in @brackets
+      for t in b.teams
+        for r in t.registrations
+          r.team_id = nil
+          r.save!
+        end
+        t.destroy
+      end
+      b.destroy
+    end
     @tournament.destroy
-    flash[:notice] = "Successfully removed #{@tournament} from the Project C.H.U.C.K. System"
+    flash[:notice] = "Successfully removed #{@tournament.name} from the Project C.H.U.C.K. System"
     redirect_to tournaments_url
   end
 end

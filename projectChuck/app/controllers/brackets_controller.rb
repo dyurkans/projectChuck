@@ -14,7 +14,8 @@ class BracketsController < ApplicationController
   
   def show
   	@bracket = Bracket.find(params[:id])
-  	@teams = @bracket.teams
+  	@teams = @bracket.teams.alphabetical
+    @unassigned_teams = Team.select{ |t| t.bracket_id.nil? }
   end
   
   def create
@@ -27,6 +28,26 @@ class BracketsController < ApplicationController
       # return to the 'new' form
       render :action => 'new'
     end
+  end
+
+  def remove_team
+    @bracket = Bracket.find(params[:id])
+    @team = Team.find(params[:team_id])
+    #@team.update_attribute(:bracket_id, nil)
+    for reg in @team.registrations
+      reg.team_id = nil
+      reg.save!
+    end
+    @team.destroy
+    redirect_to bracket_path(@bracket)
+  end
+
+  def add_team
+    @bracket = Bracket.find(params[:id])
+    @team = Team.find(params[:team_id])
+    @team.update_attribute(:bracket_id, @bracket.id)
+    @team.save!
+    redirect_to bracket_path(@bracket)
   end
   
   def update
@@ -41,6 +62,14 @@ class BracketsController < ApplicationController
   
   def destroy
     @bracket = Bracket.find(params[:id])
+    for team in @bracket.teams
+      for reg in team.registrations
+        reg.team_id = nil
+        reg.save!
+      end
+      team.bracket_id = nil
+      team.destroy
+    end
     @bracket.destroy
     flash[:notice] = "Successfully removed #{@bracket.name} bracket from the Project C.H.U.C.K. System"
     redirect_to brackets_url

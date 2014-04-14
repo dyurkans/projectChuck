@@ -12,7 +12,7 @@ class Household < ActiveRecord::Base
 	# Scopes
 	scope :active, where('active = ?', true)
 	scope :inactive, where('active = ?', false)
-	scope :by_last_name, joins(:guardian).order('guardian.last_name') #can i do this join?
+	scope :by_last_name, joins(:guardians).order('guardians.last_name').group('household_id')
 
 
 	# Lists
@@ -34,6 +34,21 @@ class Household < ActiveRecord::Base
 	# Other methods
 	def full_address
 	"#{street}, #{city}, #{state} #{zip}"
+	end
+
+	def name
+		guardians = self.guardians
+		name = ""
+		index = 0
+		for g in guardians
+			if index != guardians.size - 1
+				name += g.first_name + " " + g.last_name + "/"
+			else 
+				name += g.first_name + " " + g.last_name
+			end
+			index += 1
+		end
+		return name
 	end
 
 	  # Private methods
