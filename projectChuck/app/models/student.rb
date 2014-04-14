@@ -57,14 +57,6 @@ class Student < ActiveRecord::Base
 
 
   # Other methods
-  # def eligible_students(bracket_id,team_id)
-  #   bracket = Bracket.find(bracket_id)
-  #   min_age =  bracket.min_age
-  #   max_age = bracker.max_age
-  #   team_gender = Team.find(team_id).gender
-  #   registered_students = Student.active.where(self.registrations.reg_order[0].active = true unless self.registrations.nil? )
-  #   eligible_students = registered_students.select { |s| s.age_as_of_june_1 >= min_age and s.age_as_of_june_1 <= max_age and s.gender = team_gender }
-  # end
   def check_if_destroyable
     return true
   end

@@ -10,8 +10,7 @@ class StudentsController < ApplicationController
   def index
     @students = Student.active.alphabetical.paginate(:page => params[:page]).per_page(10)
     @inactive_students = Student.inactive.alphabetical.paginate(:page => params[:page]).per_page(10)
-    @all_students = @students + @inactive_students
-
+    @all_students = Student.alphabetical.paginate(:page => params[:page]).per_page(15)
   end
   
   def show
@@ -22,13 +21,6 @@ class StudentsController < ApplicationController
     @bracket = Bracket.find_by_id(@team.bracket_id) unless @team.nil?
     @guardians = @student.guardians
 
-  end
-
-  def remove
-    @student = Student.new(params[:student])
-    @student.registrations.reg_order[0].team_id = nil unless (@student.registrations.nil? || @student.registrations.empty?)
-    @student.save
-    render :action => 'show'
   end
   
   def create

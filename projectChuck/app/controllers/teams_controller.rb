@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   include ApplicationHelper
+  require 'will_paginate/array'
 
   def new
     @team = Team.new
@@ -13,15 +14,31 @@ class TeamsController < ApplicationController
   end
   
   def index
-    @teams = Team.alphabetical.paginate(:page => params[:page]).per_page(10)  
+    @teams = Team.alphabetical.by_bracket.paginate(:page => params[:page]).per_page(10)  
   end
   
   def show
   	@team = Team.find(params[:id])
-    @eligible_students = @team.eligible_students
+    @eligible_students = @team.eligible_students.paginate(:page => params[:page], :per_page => 5)
   	@bracket = Bracket.find_by_id(@team.bracket_id) unless @team.nil?
   	@registrations = @team.registrations
   	@students = @team.students
+  end
+
+  def remove_student
+    @team = Team.find(params[:id])
+    @student = Student.find(params[:student_id])
+    @student.registrations.reg_order[0].update_attribute(:team_id, nil)
+    @student.save!
+    redirect_to team_path(@team)
+  end
+
+  def add_student
+    @team = Team.find(params[:id])
+    @student = Student.find(params[:student_id])
+    @student.registrations.reg_order[0].update_attribute(:team_id, @team.id)
+    @student.save!
+    redirect_to team_path(@team)
   end
   
   def create
@@ -29,7 +46,7 @@ class TeamsController < ApplicationController
     @teams = Team.unassigned_teams(@team.name)
     if @team.save
       # if saved to database
-      flash[:notice] = "Successfully created #{team_name(@team.name)}."
+      flash[:notice] = "Successfully created the #{team_name(@team.name)}."
       redirect_to @team # go to show team page
     else
       # return to the 'new' form
@@ -42,7 +59,7 @@ class TeamsController < ApplicationController
     @teams = Team.unassigned_teams(@team.name)
     @bracket = Bracket.find_by_id(@team.bracket_id)
     if @team.update_attributes(params[:team])
-      flash[:notice] = "Successfully updated #{team_name(@team.name)}."
+      flash[:notice] = "Successfully updated the #{team_name(@team.name)}."
       redirect_to @team
     else
       render :action => 'edit'
@@ -51,8 +68,12 @@ class TeamsController < ApplicationController
   
   def destroy
     @team = Team.find(params[:id])
+    for reg in @team.registrations
+      reg.team_id = nil
+      reg.save!
+    end
     @team.destroy
-    flash[:notice] = "Successfully removed #{team_name(@team.name)} from the Project C.H.U.C.K. System"
+    flash[:notice] = "Successfully removed the #{team_name(@team.name)} from the Project C.H.U.C.K. System"
     redirect_to teams_url
   end
 

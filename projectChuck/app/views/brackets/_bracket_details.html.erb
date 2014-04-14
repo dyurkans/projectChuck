@@ -15,22 +15,25 @@
       <tr>
         <th>Team Name</th>
         <th>Coach</th>
-        <th>Students</th>
+        <th>Active Students</th>
+        <th>&nbsp;</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <% @teams.each do |team| %>
-        <% number_of_players = Registration.where(:team_id => team.id).size() %>
+<!--         <% number_of_players = Registration.where(:team_id => team.id).size() %> -->
         <tr>
           <td><%= link_to team_name(team.name), team_path(team) %></td>
           <td><%= team.coach %></td>
-          <td><%= number_of_players %></td>
+          <td><%= team.current_number_of_students %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_team_path(team), :class => 'btn btn-mini' %></td>
+          <td><%= link_to raw("<i class='icon-user icon-white'></i> Remove"), remove_team_path(team_id: team.id), :origin => 'teams', :class => "btn btn-mini" %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 <% end %>
+
 	
 

@@ -8,5 +8,5 @@
 <div class="form-actions">
   <%= link_to raw("<i class='icon-list'></i> Display All Brackets"), brackets_path, :class => 'btn'  %>&nbsp;&nbsp;
   <%= link_to raw("<i class='icon-pencil'></i> Edit Bracket"), edit_bracket_path(@bracket), :class => 'btn' %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-remove icon-white'></i> Delete Bracket"), bracket_path(@bracket), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  <%= link_to raw("<i class='icon-remove icon-white'></i> Delete Bracket"), bracket_path(@bracket), :method => 'delete', :action => 'destroy', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
 </div>
