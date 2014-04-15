@@ -2,11 +2,11 @@ class Student < ActiveRecord::Base
   # Relationships
   belongs_to :household
   has_many :registrations
-  has_many :guardians, through: :household
+#   has_many :guardians, through: :household
 
-  accepts_nested_attributes_for :household, :registrations
-
-  attr_accessible :registrations_attributes, :household_attributes, :email, :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :school_county, :security_question, :security_response
+  accepts_nested_attributes_for :household
+  accepts_nested_attributes_for :registrations
+  attr_accessible :household_attributes, :family_physician, :registrations_attributes, :email, :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :school_county, :security_question, :security_response
   
   #Callbacks
   before_save :reformat_cell

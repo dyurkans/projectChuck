@@ -3,7 +3,8 @@ class Household < ActiveRecord::Base
 	has_many :students
 	has_many :guardians
 
-accepts_nested_attributes_for :students, :guardians
+accepts_nested_attributes_for :students
+accepts_nested_attributes_for :guardians
 attr_accessible :students_attributes, :guardians_attributes, :county, :active, :city, :family_physician, :home_phone, :insurance_policy_no,:insurance_provider, :physician_phone, :state, :street, :zip
 
 	# Callbacks

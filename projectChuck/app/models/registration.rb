@@ -1,7 +1,8 @@
 class Registration < ActiveRecord::Base
   # Prof H suggested moving proof of insurance to household. 
   # Can someone write a migration for that and move the tests and code here appropriately.
-
+  # Make a migration to change t_shirt_size to jersey_size
+  
   #Relationships
   belongs_to :student
   belongs_to :team
@@ -10,7 +11,6 @@ class Registration < ActiveRecord::Base
   mount_uploader :proof_of_insurance, AvatarUploader
 
   accepts_nested_attributes_for :student
-  
   attr_accessible :student_attributes, :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
   
   #Local Variables

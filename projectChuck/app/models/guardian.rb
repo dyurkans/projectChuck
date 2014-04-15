@@ -1,12 +1,11 @@
 class Guardian < ActiveRecord::Base
-  attr_accessible :active, :cell_phone, :day_phone, :dob, :email, :first_name, :gender, :household_id, :last_name, :receive_texts
-
   has_one :user
   belongs_to :household
   has_many :students, through: :household
 
+  accepts_nested_attributes_for :household
   accepts_nested_attributes_for :students
-  attr_accessible :students_attributes, :active, :cell_phone, :day_phone, :dob, :email, :first_name, :gender, :household_id, :last_name, :receive_texts
+  attr_accessible :household_attributes, :students_attributes, :active, :cell_phone, :day_phone, :dob, :email, :first_name, :gender, :household_id, :last_name, :receive_texts
 
   
   #Callbacks

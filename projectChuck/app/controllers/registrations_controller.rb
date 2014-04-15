@@ -1,9 +1,9 @@
 class RegistrationsController < ApplicationController
   def new
-    @registration = Registration.new
-    @student = @registration.build_student
-    @household = @student.build_household
-    @household.guardians.build
+    @household = Household.new
+    @students = @household.students.build
+    @guardians = @household.guardians.build
+    @registrations = @students.registrations.build
   end
   
   def create
