@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
   def new
     @registration = Registration.new
-    @student = Student.new
+    @household = Household.new
   end
   
   def create
