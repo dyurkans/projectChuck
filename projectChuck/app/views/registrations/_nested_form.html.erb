@@ -10,7 +10,9 @@
   <div class="form-actions">
     <ul class="pager">
       <%= link_to 'Cancel', registrations_path, :class => 'btn' %>
-      <%= link_to 'Continue', :class => 'btn btn-primary btn-lg' %>
+      <span style="background:#e5e5e5" id="myPrevious" class="btn myHide">Previous</span>
+      <span style="background:#e5e5e5" id="myContinue" class="btn">Continue</span>
+      <%= student_form.submit nil, :class => 'btn btn-primary myHide', :id => 'registrationNestedSubmit' %>
     </ul>
   </div>
 <% end %>

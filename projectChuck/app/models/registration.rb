@@ -1,6 +1,4 @@
 class Registration < ActiveRecord::Base
-  attr_accessible :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
-
   # Prof H suggested moving proof of insurance to household. 
   # Can someone write a migration for that and move the tests and code here appropriately.
 
@@ -11,6 +9,9 @@ class Registration < ActiveRecord::Base
   mount_uploader :physical, AvatarUploader
   mount_uploader :proof_of_insurance, AvatarUploader
 
+  accepts_nested_attributes_for :student
+  
+  attr_accessible :student_attributes, :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
   
   #Local Variables
   SIZE_LIST = [['S', 0], ['M', 1], ['L',2], ['XL',3], ['XXL',4], ['XXXL',5]]

@@ -1,6 +1,8 @@
 class StudentsController < ApplicationController
   def new
     @student = Student.new
+    @student.registrations.build
+    @household = Household.new
   end
   
   def edit

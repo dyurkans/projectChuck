@@ -1,1 +1,63 @@
 <%= render :partial => 'nested_form' %>
+<script>
+  $(function() {
+    var first_page = 1;
+    var current_page_number = first_page;
+    var previous_page_number = current_page_number-1;
+    var last_page = 4;
+    $("#myContinue").click(function() {
+      if (first_page <= current_page_number && current_page_number < last_page) {
+        previous_page_number = current_page_number;
+        current_page_number++;
+        
+        $("#page"+previous_page_number).addClass('myHide');
+        $("#page"+current_page_number).removeClass('myHide');
+
+        //if not on first page then show previous button
+        if (current_page_number > first_page) {
+          $("#myPrevious").removeClass('myHide');
+        }
+        else {
+          $("#myPrevious").addClass('myHide');
+        }
+      
+        //if on last page then show submit button
+        if (current_page_number === last_page) {
+          $("#registrationNestedSubmit").removeClass('myHide');
+          $("#myContinue").addClass('myHide');
+       }
+        else {
+          $("#registrationNestedSubmit").addClass('myHide');
+          $("#myContinue").removeClass('myHide');
+        }
+      }
+    });
+    
+    $("#myPrevious").click(function() {
+      if (first_page < current_page_number && current_page_number <= last_page) {
+        $("#page"+previous_page_number).removeClass('myHide');
+        $("#page"+current_page_number).addClass('myHide');
+        current_page_number = previous_page_number;
+        previous_page_number--;
+
+        //if not on first page then show previous button
+        if (current_page_number > first_page) {
+          $("#myPrevious").removeClass('myHide');
+        }
+        else {
+          $("#myPrevious").addClass('myHide');
+        }
+      
+        //if on last page then show submit button
+        if (current_page_number === last_page) {
+          $("#registrationNestedSubmit").removeClass('myHide');
+          $("#myContinue").addClass('myHide');
+       }
+        else {
+          $("#registrationNestedSubmit").addClass('myHide');
+          $("#myContinue").removeClass('myHide');
+        }
+      }
+    });
+  });
+</script>
