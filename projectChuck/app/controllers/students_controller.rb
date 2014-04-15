@@ -50,8 +50,23 @@ class StudentsController < ApplicationController
   def destroy
     @student = Student.find(params[:id])
     @student.deactivate_student_and_registrations
-    flash[:notice] = "Successfully removed #{@student.proper_name} from the Project C.H.U.C.K. System"
-    redirect_to students_url
+    flash[:notice] = "Successfully deactivated #{@student.proper_name} from the Project C.H.U.C.K. System"
+    redirect_to @student
   end
+
+  def activate
+    @student = Student.find(params[:id])
+    @student.active = true
+    @student.save! 
+    unless @student.registrations.nil? || @student.registrations.empty?
+      for reg in @student.registrations.inactive
+        reg.update_attribute(:active, true)
+        reg.save!
+      end      
+    end
+    flash[:notice] = "Successfully reactivated #{@student.proper_name} from the Project C.H.U.C.K. System"
+    redirect_to @student
+  end
+
 
 end
