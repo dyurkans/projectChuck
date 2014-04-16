@@ -6,6 +6,7 @@ class Registration < ActiveRecord::Base
   #Relationships
   belongs_to :student
   belongs_to :team
+  
   mount_uploader :report_card, AvatarUploader
   mount_uploader :physical, AvatarUploader
   mount_uploader :proof_of_insurance, AvatarUploader
@@ -32,13 +33,13 @@ class Registration < ActiveRecord::Base
   scope :reg_order, order('created_at DESC')
   scope :physicals, where('physical IS NOT NULL')
   scope :report_cards, where('report_card IS NOT NULL')
-  scope :missing_insurance, where('proof_of_insurance = ?', nil)
-  scope :missing_physical, where('physical = ?', nil)
-  scope :missing_report_card, where('report_card = ?', nil)
+  scope :missing_insurance, where('proof_of_insurance IS NULL')
+  scope :missing_physical, where('physical IS NULL')
+  scope :missing_report_card, where('report_card IS NULL')
   scope :current, where('created_at > ?', Date.new(Date.today.year,1,1))
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
-  scope :incomplete, where('proof_of_insurance = ? || physical = ? || report_card = ?', nil, nil, nil)
+  scope :incomplete, where('proof_of_insurance IS NULL || physical IS NULL || report_card IS NULL')
   scope :jersey_size, lambda {|size| where("t_shirt_size = ?", size) }
 
   #Other Methods
