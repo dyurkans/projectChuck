@@ -11,6 +11,6 @@
   <% if @guardian.active %>
   	<%= link_to raw("<i class='icon-remove icon-white'></i> Deactivate Guardian"), guardian_path(@guardian), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
   <% else %>
-  	<%= link_to raw("<i class='icon-remove icon-white'></i> Reactivate Guardian"), activate_path(@guardian), :confirm => 'Are you sure?', :class => 'btn' %>
+  	<%= link_to raw("<i class='icon-remove icon-white'></i> Reactivate Guardian"), activate_guardian_path(@guardian), :confirm => 'Are you sure?', :class => 'btn btn-success' %>
   <% end %>
 </div>
