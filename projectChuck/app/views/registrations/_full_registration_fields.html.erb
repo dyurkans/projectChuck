@@ -40,6 +40,7 @@
     <%= reg.input :proof_of_insurance, :as => :file, :label => "Proof of Insurance Upload: " %>
   </div>
   <div id="page5" class="myHide">
+    <%= h.input :family_physician, :label => "Physician Name", :placeholder => "Dr. Herbert Fiscal" %>
     <%= h.input :physician_phone, :label => "Physician Phone", :placeholder => "412-778-9999" %>
     <%= reg.input :physical_date, :label => "Date of Last Physical Exam: ", :as => :date, :start_year => Date.today.year-18, :end_year => Date.today.year-5,  :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' }, :required => true %>    
     <%= stu.input :allergies, :input_html => { :rows => 3 , :cols => 30} %>
