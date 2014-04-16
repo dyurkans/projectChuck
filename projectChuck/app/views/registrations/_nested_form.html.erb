@@ -1,4 +1,6 @@
 <%= simple_nested_form_for @household, :html => { :class => 'form-horizontal' } do |household_form| %>
+  <% # I added variables @guardians, @students, and @registrations to the controller %>
+  <% # Can try replacing the colons ':'s with '@'s instead %>
   <%= household_form.simple_fields_for :guardians do |guardian_form| %>
     <%= guardian_form.simple_fields_for :students do |student_form| %>
       <%= student_form.simple_fields_for :registrations do |registration_form| %>
