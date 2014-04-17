@@ -5,9 +5,9 @@ class Tournament < ActiveRecord::Base
 
   before_save :valid_dates
 
-  validates_date :start_date, :message => "must be valid date"
-  validates_date :end_date, :message => "must be valid date"
-  validate :valid_dates, :message => "end date must later than start date"
+  validates_date :start_date, :message => "Must be a valid date"
+  validates_date :end_date, :message => "Must be a valid date"
+  validate :valid_dates, :message => "End date must be later than start date"
 
   scope :by_date, order('start_date DESC')
 
@@ -17,7 +17,12 @@ class Tournament < ActiveRecord::Base
 
 
   def valid_dates
-  	return self.end_date > self.start_date
+  	if self.end_date > self.start_date
+      return true
+    else
+      errors.add(:end_date, "End date must be later than the start date")
+      return false
+    end
   end
 
   def number_of_students
