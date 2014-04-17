@@ -33,7 +33,7 @@
         <th>Missing Document(s)</th>
         <th>Phone Number</th>
         <th>Study Halls</th> 
-        <th>Current Status</th>
+        <th>Current Registration Status</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
@@ -45,7 +45,7 @@
           <% registration = student.registrations.reg_order[0] unless student.registrations.reg_order[0].nil? %>
           <td><%= link_to student.name, student_path(student) %></td>
           <td><%= student.dob.nil? ? "---" : student.age_as_of_june_1  %></td>
-          <td><%= if student.registrations.reg_order[0].nil? then "Yes" else student.registrations.reg_order[0].missing_doc ? "No" : "Yes"  end%></td>
+          <td><%= if student.registrations.reg_order[0].nil? then "All" else student.registrations.reg_order[0].missing_doc end%></td>
           <td><%= number_to_phone student.cell_phone %></td>
           <td>study halls complete or not complete</td>
           <td><%= registration.active ? "Active" : "Inactive" %></td>
@@ -67,7 +67,7 @@
       <th>Age</th>
         <th>Missing Document(s)</th>
         <th>Phone Number</th>
-        <th>Current Status</th>
+        <th>Current Registration Status</th>
         <th>&nbsp;</th>
         <% if @team.remaining_spots >  0 %>
         <th>&nbsp;</th>
@@ -80,7 +80,7 @@
           <% registration = student.registrations.reg_order[0] unless student.registrations.reg_order[0].nil? %>
           <td><%= link_to student.name, student_path(student) %></td>
           <td><%= student.dob.nil? ? "---" : student.age  %></td>
-          <td><%= if student.registrations.reg_order[0].nil? then "Yes" else (student.registrations.reg_order[0].missing_doc ? "No" : "Yes")  end %></td>
+          <td><%= if student.registrations.reg_order[0].nil? then "All" else student.registrations.reg_order[0].missing_doc end %></td>
           <td><%= number_to_phone student.cell_phone %></td>
           <td><%= if registration.nil? then "Inactive" else (registration.active ? "Active" : "Inactive") end %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
