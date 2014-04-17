@@ -29,15 +29,10 @@ class Registration < ActiveRecord::Base
   scope :alphabetical, joins(:student).order('last_name')
   scope :for_team, joins(:team).order('name')
   scope :reg_order, order('created_at DESC')
-  scope :physicals, where('physical IS NOT NULL')
-  scope :report_cards, where('report_card IS NOT NULL')
-  scope :missing_insurance, where('proof_of_insurance = ?', nil)
-  scope :missing_physical, where('physical = ?', nil)
-  scope :missing_report_card, where('report_card = ?', nil)
   scope :current, where('created_at > ?', Date.new(Date.today.year,1,1))
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
-  scope :incomplete, where('proof_of_insurance = ? || physical = ? || report_card = ?', nil, nil, nil)
+  scope :incomplete, where('proof_of_insurance = ? OR physical = ? OR report_card = ?', nil, nil, nil)
   scope :jersey_size, lambda {|size| where("t_shirt_size = ?", size) }
 
   #Other Methods
@@ -72,20 +67,20 @@ class Registration < ActiveRecord::Base
   def missing_doc
     student = Student.find(self.student_id)
     missing_documents = ""
-    if self.proof_of_insurance.nil?
+    if self.proof_of_insurance.blank?
       missing_documents += "IC/"
     end
-    if self.physical.nil?
+    if self.physical.blank?
       missing_documents += "PH/"
     end
-    if self.report_card.nil? 
+    if self.report_card.blank? 
       missing_documents += "RC/"
     end
-    if student.birth_certificate.nil?
+    if student.birth_certificate.blank?
       missing_documents += "BC"
     end
     if missing_documents == "" 
-      missing_documents += "Completed"
+      missing_documents += "None"
     end
     return missing_documents
   end
