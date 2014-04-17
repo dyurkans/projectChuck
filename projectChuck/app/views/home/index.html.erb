@@ -1,8 +1,16 @@
 <div class="row">
-	<div class="span6">
-
+	<p>
+	  <b>Students Registered:</b><%= @tournament.number_of_students %>
+	</p>
+</div>
+<div class="row">
+	<div class="span4">
+		<%= render :partial => "students_missing_docs" %>
 	</div>
-	<div class="span6">
-
+	<div class="span4">
+		<%= render :partial => "guardians_receiving_texts" %>
 	</div>
 </div>
+<div class="row">
+Insert Demogrpahic Pie Charts Here
+</div>	

@@ -50,9 +50,7 @@ class Student < ActiveRecord::Base
   scope :needs_medication, where('medications <> ""')
   scope :seniors, where('grade_integer = ?', 13)
   scope :missing_birth_certificate, where('birth_certificate = ? ', nil)
-  scope :without_forms, joins(:registrations).where('birth_certificate = ? || physical = ? || proof_of_insurance = ? || report_card = ?', nil,nil,nil,nil)
-
-
+  scope :without_forms, joins(:registrations).where('birth_certificate = ? OR physical = ? OR proof_of_insurance = ? OR report_card = ?', nil,nil,nil,nil)
 
   # Other methods
   def check_if_destroyable
