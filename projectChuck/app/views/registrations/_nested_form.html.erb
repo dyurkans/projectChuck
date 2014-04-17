@@ -1,8 +1,0 @@
-<%= simple_nested_form_for @registration, :html => { :class => 'form-horizontal' } do |registration_form| %>
-  <%= registration_form.simple_fields_for :student do |student_form| %>
-    <fieldset>
-      <legend><%= controller.action_name.capitalize %> Registration </legend>
-      <%= render :partial => "reg_and_student_fields", :locals => { :reg => registration_form, :stu => student_form  } %>
-    </fieldset>
-  <% end %>
-<% end %>
