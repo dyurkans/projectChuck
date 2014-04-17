@@ -55,7 +55,6 @@ class Student < ActiveRecord::Base
   scope :has_allergies, where('allergies <> ""')
   scope :needs_medication, where('medications <> ""')
   scope :seniors, where('grade_integer = ?', 13)
-  scope :missing_birth_certificate, where('birth_certificate IS NULL')
   scope :without_forms, joins(:registrations).where('birth_certificate IS NULL OR physical IS NULL OR proof_of_insurance IS NULL OR report_card IS NULL')
 
 

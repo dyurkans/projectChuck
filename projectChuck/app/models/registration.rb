@@ -33,13 +33,10 @@ class Registration < ActiveRecord::Base
   scope :reg_order, order('created_at DESC')
   scope :physicals, where('physical IS NOT NULL')
   scope :report_cards, where('report_card IS NOT NULL')
-  scope :missing_insurance, where('proof_of_insurance IS NULL')
-  scope :missing_physical, where('physical IS NULL')
-  scope :missing_report_card, where('report_card IS NULL')
   scope :current, where('created_at > ?', Date.new(Date.today.year,1,1))
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
-  scope :incomplete, where('proof_of_insurance IS NULL || physical IS NULL || report_card IS NULL')
+  scope :incomplete, where('proof_of_insurance IS NULL OR physical IS NULL OR report_card IS NULL')
   scope :jersey_size, lambda {|size| where("t_shirt_size = ?", size) }
 
   #Other Methods
@@ -71,8 +68,8 @@ class Registration < ActiveRecord::Base
     end
   end
 
-  def missing_doc
-    return true if self.proof_of_insurance.nil? || self.physical.nil? || self.report_card.nil?
+  def missing_docs
+    return true if self.proof_of_insurance.blank? || self.physical.blank? || self.report_card.blank?
   end
 
   private

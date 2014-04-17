@@ -31,7 +31,7 @@
   </div>
   <div id="page3" class="myHide">
     <%= stu.input :school, :label => "School Name", :placeholder => "Barrett Elementary School" %>
-    <%= stu.input :grade_integer, :label => "Grade", :collection => Student::GRADES_LIST %>
+    <%= stu.input :grade_integer, :label => "Grade (as Semptember, #{Date.today.year}", :collection => Student::GRADES_LIST %>
     <%= reg.input :report_card, :as => :file, :label => "Report Card Upload: " %>
   </div>
   <div id="page4" class="myHide">
