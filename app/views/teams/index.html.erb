@@ -1,0 +1,8 @@
+<div class="row">
+	<div class="span12">
+		<h3>Teams</h3>
+		<%= render :partial => "teams" %>
+	</div>
+</div>
+
+<%= link_to raw("<i class='icon-plus icon-white'></i> Add a Team"), new_team_path, :class => 'btn btn-primary', :id => 'Create Team' %>

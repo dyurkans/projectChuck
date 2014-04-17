@@ -1,0 +1,12 @@
+<div class="row">
+	<div class="span12">
+		<h2>Team Details</h2>
+		<%= render :partial => "team_details" %>
+	</div>
+</div>
+
+<div class="form-actions">
+  <%= link_to raw("<i class='icon-list'></i> Display All Teams"), teams_path, :class => 'btn'  %>&nbsp;&nbsp;
+  <%= link_to raw("<i class='icon-pencil'></i> Edit #{team_name(@team.name)}"), edit_team_path(@team), :class => 'btn' %>&nbsp;&nbsp;
+  <%= link_to raw("<i class='icon-remove icon-white'></i> Delete #{team_name(@team.name)}"), team_path(@team), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+</div>

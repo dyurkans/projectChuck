@@ -1,0 +1,8 @@
+<div class="fields">
+  <div class="min_attraction">
+    <%= f.input :tournament_id, :collection => Tournament.all, :allow_blank => false %>
+    <%= f.input :min_age %>
+    <%= f.input :max_age %>
+    <%= f.input :gender, :collection => Bracket::GENDER_LIST %>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="nav-collapse">
+  <ul class="nav navbar-nav">
+    <% klass = "" %>
+    <% if (current_page?(:controller=>"students",:action=>"index"))%>
+        <% klass = "active" %>
+    <% end %>
+    <li class=<%= klass%>><%= link_to "Students", students_path %></li>
+
+    <% klass = "" %>
+    <% if (current_page?(:controller=>"guardians",:action=>"index"))%>
+        <% klass = "active" %>
+    <% end %>
+    <li class=<%= klass%>><%= link_to "Guardians", guardians_path %></li>
+
+    <% klass = "" %>
+    <% if (current_page?(:controller=>"households",:action=>"index"))%>
+        <% klass = "active" %>
+    <% end %>
+    <li class=<%= klass%>><%= link_to "Households", households_path %></li>
+
+    <% klass = "" %>
+    <% if (current_page?(:controller=>"teams",:action=>"index"))%>
+        <% klass = "active" %>
+    <% end %>
+    <li class=<%= klass%>><%= link_to "Teams", teams_path %></li>
+
+    <% klass = "" %>
+    <% if (current_page?(:controller=>"brackets",:action=>"index"))%>
+        <% klass = "active" %>
+    <% end %>
+    <li class=<%= klass%>><%= link_to "Brackets", brackets_path %></li>   
+    
+    <% klass = "" %>
+    <% if (current_page?(:controller=>"tournaments",:action=>"index"))%>
+        <% klass = "active" %>
+    <% end %>
+    <li class=<%= klass%>><%= link_to "Tournaments", tournaments_path %></li>     
+
+    <% if (current_user && current_user.role == 'admin') %>
+    <% end %>
+    
+<!-- <li><%# link_to "Registrations", registrations_path %></li> -->
+  </ul>
+</div>
