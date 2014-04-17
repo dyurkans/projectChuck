@@ -70,7 +70,24 @@ class Registration < ActiveRecord::Base
   end
 
   def missing_doc
-    return true if self.proof_of_insurance.nil? || self.physical.nil? || self.report_card.nil?
+    student = Student.find(self.student_id)
+    missing_documents = ""
+    if self.proof_of_insurance.nil?
+      missing_documents += "IC/"
+    end
+    if self.physical.nil?
+      missing_documents += "PH/"
+    end
+    if self.report_card.nil? 
+      missing_documents += "RC/"
+    end
+    if student.birth_certificate.nil?
+      missing_documents += "BC"
+    end
+    if missing_documents == "" 
+      missing_documents += "Completed"
+    end
+    return missing_documents
   end
 
   private

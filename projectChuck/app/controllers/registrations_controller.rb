@@ -2,6 +2,11 @@ class RegistrationsController < ApplicationController
   def new
     @registration = Registration.new
   end
+
+  def index
+    @registration = Registration.find(params[:id])
+    @student = Student.find(@registration.student_id)
+  end
   
   def create
     @registration = Registration.new(params[:registration])
