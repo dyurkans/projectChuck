@@ -5,7 +5,16 @@
     <%= stylesheet_link_tag    "bootstrap" %>
     <%= javascript_include_tag "application" %>    
     <%= javascript_include_tag "bootstrap" %>
+    <%= javascript_include_tag "highcharts" %>
     <%= csrf_meta_tags %>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script>
+      $(function() {
+        $( "#datepicker" ).datepicker();
+      });
+    </script>
   </head>
   <body>
   <div class="wrapper" style="text-align:right;">
