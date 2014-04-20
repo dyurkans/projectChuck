@@ -2,6 +2,9 @@
 	<p>
 	  <b>Students Registered:</b><%= @tournament.number_of_students unless @tournament.nil? %>
 	</p>
+	<p>
+	  <b>Jersey Sizes:</b> Small-<%= Registration.active.current.jersey_size(0).size %>, Medium-<%= Registration.active.current.jersey_size(1).size %>, Large-<%= Registration.active.current.jersey_size(2).size %>, X-Large-<%= Registration.active.current.jersey_size(3).size %>, XX-Large-<%= Registration.active.current.jersey_size(4).size %>, XXX-Large-<%= Registration.active.current.jersey_size(5).size %>
+	</p>	
 </div>
 <div class="row">
 	<div class="span4">
