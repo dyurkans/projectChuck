@@ -1,6 +1,6 @@
 <div class="row">
 	<p>
-	  <b>Students Registered:</b><%= @tournament.number_of_students %>
+	  <b>Students Registered:</b><%= @tournament.number_of_students unless @tournament.nil? %>
 	</p>
 </div>
 <div class="row">
@@ -15,5 +15,5 @@
 </br>
 <div class="row">
 	<%= high_chart("my_id4", @chart) %>
-	<%= @school_districts %>
+
 </div>	

@@ -38,8 +38,8 @@ class Student < ActiveRecord::Base
   # Scopes
   scope :alphabetical, order('last_name, first_name')
   scope :by_age, order('dob DESC')
-  scope :male, where('students.gender = ?', true)
-  scope :female, where('students.gender = ?', false)
+  scope :male, where('gender = ?', true)
+  scope :female, where('gender = ?', false)
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
   scope :by_grade, order('grade_integer')
@@ -56,6 +56,16 @@ class Student < ActiveRecord::Base
   def check_if_destroyable
     return true
   end
+
+  def self.registered_students
+    registrations = Registration.active
+    students = Student.active
+    registered_students = []
+    for r in registrations
+      registered_students << students.find(r.student_id)
+    end
+    registered_students
+  end   
 
   def deactivate_student_and_registrations
     self.active = false
