@@ -34,7 +34,8 @@ class Registration < ActiveRecord::Base
   scope :inactive, where('active = ?', false)
   scope :incomplete, where('proof_of_insurance = ? OR physical = ? OR report_card = ?', nil, nil, nil)
   scope :jersey_size, lambda {|size| where("t_shirt_size = ?", size) }
-
+  scope :by_date, order('created_at')
+  
   #Other Methods
 
   def student_in_appropriate_bracket

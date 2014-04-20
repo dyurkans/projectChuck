@@ -17,6 +17,11 @@
 		<%= render :partial => "unassigned_students" %>
 	</div>
 </div>
+<% @brackets.each do |bracket| %> 
+	<div class="row">
+		<%= render :partial => "waitlist", :locals => { :b => bracket, :min => bracket.min_age, :max => bracket.max_age } %> 
+	</div>
+<% end %>
 </br>
 </br>
 <div class="row">

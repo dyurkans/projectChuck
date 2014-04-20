@@ -1,0 +1,27 @@
+<h4> <%= "Waitlist for #{b.name}" %></h4>
+<% if !b.waitlist %>
+  &nbsp;&nbsp;<em><%="There is still space available in the #{b.name} bracket." %></em>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Name</th>
+        <th>Age(as of June 1)</th>
+        <th>Time Submitted</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% position = 1 %>
+      <% b.eligible_students(min, max).each do |student| %>
+        <tr>
+          <td><%= position %></td>
+          <td><%= link_to student.name, student_path(student) %></td>
+          <td><%= student.age_as_of_june_1 %></td>
+          <td><%= student.registrations.current.first.created_at %></td>
+        </tr>
+        <% position += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
