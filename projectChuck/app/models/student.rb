@@ -53,6 +53,25 @@ class Student < ActiveRecord::Base
   scope :without_forms, joins(:registrations).where('birth_certificate = ? OR physical = ? OR proof_of_insurance = ? OR report_card = ?', nil,nil,nil,nil)
 
   # Other methods
+
+  def self.school_districts
+    registered_students = Student.registered_students
+    school_districts = []
+    for stu in registered_students
+      if !school_districts.include?([stu.school_county,0])
+        school_districts << [stu.school_county, 0]
+      end
+    end
+    for student in registered_students
+      for district in school_districts
+        if district.first == student.school_county
+          district[1] += 1 
+        end
+      end
+    end
+    school_districts
+  end
+
   def check_if_destroyable
     return true
   end

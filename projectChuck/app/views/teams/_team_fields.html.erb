@@ -1,6 +1,6 @@
 <div class="fields">
   <div class="min_attraction">
-    <%= f.input :bracket_id, :collection => Bracket.all, :include_blank => false, :selected => (@bracket.id unless @bracket.nil?) %>
+    <%= f.input :bracket_id, :collection => Bracket.all, :include_blank => false, :selected => (@bracket.id unless @bracket.nil?), :required => true, :message => "Please create a bracket first" %>
 	<%= f.input :name, :collection => @teams, :include_blank => false, :selected => @team.name %>
     <%= f.input :coach, :placeholder => "Full Name" %>
     <% if !@team.id.nil? %>
