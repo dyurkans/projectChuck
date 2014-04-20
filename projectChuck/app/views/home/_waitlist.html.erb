@@ -1,5 +1,5 @@
 <h4> <%= "Waitlist for #{b.name}" %></h4>
-<% if !b.waitlist %>
+<% if b.waitlist == "There is still space available in the #{b.name}" %>
   &nbsp;&nbsp;<em><%="There is still space available in the #{b.name} bracket." %></em>
 <% else %>
   <table class="table table-striped">
