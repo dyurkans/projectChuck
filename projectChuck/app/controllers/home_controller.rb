@@ -12,7 +12,7 @@ class HomeController < ApplicationController
 		@male_students = @registered_students.select { |x| x.gender == true }.size 
 		@female_students = @registered_students.select { |x| x.gender == false }.size
 		@school_districts = Student.school_districts
-
+		@unassigned_students = @registered_students.select { |stu| stu.registrations.reg_order.first.team_id == nil }.paginate(:page => params[:unassigned_student_page], :per_page => 10)
 		# Documentation can be found at https://github.com/michelson/lazy_high_charts
 		@gender_chart = LazyHighCharts::HighChart.new('pie') do |f|
 		      f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )

@@ -10,14 +10,17 @@
 	<div class="span4">
 		<%= render :partial => "guardians_receiving_texts" %>
 	</div>
+	<div class="span2">
+		<%= render :partial => "unassigned_students" %>
+	</div>
 </div>
 </br>
 </br>
 <div class="row">
 	<%= high_chart("my_id1", @gender_chart) %>
-
 </div>
 <div class="row">
 	<%= high_chart("my_id2", @school_district_chart) %>	
 </div>	
+
 
