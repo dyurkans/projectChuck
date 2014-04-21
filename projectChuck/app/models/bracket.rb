@@ -35,9 +35,9 @@ class Bracket < ActiveRecord::Base
       end
     end
     if spots > 0 
-      return "There is still space available in the #{self.name}"
+      return spots
     else
-      return true
+      return 0
     end
   end
 
