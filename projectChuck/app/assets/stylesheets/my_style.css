@@ -1,0 +1,39 @@
+input, select {
+  padding: 1%;
+  margin:1%;
+}
+
+.myHide {
+  display:none;
+}
+
+#main_content {
+  padding-top:0;
+  padding-bottom:10%;
+}
+
+.nav {
+  padding:1%;
+  font-size:1.3em;
+}
+
+.nav li {
+  margin: 0 1% 0 0%;
+  background:#fefefe;
+}
+
+.address {
+  margin-left:6em;
+}
+
+.continue {
+  margin-left:15em;
+}
+
+label {
+  font-size: 1.2em;
+}
+
+fieldset, legend {
+  padding-top: 2%;
+}

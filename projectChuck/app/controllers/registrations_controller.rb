@@ -1,6 +1,9 @@
 class RegistrationsController < ApplicationController
   def new
-    @registration = Registration.new
+    @household = Household.new
+    @students = @household.students.build
+    @guardians = @household.guardians.build
+    @registrations = @students.registrations.build
   end
 
   def index
@@ -9,6 +12,7 @@ class RegistrationsController < ApplicationController
   end
   
   def create
+    @student = Student.new(params[:student])
     @registration = Registration.new(params[:registration])
     if @registration.save
       # if saved to database

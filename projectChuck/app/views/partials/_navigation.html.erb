@@ -1,5 +1,4 @@
-<div class="nav-collapse">
-  <ul class="nav navbar-nav">
+  <ul class="nav navbar-right navbar-nav col-sm-10 col-md-10 col-lg-10">
     <% klass = "" %>
     <% if (current_page?(:controller=>"home",:action=>"index"))%>
         <% klass = "active" %>
@@ -41,10 +40,9 @@
         <% klass = "active" %>
     <% end %>
     <li class=<%= klass%>><%= link_to "Tournaments", tournaments_path %></li>     
-
+    
     <% if (current_user && current_user.role == 'admin') %>
     <% end %>
     
 <!-- <li><%# link_to "Registrations", registrations_path %></li> -->
   </ul>
-</div>

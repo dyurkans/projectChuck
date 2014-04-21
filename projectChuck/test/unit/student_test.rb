@@ -151,7 +151,6 @@ class StudentTest < ActiveSupport::TestCase
     should "have working age method" do 
       assert_equal 14, @howard.age
       assert_equal 9, @noah.age
-      assert_equal 16, @julie.age
       assert_equal 18, @julie.age
     end
     
@@ -200,20 +199,20 @@ class StudentTest < ActiveSupport::TestCase
       @tourn = FactoryGirl.create(:tournament)
       @bracket = FactoryGirl.create(:bracket, min_age:11, max_age:13, tournament_id:@tourn.id)
       @celtics = FactoryGirl.create(:team, name:"Boston Celtics", bracket:@bracket)
-      @bad_ed = FactoryGirl.create(:student, birth_certificate:nil, dob:12.years.ago)
-      @reg_bad_ed = FactoryGirl.create(:registration, student:@bad_ed, team:@celtics)
-      @reg_fred = FactoryGirl.create(:registration, student:@fred, team:@celtics,
-                                     physical:nil,
-                                     proof_of_insurance:"documents/prof_of_insurance/FGruberman.pdf",
-                                     report_card:"documents/report_card/Fred")
-      @reg_ned = FactoryGirl.create(:registration, student:@ned, team:@celtics,
-                                    proof_of_insurance:nil,
-                                    report_card:"documents/report_card/Ned.pdf",physical:"documents/physical/NedGruberman.jpg")
-      assert_equal ["Ed","Fred","Ned"], Student.alphabetical.without_forms.map(&:first_name)
+      @bad_steve = FactoryGirl.create(:student, first_name:"Steve", dob:12.years.ago)
+      @bad_steve.remove_birth_certificate!
+      @bad_steve.save!
+      @reg_fred = FactoryGirl.create(:registration, student:@fred, team:@celtics)
+      @reg_fred.remove_physical!
+      @reg_fred.save!
+      @reg_ned = FactoryGirl.create(:registration, student:@ned, team:@celtics)
+      @reg_ned.remove_proof_of_insurance!
+      @reg_ned.save!
+      assert_equal ["Fred","Ned","Steve"], Student.alphabetical.without_forms.map(&:first_name)
       
-      @reg_ed.destroy
+      @reg_fred.destroy
       @reg_ned.destroy
-      @bad_ed.destroy
+      @bad_steve.destroy
       @celtics.destroy
       @bracket.destroy
       @tourn.destroy
@@ -257,7 +256,6 @@ class StudentTest < ActiveSupport::TestCase
     end
     
     should "have scope for ordering by grade" do 
-      assert_equal ["Ark","Hoover", "Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.by_grade.alphabetical.all.map(&:last_name)
       assert_equal ["Ark","Hoover", "Gruberman","Gruberman","Gruberman","Gruberman", "Hanson","Marcus","Henderson"], Student.by_grade.alphabetical.map(&:last_name)
     end
   end

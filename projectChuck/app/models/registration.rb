@@ -1,16 +1,18 @@
 class Registration < ActiveRecord::Base
-  attr_accessible :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
-
   # Prof H suggested moving proof of insurance to household. 
   # Can someone write a migration for that and move the tests and code here appropriately.
-
+  # Make a migration to change t_shirt_size to jersey_size
+  
   #Relationships
   belongs_to :student
   belongs_to :team
+  
   mount_uploader :report_card, AvatarUploader
   mount_uploader :physical, AvatarUploader
   mount_uploader :proof_of_insurance, AvatarUploader
 
+  accepts_nested_attributes_for :student
+  attr_accessible :student_attributes, :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
   
   #Local Variables
   SIZE_LIST = [['S', 0], ['M', 1], ['L',2], ['XL',3], ['XXL',4], ['XXXL',5]]
@@ -29,10 +31,10 @@ class Registration < ActiveRecord::Base
   scope :alphabetical, joins(:student).order('last_name')
   scope :for_team, joins(:team).order('name')
   scope :reg_order, order('created_at DESC')
-  scope :current, where('created_at > ?', Date.new(Date.today.year,1,1))
+  scope :current, where('? <= created_at and created_at <= ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31))
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
-  scope :incomplete, where('proof_of_insurance = ? OR physical = ? OR report_card = ?', nil, nil, nil)
+  scope :incomplete, where('proof_of_insurance IS NULL OR physical IS NULL OR report_card IS NULL')
   scope :jersey_size, lambda {|size| where("t_shirt_size = ?", size) }
   scope :by_date, order('created_at')
   

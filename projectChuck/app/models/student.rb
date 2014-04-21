@@ -1,11 +1,17 @@
-class Student < ActiveRecord::Base
-  attr_accessible :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :school_county, :security_question, :security_response
-
+class Student < ActiveRecord::Base  
   # Relationships
   belongs_to :household
   has_many :registrations
-  has_many :guardians, through: :household
+  has_many :guardians, :through => :household
+  has_many :teams, :through => :registrations
+  
+  mount_uploader :birth_certificate, AvatarUploader
 
+  accepts_nested_attributes_for :household
+  accepts_nested_attributes_for :registrations
+  accepts_nested_attributes_for :guardians
+  attr_accessible :household_attributes, :registrations_attributes, :guardians_attributes, :email, :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :school_county, :security_question, :security_response
+  
   #Callbacks
   before_save :reformat_cell
   before_save :reformat_emergency_phone
@@ -49,8 +55,7 @@ class Student < ActiveRecord::Base
   scope :has_allergies, where('allergies <> ""')
   scope :needs_medication, where('medications <> ""')
   scope :seniors, where('grade_integer = ?', 13)
-  scope :missing_birth_certificate, where('birth_certificate = ? ', nil)
-  scope :without_forms, joins(:registrations).where('birth_certificate = ? OR physical = ? OR proof_of_insurance = ? OR report_card = ?', nil,nil,nil,nil)
+  scope :without_forms, joins(:registrations).where('birth_certificate IS NULL OR physical IS NULL OR proof_of_insurance IS NULL OR report_card IS NULL')
 
   # Other methods
 
@@ -98,7 +103,7 @@ class Student < ActiveRecord::Base
   end
   
   def missing_report_card
-    self.registrations.reg_order[0].report_card.nil? unless (self.registrations.nil? || self.registrations.empty?)
+    self.registrations.reg_order[0].report_card.blank? unless (self.registrations.nil? || self.registrations.empty?)
   end
 
   #Currently not in use/ or not functioning. Replaced by eligible_students method in team.rb

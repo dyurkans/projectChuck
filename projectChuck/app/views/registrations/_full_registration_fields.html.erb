@@ -1,0 +1,50 @@
+<div class="fields">
+  <div id="page1">
+    <%= stu.input :first_name, :label => "Student Name", :placeholder => "First", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
+    <%= stu.input :last_name, :label => false, :placeholder => "Last", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
+    <%= stu.input :gender, :collection => Student::GENDER_LIST, :default => 0, :required => true %>
+    <%= stu.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year-19, :end_year => Date.today.year-4,  :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' }, :required => true %>
+    <%= stu.input :birth_certificate, :as => :file, :label => "Birth Certificate Upload: " %>
+    <%= h.input :street, :label => "Address", :placeholder => "5000 Forbes Avenue" %>
+    <div class="address">
+      <%= h.input :city, :label => false, :placeholder => "City", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
+      <%= h.input :state, :label => false, :placeholder => "State", :wrapper => :my_wrapper, :collection => Household::STATES_LIST, :selected =>'PA' %>
+      <div>
+        <%= h.input :zip, :label => false, :placeholder => "Zip Code", :wrapper => :my_wrapper, :input_html => { size: 20 } %>
+        <%= h.input :county, :label => false, :placeholder => "County", :wrapper => :my_wrapper, :input_html => { size: 20 } %>
+      </div>
+    </div>
+    <%= stu.input :cell_phone, :label => "Cell Phone", :placeholder => "412-555-5555", :input_html => { size: 30 } %>
+    <%= reg.input :t_shirt_size, :label => "Jersey Size", :collection => Registration::SIZE_LIST %>
+    <%= stu.input :emergency_contact_name, :label => "Emergency Contact Name", :placeholder => "William Cooper", :input_html => { size: 35 } %>
+    <%= stu.input :emergency_contact_phone, :label => "Emergency Contact Phone", :placeholder => "412-999-9999", :input_html => { size: 20 }, :required => true %>
+  </div>
+  <div id="page2" class="myHide">
+    <%= g.input :first_name, :label => "Guardian Name", :placeholder => "First", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
+    <%= g.input :last_name, :label => false, :placeholder => "Last", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
+    <%= g.input :gender, :collection => Student::GENDER_LIST, :default => 0, :required => true %>
+    <%= g.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year-19, :end_year => Date.today.year-4,  :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' }, :required => false %>
+    <%= g.input :email, :placeholder => "johndoe@gmail.com", :input_html => { size: 30 } %>
+    <%= g.input :day_phone, :label => "Day Phone", :placeholder => "412-345-5555", :input_html => { size: 30 } %>
+    <%= g.input :cell_phone, :label => "Cell Phone", :placeholder => "412-567-9999", :input_html => { size: 30 } %>
+    <%= g.input :receive_texts, :label => "Opt-in to Receive Text Messages", :required => true %>
+  </div>
+  <div id="page3" class="myHide">
+    <%= stu.input :school, :label => "School Name", :placeholder => "Barrett Elementary School" %>
+    <%= stu.input :grade_integer, :label => "Grade (as Semptember, #{Date.today.year}", :collection => Student::GRADES_LIST %>
+    <%= reg.input :report_card, :as => :file, :label => "Report Card Upload: " %>
+  </div>
+  <div id="page4" class="myHide">
+    <%= h.input :insurance_provider, :label => "Insurance Provider: ", :placeholder => "Blue Cross, Blue Shield" %>
+    <%= h.input :insurance_policy_no, :label => "Insurance Policy Number: ", :placeholder => "0992X R78123 678" %>
+    <%= reg.input :proof_of_insurance, :as => :file, :label => "Proof of Insurance Upload: " %>
+  </div>
+  <div id="page5" class="myHide">
+    <%= h.input :family_physician, :label => "Physician Name", :placeholder => "Dr. Herbert Fiscal" %>
+    <%= h.input :physician_phone, :label => "Physician Phone", :placeholder => "412-778-9999" %>
+    <%= reg.input :physical_date, :label => "Date of Last Physical Exam: ", :as => :date, :start_year => Date.today.year-18, :end_year => Date.today.year-5,  :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' }, :required => true %>    
+    <%= stu.input :allergies, :input_html => { :rows => 3 , :cols => 30} %>
+    <%= stu.input :medications, :input_html => { :rows => 3 , :cols => 30} %>
+    <%= reg.input :physical, :as => :file, :label => "Physical Form Upload: " %>
+  </div>
+</div>
