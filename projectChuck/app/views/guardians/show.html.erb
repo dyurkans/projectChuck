@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="span12">
-		<h2>Guardian Details</h2>
+		<h2>Parent/Guardian Details</h2>
 		<%= render :partial => "guardian_details" %>
 	</div>
 </div>
@@ -9,8 +9,8 @@
   <%= link_to raw("<i class='icon-list'></i> Display All Guardians"), guardians_path, :class => 'btn'  %>&nbsp;&nbsp;
   <%= link_to raw("<i class='icon-pencil'></i> Edit Guardian"), edit_guardian_path(@guardian), :class => 'btn' %>&nbsp;&nbsp;
   <% if @guardian.active %>
-  	<%= link_to raw("<i class='icon-remove icon-white'></i> Deactivate Guardian"), guardian_path(@guardian), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  	<%= link_to raw("<i class='icon-remove icon-white'></i> Change Guardian Status"), guardian_path(@guardian), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
   <% else %>
-  	<%= link_to raw("<i class='icon-remove icon-white'></i> Reactivate Guardian"), activate_path(@guardian), :confirm => 'Are you sure?', :class => 'btn' %>
+  	<%= link_to raw("<i class='icon-remove icon-white'></i> Change Guardian Status"), activate_guardian_path(@guardian), :confirm => 'Are you sure?', :class => 'btn btn-success' %>
   <% end %>
 </div>

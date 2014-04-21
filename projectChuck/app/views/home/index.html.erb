@@ -1,0 +1,34 @@
+<div class="row">
+	<p>
+	  <b>Students Registered:</b><%= @tournament.number_of_students unless @tournament.nil? %>
+	</p>
+	<p>
+	  <b>Jersey Sizes:</b> Small-<%= Registration.active.current.jersey_size(0).size %>, Medium-<%= Registration.active.current.jersey_size(1).size %>, Large-<%= Registration.active.current.jersey_size(2).size %>, X-Large-<%= Registration.active.current.jersey_size(3).size %>, XX-Large-<%= Registration.active.current.jersey_size(4).size %>, XXX-Large-<%= Registration.active.current.jersey_size(5).size %>
+	</p>	
+</div>
+<div class="row">
+	<div class="span4">
+		<%= render :partial => "students_missing_docs" %>
+	</div>
+	<div class="span4">
+		<%= render :partial => "guardians_receiving_texts" %>
+	</div>
+	<div class="span2">
+		<%= render :partial => "unassigned_students" %>
+	</div>
+</div>
+<% @brackets.each do |bracket| %> 
+	<div class="row">
+		<%= render :partial => "waitlist", :locals => { :b => bracket, :min => bracket.min_age, :max => bracket.max_age } %> 
+	</div>
+<% end %>
+</br>
+</br>
+<div class="row">
+	<%= high_chart("my_id1", @gender_chart) %>
+</div>
+<div class="row">
+	<%= high_chart("my_id2", @school_district_chart) %>	
+</div>	
+
+

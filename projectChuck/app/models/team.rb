@@ -23,7 +23,7 @@ class Team < ActiveRecord::Base
   belongs_to :bracket
   has_many :registrations
   has_many :students, :through => :registrations
-  validates_numericality_of :bracket_id, :only_integer => true, :greater_than => 0, :allow_nil => true
+  validates_numericality_of :bracket_id, :only_integer => true, :greater_than => 0, :allow_nil => false, :message => "Please create a bracket first."
   validates_inclusion_of :name, :in => FULL_TEAM_LIST.map{ |t| t[1]}, :message => "must be proper team name"
   validates_numericality_of :max_students, :only_integer => true, :greater_than => 4, :less_than_or_equal_to => 10
   # max may not always be 10

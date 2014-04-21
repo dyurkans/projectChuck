@@ -5,11 +5,11 @@
     <thead>
       <tr>
         <th>Name</th>
-  			<th>Age</th>
+  			<th>Age (as of June 1)</th>
   			<th>Team</th>
         <th>Bracket</th>
         <th>Missing Document(s)</th>
-        <th>Active</th>
+        <th>Current Status</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -21,11 +21,11 @@
           <% team = Team.find_by_id(registration.team_id) unless registration.nil? %>
           <% bracket = Bracket.find_by_id(team.bracket_id) unless team.nil? %>
           <td><%= link_to student.name, student_path(student) %></td>
-          <td><%= student.dob.nil? ? "---" : student.age  %></td>
+          <td><%= student.dob.nil? ? "---" : student.age_as_of_june_1  %></td>
           <td><%= team.nil? ? "---" : (link_to team_name(team.name), team_path(team))  %></td>
   				<td><%= bracket.nil? ? "---" : (link_to "#{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket)) %></td>
-          <td><%= if student.registrations.reg_order[0].nil? then "---" else student.registrations.reg_order[0].missing_doc ? "Yes" : "No"  end%></td>
-          <th><%= if stu.nil? then "No" else stu.active ? "Yes" : "No" end %></th>
+          <td><%= if student.registrations.reg_order[0].nil? then "---" else student.registrations.reg_order[0].missing_doc end%></td>
+          <th><%= if stu.nil? then "Inactive" else stu.active ? "Active" : "Inactive" end %></th>
           <th><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></th>
         </tr>
       <% end %>
@@ -33,8 +33,8 @@
   </table>
   <div class="digg_pagination">
     <div clas="page_info">
-      <%= page_entries_info @students %>
+      <%= page_entries_info @all_students %>
     </div>
-    <%= will_paginate @students, :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
+    <%= will_paginate @all_students, :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
   </div>
 <% end %>

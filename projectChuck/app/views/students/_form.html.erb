@@ -10,6 +10,6 @@
     
   <div class="form-actions">
     <%= student_form.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to 'Cancel', students_path, :class => 'btn' %>
+    <%= link_to 'Cancel', student_path(@student), :class => 'btn' %>
   </div>
 <% end %>

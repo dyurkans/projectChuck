@@ -8,7 +8,7 @@
 </p>
 
 <p>
-  <b>Date of Birth:</b> <%= @student.dob.strftime("%B %d, %Y") %> Link to Birth Certificate goes here.
+  <b>Date of Birth:</b> <%= @student.dob.strftime("%B %d, %Y") %>
 </p>
 
 <p>
@@ -24,7 +24,7 @@
 </p>
 
 <p>
-  <b>T-shirt Size</b> <%= if !@registration.nil? then Registration::SIZE_LIST.map{ |t| t[0]}[@registration.t_shirt_size - 1]  else "---" end %>
+  <b>Jersey Size:</b> <%= if !@registration.nil? then Registration::SIZE_LIST.map{ |t| t[0]}[@registration.t_shirt_size - 1]  else "---" end %>
 </p>
 
 <!--              Team                         -->
@@ -52,19 +52,19 @@
 </p>
 
 <p>
-  <b>School:</b> <%= @student.school %>
+  <b>School Name:</b> <%= @student.school %>
 </p>
 
 <p>
-  <b>Grade:</b> <%= @student.grade_integer %>
+  <b>Grade (as of August <%= @registration.created_at.year %>):</b> <%= @student.grade_integer %>
 </p>
 
 <p>
-  <b>School County:</b> <%= @student.school_county %>
+  <b>School District:</b> <%= @student.school_county %>
 </p>
 
 <p>
-  <b>Report Card Submitted:</b> <%= @student.missing_report_card ? "No" : "Yes" %> Link to Report Card goes here
+  <b>Report Card Submitted:</b> <%= @student.missing_report_card ? "No" : "Yes" %>
 </p>
 
 <!--              Guardian Details                        -->
@@ -90,10 +90,10 @@
 </p>
 
 <p>
-  <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") unless @registration.nil? %> Link to Physical goes here
+  <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") unless @registration.nil? %>
 </p>
 
-<p>
+<!-- <p>
   <b>Family Physician</b> <%= @household.family_physician %>
 </p>
 
@@ -107,7 +107,7 @@
 
 <p>
   <b>Insurance Policy Number</b> <%= @household.insurance_policy_no %> Link to Insurance Card goes here
-</p>
+</p> -->
 
 <p>
   <b>Emergency Contact:</b> <%= @student.emergency_contact_name %>
@@ -124,5 +124,5 @@
 </p>
 
 <p>
-  <b>Active:</b> <%= @student.active ? "Yes" : "No" %>
+  <b>Current Status:</b> <%= @student.active ? "Active" : "Inactive" %>
 </p>

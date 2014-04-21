@@ -1,0 +1,37 @@
+<h4> <%= "Waitlist for #{b.name}" %></h4>
+<% if b.waitlist > 0 %>
+  <%=b.waitlist != 1 ? "There are still #{b.waitlist} spaces available in the #{b.name} bracket." : "There is still #{b.waitlist} space available in the #{b.name} bracket." %></br>
+  <%= b.eligible_students(min,max).size != 1 ? "There are currently #{b.eligible_students(min,max).size} eligible students for this bracket." : "There is currently #{b.eligible_students(min,max).size} eligible student for this bracket." %>
+<% else %>
+  <% if b.eligible_students(min, max).size > 0 %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Name</th>
+          <th>Age(as of June 1)</th>
+          <th>Time Submitted</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% position = 1 %>
+        <% b.eligible_students(min, max).each do |student| %>
+          <tr>
+            <td><%= position %></td>
+            <td><%= link_to student.name, student_path(student) %></td>
+            <td><%= student.age_as_of_june_1 %></td>
+            <td><%= student.registrations.current.first.created_at %></td>
+          </tr>
+          <% position += 1 %>
+        <% end %>
+      </tbody>
+    </table>
+      <div clas="page_info">
+        <%= page_entries_info b.eligible_students(min, max).paginate(:page => params[:page], :per_page => 10) %>
+      </div>
+      <%= will_paginate b.eligible_students(min, max).paginate(:page => params[:page], :per_page => 10), :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
+    </div>  
+  <% else %>
+    <%= "There are currently no spaces left in this bracket and no unassigned eligible students." %>
+  <% end %>
+<% end %>

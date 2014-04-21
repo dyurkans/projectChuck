@@ -30,7 +30,7 @@ ProjectChuck::Application.routes.draw do
   get 'brackets/:id/remove' => 'brackets#remove_team', :as => :remove_team
   get 'teams/:id/add' => 'teams#add_student', :as => :add_student  
   get 'brackets/:id/add' => 'brackets#add_team', :as => :add_team
-  get 'guardians/:id/activate' => 'guardians#activate', :as => :activate
+  get 'guardians/:id/activate' => 'guardians#activate_guardian', :as => :activate_guardian
   get 'students/:id/activate' => 'students#activate', :as => :activate
 
   # Set the root url

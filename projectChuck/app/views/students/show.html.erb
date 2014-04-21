@@ -9,9 +9,9 @@
   <%= link_to raw("<i class='icon-list'></i> Display All Students"), students_path, :class => 'btn'  %>&nbsp;&nbsp;
   <%= link_to raw("<i class='icon-pencil'></i> Edit #{@student.proper_name}"), edit_student_path(@student), :class => 'btn' %>&nbsp;&nbsp;
   <% if @student.active %>
-  	<%= link_to raw("<i class='icon-remove icon-white'></i> Deactivate #{@student.proper_name}"), student_path(@student), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  	<%= link_to raw("<i class='icon-remove icon-white'></i> Change #{@student.proper_name}'s status"), student_path(@student), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
   <% else %>
-    <%= link_to raw("<i class='icon-remove icon-white'></i> Reactivate #{@student.proper_name}"), activate_path(@student), :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+    <%= link_to raw("<i class='icon-remove icon-white'></i> Change #{@student.proper_name}'s status"), activate_path(@student), :confirm => 'Are you sure?', :class => 'btn btn-success' %>
   <% end %>
 
 </div>
