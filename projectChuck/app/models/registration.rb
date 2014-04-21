@@ -33,7 +33,7 @@ class Registration < ActiveRecord::Base
   scope :reg_order, order('created_at DESC')
   scope :physicals, where('physical IS NOT NULL')
   scope :report_cards, where('report_card IS NOT NULL')
-  scope :current, where('created_at > ?', Date.new(Date.today.year,1,1))
+  scope :current, where('? <= created_at and created_at <= ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31))
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
   scope :incomplete, where('proof_of_insurance IS NULL OR physical IS NULL OR report_card IS NULL')
@@ -70,6 +70,27 @@ class Registration < ActiveRecord::Base
 
   def missing_docs
     return true if self.proof_of_insurance.blank? || self.physical.blank? || self.report_card.blank?
+  end
+  
+  def missing_doc
+    student = Student.find(self.student_id)
+    missing_documents = ""
+    if self.proof_of_insurance.nil?
+      missing_documents += "IC/"
+    end
+    if self.physical.nil?
+      missing_documents += "PH/"
+    end
+    if self.report_card.nil? 
+      missing_documents += "RC/"
+    end
+    if student.birth_certificate.nil?
+      missing_documents += "BC"
+    end
+    if missing_documents == "" 
+      missing_documents += "Completed"
+    end
+    return missing_documents
   end
 
   private
