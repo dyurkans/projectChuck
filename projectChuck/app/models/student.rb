@@ -137,10 +137,6 @@ class Student < ActiveRecord::Base
     "Female"
   end
 
-  def gender_name
-    GENDER_LIST.map{|genders| genders[1] == gender}
-  end
-
   # Method to find student's registration for this year (if there is one)
   def current_reg
     self.registrations.reg_order[0] unless self.registrations.nil?

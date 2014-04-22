@@ -4,6 +4,7 @@ class Registration < ActiveRecord::Base
   # Prof H suggested moving proof of insurance to household. 
   # Can someone write a migration for that and move the tests and code here appropriately.
 
+
   #Relationships
   belongs_to :student
   belongs_to :team
@@ -54,6 +55,7 @@ class Registration < ActiveRecord::Base
     end
   end
 
+  #Needs to check is multiple student factors already present to see if priorly submitted
   def registration_is_not_already_in_system
     return true if self.student_id.nil? || self.team_id.nil? # should be caught by other validations; no double error
     possible_repeat = Registration.where(team_id: team_id, student_id: student_id)

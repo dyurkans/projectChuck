@@ -37,7 +37,7 @@ class Household < ActiveRecord::Base
 	end
 
 	def name
-		guardians = self.guardians
+		guardians = self.guardians.alphabetical
 		name = ""
 		index = 0
 		for g in guardians
