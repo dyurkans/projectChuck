@@ -9,6 +9,7 @@ class GuardiansController < ApplicationController
   
   def create
     @guardian = Guardian.new(params[:guardian])
+    @households = Household.active.by_last_name
     if @guardian.save
       # if saved to database
       flash[:notice] = "Successfully created #{@guardian.name}."
@@ -38,7 +39,7 @@ class GuardiansController < ApplicationController
   
   def update
     @guardian = Guardian.find(params[:id])
-    @households = Household.by_last_name
+    @households = Household.active.by_last_name
     #@household = Household.select{ |h| h.id == @guardian.household_id }.first
     if @guardian.update_attributes(params[:guardian])
       flash[:notice] = "Successfully updated the #{@guardian.name}."
