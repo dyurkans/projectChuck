@@ -1,0 +1,33 @@
+<h4> Registered Students Missing Documents </h4>
+<% if @students.empty? %>
+  &nbsp;&nbsp;<em>None at this time</em>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Missing Docs</th>
+        <th>Cell Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @students.each do |student| %>
+        <% if student.registrations.reg_order[0].missing_doc != "" %>
+          <tr>
+            <td><%= link_to student.name, student_path(student) %></td>
+            <td><%= student.registrations.reg_order[0].missing_doc %></td>
+            <td><%= number_to_phone student.cell_phone %></td>
+          </tr>
+        <% else %>
+          <% continue %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="digg_pagination">
+    <div clas="page_info">
+      <%= page_entries_info @students %>
+    </div>
+    <%= will_paginate @students, :param_name => 'missing_docs_page', :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
+  </div>
+<% end %>

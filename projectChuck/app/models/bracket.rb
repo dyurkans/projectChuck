@@ -27,4 +27,28 @@ class Bracket < ActiveRecord::Base
   	"#{self.sex} #{self.min_age} - #{self.max_age}"
   end
 
+  def waitlist
+    spots = 0
+    for t in self.teams
+      if t.remaining_spots > 0
+        spots += t.remaining_spots
+      end
+    end
+    if spots > 0 
+      return spots
+    else
+      return 0
+    end
+  end
+
+  def eligible_students(min,max)
+    unassigned_regs = Registration.current.active.by_date.select { |reg| reg.team_id == nil }
+    eligible_regs = []
+    for reg in unassigned_regs 
+      if Student.find(reg.student_id).age_as_of_june_1 >= min and Student.find(reg.student_id).age_as_of_june_1 <= max
+        eligible_regs << Student.find(reg.student_id)
+      end
+    end
+    eligible_regs
+  end
 end

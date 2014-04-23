@@ -26,6 +26,7 @@ class Guardian < ActiveRecord::Base
   scope :alphabetical, order('last_name, first_name')
   scope :active, where('guardians.active = ?', true)
   scope :inactive, where('guardians.active = ?', false)
+  scope :receive_text_notifications, where('receive_texts = ?', true)
 
   # Other methods
   def name

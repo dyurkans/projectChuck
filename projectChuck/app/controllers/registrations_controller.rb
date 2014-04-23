@@ -3,6 +3,11 @@ class RegistrationsController < ApplicationController
     @registration_form = reg_form
   end
 
+  def index
+    @registration = Registration.find(params[:id])
+    @student = Student.find(@registration.student_id)
+  end
+  
   def create
     @registration = reg_form
 

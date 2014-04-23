@@ -56,7 +56,7 @@ class GuardiansController < ApplicationController
     redirect_to @guardian
   end
 
-  def activate
+  def activate_guardian
     @guardian = Guardian.find(params[:id])
     @guardian.active = true
     @guardian.save!

@@ -3,7 +3,7 @@
       <%= f.label "Date: " + Date.today.strftime("%b %d, %y") %>
       <%= f.association :student %>
       <%= f.association :team %>
-      <%= f.input :t_shirt_size, :label => "T-Shirt Size (adult sizes)", :collection => Registration::SIZE_LIST %>
+      <%= f.input :t_shirt_size, :label => "Jersey Size (Adult sizes)", :collection => Registration::SIZE_LIST %>
       <%= f.input :report_card, :label => "Report Card Upload" %>
       <%= f.input :physical, :label => "Physical Form Upload" %>
       <%= f.input :physical_date %>

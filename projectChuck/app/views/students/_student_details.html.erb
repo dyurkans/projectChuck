@@ -1,4 +1,5 @@
 <!--              Student                        -->
+<div class="row col-lg-6">
 <p>
 	<h3>Personal Information</h3>
 </p>
@@ -8,7 +9,7 @@
 </p>
 
 <p>
-  <b>Date of Birth:</b> <%= @student.dob.strftime("%B %d, %Y") %> Link to Birth Certificate goes here.
+  <b>Date of Birth:</b> <%= @student.dob.strftime("%B %d, %Y") %>
 </p>
 
 <p>
@@ -24,11 +25,12 @@
 </p>
 
 <p>
-  <b>T-shirt Size</b> <%= if !@registration.nil? then Registration::SIZE_LIST.map{ |t| t[0]}[@registration.t_shirt_size - 1]  else "---" end %>
+  <b>Jersey Size:</b> <%= if !@registration.nil? then Registration::SIZE_LIST.map{ |t| t[0]}[@registration.t_shirt_size - 1]  else "---" end %>
 </p>
+</div>
 
 <!--              Team                         -->
-
+<div class="row col-lg-6">
 <p>
 	<h3>Team Information</h3>
 </p>
@@ -44,85 +46,86 @@
 <p>
   <b>Waitlist Position:</b> 
 </p>
-
+</div>
 <!--              School                         -->
+ <div class="row col-lg-6">
+  <p>
+  	<h3>School Information</h3>
+  </p>
 
-<p>
-	<h3>School Information</h3>
-</p>
+  <p>
+    <b>School Name:</b> <%= @student.school %>
+  </p>
 
-<p>
-  <b>School:</b> <%= @student.school %>
-</p>
+  <p>
+    <b>Grade (as of August <%= @registration.created_at.year %>):</b> <%= @student.grade_integer %>
+  </p>
 
-<p>
-  <b>Grade:</b> <%= @student.grade_integer %>
-</p>
+  <p>
+    <b>School District:</b> <%= @student.school_county %>
+  </p>
 
-<p>
-  <b>School County:</b> <%= @student.school_county %>
-</p>
-
-<p>
-  <b>Report Card Submitted:</b> <%= @student.missing_report_card ? "No" : "Yes" %> Link to Report Card goes here
-</p>
-
-<!--              Guardian Details                        -->
-
-<p>
-	<h3>Parent/Guardian Information</h3>
-</p>
-
-<% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
+  <p>
+    <b>Report Card Submitted:</b> <%= @student.missing_report_card ? "No" : "Yes" %>
+  </p>
+</div>
 
 <!--              Medical                         -->
+<div class="row col-lg-6">
+  <p>
+  	<h3>Medical Information</h3>
+  </p>
 
-<p>
-	<h3>Medical Information</h3>
-</p>
+  <p>
+    <b>Allergies:</b> <%= @student.allergies %>
+  </p>
 
-<p>
-  <b>Allergies:</b> <%= @student.allergies %>
-</p>
+  <p>
+    <b>Medication(s):</b> <%= @student.medications %>
+  </p>
 
-<p>
-  <b>Medication(s):</b> <%= @student.medications %>
-</p>
+  <p>
+    <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") unless @registration.nil? %>
+  </p>
+  <!-- <p>
+    <b>Family Physician</b> <%= @household.family_physician %>
+  </p>
 
-<p>
-  <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") unless @registration.nil? %> Link to Physical goes here
-</p>
+  <p>
+    <b>Family Physician Phone</b> <%= number_to_phone @household.physician_phone %>
+  </p>
 
-<p>
-  <b>Family Physician</b> <%= @household.family_physician %>
-</p>
+  <p>
+    <b>Insurance Policy Provider</b> <%= @household.insurance_provider %>
+  </p>
 
-<p>
-  <b>Family Physician Phone</b> <%= number_to_phone @household.physician_phone %>
-</p>
+  <p>
+    <b>Insurance Policy Number</b> <%= @household.insurance_policy_no %> Link to Insurance Card goes here
+  </p> -->
+  <p>
+    <b>Emergency Contact:</b> <%= @student.emergency_contact_name %>
+  </p>
 
-<p>
-  <b>Insurance Policy Provider</b> <%= @household.insurance_provider %>
-</p>
+  <p>
+    <b>Emergency Contact Phone:</b> <%= number_to_phone @student.emergency_contact_phone %>
+  </p>
+</div>
+<!--              Guardian Details                        -->
+<div class="row col-lg-6">
+  <p>
+    <h3>Parent/Guardian Information</h3>
+  </p>
 
-<p>
-  <b>Insurance Policy Number</b> <%= @household.insurance_policy_no %> Link to Insurance Card goes here
-</p>
+  <% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
+  <br>
+</div>
 
-<p>
-  <b>Emergency Contact:</b> <%= @student.emergency_contact_name %>
-</p>
-
-<p>
-  <b>Emergency Contact Phone:</b> <%= number_to_phone @student.emergency_contact_phone %>
-</p>
 
 <!--              Other                         -->
-
 <p>
 	<h3>Other</h3>
 </p>
 
 <p>
-  <b>Active:</b> <%= @student.active ? "Yes" : "No" %>
+  <b>Current Status:</b> <%= @student.active ? "Active" : "Inactive" %>
 </p>

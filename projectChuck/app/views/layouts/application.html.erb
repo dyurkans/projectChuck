@@ -6,8 +6,14 @@
     <%= stylesheet_link_tag    "bootstrap" %>
     <%= stylesheet_link_tag    "my_style" %>
     <%= javascript_include_tag "bootstrap" %>
+    <%= javascript_include_tag "highcharts" %>
     <%= javascript_include_tag "application" %>    
     <%= csrf_meta_tags %>
+    <script>
+      $(function() {
+        $( "#datepicker" ).datepicker();
+      });
+    </script>
   </head>
   <body>
     <div class="container">
@@ -15,12 +21,15 @@
 
   <div class="container">
     <div class="row" style="text-align:right;">
+    
+    
       <!-- NAV BAR -->
-      <div class="col-sm-10 col-md-10 col-lg-10">
+      <div class="col-sm-10 col-md-10 col-lg-11">
         <%= render :partial => "partials/navigation" %>
       </div>
       
-      <div class="col-sm-2 col-med-2 col-lg-2">
+      
+      <div class="col-sm-2 col-med-2 col-lg-1">
         <% if logged_in? %>
           <%= link_to 'Logout', logout_path, :class => 'btn btn-primary' %>
           <br>[<%= current_user.student.proper_name %>:<%= current_user.role %>]
@@ -42,6 +51,7 @@
             <%= msg %>
           </div>
         <% end %>
+        
         
         <!-- MAIN CONTENT -->
         <div>

@@ -5,9 +5,9 @@ class Tournament < ActiveRecord::Base
 
   before_save :valid_dates
 
-  validates_date :start_date, :message => "must be valid date"
-  validates_date :end_date, :message => "must be valid date"
-  validate :valid_dates, :message => "end date must later than start date"
+  validates_date :start_date, :message => "Must be a valid date"
+  validates_date :end_date, :message => "Must be a valid date"
+  validate :valid_dates, :message => "End date must be later than start date"
 
   scope :by_date, order('start_date DESC')
 
@@ -17,21 +17,44 @@ class Tournament < ActiveRecord::Base
 
 
   def valid_dates
-  	return self.end_date > self.start_date
+  	if self.end_date > self.start_date
+      return true
+    else
+      errors.add(:end_date, "End date must be later than the start date")
+      return false
+    end
   end
 
   def number_of_students
-  	number_of_students = 0
-  	@brackets = self.brackets
-    @teams = []
-    for bracket in @brackets
-    	@teams << bracket.teams
+    if Tournament.all.nil?
+      return "---"
     end
-  	for team in @teams
-  		for t in team
-  			number_of_students += Registration.where(:team_id => t.id).size()
-  		end
-  	end
-  	return number_of_students
+  	# number_of_students = 0
+  	# @brackets = self.brackets
+   #  @teams = []
+   #  for bracket in @brackets
+   #  	@teams << bracket.teams
+   #  end
+  	# for team in @teams
+  	# 	for t in team
+  	# 		number_of_students += Registration.active.where(:team_id => t.id).size()
+  	# 	end
+  	# end
+  	# return number_of_students
+
+    #The code above had the flaw of not counting
+    #registrations that were active. but unassigned to a teams.
+    #The code below accounts for that issue, but will not work
+    #properly in year two+. You need to grab all students 
+    #registered to most current tournament rather than most current reg.
+    number_of_students = 0
+    for stu in Student.all
+      unless (stu.registrations.nil? || stu.registrations.empty?)
+        if stu.registrations.reg_order[0].active
+          number_of_students += 1
+        end
+      end
+    end
+    number_of_students
   end
 end

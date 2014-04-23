@@ -1,4 +1,10 @@
-  <ul class="nav navbar-right navbar-nav col-sm-10 col-md-10 col-lg-10">
+  <ul class="nav navbar-nav col-sm-10 col-md-10 col-lg-10" style="float:right">
+    <% klass = "" %>
+    <% if (current_page?(:controller=>"home",:action=>"index"))%>
+        <% klass = "active" %>
+    <% end %>
+    <li class=<%= klass%>><%= link_to "Home", home_path %></li>
+
     <% klass = "" %>
     <% if (current_page?(:controller=>"students",:action=>"index"))%>
         <% klass = "active" %>
