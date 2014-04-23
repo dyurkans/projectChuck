@@ -82,11 +82,16 @@ GEM
       railties
     metaclass (0.0.4)
     mime-types (1.25.1)
+    mini_portile (0.5.3)
     minitest (4.3.3)
     mocha (1.0.0)
       metaclass (~> 0.0.1)
     multi_json (1.9.2)
     nested_form (0.3.2)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
+    nokogiri (1.6.1-x86-mingw32)
+      mini_portile (~> 0.5.0)
     polyglot (0.3.4)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
@@ -117,6 +122,13 @@ GEM
     rake (10.2.2)
     rdoc (3.12.2)
       json (~> 1.4)
+    reform (0.2.7)
+      activemodel
+      representable (~> 1.7.5)
+      uber (~> 0.0.4)
+    representable (1.7.7)
+      multi_json
+      nokogiri
     sass (3.3.4)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -164,6 +176,7 @@ GEM
       ansi
       minitest (~> 4)
     tzinfo (0.3.39)
+    uber (0.0.4)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -190,6 +203,7 @@ DEPENDENCIES
   nested_form
   quiet_assets
   rails (= 3.2.13)
+  reform
   sass-rails (~> 3.2.3)
   shoulda
   shoulda-matchers
