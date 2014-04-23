@@ -19,10 +19,6 @@ class Bracket < ActiveRecord::Base
     "Female"
   end
 
-  def gender_name
-    GENDER_LIST.map{|genders| genders[1] == gender}
-  end
-
   def name
   	"#{self.sex} #{self.min_age} - #{self.max_age}"
   end

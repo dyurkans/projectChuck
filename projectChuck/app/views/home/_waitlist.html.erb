@@ -2,6 +2,7 @@
 <% if b.waitlist > 0 %>
   <%=b.waitlist != 1 ? "There are still #{b.waitlist} spaces available in the #{b.name} bracket." : "There is still #{b.waitlist} space available in the #{b.name} bracket." %></br>
   <%= b.eligible_students(min,max).size != 1 ? "There are currently #{b.eligible_students(min,max).size} eligible students for this bracket." : "There is currently #{b.eligible_students(min,max).size} eligible student for this bracket." %>
+  <!-- Isnsert teams that have space available and links to them. -->
 <% else %>
   <% if b.eligible_students(min, max).size > 0 %>
     <table class="table table-striped">

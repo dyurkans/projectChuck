@@ -16,7 +16,7 @@ class HomeController < ApplicationController
 		@brackets = Bracket.all
 		# for reg in Registration.current.active.by_date.select { |reg| reg.team_id == nil }
 		# 	@eligible_students = lambda {|bracket| where(Student.find(reg.student_id).age_as_of_june_1 >= min and Student.find(reg.student_id).age_as_of_june_1 <= max) }
-		
+
 		# Documentation can be found at https://github.com/michelson/lazy_high_charts
 		@gender_chart = LazyHighCharts::HighChart.new('pie') do |f|
 		      f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )

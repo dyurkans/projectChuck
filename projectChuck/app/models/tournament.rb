@@ -50,7 +50,7 @@ class Tournament < ActiveRecord::Base
     number_of_students = 0
     for stu in Student.all
       unless (stu.registrations.nil? || stu.registrations.empty?)
-        if stu.registrations.reg_order[0].active
+        if stu.registrations.current.active
           number_of_students += 1
         end
       end

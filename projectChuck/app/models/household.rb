@@ -12,7 +12,7 @@ attr_accessible :guardians_attributes, :county, :active, :city, :family_physicia
 	before_save :reformat_physician_phone
 
 	# Scopes
-	scope :active, where('active = ?', true)
+	scope :active, where('households.active = ?', true)
 	scope :inactive, where('active = ?', false)
 	scope :by_last_name, joins(:guardians).order('guardians.last_name').group('household_id')
 
@@ -39,7 +39,7 @@ attr_accessible :guardians_attributes, :county, :active, :city, :family_physicia
 	end
 
 	def name
-		guardians = self.guardians
+		guardians = self.guardians.alphabetical
 		name = ""
 		index = 0
 		for g in guardians

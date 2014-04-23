@@ -4,11 +4,11 @@ class GuardiansController < ApplicationController
 
   def new
     @guardian = Guardian.new
-    @households = Household.by_last_name.map { |h| "#{h.name}" }
+    @households = Household.active.by_last_name
   end
   
   def create
-    @guardian = Guardian.new(params[:household])
+    @guardian = Guardian.new(params[:guardian])
     if @guardian.save
       # if saved to database
       flash[:notice] = "Successfully created #{@guardian.name}."
@@ -38,7 +38,8 @@ class GuardiansController < ApplicationController
   
   def update
     @guardian = Guardian.find(params[:id])
-    @household = Household.select{ |h| h.id == @guardian.household_id }.first
+    @households = Household.by_last_name
+    #@household = Household.select{ |h| h.id == @guardian.household_id }.first
     if @guardian.update_attributes(params[:guardian])
       flash[:notice] = "Successfully updated the #{@guardian.name}."
       redirect_to @guardian
