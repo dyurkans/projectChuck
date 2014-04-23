@@ -3,6 +3,10 @@ input, select {
   margin:1%;
 }
 
+table, th, td, tr h3,  {
+  text-align: left;
+}
+
 .myHide {
   display:none;
 }
@@ -14,12 +18,17 @@ input, select {
 
 .nav {
   padding:1%;
-  font-size:1.3em;
+  font-size:1.5em;
 }
 
 .nav li {
   margin: 0 1% 0 0%;
   background:#fefefe;
+  text-decoration: underline;
+}
+
+.row {
+  padding: 0 0 1% 0;
 }
 
 .address {

@@ -1,5 +1,5 @@
 <!--              Student                        -->
-<div class="row col-lg-6">
+<div class="row col-sm-6 col-md-6 col-lg-6">
 <p>
 	<h3>Personal Information</h3>
 </p>
@@ -30,7 +30,7 @@
 </div>
 
 <!--              Team                         -->
-<div class="row col-lg-6">
+<div class="row col-sm-6 col-md-6 col-lg-6">
 <p>
 	<h3>Team Information</h3>
 </p>
@@ -48,7 +48,7 @@
 </p>
 </div>
 <!--              School                         -->
- <div class="row col-lg-6">
+ <div class="row col-sm-6 col-md-6 col-lg-6">
   <p>
   	<h3>School Information</h3>
   </p>
@@ -71,7 +71,7 @@
 </div>
 
 <!--              Medical                         -->
-<div class="row col-lg-6">
+<div class="row col-sm-6 col-md-6 col-lg-6">
   <p>
   	<h3>Medical Information</h3>
   </p>
@@ -111,21 +111,20 @@
   </p>
 </div>
 <!--              Guardian Details                        -->
-<div class="row col-lg-6">
+<div class="row col-sm-6 col-md-6 col-lg-6">
   <p>
     <h3>Parent/Guardian Information</h3>
   </p>
 
   <% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
   <br>
-</div>
-
-
-<!--              Other                         -->
+  
+  <!--              Other                         -->
 <p>
-	<h3>Other</h3>
+  <h3>Other</h3>
 </p>
 
 <p>
   <b>Current Status:</b> <%= @student.active ? "Active" : "Inactive" %>
 </p>
+</div>

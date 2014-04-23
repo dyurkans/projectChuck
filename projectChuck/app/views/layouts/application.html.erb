@@ -5,10 +5,14 @@
     <%= stylesheet_link_tag    "reset" %>
     <%= stylesheet_link_tag    "bootstrap" %>
     <%= stylesheet_link_tag    "my_style" %>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <%= javascript_include_tag "bootstrap" %>
-    <%= javascript_include_tag "highcharts" %>
     <%= javascript_include_tag "application" %>    
     <%= csrf_meta_tags %>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    
     <script>
       $(function() {
         $( "#datepicker" ).datepicker();
@@ -16,20 +20,17 @@
     </script>
   </head>
   <body>
-    <div class="container">
-    </div>
 
-  <div class="container">
-    <div class="row" style="text-align:right;">
-    
-    
+
+  <div class="container row col-sm-11 col-md-11 col-lg-11" style="margin:0 auto;">
+    <div class="row">
       <!-- NAV BAR -->
       <div class="col-sm-10 col-md-10 col-lg-11">
         <%= render :partial => "partials/navigation" %>
       </div>
       
       
-      <div class="col-sm-2 col-med-2 col-lg-1">
+      <div class="col-sm-1 col-med-1 col-lg-1">
         <% if logged_in? %>
           <%= link_to 'Logout', logout_path, :class => 'btn btn-primary' %>
           <br>[<%= current_user.student.proper_name %>:<%= current_user.role %>]
@@ -59,6 +60,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
   <!-- FOOTER -->
   <footer>

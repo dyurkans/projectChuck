@@ -1,5 +1,6 @@
+<div  style="padding-left:10%;">
 <div class="row ">
-	<div class="span12">
+	<div class="col-sm-10 col-md-10 col-lg-10">
 		<h2>Student Details</h2>
 		<%= render :partial => "student_details" %>
 	</div>
@@ -16,4 +17,5 @@
     <%= link_to raw("<i class='icon-remove icon-white'></i> Change #{@student.proper_name}'s status"), activate_path(@student), :confirm => 'Are you sure?', :class => 'btn btn-success' %>
   <% end %>
 
+</div>
 </div>
