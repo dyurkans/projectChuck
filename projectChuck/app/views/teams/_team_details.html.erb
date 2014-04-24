@@ -47,7 +47,7 @@
           <td><%= student.dob.nil? ? "---" : student.age_as_of_june_1  %></td>
           <td><%= if student.registrations.reg_order[0].nil? then "All" else student.registrations.reg_order[0].missing_doc end%></td>
           <td><%= number_to_phone student.cell_phone %></td>
-          <td>study halls complete or not complete</td>
+          <td></td>
           <td><%= registration.active ? "Active" : "Inactive" %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
           <td><%= link_to raw("<i class='icon-user icon-white'></i> Remove"), remove_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-mini" %></td>
