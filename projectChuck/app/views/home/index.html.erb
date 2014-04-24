@@ -1,53 +1,56 @@
-<div style="padding-left:10%;">
-  <div class="row">
-    <p>
-      <h4><b>Students Registered:</b><%= @tournament.number_of_students unless @tournament.nil? %></h4>
-    </p>
-    <p>
-      <h4><b>Jersey Sizes:</b> Small-<%= Registration.active.current.jersey_size(0).size %>, Medium-<%= Registration.active.current.jersey_size(1).size %>, Large-<%= Registration.active.current.jersey_size(2).size %>, X-Large-<%= Registration.active.current.jersey_size(3).size %>, XX-Large-<%= Registration.active.current.jersey_size(4).size %>, XXX-Large-<%= Registration.active.current.jersey_size(5).size %></h4>
-    </p>	
-  </div>
+<% if logged_in? && current_user.role == "admin" %>
+  <div style="padding-left:10%;">
+    <div class="row">
+      <p>
+        <h4><b>Students Registered:</b><%= @tournament.number_of_students unless @tournament.nil? %></h4>
+      </p>
+      <p>
+        <h4><b>Jersey Sizes:</b> Small-<%= Registration.active.current.jersey_size(0).size %>, Medium-<%= Registration.active.current.jersey_size(1).size %>, Large-<%= Registration.active.current.jersey_size(2).size %>, X-Large-<%= Registration.active.current.jersey_size(3).size %>, XX-Large-<%= Registration.active.current.jersey_size(4).size %>, XXX-Large-<%= Registration.active.current.jersey_size(5).size %></h4>
+      </p>	
+    </div>
 
-  
-  <div class="row">
-    <div class="row col-sm-8 col-md-8 col-lg-8">
-      <%= render :partial => "students_missing_docs" %>
-    </div>
-  </div>
-
-  
-  <div class="row">
-    <div class="col-sm-4 col-md-4 col-lg-4">
-      <%= render :partial => "unassigned_students" %>
-    </div>
-    <div class="spacer col-sm-1 col-md-1 col-lg-1"></div>
-    <div class="col-sm-5 col-md-5 col-lg-5">
-      <%= render :partial => "guardians_receiving_texts" %>
-    </div>
-  </div>
-
-  
-  <div class="row">
-  
-    <div class="row col-sm-5 col-md-5 col-lg-5">
-      <h3>Waitlist (By Bracket)</h3>
-      <% @brackets.each do |bracket| %> 
-        <div class="row">
-          <%= render :partial => "waitlist", :locals => { :b => bracket, :min => bracket.min_age, :max => bracket.max_age } %> 
-        </div>
-      <% end %>
-    </div>
     
-    <div class="row col-sm-6 col-md-6 col-lg-6">
-      <h3>Demographics</h3>
-      <div class="col-sm-12 col-md-12 col-lg-12">
-        <%= high_chart("my_id1", @gender_chart) %>
+    <div class="row">
+      <div class="row col-sm-8 col-md-8 col-lg-8">
+        <%= render :partial => "students_missing_docs" %>
       </div>
-      <div class="col-sm-12 col-md-12 col-lg-12">
-        <%= high_chart("my_id2", @school_district_chart) %> 
+    </div>
+
+    
+    <div class="row">
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <%= render :partial => "unassigned_students" %>
+      </div>
+      <div class="spacer col-sm-1 col-md-1 col-lg-1"></div>
+      <div class="col-sm-5 col-md-5 col-lg-5">
+        <%= render :partial => "guardians_receiving_texts" %>
+      </div>
+    </div>
+
+    
+    <div class="row">
+    
+      <div class="row col-sm-5 col-md-5 col-lg-5">
+        <h3>Waitlist (By Bracket)</h3>
+        <% @brackets.each do |bracket| %> 
+          <div class="row">
+            <%= render :partial => "waitlist", :locals => { :b => bracket, :min => bracket.min_age, :max => bracket.max_age } %> 
+          </div>
+        <% end %>
+      </div>
+      
+      <div class="row col-sm-6 col-md-6 col-lg-6">
+        <h3>Demographics</h3>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <%= high_chart("my_id1", @gender_chart) %>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <%= high_chart("my_id2", @school_district_chart) %> 
+      </div>
+      
     </div>
     
   </div>
-  
-</div>
-
+  <% else %>
+    <%= render :partial => "about_us" %>
+<% end %>
