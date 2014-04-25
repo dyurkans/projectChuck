@@ -30,12 +30,7 @@ GEM
       multi_json (~> 1.0)
     ansi (1.4.3)
     arel (3.0.3)
-    bcrypt (3.1.7)
-    bcrypt (3.1.7-x86-mingw32)
-    bcrypt-ruby (3.1.5)
-      bcrypt (>= 3.1.3)
-    bcrypt-ruby (3.1.5-x86-mingw32)
-      bcrypt (>= 3.1.3)
+    bcrypt-ruby (3.0.1-x86-mingw32)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -188,7 +183,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  bcrypt-ruby
+  bcrypt-ruby (~> 3.0.0)
   better_errors
   binding_of_caller
   cancancan (~> 1.7)
