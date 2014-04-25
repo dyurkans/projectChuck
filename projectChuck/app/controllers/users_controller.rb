@@ -1,21 +1,26 @@
 class UsersController < ApplicationController
 
+  require 'will_paginate/array'
+
     def index
         @users = User.paginate(:page => params[:page]).per_page(7)
-        #authorize! :index, @user
+        authorize! :index, @user
     end
     
     def new
         @user = User.new
-        #authorize! :new, @user
+        @guardians = Guardian.active
+        authorize! :new, @user
     end
     
     def edit
         @user = User.find(params[:id])
+        @guardian = Guardian.find(@user.guardian_id)
+        @guardians = Guardian.active
         if @user.role? == "member"
             @user.role == "member"
         end
-        #authorize! :edit, @user
+        authorize! :edit, @user
     end
         
     def create
@@ -27,25 +32,28 @@ class UsersController < ApplicationController
             flash[:error] = "This user could not be created."
             render "new"
         end
-        #authorize! :create, @user
+        authorize! :create, @user
     end
 
     def update
         @user = User.find(params[:id])
+        @guardian = Guardian.find(@user.guardian_id)
+        @guardians = Guardian.active
         if @user.update_attributes(params[:user])
-        flash[:notice] = "#{@user.proper_name} is updated."
+        flash[:notice] = "#{@guardian.proper_name}'s user account has been updated."
             redirect_to @user
         else
             render :action => 'edit'
         end
-        #authorize! :update, @user
+        authorize! :update, @user
     end
         
     def destroy
         @user = User.find(params[:id])
+        @guardian = Guardian.find(@user.guardian_id)
         @user.destroy
-        flash[:notice] = "Successfully removed #{@user.proper_name} from karate tournament system."
+        flash[:notice] = "Successfully removed #{@guardian.proper_name}'s user account has been removed from Project C.H.U.C.K."
         redirect_to users_url
-        #authorize! :destroy, @user
+        authorize! :destroy, @user
     end
 end

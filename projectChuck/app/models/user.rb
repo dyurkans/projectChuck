@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
-  attr_accessible :active, :email, :guardian_id, :password_digest, :role
+  # Use built-in rails support for password protection
+  has_secure_password  
+
+  attr_accessible :active, :email, :guardian_id, :password, :password_confirmation, :role
 
   # Relationships
   belongs_to :guardian
