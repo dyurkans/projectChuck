@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     def edit
         @user = User.find(params[:id])
         @guardian = Guardian.find(@user.guardian_id)
-        @guardians = User.eligible_guardians(@guardian.id)
+        @guardians = User.eligible_guardians(@guardian)
         # if @user.role? == "member"
         #     @user.role == "member"
         # end
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     def update
         @user = User.find(params[:id])
         @guardian = Guardian.find(@user.guardian_id)
-        @guardians = User.eligible_guardians(@guardian.id)
+        @guardians = User.eligible_guardians(@guardian)
         if @user.update_attributes(params[:user])
         flash[:notice] = "#{@guardian.proper_name}'s user account has been updated."
             redirect_to @user

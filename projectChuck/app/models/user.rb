@@ -24,11 +24,11 @@ class User < ActiveRecord::Base
     role.downcase.to_sym == authorized_role
   end
 
-  def self.eligible_guardians(guard_id)
+  def self.eligible_guardians(guard)
     @guardians = Guardian.alphabetical
     @eligible_guardians = []
     for g in @guardians
-        if g.user.nil? || g.id == guard_id
+        if g.user.nil? || g == guard
             @eligible_guardians << g
         end
     end
