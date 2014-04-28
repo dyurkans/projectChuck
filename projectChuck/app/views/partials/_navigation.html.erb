@@ -1,5 +1,5 @@
-  <nav class="navbar navbar-default container" style="" role="navigation">
-    <!-- <div class="container"> -->
+  <nav class="navbar navbar-default" style="" role="navigation">
+    <div class="container-fluid">
         <ul class="nav navbar-nav">
         <% klass = "" %>
         <% if (current_page?(:controller=>"home",:action=>"index"))%>
@@ -46,6 +46,6 @@
         <% if (current_user && current_user.role == 'admin') %>
         <% end %>
     </ul>
-    <!-- </div> -->
+    </div>
 <!-- <li><%# link_to "Registrations", registrations_path %></li> -->
 </nav>
