@@ -81,4 +81,41 @@ class HouseholdTest < ActiveSupport::TestCase
 	should allow_value(false).for(:active)
 	should_not allow_value(nil).for(:active)
 
+	context "Creating a household context" do
+	    setup do
+			create_household_context
+			create_guardian_context
+			create_student_context
+	    end
+	      
+	    teardown do
+			remove_student_context
+			remove_guardian_context
+			remove_household_context
+	    end
+
+	    should "have a method to display the household's full street address" do
+	    	assert_equal "5000 Forbes Avenue, Pittsburgh, PA 15213", @grub.full_address
+	    	assert_equal "5514 Wilkins Ave, Pittsburgh, PA 15217", @mill.full_address
+	    end
+
+	    should "have a method to show the name of the household" do
+	    	assert_equal "Bonny Gruberman/Eric Gruberman/Mary Gruberman", @grub.name
+	    	assert_equal "Alexandra Mill", @mill.name
+	    end
+
+	    should "deactivate not destroy household and all associated students and guardians" do
+	    	@grub.destroy
+			@grub.reload
+			deny @grub.active
+			deny @mary.active
+			deny @eric.active
+			deny @ed.active
+			deny @ted.active
+			deny @fred.active
+			deny @ned.active
+	    end
+
+	end
+
 end
