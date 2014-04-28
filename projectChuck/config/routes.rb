@@ -11,6 +11,7 @@ ProjectChuck::Application.routes.draw do
   resources :brackets
   resources :users
   resources :tournaments
+  resources :sessions
   
   get "households/new"
   get "students/index" 
@@ -21,6 +22,7 @@ ProjectChuck::Application.routes.draw do
   match 'contact' => 'home#contact', :as => :contact
   match 'privacy' => 'home#privacy', :as => :privacy
   
+  match 'user/edit' => 'users#edit', :as => :edit_current_user
   match 'signup' => 'users#new', :as => :signup
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
@@ -30,7 +32,7 @@ ProjectChuck::Application.routes.draw do
   get 'brackets/:id/remove' => 'brackets#remove_team', :as => :remove_team
   get 'teams/:id/add' => 'teams#add_student', :as => :add_student  
   get 'brackets/:id/add' => 'brackets#add_team', :as => :add_team
-  get 'guardians/:id/activate' => 'guardians#activate', :as => :activate
+  get 'guardians/:id/activate' => 'guardians#activate_guardian', :as => :activate_guardian
   get 'students/:id/activate' => 'students#activate', :as => :activate
 
   # Set the root url

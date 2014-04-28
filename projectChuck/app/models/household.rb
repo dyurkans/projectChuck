@@ -10,7 +10,7 @@ class Household < ActiveRecord::Base
 	before_save :reformat_physician_phone
 
 	# Scopes
-	scope :active, where('active = ?', true)
+	scope :active, where('households.active = ?', true)
 	scope :inactive, where('active = ?', false)
 	scope :by_last_name, joins(:guardians).order('guardians.last_name').group('household_id')
 
@@ -37,7 +37,7 @@ class Household < ActiveRecord::Base
 	end
 
 	def name
-		guardians = self.guardians
+		guardians = self.guardians.alphabetical
 		name = ""
 		index = 0
 		for g in guardians

@@ -1,6 +1,12 @@
 <div class="nav-collapse">
   <ul class="nav navbar-nav">
     <% klass = "" %>
+    <% if (current_page?(:controller=>"home",:action=>"index"))%>
+        <% klass = "active" %>
+    <% end %>
+    <li class=<%= klass%>><%= link_to "Home", home_path %></li>
+
+    <% klass = "" %>
     <% if (current_page?(:controller=>"students",:action=>"index"))%>
         <% klass = "active" %>
     <% end %>

@@ -1,0 +1,27 @@
+  <h4> Guardians Signed Up for Text Notifications </h4>
+<% if @guardians_receiving_texts.empty? %>
+  &nbsp;&nbsp;<em>None at this time</em>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Cell Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @guardians_receiving_texts.each do |guardian| %>
+        <tr>
+          <td><%= link_to guardian.name, guardian_path(guardian) %></td>
+          <td><%= number_to_phone guardian.cell_phone %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="digg_pagination">
+    <div clas="page_info">
+      <%= page_entries_info @guardians_receiving_texts %>
+    </div>
+    <%= will_paginate @guardians_receiving_texts, :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
+  </div>
+<% end %>

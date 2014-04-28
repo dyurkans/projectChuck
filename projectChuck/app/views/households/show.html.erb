@@ -8,5 +8,5 @@
 <div class="form-actions">
   <%= link_to raw("<i class='icon-list'></i> Display All Households"), households_path, :class => 'btn'  %>&nbsp;&nbsp;
   <%= link_to raw("<i class='icon-pencil'></i> Edit Household"), edit_household_path(@household), :class => 'btn' %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-remove icon-white'></i> Deactivate Household"), household_path(@household), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  <%= link_to raw("<i class='icon-remove icon-white'></i> Change Household Status"), household_path(@household), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
 </div>
