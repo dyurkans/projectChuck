@@ -3,23 +3,29 @@ class UsersController < ApplicationController
   require 'will_paginate/array'
 
     def index
-        @users = User.paginate(:page => params[:page]).per_page(7)
+        @users = User.alphabetical.paginate(:page => params[:page]).per_page(7)     
         authorize! :index, @user
     end
     
     def new
         @user = User.new
-        @guardians = Guardian.active
+        @guardians = User.eligible_guardians(@guardian)
         authorize! :new, @user
+    end
+
+    def show
+        @user = User.find(params[:id])
+        @guardian = Guardian.find(@user.guardian_id)
+        authorize! :show, @user
     end
     
     def edit
         @user = User.find(params[:id])
         @guardian = Guardian.find(@user.guardian_id)
-        @guardians = Guardian.active
-        if @user.role? == "member"
-            @user.role == "member"
-        end
+        @guardians = User.eligible_guardians(@guardian.id)
+        # if @user.role? == "member"
+        #     @user.role == "member"
+        # end
         authorize! :edit, @user
     end
         
@@ -38,7 +44,7 @@ class UsersController < ApplicationController
     def update
         @user = User.find(params[:id])
         @guardian = Guardian.find(@user.guardian_id)
-        @guardians = Guardian.active
+        @guardians = User.eligible_guardians(@guardian.id)
         if @user.update_attributes(params[:user])
         flash[:notice] = "#{@guardian.proper_name}'s user account has been updated."
             redirect_to @user

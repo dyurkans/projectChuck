@@ -6,10 +6,10 @@ protect_from_forgery
       redirect_to home_path
   end
   
-  # handle missing pages the BSG way...
-  rescue_from ActiveRecord::RecordNotFound do |exception|
-     render template: 'errors/not_found'
-  end
+  # # handle missing pages the BSG way...
+  # rescue_from ActiveRecord::RecordNotFound do |exception|
+  #    render template: 'errors/not_found'
+  # end
   
   private
   # Handling authentication

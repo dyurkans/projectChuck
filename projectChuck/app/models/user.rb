@@ -14,12 +14,25 @@ class User < ActiveRecord::Base
   validates_inclusion_of :role, :in => %w[admin member], :message => "is not recognized by the system"
   # validate :guardian_is_active_in_system, :on => :create
   
+  scope :alphabetical, joins(:guardian).order('last_name')
+
   # for use in authorizing with CanCan
   ROLES = [['Administrator', :admin],['Member', :member]]
 
   def role?(authorized_role)
     return false if role.nil?
     role.downcase.to_sym == authorized_role
+  end
+
+  def self.eligible_guardians(guard_id)
+    @guardians = Guardian.alphabetical
+    @eligible_guardians = []
+    for g in @guardians
+        if g.user.nil? || g.id == guard_id
+            @eligible_guardians << g
+        end
+    end
+    @eligible_guardians
   end
   
   # alternative methods (some find more natural...)
