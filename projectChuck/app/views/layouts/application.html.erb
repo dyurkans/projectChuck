@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project C.H.U.C.K.</title>
     <%= stylesheet_link_tag    "reset" %>
     <%= stylesheet_link_tag    "bootstrap" %>
@@ -22,45 +23,39 @@
   <body>
 
 
-  <div class="container row col-sm-11 col-md-11 col-lg-11" style="margin:0 auto;">
-    <div class="row">
-      <!-- NAV BAR -->
-      <div class="col-sm-10 col-md-10 col-lg-11">
-        <%= render :partial => "partials/navigation" %>
-      </div>
-      
-      
-      <div class="col-sm-1 col-med-1 col-lg-1">
-        <% if logged_in? %>
-          <%= link_to 'Logout', logout_path, :class => 'btn btn-primary' %>
-          <br>[<%= current_user.student.proper_name %>:<%= current_user.role %>]
-        <% else %>
-          <%= link_to(image_tag('bob_logo.png', size: "65x101")+"Login", login_path, :class => 'btn btn-primary')%>
-        <% end %>
-      </div>
-   </div>
-   <div class="row">
-      <div class="col-sm-2 col-med-2 col-lg-2 sidebar">
-        <!-- TITLE BAR -->
-        <%= image_tag('projectChuckLogo.jpg') %>
-      </div>
-      <div id="main_content" class="col-sm-10 col-med-10 col-lg-10 main">
-        <!-- flash messages -->
-        <% flash.each do |name, msg| %>
-          <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-            <a class="close" data-dismiss="alert">&times;</a>
-            <%= msg %>
+  <div class="container row col-sm-12 col-md-12 col-lg-12" style="margin:0 auto;">
+    
+      <div class="row">
+          <!-- NAV BAR -->
+          <div class="col-sm-10 col-md-10 col-lg-12">
+            <%= render :partial => "partials/navigation" %>
           </div>
-        <% end %>
-        
-        
-        <!-- MAIN CONTENT -->
-        <div>
-          <%= yield %>
-        </div>
       </div>
-    </div>
-  </div>
+      
+      <div class="row">
+          <div id="sidebar-left" class="col-sm-1 col-med-1 col-lg-1 sidebar">
+            <!-- TITLE BAR -->
+            <div><%= image_tag('projectChuckLogo.jpg') %></div>
+          </div>
+
+          <div id="main_content" class="col-sm-9 col-med-9 col-lg-9 main">
+            <!-- flash messages -->
+            <% flash.each do |name, msg| %>
+              <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+                <a class="close" data-dismiss="alert">&times;</a>
+                <%= msg %>
+              </div>
+            <% end %>
+        
+            <!-- MAIN CONTENT -->
+            <%= yield %>
+          </div>
+          
+          <div class="col-sm-2 col-med-2 col-lg-2 sidebar-right">
+            <div><%= image_tag('bob_logo.png', :size => ('167x260')) %></div>
+          </div>
+      </div>
+
   </div>
   <!-- FOOTER -->
   <footer>

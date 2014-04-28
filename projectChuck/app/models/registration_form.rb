@@ -2,7 +2,7 @@ class RegistrationForm < Reform::Form
   include Composition
   include Reform::Form::ActiveModel
   include Reform::Form::ActiveModel::FormBuilderMethods
-
+  
   model :household
   
   # Household
@@ -29,8 +29,52 @@ class RegistrationForm < Reform::Form
   properties [:cell_phone, :day_phone, :dob, :email, :first_name, :gender, :last_name, :receive_texts], on: :guardian
   
   validates :first_name, :last_name, :gender, :receive_texts, on: :guardian, presence: true
+
+  def persisted?
+    false
+  end
+  
+  def register!(student, guardian, registration, household)
+    guardian.household = household
+    student.household = household
+    registration.student = student
+
+    ActiveRecord::Base.transaction do
+      begin
+        student.save!
+        guardian.save!
+        household.save!
+        registration.save!
+      rescue
+        raise RegistrationForm::RegistrationFailed
+      end
+    end
+  end
+  
+  class RegistrationFailed < Exception
+  end
   
   
+  def persist!(params)
+    if validate(params)
+      begin
+        save do |data, map|
+          RegistrationForm.new.register!(
+            Student.new(map[:student]),
+            Household.new(map[:household]),
+            Guardian.new(map[:guardian]),
+            Registration.new(map[:registration])
+          )
+        end
+      rescue RegistrationForm::RegistrationFailed
+        false
+      end
+    end
+  end
+  
+  def to_key
+    [1]
+  end
   
   def save
     super

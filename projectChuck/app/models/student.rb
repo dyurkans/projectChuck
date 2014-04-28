@@ -7,10 +7,8 @@ class Student < ActiveRecord::Base
   
   mount_uploader :birth_certificate, AvatarUploader
 
-  accepts_nested_attributes_for :household
-  accepts_nested_attributes_for :registrations
-  accepts_nested_attributes_for :guardians
-  attr_accessible :household_attributes, :registrations_attributes, :guardians_attributes, :email, :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :school_county, :security_question, :security_response
+  accepts_nested_attributes_for :registrations, :guardians
+  attr_accessible :registrations_attributes, :guardians_attributes, :email, :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :school_county, :security_question, :security_response
   
   #Callbacks
   before_save :reformat_cell

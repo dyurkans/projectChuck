@@ -1,6 +1,10 @@
 class RegistrationsController < ApplicationController
   def new
-    @registration_form = reg_form
+#     @registration_form = reg_form
+    @household = Household.new
+    @guardians = @household.guardians.build
+    @students = @guardians.students.build
+    @students.registrations.build
   end
 
   def index
@@ -9,23 +13,32 @@ class RegistrationsController < ApplicationController
   end
   
   def create
-    @registration = reg_form
-
-    if @registration_form.save
+    @registration = Registration.new(params[:registration])
+    student = Student.find_by_id(@registration.student_id)
+    if @registration.save!
       # if saved to database
-      @student = Student.find_by_id(@registration.student_id)
-      flash[:notice] = "Successfully created registration for #{@student.proper_name}."
-      redirect_to # go to show student page
+      flash[:notice] = "Successfully created a registration for #{student.proper_name}."
+      redirect_to student_path(student)
     else
       # return to the 'new' form
-      render :action => 'new'
+      render 'new'
     end
+#     @registration_form = reg_form
+# 
+#     puts params
+#     if @registration_form.persist!(params)
+#       flash[:notice] = "Successfully created registration for Steve."
+#       redirect_to students_path # go to show student page
+#     else
+#       render :action => 'new'
+#     end
   end
+  
 
   private
 
     def reg_form
       RegistrationForm.new(guardian: Guardian.new, household: Household.new, student: Student.new, registration: Registration.new)
     end
-  
+    
 end
