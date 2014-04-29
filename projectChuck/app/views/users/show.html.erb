@@ -1,0 +1,12 @@
+<div class="row">
+	<div class="span12">
+		<h2>User Details</h2>
+		<%= render :partial => "user_details" %>
+	</div>
+</div>
+
+<div class="form-actions">
+  <%= link_to raw("<i class='icon-list'></i> Display All Users"), users_path, :class => 'btn'  %>&nbsp;&nbsp;
+  <%= link_to raw("<i class='icon-pencil'></i> Edit #{@guardian.proper_name}"), edit_user_path(@user), :class => 'btn' %>&nbsp;&nbsp;
+  <%= link_to raw("<i class='icon-remove icon-white'></i> Delete #{@guardian.proper_name}"), user_path(@user), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+</div>

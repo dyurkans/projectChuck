@@ -93,6 +93,7 @@ namespace :db do
           u.email = g.email
           u.role = "#{rand(2).zero? ? 'admin' : 'member'}"
           u.password = "secret"
+          u.active = "#{rand(2).zero? ? true : false}"
           u.save!
           puts "#{u.role.capitalize} user created!"
         else

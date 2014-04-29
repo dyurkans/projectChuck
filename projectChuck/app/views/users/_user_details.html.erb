@@ -1,0 +1,15 @@
+<p>
+	<b>Name:</b><%= @guardian.name %>
+</p>
+
+<p>
+    <b>Email:</b> <%= @user.email %>
+</p>
+
+<p>
+  <b>Role:</b> <%= @user.role=="member" ? "Member":"Admin" %>
+</p>
+
+<p>
+  <b>Active:</b> <%= @user.active ? "Yes" : "No" %>
+</p>

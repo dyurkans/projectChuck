@@ -43,9 +43,6 @@
   <b>Bracket:</b> <%= @bracket.nil? ? "---" : (link_to "#{@bracket.min_age} - #{@bracket.max_age}", bracket_path(@bracket)) %>
 </p>
 
-<p>
-  <b>Waitlist Position:</b> 
-</p>
 </div>
 <!--              School                         -->
  <div class="row col-sm-6 col-md-6 col-lg-6">
@@ -53,22 +50,29 @@
   	<h3>School Information</h3>
   </p>
 
-  <p>
-    <b>School Name:</b> <%= @student.school %>
-  </p>
+<p>
+  <b>School Name:</b> <%= @student.school %>
+</p>
 
-  <p>
-    <b>Grade (as of August <%= @registration.created_at.year %>):</b> <%= @student.grade_integer %>
-  </p>
+<p>
+  <b>Grade (as of August <%= @registration.created_at.year %>):</b> <%= @student.grade_integer %>
+</p>
 
-  <p>
-    <b>School District:</b> <%= @student.school_county %>
-  </p>
+<p>
+  <b>School District:</b> <%= @student.school_county %>
+</p>
 
-  <p>
-    <b>Report Card Submitted:</b> <%= @student.missing_report_card ? "No" : "Yes" %>
-  </p>
-</div>
+<p>
+  <b>Report Card Submitted:</b> <%= @student.missing_report_card ? "No" : "Yes" %>
+</p>
+
+<!--              Guardian Details                        -->
+
+<p>
+	<h3>Parent/Guardian Information</h3>
+</p>
+
+<% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
 
 <!--              Medical                         -->
 <div class="row col-sm-6 col-md-6 col-lg-6">
@@ -76,35 +80,37 @@
   	<h3>Medical Information</h3>
   </p>
 
-  <p>
-    <b>Allergies:</b> <%= @student.allergies %>
-  </p>
+<p>
+  <b>Allergies:</b> <%= @student.allergies %>
+</p>
 
-  <p>
-    <b>Medication(s):</b> <%= @student.medications %>
-  </p>
+<p>
+  <b>Medication(s):</b> <%= @student.medications %>
+</p>
 
-  <p>
-    <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") unless @registration.nil? %>
-  </p>
-  <!-- <p>
-    <b>Family Physician</b> <%= @household.family_physician %>
-  </p>
+<p>
+  <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") unless @registration.nil? %>
+</p>
 
-  <p>
-    <b>Family Physician Phone</b> <%= number_to_phone @household.physician_phone %>
-  </p>
+<!-- <p>
+  <b>Family Physician</b> <%= @household.family_physician %>
+</p>
 
-  <p>
-    <b>Insurance Policy Provider</b> <%= @household.insurance_provider %>
-  </p>
+<p>
+  <b>Family Physician Phone</b> <%= number_to_phone @household.physician_phone %>
+</p>
 
-  <p>
-    <b>Insurance Policy Number</b> <%= @household.insurance_policy_no %> Link to Insurance Card goes here
-  </p> -->
-  <p>
-    <b>Emergency Contact:</b> <%= @student.emergency_contact_name %>
-  </p>
+<p>
+  <b>Insurance Policy Provider</b> <%= @household.insurance_provider %>
+</p>
+
+<p>
+  <b>Insurance Policy Number</b> <%= @household.insurance_policy_no %> Link to Insurance Card goes here
+</p> -->
+
+<p>
+  <b>Emergency Contact:</b> <%= @student.emergency_contact_name %>
+</p>
 
   <p>
     <b>Emergency Contact Phone:</b> <%= number_to_phone @student.emergency_contact_phone %>

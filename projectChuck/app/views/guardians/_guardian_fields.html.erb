@@ -1,6 +1,6 @@
 <div class="fields">
   <div class="min_attraction">
-  	  <%= f.input :household_id, :collection => @households, :include_blank => false, :label=> "Household Name" %>
+  	  <%= f.input :household_id, :collection => @households, :include_blank => false, :label=> "Household Name", :selected => (@household.id unless @household.nil?) %>
       <%= f.input :first_name %>
       <%= f.input :last_name %>
       <%= f.input :gender, :collection => Student::GENDER_LIST, :include_blank => false %>
