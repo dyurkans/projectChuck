@@ -86,29 +86,31 @@ namespace :db do
         g.first_name = Faker::Name.first_name
         if rand(5).zero?
           g.last_name = Faker::Name.last_name
-          g.email = "#{g.first_name.downcase}.#{g.last_name.downcase}@example.com"
-          puts "Creating user for #{g.proper_name}..."
-          u = User.new
-          u.guardian_id = g.id
-          u.email = g.email
-          u.role = "#{rand(2).zero? ? 'admin' : 'member'}"
-          u.password = "secret"
-          u.active = "#{rand(2).zero? ? true : false}"
-          u.save!
-          puts "#{u.role.capitalize} user created!"
         else
           g.last_name = household_last_name
-          g.email = "#{g.first_name.downcase}.#{g.last_name.downcase}@example.com"
         end
         age = (30..55).to_a.sample
         g.dob = age.years.ago.to_date
         g.cell_phone = rand(10 ** 10).to_s.rjust(10,'0')
         g.day_phone = rand(10 ** 10).to_s.rjust(10,'0')
+        g.email = "#{g.first_name.downcase}.#{g.last_name.downcase}@example.com"
         g.receive_texts = !rand(4).zero?
         g.gender = rand(2).zero? # 50-50 change M/F; could have FF or MM households
         g.active = true
         if g.save!
           puts "Adding guardian #{g.proper_name} to household"
+          
+          if rand(5).zero?
+            puts "Creating user for #{g.proper_name}..."
+            u = User.new
+            u.guardian_id = g.id
+            u.email = g.email
+            u.role = "#{rand(2).zero? ? 'admin' : 'member'}"
+            u.password = "secret"
+            u.active = "#{rand(2).zero? ? true : false}"
+            u.save!
+            puts "#{u.role.capitalize} user created!"
+          end
         end
       end
     end

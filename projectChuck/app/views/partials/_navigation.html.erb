@@ -50,7 +50,7 @@
     </ul>
     <% if logged_in? %>
       <%= link_to 'Logout', logout_path, :id => "myLogout", :class => 'btn btn-primary' %>
-      <br>[<%= current_user.student.proper_name %>:<%= current_user.role %>]
+      <br>[<%= current_user.guardian.proper_name %>:<%= current_user.role %>]
     <% else %>
       <%= link_to("Login", login_path, :id => "myLogin", :class => 'btn btn-primary')%>
     <% end %>
