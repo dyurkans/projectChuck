@@ -13,6 +13,7 @@ gem 'carrierwave'
 gem 'nested_form'
 gem 'tconsole', '1.2.8'
 gem 'lazy_high_charts'
+gem 'reform'
 gem 'cancancan', '~> 1.7'
 
 # Gems used only for assets and not required

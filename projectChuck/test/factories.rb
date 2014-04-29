@@ -1,3 +1,4 @@
+include ActionDispatch::TestProcess
 FactoryGirl.define do
 	
 	factory :student do
@@ -11,7 +12,7 @@ FactoryGirl.define do
 		gender true
 		emergency_contact_name "Mary Gruberman"
 		emergency_contact_phone { rand(10 ** 10).to_s.rjust(10,'0') }
-		birth_certificate "documents/birth_certificates/EGruberman.pdf"
+		birth_certificate { fixture_file_upload(Rails.root.join('public', 'example_files', 'birth_certificate.pdf'), "application/pdf") }
 		allergies nil
 		medications nil
 		security_question 0
@@ -20,9 +21,9 @@ FactoryGirl.define do
 	end
 
 	factory :registration do
-		report_card "documents/report_card/EGruberman"
-		proof_of_insurance "documents/proof_of_insurance/EGruberman.pdf"
-		physical "documents/physical/EGruberman.pdf"
+		report_card { fixture_file_upload(Rails.root.join('public', 'example_files', 'report_card.pdf'), "application/pdf") }
+		proof_of_insurance { fixture_file_upload(Rails.root.join('public', 'example_files', 'insurance.pdf'), "application/pdf") }
+		physical { fixture_file_upload(Rails.root.join('public', 'example_files', 'physical.pdf'), "application/pdf") }
 		physical_date 3.months.ago.to_date
 		t_shirt_size 2
 		active true

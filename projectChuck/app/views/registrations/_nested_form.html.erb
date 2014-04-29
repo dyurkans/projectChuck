@@ -1,8 +1,22 @@
-<%= simple_nested_form_for @registration, :html => { :class => 'form-horizontal' } do |registration_form| %>
-  <%= registration_form.simple_fields_for :student do |student_form| %>
-    <fieldset>
-      <legend><%= controller.action_name.capitalize %> Registration </legend>
-      <%= render :partial => "reg_and_student_fields", :locals => { :reg => registration_form, :stu => student_form  } %>
-    </fieldset>
+<%= simple_nested_form_for @household, :html => { :class => 'form-horizontal' } do |household_form| %>
+  <% # I added variables @guardians, @students, and @registrations to the controller %>
+  <% # Can try replacing the colons ':'s with '@'s instead %>
+  <%= household_form.simple_fields_for :guardians do |guardian_form| %>
+    <%= guardian_form.simple_fields_for :students do |student_form| %>
+      <%= student_form.simple_fields_for :registrations do |registration_form| %>
+        <fieldset>
+          <legend><%= controller.action_name.capitalize %> Student Registration </legend>
+          <%= render :partial => "full_registration_fields", :locals => { :reg => registration_form, :stu => student_form, :h => household_form, :g => guardian_form } %>
+        </fieldset>
+      <% end %>
+    <% end %>
   <% end %>
+  <div class="form-actions">
+    <ul class="pager">
+      <%= link_to 'Cancel', students_path, :class => 'btn' %>
+      <span style="background:#e5e5e5" id="myPrevious" class="btn myHide">Previous</span>
+      <span style="background:#e5e5e5" id="myContinue" class="btn">Continue</span>
+      <%= household_form.submit nil, :class => 'btn btn-primary myHide', :id => 'registrationNestedSubmit' %>
+    </ul>
+  </div>
 <% end %>

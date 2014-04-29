@@ -16,8 +16,7 @@ namespace :db do
     tourn.end_date = tourn.start_date + 3.months
     tourn.save!
     
-    
-    # Create 70 households
+    # Create 70 households with no more than 280 students
     70.times do |i|
       h = Household.new
       h.street = Faker::Address.street_address
@@ -60,7 +59,7 @@ namespace :db do
         s.grade_integer = (months_old/12) - 5
         s.emergency_contact_name = Faker::Name.name
         s.emergency_contact_phone = rand(10 ** 10).to_s.rjust(10,'0')
-        s.birth_certificate = "#{s.last_name}#{s.first_name}.pdf"
+        s.birth_certificate.store!(File.open(File.expand_path("./public/example_files/birth_certificate.pdf")))
         if rand(4).zero?
           s.allergies = "#{rand(2).zero? ? 'Peanuts' : 'Bee stings'}"
         else
@@ -87,15 +86,25 @@ namespace :db do
         g.first_name = Faker::Name.first_name
         if rand(5).zero?
           g.last_name = Faker::Name.last_name
+          g.email = "#{g.first_name.downcase}.#{g.last_name.downcase}@example.com"
+          puts "Creating user for #{g.proper_name}..."
+          u = User.new
+          u.guardian_id = g.id
+          u.email = g.email
+          u.role = "#{rand(2).zero? ? 'admin' : 'member'}"
+          u.password = "secret"
+          u.active = "#{rand(2).zero? ? true : false}"
+          u.save!
+          puts "#{u.role.capitalize} user created!"
         else
           g.last_name = household_last_name
+          g.email = "#{g.first_name.downcase}.#{g.last_name.downcase}@example.com"
         end
         age = (30..55).to_a.sample
         g.dob = age.years.ago.to_date
         g.cell_phone = rand(10 ** 10).to_s.rjust(10,'0')
         g.day_phone = rand(10 ** 10).to_s.rjust(10,'0')
         g.receive_texts = !rand(4).zero?
-        g.email = "#{g.first_name.downcase}.#{g.last_name.downcase}@example.com"
         g.gender = rand(2).zero? # 50-50 change M/F; could have FF or MM households
         g.active = true
         if g.save!
@@ -161,13 +170,21 @@ namespace :db do
           r.report_card.store!(File.open(File.expand_path("./public/example_files/report_card.pdf")))
           r.student_id = student.id
           r.t_shirt_size = (0..5).to_a.sample
-          r.team_id = t.id
+          if num_teams_created == num_teams_to_create
+            r.team_id = nil
+          else
+            r.team_id = t.id
+          end
           r.active = true
           r.created_at = (0..56).to_a.sample.days.ago.to_date
           r.save!
           num_boys_registered_to_t += 1
           index_of_current_boy_student += 1
-          puts "Registered #{student.proper_name} to the #{t.name}"
+          if r._team_id.nil?
+            puts "Left #{student.proper_name} unregistered!"
+          else
+            puts "Registered #{student.proper_name} to the #{t.name}"
+          end
         end
       end
     end
@@ -193,7 +210,7 @@ namespace :db do
       eligible_girl_students = Student.active.female.ages_between(b.min_age,b.max_age)
       MAX_GIRL_STUDENTS = 10
       num_teams_to_create = eligible_girl_students.size / MAX_GIRL_STUDENTS
-      num_teams_to_create += 1 if eligible_girl_students.size % MAX_GIRL_STUDENTS != 0
+      num_teams_to_create += 1 unless ((eligible_girl_students.size % MAX_GIRL_STUDENTS).zero?)
       puts "Creating #{num_teams_to_create} teams..."
       num_teams_created = 0
       index_of_current_girl_student = 0
@@ -229,13 +246,21 @@ namespace :db do
           r.report_card.store!(File.open(File.expand_path("./public/example_files/report_card.pdf")))
           r.student_id = student.id
           r.t_shirt_size = (0..5).to_a.sample
-          r.team_id = t.id
+          if num_teams_created == num_teams_to_create
+            r.team_id = nil
+          else
+            r.team_id = t.id
+          end
           r.active = true
           r.created_at = (0..56).to_a.sample.days.ago.to_date
           r.save!
           num_girls_registered_to_t += 1
           index_of_current_girl_student += 1
-          puts "Registered #{student.proper_name} to the #{t.name}"
+          if r._team_id.nil?
+            puts "Left #{student.proper_name} unregistered!"
+          else
+            puts "Registered #{student.proper_name} to the #{t.name}"
+          end
         end
       end
     end

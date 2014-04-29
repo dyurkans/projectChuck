@@ -1,4 +1,5 @@
 <!--              Student                        -->
+<div class="row col-sm-7 col-md-7 col-lg-6">
 <p>
 	<h3>Personal Information</h3>
 </p>
@@ -26,9 +27,10 @@
 <p>
   <b>Jersey Size:</b> <%= if !@registration.nil? then Registration::SIZE_LIST.map{ |t| t[0]}[@registration.t_shirt_size - 1]  else "---" end %>
 </p>
+</div>
 
 <!--              Team                         -->
-
+<div class="row col-sm-6 col-md-6 col-lg-6">
 <p>
 	<h3>Team Information</h3>
 </p>
@@ -41,11 +43,12 @@
   <b>Bracket:</b> <%= @bracket.nil? ? "---" : (link_to "#{@bracket.min_age} - #{@bracket.max_age}", bracket_path(@bracket)) %>
 </p>
 
+</div>
 <!--              School                         -->
-
-<p>
-	<h3>School Information</h3>
-</p>
+ <div class="row col-sm-6 col-md-6 col-lg-6">
+  <p>
+  	<h3>School Information</h3>
+  </p>
 
 <p>
   <b>School Name:</b> <%= @student.school %>
@@ -72,10 +75,10 @@
 <% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
 
 <!--              Medical                         -->
-
-<p>
-	<h3>Medical Information</h3>
-</p>
+<div class="row col-sm-7 col-md-7 col-lg-6">
+  <p>
+  	<h3>Medical Information</h3>
+  </p>
 
 <p>
   <b>Allergies:</b> <%= @student.allergies %>
@@ -109,16 +112,24 @@
   <b>Emergency Contact:</b> <%= @student.emergency_contact_name %>
 </p>
 
-<p>
-  <b>Emergency Contact Phone:</b> <%= number_to_phone @student.emergency_contact_phone %>
-</p>
+  <p>
+    <b>Emergency Contact Phone:</b> <%= number_to_phone @student.emergency_contact_phone %>
+  </p>
+</div>
+<!--              Guardian Details                        -->
+<div class="row col-sm-6 col-md-6 col-lg-6">
+  <p>
+    <h3>Parent/Guardian Information</h3>
+  </p>
 
-<!--              Other                         -->
-
+  <% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
+  
+  <!--              Other                         -->
 <p>
-	<h3>Other</h3>
+  <h3>Other</h3>
 </p>
 
 <p>
   <b>Current Status:</b> <%= @student.active ? "Active" : "Inactive" %>
 </p>
+</div>
