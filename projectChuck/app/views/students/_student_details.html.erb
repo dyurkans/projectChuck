@@ -1,5 +1,5 @@
 <!--              Student                        -->
-<div class="row col-sm-6 col-md-6 col-lg-6">
+<div class="row col-sm-7 col-md-7 col-lg-6">
 <p>
 	<h3>Personal Information</h3>
 </p>
@@ -75,7 +75,7 @@
 <% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
 
 <!--              Medical                         -->
-<div class="row col-sm-6 col-md-6 col-lg-6">
+<div class="row col-sm-7 col-md-7 col-lg-6">
   <p>
   	<h3>Medical Information</h3>
   </p>
@@ -123,7 +123,6 @@
   </p>
 
   <% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
-  <br>
   
   <!--              Other                         -->
 <p>
