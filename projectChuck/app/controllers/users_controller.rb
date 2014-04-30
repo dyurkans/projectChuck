@@ -31,6 +31,8 @@ class UsersController < ApplicationController
         
     def create
         @user = User.new(params[:user])
+        @guardian = Guardian.find(@user.guardian_id)
+        @guardians = User.eligible_guardians(@guardian)
         if @user.save
             session[:user_id] = @user.id
             redirect_to root_url, notice: "Thank you for signing up!"
