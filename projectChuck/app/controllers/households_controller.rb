@@ -1,6 +1,9 @@
 class HouseholdsController < ApplicationController
   require 'will_paginate/array'
-
+  
+  before_filter :check_login
+  authorize_resource
+  
   def new
     @household = Household.new
   end

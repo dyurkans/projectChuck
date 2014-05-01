@@ -7,7 +7,7 @@
         <th>Name</th>
   			<th>Email</th>
         <th>Role</th>
-        <th>Status</th>
+        <th>User Status</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -16,8 +16,8 @@
         <tr>
           <td><%= link_to Guardian.find(user.guardian_id).proper_name, user_path(user) %></td>
   				<td><%= user.email %></td>
-          <td><%= user.role %></td>
-          <td><%= user.active ? "Yes" : "No" %></td>
+          <td><%= user.role=="member" ? "Member":"Admin" %></td>
+          <td><%= user.active ? "Active" : "Inactive" %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_user_path(user), :class => 'btn btn-mini' %></td>
         </tr>
       <% end %>

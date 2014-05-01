@@ -1,4 +1,8 @@
 class StudentsController < ApplicationController
+
+  before_filter :check_login
+  authorize_resource
+
   def new
     @student = Student.new
     @student.registrations.build

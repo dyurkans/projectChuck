@@ -1,4 +1,7 @@
 class RegistrationsController < ApplicationController
+
+  authorize_resource
+  
   def new
 #     @registration_form = reg_form
     @household = Household.new

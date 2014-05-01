@@ -18,9 +18,6 @@ ProjectChuck::Application.routes.draw do
 
   
   match 'home' => 'home#index', :as => :home
-  match 'about' => 'home#about', :as => :about
-  match 'contact' => 'home#contact', :as => :contact
-  match 'privacy' => 'home#privacy', :as => :privacy
   
   match 'user/edit' => 'users#edit', :as => :edit_current_user
   match 'signup' => 'users#new', :as => :signup
@@ -34,7 +31,8 @@ ProjectChuck::Application.routes.draw do
   get 'brackets/:id/add' => 'brackets#add_team', :as => :add_team
   get 'guardians/:id/activate' => 'guardians#activate_guardian', :as => :activate_guardian
   get 'students/:id/activate' => 'students#activate', :as => :activate
-
+  #get 'home' => 'home#index', :as => :home
+  
   # Set the root url
   root :to => 'home#index'
 end

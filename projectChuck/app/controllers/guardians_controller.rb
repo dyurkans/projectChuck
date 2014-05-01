@@ -1,7 +1,9 @@
 class GuardiansController < ApplicationController
-
   require 'will_paginate/array'
-
+  
+  before_filter :check_login
+  authorize_resource
+  
   def new
     @guardian = Guardian.new
     @households = Household.active.by_last_name

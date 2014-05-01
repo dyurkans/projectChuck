@@ -1,6 +1,9 @@
 class TeamsController < ApplicationController
   include ApplicationHelper
   require 'will_paginate/array'
+ 
+  before_filter :check_login
+  authorize_resource
 
   def new
     @team = Team.new

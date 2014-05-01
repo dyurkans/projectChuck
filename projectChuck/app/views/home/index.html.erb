@@ -1,6 +1,9 @@
 <% if logged_in? && current_user.role == "admin" %>
   <div style="padding-left:10%;">
     <div class="row">
+      <%= link_to 'Register a Student', new_registration_path, :class => "btn btn-success" %>
+    </div>
+    <div class="row">
       <p>
         <h4><b>Students Registered:</b><%= @tournament.number_of_students unless @tournament.nil? %></h4>
       </p>

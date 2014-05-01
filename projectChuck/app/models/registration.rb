@@ -32,7 +32,7 @@ class Registration < ActiveRecord::Base
   scope :alphabetical, joins(:student).order('last_name')
   scope :for_team, joins(:team).order('name')
   scope :reg_order, order('created_at DESC')
-  scope :current, where('? <= created_at and created_at <= ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31))
+  scope :current, where('? <= created_at and created_at <= ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31)).order('created_at DESC')
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
   scope :incomplete, where('proof_of_insurance IS NULL OR physical IS NULL OR report_card IS NULL')

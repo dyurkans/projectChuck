@@ -1,4 +1,8 @@
 class BracketsController < ApplicationController
+  require 'will_paginate/array'
+  
+  before_filter :check_login
+  authorize_resource
 
   def new
     @bracket = Bracket.new
