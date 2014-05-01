@@ -76,8 +76,8 @@
     </thead>
     <tbody>
       <% @eligible_students.each do |student| %>
+        <% registration = student.registrations.reg_order[0] unless student.registrations.reg_order[0].nil? %>        
         <tr>
-          <% registration = student.registrations.reg_order[0] unless student.registrations.reg_order[0].nil? %>
           <td><%= link_to student.name, student_path(student) %></td>
           <td><%= student.dob.nil? ? "---" : student.age  %></td>
           <td><%= if student.registrations.reg_order[0].nil? then "All" else student.registrations.reg_order[0].missing_doc end %></td>

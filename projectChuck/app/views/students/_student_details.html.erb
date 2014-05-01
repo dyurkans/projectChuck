@@ -55,7 +55,7 @@
 </p>
 
 <p>
-  <b>Grade (as of August <%= @registration.created_at.year %>):</b> <%= @student.grade_integer %>
+  <b>Grade (as of August <%= @registration.created_at.year unless @registration.nil? %>):</b> <%= @student.grade_integer %>
 </p>
 
 <p>
@@ -115,15 +115,7 @@
   <p>
     <b>Emergency Contact Phone:</b> <%= number_to_phone @student.emergency_contact_phone %>
   </p>
-</div>
-<!--              Guardian Details                        -->
-<div class="row col-sm-6 col-md-6 col-lg-6">
-  <p>
-    <h3>Parent/Guardian Information</h3>
-  </p>
-
-  <% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
-  
+</div>  
   <!--              Other                         -->
 <p>
   <h3>Other</h3>

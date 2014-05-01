@@ -80,7 +80,7 @@ class Student < ActiveRecord::Base
   end
 
   def self.registered_students
-    registrations = Registration.by_name
+    registrations = Registration.current.by_name
     active_regs = registrations.select { |r| r.active == true }
     students = Student.active
     registered_students = []
@@ -102,7 +102,7 @@ class Student < ActiveRecord::Base
   end
   
   def missing_report_card
-    self.registrations.reg_order[0].report_card.blank? unless (self.registrations.nil? || self.registrations.empty?)
+    self.registrations.current[0].report_card.blank? unless (self.registrations.current[0].nil? || self.registrations.current.empty?)
   end
 
   #Currently not in use/ or not functioning. Replaced by eligible_students method in team.rb
@@ -143,7 +143,7 @@ class Student < ActiveRecord::Base
 
   # Method to find student's registration for this year (if there is one)
   def current_reg
-    self.registrations.reg_order[0] unless self.registrations.nil?
+    self.registrations.current[0] unless self.registrations.current[0].nil?
   end
   
   #insert age as of june 1 method

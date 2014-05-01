@@ -31,7 +31,7 @@ class TeamsController < ApplicationController
   def remove_student
     @team = Team.find(params[:id])
     @student = Student.find(params[:student_id])
-    @student.registrations.reg_order[0].update_attribute(:team_id, nil)
+    @student.registrations.current[0].update_attribute(:team_id, nil)
     @student.save!
     redirect_to team_path(@team)
   end
@@ -39,7 +39,7 @@ class TeamsController < ApplicationController
   def add_student
     @team = Team.find(params[:id])
     @student = Student.find(params[:student_id])
-    @student.registrations.reg_order[0].update_attribute(:team_id, @team.id)
+    @student.registrations.current[0].update_attribute(:team_id, @team.id)
     @student.save!
     redirect_to team_path(@team)
   end
