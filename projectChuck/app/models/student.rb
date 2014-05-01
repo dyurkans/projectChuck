@@ -80,10 +80,11 @@ class Student < ActiveRecord::Base
   end
 
   def self.registered_students
-    registrations = Registration.active
+    registrations = Registration.by_name
+    active_regs = registrations.select { |r| r.active == true }
     students = Student.active
     registered_students = []
-    for r in registrations
+    for r in active_regs
       registered_students << students.find(r.student_id)
     end
     registered_students

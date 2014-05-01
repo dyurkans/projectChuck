@@ -38,6 +38,7 @@ class Registration < ActiveRecord::Base
   scope :incomplete, where('proof_of_insurance IS NULL OR physical IS NULL OR report_card IS NULL')
   scope :jersey_size, lambda {|size| where("t_shirt_size = ?", size) }
   scope :by_date, order('created_at')
+  scope :by_name, joins(:student).order('last_name')
   
   #Other Methods
 

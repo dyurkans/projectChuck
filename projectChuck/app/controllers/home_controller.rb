@@ -12,7 +12,7 @@ class HomeController < ApplicationController
 		@male_students = @registered_students.select { |x| x.gender == true }.size 
 		@female_students = @registered_students.select { |x| x.gender == false }.size
 		@school_districts = Student.school_districts
-		@unassigned_students = @registered_students.select { |stu| stu.registrations.reg_order.first.team_id == nil }.paginate(:page => params[:unassigned_student_page], :per_page => 10)
+		@unassigned_students = @registered_students.select { |stu| stu.registrations.current.first.team_id == nil }.paginate(:page => params[:unassigned_student_page], :per_page => 10)
 		@brackets = Bracket.all
 		# for reg in Registration.current.active.by_date.select { |reg| reg.team_id == nil }
 		# 	@eligible_students = lambda {|bracket| where(Student.find(reg.student_id).age_as_of_june_1 >= min and Student.find(reg.student_id).age_as_of_june_1 <= max) }
