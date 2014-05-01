@@ -41,17 +41,19 @@
     </thead>
     <tbody>
       <% @students.each do |student| %>
-        <tr>
-          <% registration = student.registrations.reg_order[0] unless student.registrations.reg_order[0].nil? %>
-          <td><%= link_to student.name, student_path(student) %></td>
-          <td><%= student.dob.nil? ? "---" : student.age_as_of_june_1  %></td>
-          <td><%= if student.registrations.reg_order[0].nil? then "All" else student.registrations.reg_order[0].missing_doc end%></td>
-          <td><%= number_to_phone student.cell_phone %></td>
-          <td></td>
-          <td><%= registration.active ? "Active" : "Inactive" %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
-          <td><%= link_to raw("<i class='icon-user icon-white'></i> Remove"), remove_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-mini" %></td>
-        </tr>
+        <% if !student.registrations.current[0].nil? %>
+          <tr>
+            <% registration = student.registrations.current[0] %>
+            <td><%= link_to student.name, student_path(student) %></td>
+            <td><%= student.dob.nil? ? "---" : student.age_as_of_june_1  %></td>
+            <td><%= registration.missing_doc %></td>
+            <td><%= number_to_phone student.cell_phone %></td>
+            <td>1          2          3</td>
+            <td><%= registration.active ? "Active" : "Inactive" %></td>
+            <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
+            <td><%= link_to raw("<i class='icon-user icon-white'></i> Remove"), remove_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-mini" %></td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
@@ -76,27 +78,29 @@
     </thead>
     <tbody>
       <% @eligible_students.each do |student| %>
-        <% registration = student.registrations.reg_order[0] unless student.registrations.reg_order[0].nil? %>        
-        <tr>
-          <td><%= link_to student.name, student_path(student) %></td>
-          <td><%= student.dob.nil? ? "---" : student.age  %></td>
-          <td><%= if student.registrations.reg_order[0].nil? then "All" else student.registrations.reg_order[0].missing_doc end %></td>
-          <td><%= number_to_phone student.cell_phone %></td>
-          <td><%= if registration.nil? then "Inactive" else (registration.active ? "Active" : "Inactive") end %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
-          <% if @team.remaining_spots >  0 %>
-            <td><%= link_to raw("<i class='icon-user icon-white'></i> Add to #{team_name(@team.name)} "), add_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-mini" %></td>
-          <% end %>
-        </tr>
+        <% if !student.registrations.current[0].nil? %>          
+          <tr>
+            <% registration = student.registrations.current[0] %> 
+            <td><%= link_to student.name, student_path(student) %></td>
+            <td><%= student.dob.nil? ? "---" : student.age  %></td>
+            <td><%= registration.missing_doc %></td>
+            <td><%= number_to_phone student.cell_phone %></td>
+            <td><%= registration.active ? "Active" : "Inactive" %></td>
+            <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
+            <% if @team.remaining_spots >  0 %>
+              <td><%= link_to raw("<i class='icon-user icon-white'></i> Add to #{team_name(@team.name)} "), add_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-mini" %></td>
+            <% end %>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
+  </table>
   <div class="digg_pagination">
     <div clas="page_info">
       <%= page_entries_info @eligible_students %>
     </div>
     <%= will_paginate @eligible_students, :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
   </div>
-  </table>
 <% end %>
 	
 
