@@ -1,6 +1,9 @@
 class TeamsController < ApplicationController
   include ApplicationHelper
   require 'will_paginate/array'
+ 
+  before_filter :check_login
+  authorize_resource
 
   def new
     @team = Team.new
@@ -19,7 +22,7 @@ class TeamsController < ApplicationController
   
   def show
   	@team = Team.find(params[:id])
-    @eligible_students = @team.eligible_students.paginate(:page => params[:page], :per_page => 5)
+    @eligible_students = @team.eligible_students.paginate(:page => params[:page], :per_page => 10)
   	@bracket = Bracket.find_by_id(@team.bracket_id) unless @team.nil?
   	@registrations = @team.registrations
   	@students = @team.students
@@ -28,7 +31,7 @@ class TeamsController < ApplicationController
   def remove_student
     @team = Team.find(params[:id])
     @student = Student.find(params[:student_id])
-    @student.registrations.reg_order[0].update_attribute(:team_id, nil)
+    @student.registrations.current[0].update_attribute(:team_id, nil)
     @student.save!
     redirect_to team_path(@team)
   end
@@ -36,7 +39,7 @@ class TeamsController < ApplicationController
   def add_student
     @team = Team.find(params[:id])
     @student = Student.find(params[:student_id])
-    @student.registrations.reg_order[0].update_attribute(:team_id, @team.id)
+    @student.registrations.current[0].update_attribute(:team_id, @team.id)
     @student.save!
     redirect_to team_path(@team)
   end

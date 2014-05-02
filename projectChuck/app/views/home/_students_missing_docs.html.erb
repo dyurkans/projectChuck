@@ -12,10 +12,10 @@
     </thead>
     <tbody>
       <% @students.each do |student| %>
-        <% if student.registrations.reg_order[0].missing_doc != "" %>
+        <% if !student.registrations.current[0].nil? and student.registrations.current[0].missing_doc != "" %>
           <tr>
             <td><%= link_to student.name, student_path(student) %></td>
-            <td><%= student.registrations.reg_order[0].missing_doc %></td>
+            <td><%= student.registrations.current[0].missing_doc %></td>
             <td><%= number_to_phone student.cell_phone %></td>
           </tr>
         <% else %>

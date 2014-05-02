@@ -1,6 +1,9 @@
 class HouseholdsController < ApplicationController
   require 'will_paginate/array'
-
+  
+  before_filter :check_login
+  authorize_resource
+  
   def new
     @household = Household.new
   end
@@ -52,9 +55,9 @@ class HouseholdsController < ApplicationController
     end
     for s in @household.students
       s.active = false
-      r = s.registrations.reg_order[0]
-      r.active = false
-      r.save!
+      r = s.registrations.current[0]
+      r.active = false unless r.nil?
+      r.save! unless r.nil?
       s.save!
     end
     @household.save!
