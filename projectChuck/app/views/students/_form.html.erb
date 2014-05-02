@@ -7,7 +7,15 @@
       </fieldset>
     </div>
   </div>
-    
+  <div class="span5">
+    <legend>Registration Information</legend>
+      <div id="student_registrations">
+        <%= student_form.simple_fields_for :registrations do |registration_form| %>
+          <%= render :partial => "registration_fields", :locals => { :r => registration_form } %>
+        <% end %> 
+      </div> 
+    </div>
+  </div>
   <div class="form-actions">
     <%= student_form.submit nil, :class => 'btn btn-primary' %>
     <%= link_to 'Cancel', students_path, :class => 'btn' %>
