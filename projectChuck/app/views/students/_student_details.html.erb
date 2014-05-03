@@ -62,10 +62,6 @@
   <b>School District:</b> <%= @student.school_county %>
 </p>
 
-<p>
-  <b>Report Card Submitted:</b> <%= @student.missing_report_card ? "No" : "Yes" %>
-</p>
-
 <!--              Guardian Details                        -->
 
 <p>
@@ -105,7 +101,7 @@
 </p>
 
 <p>
-  <b>Insurance Policy Number</b> <%= @household.insurance_policy_no %> Link to Insurance Card goes here
+  <b>Insurance Policy Number</b> <%= @household.insurance_policy_no %>
 </p> -->
 
 <p>
@@ -116,6 +112,29 @@
     <b>Emergency Contact Phone:</b> <%= number_to_phone @student.emergency_contact_phone %>
   </p>
 </div>  
+
+<p>
+  <h3>Forms</h3>
+</p>
+
+<p>
+  <b>Report Card: </b> <%= if @student.missing_report_card then "Not Submitted" else image_tag(@registration.report_card) end %>
+</p>
+<p>
+  <b>Insurance Card: </b> <%= if @registration.missing_doc.include?("IC") then "Not Submitted" else image_tag(@registration.proof_of_insurance) end %>
+</p>
+<p>
+  <b>Physical: </b> <%= if @registration.missing_doc.include?("PH") then "Not Submitted" else image_tag(@registration.physical) end %>
+</p>
+<p>
+  <b>Birth Certificate: </b> <%= if @student.birth_certificate.blank? then "Not Submitted" else image_tag(@student.birth_certificate) end %>
+</p>
+
+
+
+
+
+
   <!--              Other                         -->
 <p>
   <h3>Other</h3>
