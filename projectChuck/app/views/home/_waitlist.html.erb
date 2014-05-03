@@ -31,7 +31,6 @@
         <%= page_entries_info b.eligible_students(min, max).paginate(:page => params[:page], :per_page => 10) %>
       </div>
       <%= will_paginate b.eligible_students(min, max).paginate(:page => params[:page], :per_page => 10), :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
-    </div>  
   <% else %>
     <%= "There are currently no spaces left in this bracket and no unassigned eligible students." %>
   <% end %>

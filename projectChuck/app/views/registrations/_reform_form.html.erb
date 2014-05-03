@@ -1,4 +1,4 @@
-<%= simple_form_for @registration_form, :html => { :class => 'form-horizontal' } do |registration_form| %>
+<%= simple_form_for @registration_form, :url => { :controller => 'registrations', :action => 'create' }, :html => { :class => 'form-horizontal' } do |registration_form| %>
   <% if @registration_form.errors.any? %>
     <div>
       <h3><%= pluralize(@registration_form.errors.count, "error") %> prohibited this form from being saved:</h3>
@@ -13,9 +13,9 @@
 
   <fieldset>
     <legend><%= controller.action_name.capitalize %> Student Registration </legend>
-    <%= render :partial => "full_registration_fields", :locals => { :f => registration_form } %>
+    <%= render :partial => "full_registration_fields", :locals => { :f => registration_form, :stu => @student, :guard => @guardian, :house => @household } %>
   </fieldset>
-
+  
   <div class="form-actions">
     <ul class="pager">
       <%= link_to 'Cancel', students_path, :class => 'btn' %>

@@ -1,9 +1,8 @@
 ProjectChuck::Application.routes.draw do
   
   # Generated routes
-  resources :students 
+  resources :students
   resources :registrations
-  
   resources :households
   resources :guardians
   
