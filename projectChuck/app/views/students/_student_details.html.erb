@@ -114,20 +114,20 @@
 </div>  
 
 <p>
-  <h3>Forms</h3>
+  <h3>Documents</h3>
 </p>
 
 <p>
-  <b>Report Card: </b> <%= if @student.missing_report_card then "Not Submitted" else image_tag(@registration.report_card) end %>
+  <b>Report Card: </b> <%= if @student.missing_report_card then "Not Submitted" else (link_to "Report Card", @registration.report_card.url) end %>
 </p>
 <p>
-  <b>Insurance Card: </b> <%= if @registration.missing_doc.include?("IC") then "Not Submitted" else image_tag(@registration.proof_of_insurance) end %>
+  <b>Insurance Card: </b> <%= if @registration.missing_doc.include?("IC") then "Not Submitted" else (link_to "Insurance Card", @registration.proof_of_insurance.url) end %>
 </p>
 <p>
-  <b>Physical: </b> <%= if @registration.missing_doc.include?("PH") then "Not Submitted" else image_tag(@registration.physical) end %>
+  <b>Physical: </b> <%= if @registration.missing_doc.include?("PH") then "Not Submitted" else (link_to "Physical Form", @registration.physical.url) end %>
 </p>
 <p>
-  <b>Birth Certificate: </b> <%= if @student.birth_certificate.blank? then "Not Submitted" else image_tag(@student.birth_certificate) end %>
+  <b>Birth Certificate: </b> <%= if @student.birth_certificate.blank? then "Not Submitted" else (link_to "Birth Certificate", @student.birth_certificate.url) end %>
 </p>
 
 
