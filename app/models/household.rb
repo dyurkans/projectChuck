@@ -3,8 +3,8 @@ class Household < ActiveRecord::Base
 	has_many :students
 	has_many :guardians
 
-accepts_nested_attributes_for :guardians
-attr_accessible :guardians_attributes, :county, :active, :city, :family_physician, :home_phone, :insurance_policy_no,:insurance_provider, :physician_phone, :state, :street, :zip
+accepts_nested_attributes_for :guardians, :students
+attr_accessible :guardians_attributes, :students_attributes, :county, :active, :city, :family_physician, :home_phone, :insurance_policy_no,:insurance_provider, :physician_phone, :state, :street, :zip
 
 	# Callbacks
 	before_save :reformat_phone
@@ -25,11 +25,10 @@ attr_accessible :guardians_attributes, :county, :active, :city, :family_physicia
 	validates_inclusion_of :state, :in => STATES_LIST.map {|k, v| v}, :message => "is not a recognized state in the system"
 	validates_format_of :zip, :with => /^\d{5}$/, :message => "should be five digits long"
 	validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
-  	validates_format_of :home_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true
-  	validates_format_of :physician_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
-  	#regex for policy number?
-  	validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
-  	validates_format_of :family_physician, :with => /((Dr\.|Dr|Doctor)\s)?([^\d\s]+\s?){2,}(\, M\.D\.)?/i
+  validates_format_of :home_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true
+  validates_format_of :physician_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
+  validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
+  validates_format_of :family_physician, :with => /((Dr\.|Dr|Doctor)\s)?([^\d\s]+\s?){2,}(\, M\.D\.)?/i
 
 
 	# Other methods

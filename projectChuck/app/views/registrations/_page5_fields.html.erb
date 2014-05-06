@@ -1,8 +1,9 @@
 <div id="page5" class="myHide">
-  <%= f.input :family_physician, :label => "Physician Name", :placeholder => "Dr. Herbert Fiscal" %>
-  <%= f.input :physician_phone, :label => "Physician Phone", :placeholder => "412-778-9999" %>
+  <%= f.input :family_physician, :label => "Physician Name", :placeholder => "Dr. Herbert Fiscal", :input_html => { :value => 'Dr. Herbert Fiscal' } %>
+  <%= f.input :physician_phone, :label => "Physician Phone", :placeholder => "412-778-9999", :input_html => { :value => '412-778-9999' } %>
   <%= r.input :physical_date, :label => "Date of Last Physical Exam: ", :as => :date, :start_year => Date.today.year-19, :end_year => Date.today.year,  :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' } %>    
   <%= r.input :physical, :as => :file, :label => "Physical Form Upload: " %>
+  <%= r.input :physical_cache, :as => :hidden %>
   <%= s.input :allergies, :input_html => { :rows => 3 , :cols => 30} %>
   <%= s.input :medications, :input_html => { :rows => 3 , :cols => 30} %>
 </div>

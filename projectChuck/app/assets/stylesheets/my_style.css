@@ -11,22 +11,25 @@ table, th, td, tr h3,  {
   text-align: left;
 }
 
-sidebar-left img {
-  right:0;
+h3 {
+  font-weight:800;
+  font-size:20pt;
 }
 
-.sidebar-right img {
-  position:absolute;
-  right:20px;
-}
-
-#myLogin, #myLogout {
+#myLogin, #myLogout, #userName {
   position:absolute;
   right:0;
   top:4px;
-  margin-right:10%;
   padding:8px;
   font-size: 1.2em;
+}
+
+#myLogin, #myLogout {
+  margin-right:5%;
+}
+
+#userName {
+  margin-right:9%;  
 }
 
 .boolean {
@@ -44,12 +47,25 @@ sidebar-left img {
   padding-left:7%;
 }
 
+#home-main-content, #home-waitlist-demographics {
+  padding-left:10%;
+}
+
 .nav {
   font-size:1.5em;
 }
 
 .row {
   padding: 0 0 1% 0;
+}
+
+#sidebar-right img{
+  position:fixed;
+  right:25px;
+}
+
+#sidebar-left img {
+  position:fixed;
 }
 
 .address {

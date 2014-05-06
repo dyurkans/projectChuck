@@ -31,7 +31,7 @@ class StudentsController < ApplicationController
   
   def create
     @student = Student.new(params[:student])
-    if @student.save
+    if @student.save!
       # if saved to database
       flash[:notice] = "Successfully created #{@student.proper_name}."
       redirect_to @student # go to show student page
