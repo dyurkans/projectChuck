@@ -1,9 +1,6 @@
 class ChangeNameTypeInTeamsToInteger < ActiveRecord::Migration
-  def up
-  	change_column :teams, :name, :integer
-  end
-
-  def down
-  	change_column :teams, :name, :string
+  def change
+  	remove_column :teams, :name
+  	add_column :teams, :name, :integer
   end
 end
