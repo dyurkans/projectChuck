@@ -9,9 +9,9 @@
       <%= f.input :emergency_contact_phone %>
       <%= f.input :allergies, :input_html => { :rows => 3 , :cols => 30} %>
       <%= f.input :medications, :input_html => { :rows => 3 , :cols => 30} %>
-      <%= f.input :grade_integer, :collection => Student::GRADES_LIST %>
-      <%= f.input :school %>
-      <%= f.input :school_county %>
+      <%= f.input :grade_integer, :collection => Student::GRADES_LIST, :label => "Grade (as of September)" %>
+      <%= f.input :school, :label => "School Name" %>
+      <%= f.input :school_county, :label => "School District" %>
       <%= f.input :security_question, :collection => Student::SECURITY_QUESTIONS, :label => "Please select a security question" %>
       <%= f.input :security_response %>
       <%= f.input :active %>

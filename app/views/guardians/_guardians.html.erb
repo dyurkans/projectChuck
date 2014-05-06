@@ -8,7 +8,7 @@
         <th>Household</th>
         <th>Day Phone</th>
         <th>Receive Texts</th>
-        <th>Active</th>
+        <th>Current Status</th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -20,7 +20,7 @@
           <td><%= link_to "#{household.name} Household", household_path(household) %></td>
           <td><%= number_to_phone guardian.day_phone %></td>
           <td><%= guardian.receive_texts ? "Yes" : "No" %></td>
-          <td><%= guardian.active ? "Yes" : "No" %></td>
+          <td><%= guardian.active ? "Active" : "Inactive" %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_guardian_path(guardian), :class => 'btn btn-mini' %></td>
         </tr>
       <% end %>

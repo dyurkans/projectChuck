@@ -12,6 +12,9 @@ gem 'will_paginate'
 gem 'carrierwave'
 gem 'nested_form'
 gem 'tconsole', '1.2.8'
+gem 'lazy_high_charts'
+gem 'reform'
+gem 'cancancan', '~> 1.7'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -28,7 +31,7 @@ end
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

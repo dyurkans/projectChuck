@@ -34,7 +34,7 @@ class GuardianTest < ActiveSupport::TestCase
   should_not allow_value("4122683259x224").for(:day_phone)
   should_not allow_value("800-EAT-FOOD").for(:day_phone)
   should_not allow_value("412/268/3259").for(:day_phone)
-  should_not allow_value("412-2683-259").for(:day_phone)	  
+  should_not allow_value("412-2683-259").for(:day_phone)    
 
   # tests for cell_phone
   should allow_value("4122683259").for(:cell_phone)
@@ -75,10 +75,10 @@ class GuardianTest < ActiveSupport::TestCase
   should_not allow_value(nil).for(:gender)
 
   #test household_id
-	# should validate_numericality_of(:household_id)
-	# should_not allow_value(3.14159).for(:household_id)
-	# should_not allow_value(0).for(:household_id)
-	# should_not allow_value(-1).for(:household_id)
+  should validate_numericality_of(:household_id)
+  should_not allow_value(3.14159).for(:household_id)
+  should_not allow_value(0).for(:household_id)
+  should_not allow_value(-1).for(:household_id)
 
   # test active
   should allow_value(true).for(:active)
@@ -87,31 +87,31 @@ class GuardianTest < ActiveSupport::TestCase
 
   context "Creating a guardian context" do
     setup do
-		create_household_context
-		create_guardian_context
+    create_household_context
+    create_guardian_context
     end
       
     teardown do
-		remove_guardian_context
-		remove_household_context
+    remove_guardian_context
+    remove_household_context
     end
       
     #test that factories work
       should "have working factories" do
-	      assert_equal "Mary", @mary.first_name
-	      assert_equal "Gruberman", @eric.last_name
-	      assert_equal 28.years.ago.to_date, @alex.dob
-	      assert_equal false, @leo.receive_texts
-	      assert_equal "james@hotmail.com", @james.email
-	      assert_equal false, @james.active
-	  end
+        assert_equal "Mary", @mary.first_name
+        assert_equal "Gruberman", @eric.last_name
+        assert_equal 28.years.ago.to_date, @alex.dob
+        assert_equal false, @leo.receive_texts
+        assert_equal "james@hotmail.com", @james.email
+        assert_equal false, @james.active
+    end
       
     should "allow an existing guardian to be edited" do
-		@james.active = true
-		assert @james.valid?
-	      
-		#undo
-		@james.active = false
+    @james.active = true
+    assert @james.valid?
+        
+    #undo
+    @james.active = false
     end
       
     should "have working name method" do 
@@ -145,6 +145,22 @@ class GuardianTest < ActiveSupport::TestCase
     should "have scope for inactive guardians" do 
       assert_equal ["Bambridge"], Guardian.inactive.alphabetical.all.map(&:last_name)
     end
+
+    should "have a method to display a guardian's gender as a string" do
+      assert_equal "Male", @eric.sex
+      assert_equal "Female", @mary.sex
+    end
+
+    should "not allow two guardians to have the same email" do
+      @bob = FactoryGirl.build(:guardian, first_name: "Bob")
+      deny @bob.valid?
+    end
+
+    should "deactivate, not delete a guardian" do
+      @mary.destroy
+      @mary.reload
+      deny @mary.active
+    end
   end
-	
+  
 end

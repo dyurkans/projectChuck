@@ -1,11 +1,15 @@
-class Student < ActiveRecord::Base
-  attr_accessible :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :school_county, :security_question, :security_response
-
+class Student < ActiveRecord::Base  
   # Relationships
   belongs_to :household
   has_many :registrations
-  has_many :guardians, through: :household
+  has_many :guardians, :through => :household
+  has_many :teams, :through => :registrations
+  
+  mount_uploader :birth_certificate, AvatarUploader
 
+  accepts_nested_attributes_for :registrations, :guardians
+  attr_accessible :registrations_attributes, :guardians_attributes, :email, :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :school_county, :security_question, :security_response
+  
   #Callbacks
   before_save :reformat_cell
   before_save :reformat_emergency_phone
@@ -38,8 +42,8 @@ class Student < ActiveRecord::Base
   # Scopes
   scope :alphabetical, order('last_name, first_name')
   scope :by_age, order('dob DESC')
-  scope :male, where('students.gender = ?', true)
-  scope :female, where('students.gender = ?', false)
+  scope :male, where('gender = ?', true)
+  scope :female, where('gender = ?', false)
   scope :active, where('active = ?', true)
   scope :inactive, where('active = ?', false)
   scope :by_grade, order('grade_integer')
@@ -49,15 +53,42 @@ class Student < ActiveRecord::Base
   scope :has_allergies, where('allergies <> ""')
   scope :needs_medication, where('medications <> ""')
   scope :seniors, where('grade_integer = ?', 13)
-  scope :missing_birth_certificate, where('birth_certificate = ? ', nil)
-  scope :without_forms, joins(:registrations).where('birth_certificate = ? || physical = ? || proof_of_insurance = ? || report_card = ?', nil,nil,nil,nil)
-
-
+  scope :without_forms, joins(:registrations).where('birth_certificate IS NULL OR physical IS NULL OR proof_of_insurance IS NULL OR report_card IS NULL')
 
   # Other methods
+
+  def self.school_districts
+    registered_students = Student.registered_students
+    school_districts = []
+    for stu in registered_students
+      if !school_districts.include?([stu.school_county,0])
+        school_districts << [stu.school_county, 0]
+      end
+    end
+    for student in registered_students
+      for district in school_districts
+        if district.first == student.school_county
+          district[1] += 1 
+        end
+      end
+    end
+    school_districts
+  end
+
   def check_if_destroyable
     return true
   end
+
+  def self.registered_students
+    registrations = Registration.current.by_name
+    active_regs = registrations.select { |r| r.active == true }
+    students = Student.active
+    registered_students = []
+    for r in active_regs
+      registered_students << students.find(r.student_id)
+    end
+    registered_students
+  end   
 
   def deactivate_student_and_registrations
     self.active = false
@@ -71,7 +102,7 @@ class Student < ActiveRecord::Base
   end
   
   def missing_report_card
-    self.registrations.reg_order[0].report_card.nil? unless (self.registrations.nil? || self.registrations.empty?)
+    self.registrations.current[0].report_card.blank? unless (self.registrations.current[0].nil? || self.registrations.current.empty?)
   end
 
   #Currently not in use/ or not functioning. Replaced by eligible_students method in team.rb
@@ -110,13 +141,9 @@ class Student < ActiveRecord::Base
     "Female"
   end
 
-  def gender_name
-    GENDER_LIST.map{|genders| genders[1] == gender}
-  end
-
   # Method to find student's registration for this year (if there is one)
   def current_reg
-    self.registrations.reg_order[0] unless self.registrations.nil?
+    self.registrations.current[0] unless self.registrations.current[0].nil?
   end
   
   #insert age as of june 1 method

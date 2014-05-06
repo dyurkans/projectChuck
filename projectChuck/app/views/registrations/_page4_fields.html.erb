@@ -1,0 +1,6 @@
+<div id="page4" class="myHide">
+  <%= f.input :insurance_provider, :label => "Insurance Provider: ", :placeholder => "Blue Cross, Blue Shield" %>
+  <%= f.input :insurance_policy_no, :label => "Insurance Policy Number: ", :placeholder => "0992X R78123 678" %>
+  <%= r.input :proof_of_insurance, :as => :file, :label => "Proof of Insurance Upload: " %>
+</div>
+<%= render :partial => "page5_fields", :locals => { :f => f, :r => r, :s => s} %>

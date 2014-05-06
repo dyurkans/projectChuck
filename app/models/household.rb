@@ -1,16 +1,17 @@
-class Household < ActiveRecord::Base
-  attr_accessible :active, :city, :family_physician, :home_phone, :insurance_policy_no,:insurance_provider, :physician_phone, :state, :street, :zip
-  
+class Household < ActiveRecord::Base  
    	# Relationships
 	has_many :students
 	has_many :guardians
+
+accepts_nested_attributes_for :guardians
+attr_accessible :guardians_attributes, :county, :active, :city, :family_physician, :home_phone, :insurance_policy_no,:insurance_provider, :physician_phone, :state, :street, :zip
 
 	# Callbacks
 	before_save :reformat_phone
 	before_save :reformat_physician_phone
 
 	# Scopes
-	scope :active, where('active = ?', true)
+	scope :active, where('households.active = ?', true)
 	scope :inactive, where('active = ?', false)
 	scope :by_last_name, joins(:guardians).order('guardians.last_name').group('household_id')
 
@@ -37,7 +38,7 @@ class Household < ActiveRecord::Base
 	end
 
 	def name
-		guardians = self.guardians
+		guardians = self.guardians.alphabetical
 		name = ""
 		index = 0
 		for g in guardians
