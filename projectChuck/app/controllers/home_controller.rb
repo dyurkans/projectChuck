@@ -4,15 +4,15 @@ class HomeController < ApplicationController
 
 	def index
 		@tournament = Tournament.by_date.first
-		@students_missing_docs = Student.active.alphabetical.without_forms.paginate(:page => params[:page]).per_page(10)
+		@students_missing_docs = Student.active.alphabetical.without_forms.paginate(:page => params[:missing_docs_page]).per_page(10)
 		@guardians_receiving_texts = Guardian.active.alphabetical.receive_text_notifications.paginate(:page => params[:page]).per_page(10)
-		@registrations = Registration.active
-		@students = Student.active.alphabetical.paginate(:page => params[:missing_docs_page]).per_page(10)
+# 		@registrations = Registration.active
+# 		@students = Student.active.alphabetical.paginate(:page => params[:missing_docs_page]).per_page(10)
 		@registered_students = Student.registered_students
 		@male_students = @registered_students.select { |x| x.gender == true }.size 
 		@female_students = @registered_students.select { |x| x.gender == false }.size
 		@school_districts = Student.school_districts
-		@unassigned_students = @registered_students.select { |stu| stu.registrations.current.first.team_id == nil }.paginate(:page => params[:unassigned_student_page], :per_page => 10)
+		@unassigned_students = Student.unregistered.paginate(:page => params[:unassigned_student_page], :per_page => 10)
 		@brackets = Bracket.all
 		# for reg in Registration.current.active.by_date.select { |reg| reg.team_id == nil }
 		# 	@eligible_students = lambda {|bracket| where(Student.find(reg.student_id).age_as_of_june_1 >= min and Student.find(reg.student_id).age_as_of_june_1 <= max) }
