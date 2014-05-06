@@ -1,5 +1,6 @@
 <div class="fields">
   <div class="min_attraction">
+      <%= f.hidden_field :household_id %>
       <%= f.input :first_name %>
       <%= f.input :last_name %>
       <%= f.input :gender, :collection => Student::GENDER_LIST %>

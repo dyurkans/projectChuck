@@ -1,6 +1,6 @@
 <div class="fields">
   <div class="min_attraction">
-      <%= r.hidden_field :student_id %>
+      <%= r.hidden_field :student_id, :defualt => @student.id %>
       <%= r.hidden_field :team_id %>
       <%= r.input :report_card, :as => :file, :label => "Report Card" %>
       <%= r.hidden_field :report_card_cache %>
