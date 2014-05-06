@@ -55,8 +55,12 @@ table, th, td, tr h3,  {
 }
 
 #sidebar-right img{
-  position:absolute;
+  position:fixed;
   right:25px;
+}
+
+#sidebar-left img {
+  position:fixed;
 }
 
 .address {
