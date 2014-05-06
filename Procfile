@@ -1,1 +1,1 @@
-web: bundle exec unicorn -E $RACK_ENV
+web: bundle exec unicorn -E production -c ./vonfig/unicorn.rb
