@@ -5,7 +5,7 @@ gem 'rails', '3.2.17'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg', '0.11.0'
+gem 'pg', '0.14.0'
 gem 'validates_timeliness', '~> 3.0'
 gem 'simple_form'
 gem 'will_paginate'
