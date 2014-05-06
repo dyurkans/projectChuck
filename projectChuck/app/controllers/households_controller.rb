@@ -7,7 +7,7 @@ class HouseholdsController < ApplicationController
   
   def create
     @household = Household.new(params[:household])
-    if @household.save
+    if @household.save!
       # if saved to database
       flash[:notice] = "Successfully created #{@household.name}."
       redirect_to @household # go to show household page

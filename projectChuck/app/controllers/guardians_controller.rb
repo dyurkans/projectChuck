@@ -11,7 +11,7 @@ class GuardiansController < ApplicationController
     @guardian = Guardian.new(params[:guardian])
     @household = Household.find(@guardian.household_id)
     @households = Household.active.by_last_name
-    if @guardian.save
+    if @guardian.save!
       # if saved to database
       flash[:notice] = "Successfully created #{@guardian.name}."
       redirect_to @guardian # go to show student page

@@ -13,14 +13,14 @@ class Registration < ActiveRecord::Base
   mount_uploader :proof_of_insurance, AvatarUploader
 
   accepts_nested_attributes_for :student
-  attr_accessible :student_attributes, :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
+  attr_accessible :student_attributes, :proof_of_insurance_cache, :physical_cache, :report_card_cache, :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
   
   #Local Variables
   SIZE_LIST = [["S", 0], ["M", 1], ["L",2], ["XL",3], ["XXL",4], ["XXXL",5]]
   
   #Validations
   validate :student_in_allowable_age_range
-  validates_numericality_of :student_id, :only_integer => true, :greater_than => 0
+  validates_numericality_of :student_id, :only_integer => true, :greater_than => 0, :allow_nil => true
   validates_numericality_of :team_id, :only_integer => true, :greater_than => 0, :allow_nil => true # needs to be removed later
   validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
   validates_date :physical_date, :on_or_after => lambda { Date.new(Date.today.year-1, 8, 1) }, :on_or_before => lambda { Date.today }, :on_or_before_message => "cannot be in the future"
