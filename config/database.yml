@@ -2,7 +2,7 @@ development:
   adapter: postgresql
   database: development
   username: postgres # replace this with your own user name
-  password: secret # replace this with your own password
+  password: bestofthebatch2014 # replace this with your own password
   host: localhost
   encoding: UTF8
   pool: 5
@@ -12,7 +12,7 @@ test:
   adapter: postgresql
   database: test
   username: postgres
-  password: secret
+  password: bestofthebatch2014
   host: localhost
   encoding: UTF8
   pool: 5

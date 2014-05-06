@@ -16,7 +16,7 @@ gem 'lazy_high_charts'
 gem 'cancancan', '~> 1.7'
 gem 'strong_parameters'
 gem "mini_magick"
-
+gem 'unicorn'
 
 # Gems used only for assets and not required
 # in production environments by default.
