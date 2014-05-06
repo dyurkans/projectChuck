@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   scope :alphabetical, joins(:guardian).order('last_name')
 
   # for use in authorizing with CanCan
-  ROLES = [['Administrator', :admin],['Member', :member]]
+  ROLES = [['Administrator', :admin]]
 
   def role?(authorized_role)
     return false if role.nil?

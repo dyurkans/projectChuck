@@ -1,24 +1,23 @@
 class UsersController < ApplicationController
 
   require 'will_paginate/array'
+  before_filter :check_login
+  authorize_resource
 
     def index
         @users = User.alphabetical.paginate(:page => params[:page]).per_page(7)     
-        authorize! :index, @user
     end
-    
+
     def new
         @user = User.new
         @guardians = User.eligible_guardians(@guardian)
-        authorize! :new, @user
     end
 
     def show
         @user = User.find(params[:id])
         @guardian = Guardian.find(@user.guardian_id)
-        authorize! :show, @user
     end
-    
+
     def edit
         @user = User.find(params[:id])
         @guardian = Guardian.find(@user.guardian_id)
@@ -26,7 +25,6 @@ class UsersController < ApplicationController
         # if @user.role? == "member"
         #     @user.role == "member"
         # end
-        authorize! :edit, @user
     end
         
     def create
@@ -40,7 +38,6 @@ class UsersController < ApplicationController
             flash[:error] = "This user could not be created."
             render "new"
         end
-        authorize! :create, @user
     end
 
     def update
@@ -53,7 +50,6 @@ class UsersController < ApplicationController
         else
             render :action => 'edit'
         end
-        authorize! :update, @user
     end
         
     def destroy
@@ -62,6 +58,5 @@ class UsersController < ApplicationController
         @user.destroy
         flash[:notice] = "Successfully removed #{@guardian.proper_name}'s user account has been removed from Project C.H.U.C.K."
         redirect_to users_url
-        authorize! :destroy, @user
     end
 end

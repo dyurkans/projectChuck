@@ -2,9 +2,9 @@
   <%= f.simple_fields_for :guardians do |g| %>
     <%= f.simple_fields_for :students do |s| %>
       <%= s.simple_fields_for :registrations do |r| %>
-        <%= g.input :household_id, :as => :hidden, :default => @household.id %>
-        <%= s.input :household_id, :as => :hidden, :default => @household.id %>
-        <%= r.input :student_id, :as => :hidden, :default => @student.id %>
+        <%= g.input :household_id, :as => :hidden %>
+        <%= s.input :household_id, :as => :hidden %>
+        <%= r.input :student_id, :as => :hidden %>
         <div id="page1">
           <%= s.input :first_name, :label => "Student Name", :placeholder => "First", :wrapper => :my_wrapper, :input_html => { :value => 'Shaun', size: 30 } %>
           <%= s.input :last_name, :label => false, :placeholder => "Last", :wrapper => :my_wrapper, :input_html => { :value => 'Ford', size: 30 } %>
