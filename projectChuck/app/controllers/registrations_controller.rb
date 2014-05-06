@@ -6,7 +6,7 @@ class RegistrationsController < ApplicationController
 #     @registration_form = reg_form
     @household = Household.new
     @guardians = @household.guardians.build
-    @students = @guardians.students.build
+    @students = @household.students.build
     @students.registrations.build
   end
 
@@ -16,12 +16,13 @@ class RegistrationsController < ApplicationController
   end
   
   def create
-    @registration = Registration.new(params[:registration])
-    student = Student.find_by_id(@registration.student_id)
-    if @registration.save!
+    @household = Household.new(params[:household])
+    #@registration = Registration.new(params[:registration])
+    #@student = Student.find(@registration.student_id)
+    if @household.save!
       # if saved to database
-      flash[:notice] = "Successfully created a registration for #{student.proper_name}."
-      redirect_to student_path(student)
+      flash[:notice] = "Successfully created a registration for ."
+      redirect_to home_path
     else
       # return to the 'new' form
       render 'new'

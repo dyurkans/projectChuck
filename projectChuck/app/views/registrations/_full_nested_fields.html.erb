@@ -15,7 +15,7 @@
       </div>
     </div>
     <%= f.input "student[cell_phone]", :label => "Student Cell Phone", :placeholder => "412-555-5555", :input_html => { size: 30 } %>
-    <%= f.input "student[email", :label => "Student Email", :placeholder => "john.carter@email.com", :input_html => { size: 30 } %>
+    <%= f.input "student[email]", :label => "Student Email", :placeholder => "john.carter@email.com", :input_html => { size: 30 } %>
     <%= f.label "Please select a security question for the child (to be used for returning years):" %>
     <%= f.input :security_question, :label => false, :collection => Student::SECURITY_QUESTIONS %>
     <%= f.input :security_response, :label => "Security Response", :placeholder => "Answer", :input_html => { size: 30 } %>

@@ -1,7 +1,11 @@
 <div class="fields">
   <%= f.simple_fields_for :guardians do |g| %>
+    <%= g.hidden_field, :household_id %>
     <%= g.simple_fields_for :students do |s| %>
+      <%= s.hidden_field, :household_id %>
       <%= s.simple_fields_for :registrations do |r| %>
+        <%= r.hidden_field, :student_id %>
+        <%= r.hidden_field, :team_id %>
         <div id="page1">
           <%= s.input :first_name, :label => "Student Name", :placeholder => "First", :wrapper => :my_wrapper, :input_html => { :value => 'Shaun', size: 30 } %>
           <%= s.input :last_name, :label => false, :placeholder => "Last", :wrapper => :my_wrapper, :input_html => { :value => 'Ford', size: 30 } %>
@@ -28,7 +32,7 @@
           <%= s.input :emergency_contact_phone, :label => "Emergency Contact Phone", :placeholder => "412-999-9999", :input_html => { :value => '412-999-9999', size: 20 } %>
         </div>
         <%= render :partial => "page2_fields", :locals => { :f => f, :s => s, :r => r, :g => g} %>
-        <%= r.input :student_id, :as => :hidden %>
+        <%#= r.input :student_id, :as => :hidden %>
       <% end %>
     <% end %>
   <% end %>
