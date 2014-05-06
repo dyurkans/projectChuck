@@ -1,1 +1,1 @@
-web: bundle exec unicorn -E production -c ./vonfig/unicorn.rb
+web: bundle exec unicorn -E production -c ./config/unicorn.rb
