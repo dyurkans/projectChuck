@@ -11,6 +11,11 @@ table, th, td, tr h3,  {
   text-align: left;
 }
 
+h3 {
+  font-weight:800;
+  font-size:20pt;
+}
+
 #myLogin, #myLogout, #userName {
   position:absolute;
   right:0;
