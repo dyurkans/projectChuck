@@ -13,11 +13,10 @@ class User < ActiveRecord::Base
   validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
   validates_inclusion_of :role, :in => %w[admin member], :message => "is not recognized by the system"
   # validate :guardian_is_active_in_system, :on => :create
-  
   scope :alphabetical, joins(:guardian).order('last_name')
 
   # for use in authorizing with CanCan
-  ROLES = [['Administrator', :admin]]
+  ROLES = [['Administrator', :admin], ['Member', :member]]
 
   def role?(authorized_role)
     return false if role.nil?
