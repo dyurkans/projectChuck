@@ -1,1 +1,1 @@
-web: bundle exec unicorn -E production; bundle exec rake assets:precompile
+web: bundle exec unicorn -D -E production; bundle exec rake assets:precompile
