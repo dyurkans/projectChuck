@@ -76,10 +76,20 @@ class Student < ActiveRecord::Base
   scope :has_allergies, where('allergies <> ""')
   scope :needs_medication, where('medications <> ""')
   scope :seniors, where('grade_integer = ?', 13)
-  scope :without_forms, joins(:registrations).where('birth_certificate IS NULL OR physical IS NULL OR proof_of_insurance IS NULL OR report_card IS NULL')
+  scope :without_forms, joins(:registrations).where('students.birth_certificate IS NULL || physical IS NULL || proof_of_insurance IS NULL || report_card IS NULL')
   scope :unregistered, joins(:registrations).where('team_id IS NULL')
 
   # Other methods
+
+  def self.missing_forms(stus)
+    students_missing_docs = []
+    for stu in stus
+      if stu.registrations.current.first.proof_of_insurance.blank? or stu.registrations.current.first.physical.blank? or stu.registrations.current.first.report_card.blank? or stu.birth_certificate.blank?
+        students_missing_docs << stu
+      end
+    end
+    return students_missing_docs
+  end
 
   def self.school_districts
     registered_students = Student.registered_students

@@ -7,6 +7,7 @@ class StudentsController < ApplicationController
     @student = Student.new
     @student.registrations.build
     @household = Household.new
+    @households = Household.active
   end
   
   def edit
@@ -30,8 +31,9 @@ class StudentsController < ApplicationController
   end
   
   def create
+    @households = Household.active
     @student = Student.new(params[:student])
-    if @student.save!
+    if @student.save
       # if saved to database
       flash[:notice] = "Successfully created #{@student.proper_name}."
       redirect_to @student # go to show student page

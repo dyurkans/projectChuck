@@ -1,56 +1,59 @@
 <nav class="navbar navbar-default navbar-fixed-top navbar-static-top col-sm-12 col-md-12 col-lg-12" role="navigation">
   <div class="container">
-    <% if (current_user && current_user.role == 'admin') %>
-    <ul class="nav navbar-nav">
-      <% klass = "" %>
-      <% if (current_page?(:controller=>"home",:action=>"index"))%>
-          <% klass = "active" %>
-      <% end %>
-      <li class=<%= klass%>><%= link_to "Home", home_path %></li>
+    <% if (current_user && (current_user.role == 'admin' || current_user.role == 'member')) %>
 
-      <% klass = "" %>
-      <% if (current_page?(:controller=>"students",:action=>"index"))%>
-          <% klass = "active" %>
-      <% end %>
-      <li class=<%= klass%>><%= link_to "Students", students_path %></li>
-
-      <% klass = "" %>
-      <% if (current_page?(:controller=>"guardians",:action=>"index"))%>
-          <% klass = "active" %>
-      <% end %>
-      <li class=<%= klass%>><%= link_to "Guardians", guardians_path %></li>
-
-      <% klass = "" %>
-      <% if (current_page?(:controller=>"households",:action=>"index"))%>
-          <% klass = "active" %>
-      <% end %>
-      <li class=<%= klass%>><%= link_to "Households", households_path %></li>
-
-      <% klass = "" %>
-      <% if (current_page?(:controller=>"teams",:action=>"index"))%>
-          <% klass = "active" %>
-      <% end %>
-      <li class=<%= klass%>><%= link_to "Teams", teams_path %></li>
-
-      <% klass = "" %>
-      <% if (current_page?(:controller=>"brackets",:action=>"index"))%>
-          <% klass = "active" %>
-      <% end %>
-      <li class=<%= klass%>><%= link_to "Brackets", brackets_path %></li>   
-      
-      <% klass = "" %>
-      <% if (current_page?(:controller=>"tournaments",:action=>"index"))%>
-          <% klass = "active" %>
-      <% end %>
-      <li class=<%= klass%>><%= link_to "Tournaments", tournaments_path %></li>     
-            
+      <ul class="nav navbar-nav">
         <% klass = "" %>
-        <% if (current_page?(:controller=>"users",:action=>"index"))%>
+        <% if (current_page?(:controller=>"home",:action=>"index"))%>
             <% klass = "active" %>
         <% end %>
-        <li class=<%= klass%>><%= link_to "Users", users_path %></li>     
-  <!-- <li><%# link_to "Registrations", registrations_path %></li> -->
-    </ul>
+        <li class=<%= klass%>><%= link_to "Home", home_path %></li>
+
+        <% if (current_user && (current_user.role == 'admin')) %>
+          <% klass = "" %>
+          <% if (current_page?(:controller=>"students",:action=>"index"))%>
+              <% klass = "active" %>
+          <% end %>
+          <li class=<%= klass%>><%= link_to "Students", students_path %></li>
+
+          <% klass = "" %>
+          <% if (current_page?(:controller=>"guardians",:action=>"index"))%>
+              <% klass = "active" %>
+          <% end %>
+          <li class=<%= klass%>><%= link_to "Guardians", guardians_path %></li>
+
+          <% klass = "" %>
+          <% if (current_page?(:controller=>"households",:action=>"index"))%>
+              <% klass = "active" %>
+          <% end %>
+          <li class=<%= klass%>><%= link_to "Households", households_path %></li>
+
+          <% klass = "" %>
+          <% if (current_page?(:controller=>"teams",:action=>"index"))%>
+              <% klass = "active" %>
+          <% end %>
+          <li class=<%= klass%>><%= link_to "Teams", teams_path %></li>
+
+          <% klass = "" %>
+          <% if (current_page?(:controller=>"brackets",:action=>"index"))%>
+              <% klass = "active" %>
+          <% end %>
+          <li class=<%= klass%>><%= link_to "Brackets", brackets_path %></li>   
+          
+          <% klass = "" %>
+          <% if (current_page?(:controller=>"tournaments",:action=>"index"))%>
+              <% klass = "active" %>
+          <% end %>
+          <li class=<%= klass%>><%= link_to "Tournaments", tournaments_path %></li>         
+          <% klass = "" %>
+          <% if (current_page?(:controller=>"users",:action=>"index"))%>
+              <% klass = "active" %>
+          <% end %>
+          <li class=<%= klass%>><%= link_to "Users", users_path %></li> 
+        <% end %>
+    <!-- <li><%# link_to "Registrations", registrations_path %></li> -->
+      </ul>
+
     <% end %>
     <% if logged_in? %>
       <%= link_to 'Logout', logout_path, :id => "myLogout", :class => 'btn btn-primary' %>

@@ -54,6 +54,8 @@
     </div>
     
   </div>
+<% elsif logged_in? && current_user.role == "member" %>
+  <%= render :partial => "register" %>
 <% else %>
   <%= render :partial => "about_us" %>
 <% end %>

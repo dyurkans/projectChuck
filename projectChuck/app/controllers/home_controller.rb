@@ -4,11 +4,11 @@ class HomeController < ApplicationController
 
 	def index
 		@tournament = Tournament.by_date.first
-		@students_missing_docs = Student.active.alphabetical.without_forms.paginate(:page => params[:missing_docs_page]).per_page(10)
 		@guardians_receiving_texts = Guardian.active.alphabetical.receive_text_notifications.paginate(:page => params[:page]).per_page(10)
 # 		@registrations = Registration.active
 # 		@students = Student.active.alphabetical.paginate(:page => params[:missing_docs_page]).per_page(10)
 		@registered_students = Student.registered_students
+		@students_missing_docs = Student.alphabetical.missing_forms(@registered_students).paginate(:page => params[:missing_docs_page], :per_page => 10)
 		@male_students = @registered_students.select { |x| x.gender == true }.size 
 		@female_students = @registered_students.select { |x| x.gender == false }.size
 		@school_districts = Student.school_districts
