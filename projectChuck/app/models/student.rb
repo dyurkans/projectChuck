@@ -77,7 +77,7 @@ class Student < ActiveRecord::Base
   scope :needs_medication, where('medications <> ""')
   scope :seniors, where('grade_integer = ?', 13)
   scope :without_forms, joins(:registrations).where('birth_certificate IS NULL OR physical IS NULL OR proof_of_insurance IS NULL OR report_card IS NULL')
-  scope :unregistered, joins(:registrations).where('team_id = ?', nil)
+  scope :unregistered, joins(:registrations).where('team_id IS NULL')
 
   # Other methods
 
