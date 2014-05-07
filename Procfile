@@ -1,1 +1,1 @@
-web: bundle exec unicorn -D -E production; bundle exec rake assets:precompile
+web: bundle exec unicorn -c config/unicorn.rb -E $RACK_ENV; bundle exec rake assets:precompile
