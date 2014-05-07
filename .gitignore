@@ -13,7 +13,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+*~
+*.swp
+*.swo
 
 # Ignore all uploaded files
 /public/uploads
+
 .env
