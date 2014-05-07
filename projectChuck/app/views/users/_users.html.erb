@@ -13,7 +13,7 @@
     </thead>
     <tbody>
       <% @users.each do |user| %>
-        <% if @current_user != user %>
+        <% if current_user != user %>
           <tr>
             <td><%= link_to Guardian.find(user.guardian_id).name, user_path(user) %></td>
     				<td><%= user.email %></td>

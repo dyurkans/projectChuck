@@ -1,12 +1,11 @@
 <nav class="navbar navbar-default navbar-fixed-top navbar-static-top col-sm-12 col-md-12 col-lg-12" role="navigation">
   <div class="container">
-    <% if (current_user && (current_user.role == 'admin' || current_user.role == 'member')) %>
-
       <ul class="nav navbar-nav">
         <% klass = "" %>
         <% if (current_page?(:controller=>"home",:action=>"index"))%>
             <% klass = "active" %>
         <% end %>
+
         <li class=<%= klass%>><%= link_to "Home", home_path %></li>
 
         <% if (current_user && (current_user.role == 'admin')) %>
@@ -53,11 +52,9 @@
         <% end %>
     <!-- <li><%# link_to "Registrations", registrations_path %></li> -->
       </ul>
-
-    <% end %>
     <% if logged_in? %>
       <%= link_to 'Logout', logout_path, :id => "myLogout", :class => 'btn btn-primary' %>
-      <br><span id="userName"><%= current_user.email %> (<%= current_user.role %>)</span>
+      <br><span id="userName"><%= link_to current_user.email, user_path(current_user) %> (<%= current_user.role %>)</span>
     <% else %>
       <%= link_to("Login", login_path, :id => "myLogin", :class => 'btn btn-primary')%>
     <% end %>
