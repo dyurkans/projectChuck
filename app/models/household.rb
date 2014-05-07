@@ -12,8 +12,8 @@ attr_accessible :guardians_attributes, :students_attributes, :county, :active, :
 
 	# Scopes
 	scope :active, where('households.active = ?', true)
-	scope :inactive, where('active = ?', false)
-	scope :by_last_name, joins(:guardians).order('guardians.last_name').group('household_id')
+	scope :inactive, where('households.active = ?', false)
+	scope :by_last_name, joins(:guardians).order('guardians.last_name').group('guardians.household_id','guardians.last_name','households.id')
 
 
 	# Lists
