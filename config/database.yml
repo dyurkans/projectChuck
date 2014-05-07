@@ -1,29 +1,29 @@
 development:
   adapter: postgresql
-  database: development
+  database: projectChuck_development
   username: postgres # replace this with your own user name
   password: bestofthebatch2014 # replace this with your own password
-#   host: localhost
+  host: localhost
   encoding: UTF8
   pool: 5
   timeout: 5000
 
 test:
   adapter: postgresql
-  database: test
+  database: projectChuck_test
   username: postgres
   password: bestofthebatch2014
-#   host: localhost
+  host: localhost
   encoding: UTF8
   pool: 5
   timeout: 5000
   
 production:
   adapter: postgresql
-  database: production
+  database: projectChuck_production
   username: postgres
   password: bestofthebatch2014
-#   host: localhost
+  host: localhost
   encoding: UTF8
   pool: 5
   timeout: 5000
