@@ -1,8 +1,8 @@
 # config/unicorn.rb
-working_directory(Rails.root.to_s) 
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
 timeout 120
 preload_app true
+working_directory(Rails.root.to_s)
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
