@@ -1,1 +1,1 @@
-web: bundle exec unicorn -p $PORT -E $RACK_ENV -c ./config/unicorn.rb
+web: bundle exec unicorn -p $PORT -E $RACK_ENV -c ./config/unicorn.rb bundle exec rake assets:precompile
