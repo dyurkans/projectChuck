@@ -2,7 +2,7 @@
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
 timeout 120
 preload_app true
-working_directory($ROOT_DIR)
+working_directory("/media/suave/Super1/Projects/projectChuck/projectChuck-heroku")
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
