@@ -15,4 +15,5 @@
 /tmp
 
 # Ignore all uploaded files
-/public/uploads.env
+/public/uploads
+.env
