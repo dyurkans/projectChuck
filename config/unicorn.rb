@@ -2,7 +2,7 @@
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
 timeout 120
 preload_app true
-working_directory(Rails.root.to_s)
+working_directory($ROOT_DIR)
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
