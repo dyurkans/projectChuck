@@ -15,6 +15,9 @@ class UsersController < ApplicationController
 
     def show
         @user = User.find(params[:id])
+        if current_user.email != @user.email
+            redirect_to home_path 
+        end
         @guardian = Guardian.find(@user.guardian_id)
     end
 
@@ -59,4 +62,5 @@ class UsersController < ApplicationController
         flash[:notice] = "Successfully removed #{@guardian.proper_name}'s user account has been removed from Project C.H.U.C.K."
         redirect_to users_url
     end
+ 
 end
