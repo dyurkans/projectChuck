@@ -16,7 +16,7 @@
         <% if !student.registrations.current[0].nil? and missing_docs_list != "" %>
           <tr>
             <td><%= link_to student.name, student_path(student) %></td>
-            <td><%= missing_docs_list %></td>
+            <td class="myDanger"><%= missing_docs_list %></td>
             <td><%= number_to_phone student.cell_phone %></td>
           </tr>
         <% else %>

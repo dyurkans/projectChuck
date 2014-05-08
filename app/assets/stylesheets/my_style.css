@@ -16,6 +16,59 @@ h3 {
   font-size:20pt;
 }
 
+label {
+  font-size: 1.2em;
+}
+
+fieldset, legend {
+  padding-top: 2%;
+}
+
+.boolean {
+  display:block;
+  float: left;
+}
+
+.myHide {
+  display:none;
+}
+
+.nav {
+  font-size:1.5em;
+}
+
+.row {
+  padding: 0 0 1% 0;
+}
+
+.address {
+  margin-left:6em;
+}
+
+.continue {
+  margin-left:15em;
+}
+
+.teamNotesHeader {
+  font-size:20pt;
+  padding-top:7px;
+}
+
+.teamNotes {
+  position:absolute;
+  height:100%;
+  width:100%;
+  border:5px solid;
+  border-color:black;
+  font-size:12pt;
+  font-weight:100;
+  font-style:italic;
+}
+
+.myDanger {
+  color:#f95c5c;
+}
+
 #myLogin, #myLogout, #userName {
   position:absolute;
   right:0;
@@ -32,14 +85,6 @@ h3 {
   margin-right:9%;  
 }
 
-.boolean {
-  display:block;
-  float: left;
-}
-
-.myHide {
-  display:none;
-}
 
 #main_content {
   padding-top:0;
@@ -47,16 +92,8 @@ h3 {
   padding-left:7%;
 }
 
-#home-main-content, #home-waitlist-demographics {
-  padding-left:10%;
-}
-
-.nav {
-  font-size:1.5em;
-}
-
-.row {
-  padding: 0 0 1% 0;
+#home-main-content {
+  margin-left:10%;
 }
 
 #sidebar-right img{
@@ -68,31 +105,3 @@ h3 {
   position:fixed;
 }
 
-.address {
-  margin-left:6em;
-}
-
-.continue {
-  margin-left:15em;
-}
-
-label {
-  font-size: 1.2em;
-}
-
-fieldset, legend {
-  padding-top: 2%;
-}
-
-.teamNotesHeader {
-  font-size:20pt;
-  padding-top:7px;
-}
-
-.teamNotes {
-  border-radius:3px;
-  border-color:black;
-  font-size:12pt;
-  font-weight:100;
-  font-style:italic;
-}

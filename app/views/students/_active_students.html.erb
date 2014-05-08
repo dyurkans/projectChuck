@@ -24,7 +24,8 @@
           <td><%= student.dob.nil? ? "---" : student.age_as_of_june_1  %></td>
           <td><%= team.nil? ? "---" : (link_to team_name(team.name), team_path(team))  %></td>
   				<td><%= bracket.nil? ? "---" : (link_to "#{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket)) %></td>
-          <td><%= if student.registrations.current[0].nil? then "---" else student.registrations.current[0].missing_doc end%></td>
+          <% tableCellClass = student.registrations.current[0].nil? ? "" : "myDanger" %>
+  				<td class=<%= tableCellClass %>><%= if student.registrations.current[0].nil? then "----" else student.registrations.current[0].missing_doc end %></td>
           <th><%= if stu.nil? then "Inactive" else stu.active ? "Active" : "Inactive" end %></th>
           <th><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></th>
         </tr>
