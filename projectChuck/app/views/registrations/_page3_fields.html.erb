@@ -1,6 +1,0 @@
-<div id="page3" class="myHide">
-  <%= s.input :school, :label => "School Name", :placeholder => "Barrett Elementary School" %>
-  <%= s.input :grade_integer, :label => "Grade (as of Semptember, #{Date.today.year})", :collection => Student::GRADES_LIST %>
-  <%= r.input :report_card, :as => :file, :label => "Report Card Upload: " %>
-</div>
-<%= render :partial => "page4_fields", :locals => { :f => f, :r => r, :s => s} %>

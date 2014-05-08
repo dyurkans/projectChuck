@@ -1,8 +1,6 @@
 <div id="page3" class="myHide">
-  <%= s.input :school, :label => "School Name", :input_html => { :value => 'Barrett Elementary School' } %>
-  <%= s.input :school_county, :label => "School County", :placeholder => "Alegheny" %>
+  <%= s.input :school, :label => "School Name", :placeholder => "Barrett Elementary School" %>
   <%= s.input :grade_integer, :label => "Grade (as of Semptember, #{Date.today.year})", :collection => Student::GRADES_LIST %>
   <%= r.input :report_card, :as => :file, :label => "Report Card Upload: " %>
-  <%= r.input :report_card_cache, :as => :hidden %>
 </div>
 <%= render :partial => "page4_fields", :locals => { :f => f, :r => r, :s => s} %>

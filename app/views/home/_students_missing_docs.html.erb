@@ -1,5 +1,5 @@
 <h3> Registered Students Missing Documents </h3>
-<% if @students_missing_docs.empty? %>
+<% if @students.empty? %>
   &nbsp;&nbsp;<em>None at this time</em>
 <% else %>
   <table class="table table-striped">
@@ -11,12 +11,11 @@
       </tr>
     </thead>
     <tbody>
-      <% @students_missing_docs.each do |student| %>
-        <% missing_docs_list = student.registrations.current[0].missing_doc %>
-        <% if !student.registrations.current[0].nil? and missing_docs_list != "" %>
+      <% @students.each do |student| %>
+        <% if !student.registrations.current[0].nil? and student.registrations.current[0].missing_doc != "" %>
           <tr>
             <td><%= link_to student.name, student_path(student) %></td>
-            <td><%= missing_docs_list %></td>
+            <td><%= student.registrations.current[0].missing_doc %></td>
             <td><%= number_to_phone student.cell_phone %></td>
           </tr>
         <% else %>
@@ -27,8 +26,8 @@
   </table>
   <div class="digg_pagination">
     <div clas="page_info">
-      <%= page_entries_info @students_missing_docs %>
+      <%= page_entries_info @students %>
     </div>
-    <%= will_paginate @students_missing_docs, :param_name => 'missing_docs_page', :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
+    <%= will_paginate @students, :param_name => 'missing_docs_page', :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
   </div>
 <% end %>

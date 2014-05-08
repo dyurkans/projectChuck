@@ -1,6 +1,5 @@
 <% if logged_in? && current_user.role == "admin" %>
-  <div>
-  <div id="home-main-content">
+  <div style="padding-left:10%;">
     <div class="row">
       <%= link_to 'Register a Student', new_registration_path, :class => "btn btn-success" %>
     </div>
@@ -14,46 +13,47 @@
     </div>
 
     
-    <div id="home-missing-docs" class="row col-sm-12 col-md-12 col-lg-12">
-      <div class="col-sm-10 col-md-10 col-lg-10">
+    <div class="row">
+      <div class="row col-sm-8 col-md-8 col-lg-8">
         <%= render :partial => "students_missing_docs" %>
       </div>
     </div>
 
     
-    <div class="row col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
       <div class="col-sm-4 col-md-4 col-lg-4">
         <%= render :partial => "unassigned_students" %>
       </div>
       <div class="spacer col-sm-1 col-md-1 col-lg-1"></div>
-        <div class="col-sm-5 col-md-5 col-lg-5">
-          <%= render :partial => "guardians_receiving_texts" %>
-        </div>
+      <div class="col-sm-5 col-md-5 col-lg-5">
+        <%= render :partial => "guardians_receiving_texts" %>
       </div>
     </div>
 
     
-    <div id="home-waitlist-demographics" class="row col-sm-12 col-md-12 col-lg-12">
-      <div class="col-sm-5 col-md-5 col-lg-5">
+    <div class="row">
+    
+      <div class="row col-sm-5 col-md-5 col-lg-5">
         <h3>Waitlist (By Bracket)</h3>
         <% @brackets.each do |bracket| %> 
-          <%= render :partial => "waitlist", :locals => { :b => bracket, :min => bracket.min_age, :max => bracket.max_age } %> 
+          <div class="row">
+            <%= render :partial => "waitlist", :locals => { :b => bracket, :min => bracket.min_age, :max => bracket.max_age } %> 
+          </div>
         <% end %>
       </div>
       
-      <div class="row col-sm-7 col-md-7 col-lg-7">
+      <div class="row col-sm-6 col-md-6 col-lg-6">
         <h3>Demographics</h3>
         <div class="col-sm-12 col-md-12 col-lg-12">
           <%= high_chart("my_id1", @gender_chart) %>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12">
           <%= high_chart("my_id2", @school_district_chart) %> 
-        </div>
       </div>
       
     </div>
     
   </div>
-<% else %>
-  <%= render :partial => "about_us" %>
+  <% else %>
+    <%= render :partial => "about_us" %>
 <% end %>
