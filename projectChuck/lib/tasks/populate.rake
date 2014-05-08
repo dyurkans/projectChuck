@@ -35,6 +35,11 @@ namespace :db do
       h.family_physician = "Dr. #{Faker::Name.first_name} #{Faker::Name.last_name}"
       h.physician_phone = rand(10 ** 10).to_s.rjust(10,'0')
       h.active = true
+      if rand(4).zero?
+        h.county = "Greene"
+      else
+        h.county = "Indiana"
+      end
       h.save!
       household_last_name = Faker::Name.last_name
       puts "Add #{household_last_name} household"

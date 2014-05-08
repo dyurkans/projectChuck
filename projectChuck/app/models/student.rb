@@ -109,6 +109,26 @@ class Student < ActiveRecord::Base
     school_districts
   end
 
+  def self.home_counties
+    registered_students = Student.registered_students
+    home_counties = []
+    for stu in registered_students
+      house = Household.find(stu.household_id)
+      if !home_counties.include?([house.county,0])
+        home_counties << [house.county, 0]
+      end
+    end
+    for student in registered_students
+      house = Household.find(student.household_id)
+      for county in home_counties
+        if county.first == house.county
+          county[1] += 1 
+        end
+      end
+    end
+    home_counties
+  end
+
   def check_if_destroyable
     return true
   end
