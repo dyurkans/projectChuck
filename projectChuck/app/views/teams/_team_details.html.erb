@@ -17,7 +17,7 @@
 <p>
   <b>Remaining Spots:</b><%= @team.remaining_spots %>
 </p>
-
+&nbsp;&nbsp;&nbsp;&nbsp;
 <p>
 	<h4>Students</h4>
 </p>
@@ -58,6 +58,15 @@
     </tbody>
   </table>
 <% end %>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<h4>Additional Team Notes</h4>
+<div class="notes">
+  <%= @team.notes.blank? ? "None at this time." : @team.notes %>
+</div>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
 <h4>Eligible Unassigned Students</h4>
 <% if @eligible_students.empty? %>
   &nbsp;&nbsp;<em>None at this time</em>
