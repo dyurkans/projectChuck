@@ -76,7 +76,7 @@ class Student < ActiveRecord::Base
   scope :has_allergies, where('allergies <> ""')
   scope :needs_medication, where('medications <> ""')
   scope :seniors, where('grade_integer = ?', 13)
-  scope :without_forms, joins(:registrations).where('students.birth_certificate IS NULL || physical IS NULL || proof_of_insurance IS NULL || report_card IS NULL')
+  scope :without_forms, joins(:registrations).where('students.birth_certificate IS NULL OR physical IS NULL OR proof_of_insurance IS NULL OR report_card IS NULL')
   scope :unassigned, joins(:registrations).where('team_id IS NULL')
   scope :current, joins(:registrations).where('? <= registrations.created_at and registrations.created_at <= ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31))
   # Other methods
