@@ -1,0 +1,43 @@
+<div class="row">
+		
+	<div class="row col-sm-8 col-md-8 col-lg-8">
+		<h2>Welcome to Project C.H.U.C.K. Registration</h2>
+		<p>	   
+		Thank you so much for volunteering your time to help with the registration process for Project C.H.U.C.K. this year. 
+		</p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<h4>Directions</h4>
+		<p>
+		To start a brand new registration go ahead and click the first button below, and have the child and parent/guardian fill out the form.
+		</p>
+		<p>
+		If a parent/guardian wants to register more than one child, have them register one child first, by clicking on the first button below and filling out the form. After they complete one full registration, press the second button below and have them fill out that form for every additional child. Be sure to select the proper household name (Parent/Guardian's name) for them before handing them the form.
+		</p>
+		<p>
+		If a parent/guardian wants to include their spouse, relative, or other individual to be associated with the student(s) they are registering, have them complete the steps mentioned above, and then go ahead and press the third button below. Select the proper household name (Parent/Guardian's name) and have them complete the form.
+		</p>		
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<p>If you would like to register a student for Project C.H.U.C.K. 2014, 
+			<div class="btn-group">
+				<button type="button" class="btn btn-default"><%= link_to "Click Here.", new_registration_path %>
+				</button>
+			</div>
+		</p>
+		<p>If you would like to add another student to a household, 
+			<div class="btn-group">
+				<button type="button" class="btn btn-default"><%= link_to "Click Here", new_student_path %>
+				</button>
+			</div>
+		</p>
+		<p>If you would like to add another guardian to a previously completed registration, 
+			<div class="btn-group">
+				<button type="button" class="btn btn-default"><%= link_to "Click Here.", new_guardian_path %>
+				</button>
+			</div>
+		</p>
+
+	</div>
+	<div class="row col-sm-2 col-md-2 col-lg-2">
+		<%= image_tag 'chargee.gif', :size => "250x278", :style => "margin-left:50px;margin-top:25px" %>
+	</div>
+</div>

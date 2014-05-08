@@ -10,6 +10,10 @@
   
     <div class="form-actions">
     <%= guardian_form.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to 'Cancel', guardians_path, :class => 'btn' %>
+    <% if current_user.role == 'member' %>
+      <%= link_to 'Cancel', home_path, :class => 'btn' %>
+    <% else %>
+      <%= link_to 'Cancel', guardians_path, :class => 'btn' %>
+    <% end %>
   </div>
 <% end %>

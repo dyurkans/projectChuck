@@ -43,17 +43,26 @@
       
       <div class="row col-sm-7 col-md-7 col-lg-7">
         <h3>Demographics</h3>
-        <div class="col-sm-12 col-md-12 col-lg-12">
-          <%= high_chart("my_id1", @gender_chart) %>
-        </div>
-        <div class="col-sm-12 col-md-12 col-lg-12">
-          <%= high_chart("my_id2", @school_district_chart) %> 
-        </div>
+        <% if (@male_students.size + @female_students.size) > 2 %>
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <%= high_chart("my_id1", @gender_chart) %>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <%= high_chart("my_id2", @school_district_chart) %> 
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <%= high_chart("my_id3", @home_counties_chart) %> 
+          </div>          
+        <% else %>
+          <%= "None at this time." %>
+        <% end %>
       </div>
       
     </div>
     
   </div>
+<% elsif logged_in? && current_user.role == "member" %>
+  <%= render :partial => "register" %>
 <% else %>
   <%= render :partial => "about_us" %>
 <% end %>

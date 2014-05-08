@@ -1,22 +1,34 @@
-<p>
-  <b>Team Name:</b> <%= @team.nil? ? "---" : team_name(@team.name) %>
-</p>
+<div class="row">
+  <div class="col-sm-6 col-med-6 col-lg-6">
+    <h2>Team Details</h2>
+    <p>
+      <b>Team Name:</b> <%= @team.nil? ? "---" : team_name(@team.name) %>
+    </p>
 
-<p>
-  <b>Bracket:</b> <%= @bracket.nil? ? "---" : "#{@bracket.sex} #{@bracket.min_age} - #{@bracket.max_age}" %>
-</p>
+    <p>
+      <b>Bracket:</b> <%= @bracket.nil? ? "---" : "#{@bracket.sex} #{@bracket.min_age} - #{@bracket.max_age}" %>
+    </p>
 
-<p>
-  <b>Coach:</b><%= @team.coach %>
-</p>
+    <p>
+      <b>Coach:</b><%= @team.coach %>
+    </p>
 
-<p>
-	<b>Max Students:</b><%= @team.max_students %>
-</p>
+    <p>
+      <b>Max Students:</b><%= @team.max_students %>
+    </p>
 
-<p>
-  <b>Remaining Spots:</b><%= @team.remaining_spots %>
-</p>
+    <p>
+      <b>Remaining Spots:</b><%= @team.remaining_spots %>
+    </p>
+  </div>
+  <div class="col-sm-6 col-med-6 col-lg-6">
+    <h4 class="teamNotesHeader">Additional Team Notes:</h4>
+    <div class="teamNotes">
+      <%= @team.notes.blank? ? "None at this time." : @team.notes %>
+    </div>
+  </div>
+</div>
+
 
 <p>
 	<h4>Students</h4>
@@ -58,6 +70,8 @@
     </tbody>
   </table>
 <% end %>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
 <h4>Eligible Unassigned Students</h4>
 <% if @eligible_students.empty? %>
   &nbsp;&nbsp;<em>None at this time</em>

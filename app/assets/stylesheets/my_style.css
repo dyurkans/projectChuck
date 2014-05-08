@@ -83,3 +83,16 @@ label {
 fieldset, legend {
   padding-top: 2%;
 }
+
+.teamNotesHeader {
+  font-size:20pt;
+  padding-top:7px;
+}
+
+.teamNotes {
+  border-radius:3px;
+  border-color:black;
+  font-size:12pt;
+  font-weight:100;
+  font-style:italic;
+}
