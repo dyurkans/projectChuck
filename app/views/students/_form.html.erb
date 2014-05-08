@@ -1,0 +1,22 @@
+<%= simple_nested_form_for @student, :html => { :class => "form-horizontal" } do |student_form| %>
+  <div class="row">
+    <div class="col-sm-7 col-med-7 col-lg-7">
+      <fieldset>
+        <legend><%= controller.action_name.capitalize %> Student </legend>
+        <%= render :partial => "student_fields", :locals => { :f => student_form } %>
+      </fieldset>
+    </div>
+  <div class="col-sm-5 col-med-5 col-lg-5">
+    <legend>Registration Information</legend>
+    <div id="student_registrations">
+      <%= student_form.simple_fields_for :registrations do |registration_form| %>
+        <%= render :partial => "registration_fields", :locals => { :r => registration_form } %>
+      <% end %> 
+    </div> 
+  </div>
+  <div class="form-actions">
+    <%= student_form.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to 'Cancel', students_path, :class => 'btn' %>
+  </div>
+  </div>
+<% end %>
