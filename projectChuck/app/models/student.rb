@@ -77,8 +77,8 @@ class Student < ActiveRecord::Base
   scope :needs_medication, where('medications <> ""')
   scope :seniors, where('grade_integer = ?', 13)
   scope :without_forms, joins(:registrations).where('students.birth_certificate IS NULL || physical IS NULL || proof_of_insurance IS NULL || report_card IS NULL')
-  scope :unregistered, joins(:registrations).where('team_id IS NULL')
-
+  scope :unassigned, joins(:registrations).where('team_id IS NULL')
+  scope :current, joins(:registrations).where('? <= registrations.created_at and registrations.created_at <= ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31))
   # Other methods
 
   def self.missing_forms(stus)
@@ -92,14 +92,14 @@ class Student < ActiveRecord::Base
   end
 
   def self.school_districts
-    registered_students = Student.registered_students
+    current_registered_students = Student.current.active
     school_districts = []
-    for stu in registered_students
+    for stu in current_registered_students
       if !school_districts.include?([stu.school_county,0])
         school_districts << [stu.school_county, 0]
       end
     end
-    for student in registered_students
+    for student in current_registered_students
       for district in school_districts
         if district.first == student.school_county
           district[1] += 1 
@@ -110,15 +110,15 @@ class Student < ActiveRecord::Base
   end
 
   def self.home_counties
-    registered_students = Student.registered_students
+    current_registered_students = Student.current.active
     home_counties = []
-    for stu in registered_students
+    for stu in current_registered_students
       house = Household.find(stu.household_id)
       if !home_counties.include?([house.county,0])
         home_counties << [house.county, 0]
       end
     end
-    for student in registered_students
+    for student in current_registered_students
       house = Household.find(student.household_id)
       for county in home_counties
         if county.first == house.county
@@ -133,15 +133,15 @@ class Student < ActiveRecord::Base
     return true
   end
 
-  def self.registered_students
-    active_regs = Registration.current.active.by_name
-    students = Student.active
-    registered_students = []
-    for r in active_regs
-      registered_students << students.find(r.student_id)
-    end
-    registered_students
-  end   
+  # def self.current_registered_students
+  #   active_regs = Registration.current.active.by_name
+  #   students = Student.active
+  #   current_registered_students = []
+  #   for r in active_regs
+  #     current_registered_students << students.find(r.student_id)
+  #   end
+  #   current_registered_students
+  # end   
 
   def deactivate_student_and_registrations
     self.active = false

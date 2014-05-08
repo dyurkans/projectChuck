@@ -8,12 +8,13 @@ class HomeController < ApplicationController
 			@guardians_receiving_texts = Guardian.active.alphabetical.receive_text_notifications.paginate(:page => params[:page]).per_page(10)
 	# 		@registrations = Registration.active
 	# 		@students = Student.active.alphabetical.paginate(:page => params[:missing_docs_page]).per_page(10)
-			@registered_students = Student.registered_students
-			@students_missing_docs = Student.alphabetical.missing_forms(@registered_students).paginate(:page => params[:missing_docs_page], :per_page => 10)
-			@male_students = @registered_students.select { |x| x.gender == true }.size 
-			@female_students = @registered_students.select { |x| x.gender == false }.size
+			@current_registered_students = Student.alphabetical.current.active
+			#@students_missing_docs = Student.alphabetical.missing_forms(@current_registered_students).paginate(:page => params[:missing_docs_page], :per_page => 10)
+			@students_missing_docs = Student.alphabetical.current.without_forms.active.paginate(:page => params[:missing_docs_page], :per_page => 10)			
+			@male_students = @current_registered_students.select { |x| x.gender == true }.size 
+			@female_students = @current_registered_students.select { |x| x.gender == false }.size
 			@school_districts = Student.school_districts
-			@unassigned_students = Student.active.alphabetical.unregistered.paginate(:page => params[:unassigned_student_page], :per_page => 10)
+			@unassigned_students = Student.active.alphabetical.unassigned.paginate(:page => params[:unassigned_student_page], :per_page => 10)
 			@brackets = Bracket.all
 			@home_counties = Student.home_counties
 			# for reg in Registration.current.active.by_date.select { |reg| reg.team_id == nil }
