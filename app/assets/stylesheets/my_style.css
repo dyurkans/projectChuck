@@ -25,7 +25,6 @@ fieldset, legend {
 }
 
 .boolean {
-  display:block;
   float: left;
 }
 
@@ -81,10 +80,16 @@ fieldset, legend {
   margin-right:5%;
 }
 
-#userName {
-  margin-right:9%;  
+#username {
+  margin-right:9%;
+  padding-bottom:12px;  
 }
 
+#usernameLink {
+  color: white;
+  text-decoration: underline;
+  cursor: auto;
+}
 
 #main_content {
   padding-top:0;
