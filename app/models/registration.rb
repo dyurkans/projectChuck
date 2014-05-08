@@ -13,19 +13,19 @@ class Registration < ActiveRecord::Base
   mount_uploader :proof_of_insurance, AvatarUploader
 
   accepts_nested_attributes_for :student
-  attr_accessible :student_attributes, :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
+  attr_accessible :student_attributes, :proof_of_insurance_cache, :physical_cache, :report_card_cache, :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
   
   #Local Variables
   SIZE_LIST = [["S", 0], ["M", 1], ["L",2], ["XL",3], ["XXL",4], ["XXXL",5]]
   
   #Validations
   validate :student_in_allowable_age_range
-  validates_numericality_of :student_id, :only_integer => true, :greater_than => 0
-  validates_numericality_of :team_id, :only_integer => true, :greater_than => 0, :allow_nil => true # needs to be removed later
+  validates_numericality_of :student_id, :only_integer => true, :greater_than => 0, :allow_nil => true
+  validates_numericality_of :team_id, :only_integer => true, :greater_than => 0, :allow_nil => true 
   validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
-  validates_date :physical_date, :on_or_after => lambda { Date.new(Date.today.year-1, 8, 1) }, :on_or_before => lambda { Date.today }, :on_or_before_message => "cannot be in the future"
-  validates_numericality_of :t_shirt_size, :allow_blank => false, :allow_nil => false, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => SIZE_LIST.size
-  validates_inclusion_of :t_shirt_size, :in => SIZE_LIST.map {|s| s[1]}, :message => "unavailable size chosen"
+  validates_date :physical_date,:allow_nil=> true, :on_or_after => lambda { Date.new(Date.today.year-1, 8, 1) }, :on_or_before => lambda { Date.today }, :on_or_before_message => "cannot be in the future"
+  validates_numericality_of :t_shirt_size, :allow_blank => false, :allow_nil => true, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => SIZE_LIST.size
+  validates_inclusion_of :t_shirt_size, :in => SIZE_LIST.map {|s| s[1]}, :allow_nil => true, :message => "unavailable size chosen"
   validate :student_in_appropriate_bracket
 
   #Scopes
@@ -33,8 +33,8 @@ class Registration < ActiveRecord::Base
   scope :for_team, joins(:team).order('name')
   scope :reg_order, order('created_at DESC')
   scope :current, where('? <= registrations.created_at and registrations.created_at <= ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31)).order('created_at DESC')
-  scope :active, where('active = ?', true)
-  scope :inactive, where('active = ?', false)
+  scope :active, where('registrations.active = ?', true)
+  scope :inactive, where('registrations.active = ?', false)
   scope :incomplete, where('proof_of_insurance IS NULL OR physical IS NULL OR report_card IS NULL')
   scope :jersey_size, lambda {|size| where("t_shirt_size = ?", size) }
   scope :by_date, order('created_at')

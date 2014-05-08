@@ -1,9 +1,8 @@
 ProjectChuck::Application.routes.draw do
   
   # Generated routes
-  resources :students 
+  resources :students
   resources :registrations
-  
   resources :households
   resources :guardians
   
@@ -23,7 +22,7 @@ ProjectChuck::Application.routes.draw do
   match 'signup' => 'users#new', :as => :signup
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
-    
+      
   # add custom routes for certain actions
   get 'teams/:id/remove' => 'teams#remove_student', :as => :remove_student  
   get 'brackets/:id/remove' => 'brackets#remove_team', :as => :remove_team

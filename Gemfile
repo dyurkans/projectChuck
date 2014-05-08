@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.17'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'pg', '0.14.0'
 gem 'validates_timeliness', '~> 3.0'
 gem 'simple_form'
 gem 'will_paginate'
@@ -13,8 +13,10 @@ gem 'carrierwave'
 gem 'nested_form'
 gem 'tconsole', '1.2.8'
 gem 'lazy_high_charts'
-gem 'reform'
 gem 'cancancan', '~> 1.7'
+gem 'strong_parameters'
+gem "mini_magick"
+gem 'unicorn'
 
 # Gems used only for assets and not required
 # in production environments by default.

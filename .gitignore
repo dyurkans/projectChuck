@@ -13,6 +13,12 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+*~
+*.swp
+*.swo
+*.kate-swp
 
 # Ignore all uploaded files
 /public/uploads
+/public/assets
+.env

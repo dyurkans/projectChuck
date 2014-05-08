@@ -11,15 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140422225828) do
+ActiveRecord::Schema.define(:version => 20140417061207) do
 
   create_table "brackets", :force => true do |t|
     t.integer  "tournament_id"
-    t.boolean  "gender",        :limit => 255
     t.integer  "min_age"
     t.integer  "max_age"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.boolean  "gender"
   end
 
   create_table "guardians", :force => true do |t|
@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(:version => 20140422225828) do
     t.date     "dob"
     t.string   "cell_phone"
     t.string   "day_phone"
-    t.boolean  "receive_texts",                :default => true
+    t.boolean  "receive_texts", :default => true
     t.string   "email"
-    t.boolean  "gender",        :limit => 255
-    t.boolean  "active",                       :default => true
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
+    t.boolean  "active",        :default => true
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "gender"
   end
 
   create_table "households", :force => true do |t|
@@ -51,11 +51,6 @@ ActiveRecord::Schema.define(:version => 20140422225828) do
     t.datetime "created_at",                            :null => false
     t.datetime "updated_at",                            :null => false
     t.string   "county"
-  end
-
-  create_table "registration_forms", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "registrations", :force => true do |t|
@@ -79,27 +74,27 @@ ActiveRecord::Schema.define(:version => 20140422225828) do
     t.string   "cell_phone"
     t.string   "school"
     t.string   "school_county"
-    t.integer  "grade_integer",           :limit => 255
-    t.boolean  "gender",                  :limit => 255
     t.string   "emergency_contact_name"
     t.string   "emergency_contact_phone"
     t.string   "birth_certificate"
     t.text     "allergies"
     t.text     "medications"
-    t.integer  "security_question",       :limit => 255
     t.string   "security_response"
-    t.boolean  "active",                                 :default => true
-    t.datetime "created_at",                                               :null => false
-    t.datetime "updated_at",                                               :null => false
+    t.boolean  "active",                  :default => true
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.boolean  "gender"
+    t.integer  "grade_integer"
+    t.integer  "security_question"
     t.string   "email"
   end
 
   create_table "teams", :force => true do |t|
     t.integer  "bracket_id"
-    t.integer  "name",         :limit => 255
     t.integer  "max_students"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "name"
     t.string   "coach"
   end
 
