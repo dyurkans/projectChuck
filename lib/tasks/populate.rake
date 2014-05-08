@@ -10,6 +10,12 @@ namespace :db do
     [Tournament, Registration, Student, Guardian, Household, User, Bracket, Team].each(&:delete_all)
     puts "All previously made entities have been deleted!"
 
+    birth_certificate_path = "./public/example_files/birth_certificate.pdf"
+    report_card_path = "./public/example_files/report_card.jpg"
+    insurance_path = "./public/example_files/insurance.png"
+    physical_path = "./public/example_files/physical.pdf"
+    
+    
     #Create a tournament
     tourn = Tournament.new
     tourn.start_date = Date.today
@@ -59,7 +65,9 @@ namespace :db do
         s.grade_integer = (months_old/12) - 5
         s.emergency_contact_name = Faker::Name.name
         s.emergency_contact_phone = rand(10 ** 10).to_s.rjust(10,'0')
-        s.birth_certificate.store!(File.open(File.expand_path("./public/example_files/birth_certificate.pdf")))
+        if (rand(2).zero?)
+          s.birth_certificate.store!(File.open(File.expand_path(birth_certificate_path)))
+        end
         if rand(4).zero?
           s.allergies = "#{rand(2).zero? ? 'Peanuts' : 'Bee stings'}"
         else
@@ -166,10 +174,16 @@ namespace :db do
           #add new registration
           r = Registration.new
           weeks_old = (0..52).to_a.sample
-          r.physical.store!(File.open(File.expand_path("./public/example_files/physical.pdf")))
+          if (rand(2).zero?)
+            r.physical.store!(File.open(File.expand_path(physical_path)))
+          end
           r.physical_date = (Date.new(Date.today.year-1,8,1)..Date.today).to_a.sample
-          r.proof_of_insurance.store!(File.open(File.expand_path("./public/example_files/insurance.pdf")))
-          r.report_card.store!(File.open(File.expand_path("./public/example_files/report_card.pdf")))
+          if (rand(2).zero?)
+            r.proof_of_insurance.store!(File.open(File.expand_path(insurance_path)))
+          end
+          if (rand(2).zero?)
+            r.report_card.store!(File.open(File.expand_path(report_card_path)))
+          end
           r.student_id = student.id
           r.t_shirt_size = (0..5).to_a.sample
           if num_teams_created == num_teams_to_create
@@ -242,10 +256,10 @@ namespace :db do
           #add new registration
           r = Registration.new
           days_old = (0..360).to_a.sample
-          r.physical.store!(File.open(File.expand_path("./public/example_files/physical.pdf")))
+          r.physical.store!(File.open(File.expand_path(physical_path)))
           r.physical_date = (Date.new(Date.today.year-1,8,1)..Date.today).to_a.sample
-          r.proof_of_insurance.store!(File.open(File.expand_path("./public/example_files/insurance.pdf")))
-          r.report_card.store!(File.open(File.expand_path("./public/example_files/report_card.pdf")))
+          r.proof_of_insurance.store!(File.open(File.expand_path(insurance_path)))
+          r.report_card.store!(File.open(File.expand_path(report_card_path)))
           r.student_id = student.id
           r.t_shirt_size = (0..5).to_a.sample
           if num_teams_created == num_teams_to_create

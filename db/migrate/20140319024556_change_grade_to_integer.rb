@@ -1,13 +1,6 @@
 class ChangeGradeToInteger < ActiveRecord::Migration
-  def up
-  	change_table :students do |t|
-  		t.change :grade_integer, :integer
-  	end
-  end
-
-  def down
-  	change_table :students do |t|
-  		t.change :grade_integer, :string
-  	end
+  def change
+    remove_column :students, :grade_integer
+    add_column :students, :grade_integer, :integer
   end
 end

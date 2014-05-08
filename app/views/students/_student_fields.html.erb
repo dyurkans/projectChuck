@@ -1,9 +1,11 @@
 <div class="fields">
   <div class="min_attraction">
+      <%= f.hidden_field :household_id %>
       <%= f.input :first_name %>
       <%= f.input :last_name %>
       <%= f.input :gender, :collection => Student::GENDER_LIST %>
       <%= f.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year - 19, :end_year => Date.today.year - 4,  :order => [:month, :day, :year], :include_blank => true %>
+      <%= f.input :birth_certificate, :as => :file, :label => "Birth Certificate" %>
       <%= f.input :cell_phone %>
       <%= f.input :emergency_contact_name %>
       <%= f.input :emergency_contact_phone %>
