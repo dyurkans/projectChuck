@@ -1,19 +1,14 @@
-@media (max-width: 768px) {
+body {
+  padding-top:70px;
+}
+
+@media only screen and (device-width: 768px) {
   body {
-    padding-top:160px;
+    padding-top:180px;
   }
   
   .nav li {
     font-size:75%;
-  }
-}
-
-@media (min-width: 769px) {
-  body {
-    padding-top:70px;
-  }
-  .nav li {
-    font-size:100%;
   }
 }
 
