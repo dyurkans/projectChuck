@@ -30,7 +30,7 @@ fieldset, legend {
 
 @media only screen and (device-width: 768px) {
   body {
-    padding-top:150px;
+    padding-top:130px;
   }
   
   .nav li {
@@ -145,7 +145,7 @@ fieldset, legend {
 
 #sidebar-right img{
   position:fixed;
-  right:0;
+/*   right:0; */
 }
 
 #sidebar-left img {
