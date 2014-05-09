@@ -4,7 +4,7 @@ body {
 
 @media only screen and (device-width: 768px) {
   body {
-    padding-top:70px;
+    padding-top:100px;
   }
   
   .nav li {
