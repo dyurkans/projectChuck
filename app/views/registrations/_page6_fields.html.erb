@@ -1,0 +1,49 @@
+<div id="page6" class="myHide">
+  <p id="studyHallAgreement" class="agreementText">
+    "I agree to take responsibility as a player to read
+    my assigned book, attend study hall, and to review
+    and follow all Project C.H.U.C.K. rules."
+  </p>
+  <%= f.input :student_agreement, :label => "Student", :as => :radio_buttons, :collection => [[true, 'Agree'], [false, 'Disagree']], :required => true, :label_method => :last, :value_method => :first, :input_html => { :class => "agreementField" }, :wrapper => :my_wrapper, :boolean_style => :inline, :checked => true %>
+  <%= f.input :parent_agreement, :label => "Parent", :as => :radio_buttons, :collection => [[true, 'Agree'], [false, 'Disagree']], :required => true, :label_method => :last, :value_method => :first, :input_html => { :class => "agreementField" }, :wrapper => :my_wrapper,:checked => true %>
+  
+  <p id="overAgreement" class="agreementText">
+    "To participate in Project C.H.U.C.K. in consideration of the services to be performed
+
+    by its sponsors, ofﬁcers, and volunteers, I do hereby assume all the risks and 
+
+    hazards incidental to the conduct of the activities, and I do further hereby release, 
+
+    absolve, indemnify and hold harmless Project C.H.U.C.K., operated and sponsored 
+
+    by Best of the Batch, its sponsors, ofﬁcers, and volunteers of and from all manner of
+
+    action and actions, cause or causes of action, suits, debts and sums of money, 
+
+    claims of demands whatsoever, in law or equity, arising out of or pursuant to the 
+
+    conduct of the activities. I am fully aware of risks inherent to this activity and should 
+
+    not participate or allow my child to participate unless medically able. I assume all 
+
+    risks associated with this activity. I also agree that photographs, recordings or any 
+
+    other record may be used for the purpose of promoting programs operated or 
+
+    sponsored by Project C.H.U.C.K. In case of accident or illness, I authorize a 
+
+    representative of Project C.H.U.C.K. to obtain immediate care deemed necessary 
+
+    by licensed medical personnel. I have read and fully understand that these terms are 
+
+    contractual and not a mere recital and sign it voluntarily, and hereby take 
+
+    responsibility for the above information and it is accurate to the best of my 
+
+    knowledge. I also understand that if not correct, my above-named child will be 
+
+    ineligible to play for the season."
+  </p>
+  
+  <%= f.input :overall_agreement, :label => "Parent", :as => :radio_buttons, :collection => [[true, 'Agree'], [false, 'Disagree']], :required => true, :label_method => :last, :value_method => :first, :input_html => { :class => "agreementField" }, :wrapper => :my_wrapper,:checked => true %>
+</div>

@@ -4,9 +4,9 @@
     var first_page = 1;
     var current_page_number = first_page;
     var previous_page_number = current_page_number-1;
-    var last_page = 5;
+    var last_page = 6;
     var default_legend_name = $("#registrationFormLegend").text();
-    var legend_names = [default_legend_name, "Guardian Information", "Student School Information", "Insurance Information", "Medical Information"];
+    var legend_names = [default_legend_name, "Guardian Information", "Student School Information", "Insurance Information", "Medical Information", "Terms and Conditions"];
     $("#myContinue").click(function() {
       if (first_page <= current_page_number && current_page_number < last_page) {
         previous_page_number = current_page_number;
