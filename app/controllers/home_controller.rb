@@ -28,8 +28,8 @@ class HomeController < ApplicationController
 			               :type=> 'pie',
 			               :name=> 'Gender',
 			               :data=> [
-			                  ['Female',   @male_students ],
-			                  ['Male',     @female_students ]
+			                  ['Male',   @male_students ],
+			                  ['Female',     @female_students ]
 			               ]
 			      }
 			      f.series(series)

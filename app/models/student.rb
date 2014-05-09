@@ -88,7 +88,7 @@ class Student < ActiveRecord::Base
         students_missing_docs << stu
       end
     end
-    return students_missing_docs
+    students_missing_docs
   end
 
   def self.school_districts
@@ -130,7 +130,7 @@ class Student < ActiveRecord::Base
   end
 
   def check_if_destroyable
-    return true
+    true
   end
 
   # def self.current_registered_students
@@ -185,13 +185,11 @@ class Student < ActiveRecord::Base
   end
 
   def age
-    return nil if dob.blank?
-    (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i
+    if dob.blank? then nil else (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i end
   end
 
   def sex
-    return "Male" if gender == true
-    "Female"
+    if gender == true then "Male" else "Female" end
   end
   
   def proper_grade
@@ -207,8 +205,7 @@ class Student < ActiveRecord::Base
   
   #insert age as of june 1 method
   def age_as_of_june_1
-    return nil if self.dob.blank? #should never be blank
-    (Date.new(Date.today.year, 6, 1).to_time.to_s(:number).to_i - self.dob.to_time.to_s(:number).to_i)/10e9.to_i
+    if self.dob.blank? then nil else (Date.new(Date.today.year, 6, 1).to_time.to_s(:number).to_i - self.dob.to_time.to_s(:number).to_i)/10e9.to_i end
   end
 
   # Private methods

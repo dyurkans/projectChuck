@@ -60,7 +60,7 @@ class Registration < ActiveRecord::Base
 
   #Needs to check is multiple student factors already present to see if priorly submitted
   def registration_is_not_already_in_system
-    return true if self.student_id.nil? || self.team_id.nil? # should be caught by other validations; no double error
+    if self.student_id.nil? || self.team_id.nil? then true end # should be caught by other validations; no double error
     possible_repeat = Registration.where(team_id: team_id, student_id: student_id)
     # notice that I am using the Ruby 1.9 hashes here as opposed to the 1.8 style in Section
     # again, an alternate method would be using the dynamic find_by method...
@@ -103,7 +103,5 @@ class Registration < ActiveRecord::Base
       false
     end
   end
-
-
 
 end

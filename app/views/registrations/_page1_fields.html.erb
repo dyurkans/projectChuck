@@ -20,7 +20,9 @@
               <%= f.input :zip, :label => false, :placeholder => "Zip Code", :wrapper => :my_wrapper, :placeholder => '15289', :input_html => { size: 20 } %>
             </div>
           </div>
-          <%= f.input :county, :label => "County", :placeholder => "County", :placeholder => 'Allegheny' %>
+          <div class="address-county">
+            <%= f.input :county, :label => "County", :placeholder => "County", :placeholder => 'Allegheny' %>
+          </div>
           <%= f.input :home_phone, :label => "Home Phone", :placeholder => "412-333-3333", :placeholder => '412-333-3333', :input_html => { size: 30 } %>
           <%= s.input :cell_phone, :label => "Student Cell Phone", :placeholder => "412-555-5555", :placeholder => '412-555-5555', :input_html => { size: 30 } %>
           <%= s.input :email, :label => "Student Email", :placeholder => "john.carter@email.com", :placeholder => 'john.carter@email.com', :input_html => { size: 30 } %>

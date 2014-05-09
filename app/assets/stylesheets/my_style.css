@@ -40,6 +40,14 @@ fieldset, legend {
   margin-left:6em;
 }
 
+.address-county {
+  margin-left:2em;
+}
+
+.registerStudentButton {
+  margin-left:1em;
+}
+
 .continue {
   margin-left:15em;
 }
@@ -93,6 +101,12 @@ fieldset, legend {
 
 #home-main-content {
   margin-left:10%;
+}
+
+#home-missing_docs, #home-demographics,
+#home-waitlist, #home-assigned-texts,
+#home-unassigned-students, #home-receive-texts{
+  border-bottom:2px solid #ccc;
 }
 
 #sidebar-right img{

@@ -37,14 +37,8 @@ class Guardian < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def age
-    return nil if dob.blank?
-    (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i
-  end
-
   def sex
-    return "Male" if gender == true
-    "Female"
+    if gender == true then "Male" else "Female" end
   end
 
   # Private methods

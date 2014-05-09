@@ -38,8 +38,7 @@ class Team < ActiveRecord::Base
   end
   
   def max
-    return false if self.nil? || self.registrations.nil? || self.registrations.empty? || max_students.nil?
-    current_number_of_students <= max_students
+    if self.nil? || self.registrations.nil? || self.registrations.empty? || max_students.nil? then false else current_number_of_students <= max_students end
   end
 
   def remaining_spots

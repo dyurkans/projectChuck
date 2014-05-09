@@ -15,8 +15,7 @@ class Bracket < ActiveRecord::Base
   scope :by_age, order('min_age, max_age')
 
   def sex
-    return "Male" if gender == true
-    "Female"
+    if gender == true then "Male" else "Female" end
   end
 
   def name

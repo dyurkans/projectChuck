@@ -19,8 +19,7 @@ class User < ActiveRecord::Base
   ROLES = [['Administrator', :admin], ['Member', :member]]
 
   def role?(authorized_role)
-    return false if role.nil?
-    role.downcase.to_sym == authorized_role
+    if role.nil? then false else role.downcase.to_sym == authorized_role end
   end
 
   def self.eligible_guardians(guard)
