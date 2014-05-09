@@ -25,11 +25,9 @@
 
   <div class="container row col-sm-12 col-md-12 col-lg-12" style="margin:0 auto;">
     
-      <div class="row">
           <!-- NAV BAR -->
-          <div class="col-sm-12 col-md-12 col-lg-12">
-            <%= render :partial => "partials/navigation" %>
-          </div>
+      <div class="row col-sm-12 col-md-12 col-lg-12">
+        <%= render :partial => "partials/navigation" %>
       </div>
       
       <div class="row">
@@ -37,8 +35,8 @@
             <!-- TITLE BAR -->
             <div><%= image_tag('projectChuckLogo.jpg') %></div>
           </div>
-
-          <div id="main_content" class="col-sm-9 col-med-9 col-lg-9 main">
+          <div class="col-sm-0 col-med-0 col-lg-1 spacer"></div>
+          <div id="main_content" class="col-sm-9 col-med-9 col-lg-8 main">
             <!-- flash messages -->
             <% flash.each do |name, msg| %>
               <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
@@ -50,8 +48,9 @@
             <!-- MAIN CONTENT -->
             <%= yield %>
           </div>
+          <div class="col-sm-1 col-med-1 col-lg-1 spacer"></div>
           
-          <div id="sidebar-right" class="col-sm-2 col-med-2 col-lg-2">
+          <div id="sidebar-right" class="col-sm-1 col-med-1 col-lg-1">
             <%= image_tag('bob_logo.png', :size => ('167x260')) %>
           </div>
       </div>
