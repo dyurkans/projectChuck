@@ -36,6 +36,10 @@ fieldset, legend {
   .nav li {
     font-size:65%;
   }
+  
+  #sidebar-left img {
+    position:inline;
+  }
 }
 
 .row {
@@ -145,7 +149,7 @@ fieldset, legend {
 
 #sidebar-right img{
   position:fixed;
-/*   right:0; */
+  right:0;
 }
 
 #sidebar-left img {
