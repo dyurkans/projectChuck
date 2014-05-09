@@ -31,9 +31,9 @@ class Bracket < ActiveRecord::Base
       end
     end
     if spots > 0 
-      return spots
+      spots
     else
-      return 0
+      0
     end
   end
 

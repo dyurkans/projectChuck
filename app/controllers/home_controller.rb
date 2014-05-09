@@ -11,8 +11,8 @@ class HomeController < ApplicationController
 			@current_registered_students = Student.alphabetical.current.active
 			#@students_missing_docs = Student.alphabetical.missing_forms(@current_registered_students).paginate(:page => params[:missing_docs_page], :per_page => 10)
 			@students_missing_docs = Student.alphabetical.current.without_forms.active.paginate(:page => params[:missing_docs_page], :per_page => 10)			
-			@male_students = @current_registered_students.select { |x| x.gender == true }.size 
-			@female_students = @current_registered_students.select { |x| x.gender == false }.size
+			@male_students = @current_registered_students.male.size 
+			@female_students = @current_registered_students.female.size
 			@school_districts = Student.school_districts
 			@unassigned_students = Student.active.alphabetical.unassigned.paginate(:page => params[:unassigned_student_page], :per_page => 10)
 			@brackets = Bracket.all

@@ -1,4 +1,4 @@
-<%= simple_form_for @team, :html => { :class => 'form-horizontal' } do |team_form| %>
+<%= simple_form_for @team do |team_form| %>
   <div class="row">
     <div class="span12">
       <fieldset>
@@ -10,6 +10,6 @@
   
     <div class="form-actions">
     <%= team_form.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to 'Cancel', team_path(@team), :class => 'btn' %>
+    <%= link_to 'Cancel', teams_path, :class => 'btn' %>
   </div>
 <% end %>

@@ -7,7 +7,7 @@ class TeamsController < ApplicationController
 
   def new
     @team = Team.new
-    @teams = Team.unassigned_teams(@team.name)
+    @teams = Team.unassigned_teams(nil)
   end
   
   def edit

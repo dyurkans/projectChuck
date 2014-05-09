@@ -44,7 +44,7 @@ class Team < ActiveRecord::Base
 
   def remaining_spots
     if !max_students.nil? 
-      return (max_students - current_number_of_students) 
+      (max_students - current_number_of_students) 
     else 
       "---"
     end

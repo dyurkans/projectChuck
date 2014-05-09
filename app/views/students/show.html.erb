@@ -9,8 +9,8 @@
 </div>
 
 <div class="form-actions">
-  <%= link_to raw("<i class='icon-list'></i> Display All Students"), students_path, :class => 'btn'  %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-pencil'></i> Edit #{@student.proper_name}"), edit_student_path(@student), :class => 'btn' %>&nbsp;&nbsp;
+  <%= link_to raw("<i class='icon-list'></i> Display All Students"), students_path, :class => 'btn btn-default myDisplayAllButton'  %>&nbsp;&nbsp;
+  <%= link_to raw("<i class='icon-pencil'></i> Edit #{@student.proper_name}"), edit_student_path(@student), :class => 'btn btn-primary myEditButton' %>&nbsp;&nbsp;
   <% if @student.active %>
   	<%= link_to raw("<i class='icon-remove icon-white'></i> Make #{@student.proper_name} Inactive"), student_path(@student), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
   <% else %>

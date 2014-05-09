@@ -88,7 +88,7 @@ class Registration < ActiveRecord::Base
     if missing_documents == "" 
       missing_documents += "None"
     end
-    return missing_documents
+    missing_documents
   end
 
   private

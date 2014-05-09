@@ -48,7 +48,7 @@ attr_accessible :guardians_attributes, :students_attributes, :county, :active, :
 			end
 			index += 1
 		end
-		return name
+		name
 	end
 
 	  # Private methods

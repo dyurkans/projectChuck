@@ -6,8 +6,8 @@
 </div>
 
 <div class="form-actions">
-  <%= link_to raw("<i class='icon-list'></i> Display All Guardians"), guardians_path, :class => 'btn'  %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-pencil'></i> Edit Guardian"), edit_guardian_path(@guardian), :class => 'btn' %>&nbsp;&nbsp;
+  <%= link_to raw("<i class='icon-list'></i> Display All Guardians"), guardians_path, :class => 'btn btn-default myDisplayAllButton'  %>&nbsp;&nbsp;
+  <%= link_to raw("<i class='icon-pencil'></i> Edit Guardian"), edit_guardian_path(@guardian), :class => 'btn btn-primary myEditButton' %>&nbsp;&nbsp;
   <% if @guardian.active %>
   	<%= link_to raw("<i class='icon-remove icon-white'></i> Make #{@guardian.proper_name} Inactive"), guardian_path(@guardian), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
   <% else %>

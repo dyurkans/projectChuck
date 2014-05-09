@@ -18,16 +18,16 @@ class Tournament < ActiveRecord::Base
 
   def valid_dates
   	if self.end_date > self.start_date
-      return true
+      true
     else
       errors.add(:end_date, "End date must be later than the start date")
-      return false
+      false
     end
   end
 
   def number_of_students
     if Tournament.all.nil?
-      return "---"
+      "---"
     end
   	# number_of_students = 0
   	# @brackets = self.brackets
