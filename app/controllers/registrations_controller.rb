@@ -18,7 +18,7 @@ class RegistrationsController < ApplicationController
     @household = Household.new(params[:household])
     
     student = @household.students.first
-    if @household.save!
+    if @household.save
       # if saved to database
       flash[:notice] = "Successfully created a registration for #{student.proper_name}."
       redirect_to home_path

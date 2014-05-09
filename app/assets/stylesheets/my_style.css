@@ -2,7 +2,7 @@ body {
   padding-top:70px;
 }
 
-input, select {
+input, select, textarea {
   padding: 1%;
   margin:1%;
 }

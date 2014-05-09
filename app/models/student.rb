@@ -18,7 +18,7 @@ class Student < ActiveRecord::Base
 
 
   #Validations (email commented out b/c not in the database)
-  validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :security_response, :security_question, :grade_integer
+  validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :security_response, :security_question, :grade_integer, :security_question, :dob
   validates_date :dob, :on_or_before => 7.years.ago.to_date, :after => 19.years.ago.to_date, :message => "must be between the ages of 7 and 18 included"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
   validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
   validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
@@ -193,6 +193,12 @@ class Student < ActiveRecord::Base
     return "Male" if gender == true
     "Female"
   end
+  
+  def proper_grade
+    index_of_grade_name = 0
+    GRADES_LIST[grade_integer-1][index_of_grade_name]
+  end
+    
 
   # Method to find student's registration for this year (if there is one)
   def current_reg

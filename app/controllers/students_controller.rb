@@ -12,6 +12,7 @@ class StudentsController < ApplicationController
   
   def edit
     @student = Student.find(params[:id])
+    @households = Household.active
   end
   
   def index

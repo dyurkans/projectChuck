@@ -41,7 +41,7 @@
   </p>
 
   <p>
-    <b>Grade (as of August <%= @registration.created_at.year unless @registration.nil? %>):</b> <%= @student.grade_integer %>
+    <b>Grade (as of August <%= @registration.created_at.year unless @registration.nil? %>):</b> <%= @student.proper_grade %>
   </p>
 
   <p>
@@ -65,7 +65,7 @@
   </p>
 
   <p>
-    <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") unless @registration.nil? %>
+    <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") unless @registration.nil? || @registration.physical_date.nil? %>
   </p>
 
   <p>
