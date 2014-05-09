@@ -4,11 +4,11 @@ body {
 
 @media only screen and (device-width: 768px) {
   body {
-    padding-top:180px;
+    padding-top:150px;
   }
   
   .nav li {
-    font-size:75%;
+    font-size:78%;
   }
 }
 
