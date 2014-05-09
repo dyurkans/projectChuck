@@ -35,8 +35,8 @@
             <!-- TITLE BAR -->
             <div><%= image_tag('projectChuckLogo.jpg') %></div>
           </div>
-          <div class="col-sm-0 col-med-0 col-lg-1 spacer"></div>
-          <div id="main_content" class="col-sm-9 col-med-9 col-lg-8 main">
+          <div class="col-sm-1 col-med-1 col-lg-1 spacer"></div>
+          <div id="main_content" class="col-sm-8 col-med-8 col-lg-8 main">
             <!-- flash messages -->
             <% flash.each do |name, msg| %>
               <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
