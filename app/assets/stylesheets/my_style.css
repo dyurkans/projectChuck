@@ -24,10 +24,6 @@ fieldset, legend {
   padding-top: 2%;
 }
 
-.boolean {
-  float: left;
-}
-
 .myHide {
   display:none;
 }
