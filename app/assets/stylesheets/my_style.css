@@ -2,16 +2,6 @@ body {
   padding-top:70px;
 }
 
-@media only screen and (device-width: 768px) {
-  body {
-    padding-top:150px;
-  }
-  
-  .nav li {
-    font-size:78%;
-  }
-}
-
 input, select, textarea {
   padding: 1%;
   margin:1%;
@@ -36,6 +26,16 @@ fieldset, legend {
 
 .nav {
   font-size:1.5em;
+}
+
+@media only screen and (device-width: 768px) {
+  body {
+    padding-top:150px;
+  }
+  
+  .nav li {
+    font-size:65%;
+  }
 }
 
 .row {
