@@ -1,6 +1,5 @@
 require 'active_support'
 class Team < ActiveRecord::Base
-  attr_accessor :notes
   attr_accessible :bracket_id, :max_students, :name, :coach, :notes
   
   BOYS_TEAM_LIST = [["Atlanta Hawks",0],["Brooklyn Nets",1],["Boston Celtics",2],
