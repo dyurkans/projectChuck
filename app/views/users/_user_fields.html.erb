@@ -1,6 +1,10 @@
 <div class="fields">
   <div class="min_attraction">
-	<%= f.input :guardian_id, :collection => @guardians, :selected => (@guardian.id unless @guardian.nil?), :include_blank => false %>
+	<% if isEdit %>
+    <label>Guardian: </label><%="   " + Guardian.find_by_id(@guardian.id).proper_name unless @guardian.nil? %></p>
+  <% else %>
+    <%= f.input :guardian_id, :collection => @guardians, :selected => (@guardian.id unless @guardian.nil?), :include_blank => false %>  
+  <% end %>
 	<%= f.input :email %>
 	<%= f.input :password %>
 	<%= f.input :password_confirmation %>

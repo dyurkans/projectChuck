@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   # Relationships
   belongs_to :guardian
   
+  before_save :reformat_email
+  
   # Validations
   validates_uniqueness_of :email, :case_sensitive => false
   validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
@@ -48,6 +50,11 @@ class User < ActiveRecord::Base
   end
   
   private
+  def reformat_email
+    email = self.email.downcase  # change email to be all lowercase 
+    self.email = email       # reset self.email to new lowercase email
+  end
+  
   def guardian_is_active_in_system
     # get an array of all active guardians in the system
     active_guardian_ids = Guardian.active.all.map{|g| g.id}

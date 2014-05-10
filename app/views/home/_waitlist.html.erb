@@ -21,7 +21,7 @@
             <td><%= position %></td>
             <td><%= link_to student.name, student_path(student) %></td>
             <td><%= student.age_as_of_june_1 %></td>
-            <td><%= student.registrations.current.first.created_at %></td>
+            <td><%= student.registrations.current.first.created_at.strftime("%m/%d @ %I:%M%p") %></td>
           </tr>
           <% position += 1 %>
         <% end %>

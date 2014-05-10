@@ -2,6 +2,11 @@ class HomeController < ApplicationController
 
 	require 'will_paginate/array'
 
+  
+  def waitlist
+    @brackets = Bracket.all
+  end
+  
 	def index
 		if  !current_user.nil? && current_user.is_admin?
 			@tournament = Tournament.by_date.first
@@ -15,7 +20,7 @@ class HomeController < ApplicationController
 			@female_students = @current_registered_students.female.size
 			@school_districts = Student.school_districts
 			@unassigned_students = Student.active.alphabetical.unassigned.paginate(:page => params[:unassigned_student_page], :per_page => 10)
-			@brackets = Bracket.all
+# 			@brackets = Bracket.all
 			@home_counties = Student.home_counties
 			# for reg in Registration.current.active.by_date.select { |reg| reg.team_id == nil }
 			# 	@eligible_students = lambda {|bracket| where(Student.find(reg.student_id).age_as_of_june_1 >= min and Student.find(reg.student_id).age_as_of_june_1 <= max) }

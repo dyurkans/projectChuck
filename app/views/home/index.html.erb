@@ -32,12 +32,6 @@
       </div>
       
       <div class="col-sm-12 col-md-12 col-lg-5">
-        <div id="home-waitlist">
-          <h3>Waitlist (By Bracket)</h3>
-          <% @brackets.each do |bracket| %> 
-            <%= render :partial => "waitlist", :locals => { :b => bracket, :min => bracket.min_age, :max => bracket.max_age } %> 
-          <% end %>
-        </div>
         <div id="home-unassigned-students">
           <%= render :partial => "unassigned_students" %>
         </div>

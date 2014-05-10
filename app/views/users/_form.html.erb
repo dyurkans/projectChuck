@@ -1,7 +1,8 @@
 <%= simple_form_for @user do |user_form| %>
   <fieldset>
+    <% editingUser = controller.action_name == "edit" ? true : false %>
     <legend><%= controller.action_name.capitalize %> User</legend>
-      <%= render :partial => "user_fields", :locals => { :f => user_form} %>
+      <%= render :partial => "user_fields", :locals => { :f => user_form, :isEdit => editingUser } %>
     <div class="form-actions">
       <%= user_form.submit nil, :class => 'btn btn-primary' %>
       <%= link_to 'Cancel', users_path, :class => 'btn' %>

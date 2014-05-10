@@ -1,3 +1,29 @@
+/* -----------------------------------  */
+/* http://stackoverflow.com/a/10143018 */
+/* -----------------------------------  */
+
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+.dropdown-menu li:hover {
+    visibility: visible;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
+    margin-top: 0;
+}
+
+/* -----------------------------------  */
+/* -----------------------------------  */
+/* -----------------------------------  */
+
+
 body {
   padding-top:70px;
 }
