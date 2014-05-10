@@ -60,7 +60,7 @@ class Student < ActiveRecord::Base
                           ["Sto-Rox School District",34],["Upper St. Clair School District",35],
                           ["West Allegheny School District",36],["West Jefferson Hills School District",37],
                           ["West Mifflin Area School District",38],["Wilkinsburg School District",39],
-                          ["Woodland Hills School District",40]]
+                          ["Woodland Hills School District",40],["Other",41]]
   
   # Scopes
   scope :alphabetical, order('last_name, first_name')
