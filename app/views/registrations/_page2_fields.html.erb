@@ -2,9 +2,9 @@
   <%= g.input :first_name, :label => "Guardian Name", :placeholder => "First Name", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
   <%= g.input :last_name, :label => false, :placeholder => "Last Name", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
   <%= g.input :gender, :label => "Guardian Gender", :collection => Student::GENDER_LIST, :include_blank => false, :default => 0 %>
-  <%= g.input :email, :placeholder => "johndoe@gmail.com", :placeholder => 'johndoe@gmail.com', :input_html => { size: 30 } %>
-  <%= g.input :day_phone, :label => "Day Phone", :placeholder => "412-345-5555", :placeholder => '412-345-5555', :input_html => { size: 30 } %>
-  <%= g.input :cell_phone, :label => "Guardian Cell Phone", :placeholder => "412-567-9999", :input_html => { size: 30 } %>
+  <%= g.input :email, :input_html => { size: 30 } %>
+  <%= g.input :day_phone, :label => "Day Phone", :input_html => { size: 30 } %>
+  <%= g.input :cell_phone, :label => "Guardian Cell Phone", :input_html => { size: 30 } %>
   <%= g.input :receive_texts, :label => "Opt-in to Receive Text Messages" %>
 </div>
 <%= render :partial => "page3_fields", :locals => { :f => f, :s => s, :r => r} %>

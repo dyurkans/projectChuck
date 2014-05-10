@@ -8,8 +8,8 @@
   
 <!--   <div><%= f.input :medical_agreement, :label => "Parent", :as => :radio_buttons, :collection => [['Agree', true], ['Disagree', false]], :required => true, :wrapper_html => { :style => 'display: inline' }, :input_html => { :class => "agreementField" } %></div> -->
   <div><%= f.input :medical_agreement, :label => "Parent", :as => :boolean, :required => true, :input_html => { :class => "agreementField" } %></div>
-  <%= f.input :family_physician, :label => "Physician Name", :placeholder => "Dr. Herbert Fiscal"  %>
-  <%= f.input :physician_phone, :label => "Physician Phone", :placeholder => "412-778-9999" %>
+  <%= f.input :family_physician, :label => "Physician Name"  %>
+  <%= f.input :physician_phone, :label => "Physician Phone" %>
   <%= r.input :physical_date, :label => "Date of Last Physical Exam: ", :as => :date, :start_year => Date.today.year-2, :end_year => Date.today.year,  :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' } %>    
   <%= r.input :physical, :as => :file, :label => "Physical Form Upload: " %>
   <%= r.input :physical_cache, :as => :hidden %>
