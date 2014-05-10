@@ -17,9 +17,9 @@
   <div class="form-actions">
     <%= student_form.submit nil, :class => 'btn btn-primary' %>
     <% if current_user.role == 'member' %>
-      <%= link_to 'Cancel', home_path, :class => 'btn' %>
+      <%= link_to 'Cancel', home_path, :class => 'btn btn-danger' %>
     <% else %>
-      <%= link_to 'Cancel', students_path, :class => 'btn' %>
+      <%= link_to 'Cancel', students_path, :class => 'btn btn-danger' %>
     <% end %>
   </div>
   </div>

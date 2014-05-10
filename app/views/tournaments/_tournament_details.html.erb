@@ -27,6 +27,7 @@
         <th>Ages</th>
         <th>Gender</th>
         <th>Number of Teams</th>
+        <th>Number of Active Players<th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -36,6 +37,7 @@
           <td><%= link_to "#{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket) %></td>
           <td><%= bracket.sex %></td>
           <td><%= bracket.teams.size() unless bracket.teams.nil? %></td>
+          <td><%= bracket.current_number_of_students %></td>
           <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_bracket_path(bracket), :class => 'btn btn-mini' %></td>
         </tr>
       <% end %>

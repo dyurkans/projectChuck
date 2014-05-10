@@ -7,7 +7,7 @@ class Bracket < ActiveRecord::Base
   GENDER_LIST = [["Male", true], ["Female", false]]
 
   validates_numericality_of :tournament_id, :only_integer => true, :greater_than => 0
-  validates_numericality_of :min_age, :only_integer => true, :greater_than_or_equal_to => 7 
+  validates_numericality_of :min_age, :only_integer => true, :greater_than_or_equal_to => 7, :less_than_or_equal_to => :max_age 
   validates_numericality_of :max_age, :only_integer => true, :less_than_or_equal_to => 18
   validates_inclusion_of :gender, :in => [true, false], :message => "Must be true or false"
 
@@ -36,6 +36,16 @@ class Bracket < ActiveRecord::Base
     end
   end
 
+  def current_number_of_students
+    total_number_of_students = 0
+    if not self.teams.nil?
+      self.teams.each do |team|
+        total_number_of_students += team.current_number_of_students
+      end
+    end
+    total_number_of_students
+  end
+  
   def eligible_students(min,max)
     unassigned_regs = Registration.current.active.by_date.select { |reg| reg.team_id == nil }
     eligible_regs = []
