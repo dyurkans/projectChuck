@@ -22,7 +22,7 @@ attr_accessible :medical_agreement, :permission_agreement, :student_agreement, :
 
 	# Validations
   validates_acceptance_of :medical_agreement, :permission_agreement, :student_agreement, :parent_agreement, :overall_agreement, :on => :create, :message => "Must be accepted"
-	validates_presence_of :street, :city, :family_physician, :insurance_provider, :insurance_policy_no, :message => "Can't be blank"
+	validates_presence_of :street, :city :message => "Can't be blank"
 	validates_inclusion_of :state, :in => STATES_LIST.map {|k, v| v}, :message => "Not a recognized State"
 	validates_format_of :zip, :with => /^\d{5}$/, :message => "Should be five digits long"
 	validates_inclusion_of :active, :in => [true, false]

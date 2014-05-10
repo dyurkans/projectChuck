@@ -37,7 +37,7 @@
             <div><%= image_tag('bob_logo.png', :size => ('156x242'), :class => 'img-responsive hidden-md hidden-lg' ) %></div>
           </div>
           <div class="col-sm-1 col-med-1 col-lg-1 spacer"></div>
-          <div id="main_content" class="col-sm-9 col-md-9 col-lg-8 main">
+          <div id="main_content" class="col-sm-9 col-md-9 col-lg-9 main">
             <!-- flash messages -->
             <% flash.each do |name, msg| %>
               <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
@@ -49,11 +49,8 @@
             <!-- MAIN CONTENT -->
             <%= yield %>
           </div>
-          <div class="col-sm-1 col-md-1 col-lg-1 spacer hidden-xs hidden-sm"></div>
-          
-          <div id="sidebar-right" class="col-sm-1 col-md-1 col-lg-1 hidden-xs hidden-sm">
-            <%= image_tag('bob_logo.png', :size => ('156x242'), :class => 'img-responsive' ) %>
-          </div>
+          <div class="col-xs-0 col-sm-0 col-md-1 col-lg-1 spacer hidden-xs hidden-sm"></div>
+        
       </div>
 
   </div>
