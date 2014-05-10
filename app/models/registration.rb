@@ -75,7 +75,7 @@ class Registration < ActiveRecord::Base
     student = Student.find(self.student_id)
     missing_documents = ""
     if self.proof_of_insurance.blank?
-      missing_documents += "IC/"
+      missing_documents += "PI/"
     end
     if self.physical.blank?
       missing_documents += "PH/"

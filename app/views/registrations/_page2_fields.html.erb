@@ -1,6 +1,6 @@
 <div id="page2" class="myHide">
-  <%= g.input :first_name, :label => "Guardian Name", :placeholder => "First Name", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
-  <%= g.input :last_name, :label => false, :placeholder => "Last Name", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
+  <%= g.input :first_name, :label => "Guardian Name", :placeholder => "First Name", :wrapper => :my_wrapper, :input_html => { autcorrect: "off", size: 30 } %>
+  <%= g.input :last_name, :label => false, :placeholder => "Last Name", :wrapper => :my_wrapper, :input_html => { autcorrect: "off", size: 30 } %>
   <%= g.input :gender, :label => "Guardian Gender", :collection => Student::GENDER_LIST, :include_blank => false, :default => 0 %>
   <%= g.input :email, :input_html => { size: 30 } %>
   <%= g.input :day_phone, :label => "Day Phone", :input_html => { size: 30 } %>

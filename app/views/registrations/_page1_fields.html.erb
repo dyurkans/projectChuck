@@ -6,8 +6,8 @@
         <%= s.input :household_id, :as => :hidden %>
         <%= r.input :student_id, :as => :hidden %>
         <div id="page1">
-          <%= s.input :first_name, :label => "Student Name", :placeholder => "First Name", :wrapper => :my_wrapper,  :input_html => { size: 30 } %>
-          <%= s.input :last_name, :label => false, :placeholder => "Last Name", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
+          <%= s.input :first_name, :label => "Student Name", :placeholder => "First Name", :wrapper => :my_wrapper,  :input_html => { autcorrect: "off", size: 30 } %>
+          <%= s.input :last_name, :label => false, :placeholder => "Last Name", :wrapper => :my_wrapper, :input_html => { autcorrect: "off", size: 30 } %>
           <%= s.input :gender, :collection => Student::GENDER_LIST, :include_blank => false, :default => 0 %>
           <%= s.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year-19, :end_year => Date.today.year-4,  :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' } %>
           <%= s.input :birth_certificate, :as => :file, :label => "Birth Certificate Upload: " %>
