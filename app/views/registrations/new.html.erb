@@ -4,9 +4,11 @@
     var first_page = 1;
     var current_page_number = first_page;
     var previous_page_number = current_page_number-1;
-    var last_page = 6;
+    var end_of_form =  6; // page 6
+    var last_page = 7; // page 7
+    var survey_page = last_page;
     var default_legend_name = $("#registrationFormLegend").text();
-    var legend_names = [default_legend_name, "Guardian Information", "Student School Information", "Insurance Information", "Medical Information", "Terms and Conditions"];
+    var legend_names = [default_legend_name, "Guardian Information", "Student School Information", "Insurance Information", "Medical Information", "Terms and Conditions", "Survey"];
     $("#myContinue").click(function() {
       if (first_page <= current_page_number && current_page_number < last_page) {
         previous_page_number = current_page_number;
@@ -60,11 +62,15 @@
         }
       
         //if on last page then show submit button
-        if (current_page_number === last_page) {
+        if (current_page_number === end_of_form) {
           $("#registrationNestedSubmit").removeClass('myHide');
+          $("#myPrevious").addClass('myHide');
+        } else if (current_page_number === survey_page) {
+          $("#myPrevious").addClass('myHide');
           $("#myContinue").addClass('myHide');
-       }
-        else {
+          $("#registrationFormCancel").addClass('myHide');
+          $("#registrationNestedSubmit").addClass('myHide');
+        } else {
           $("#registrationNestedSubmit").addClass('myHide');
           $("#myContinue").removeClass('myHide');
         }

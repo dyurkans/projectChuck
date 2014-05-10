@@ -12,13 +12,13 @@ class Guardian < ActiveRecord::Base
   before_save :reformat_phone
 
   validates_presence_of :first_name, :last_name
-  validates_date :dob, :on_or_before => lambda { 18.years.ago }, :on_or_before_message => "must be at least 18 years old" 
-  validates_format_of :day_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
-  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
-  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format", :allow_blank => true, :allow_nil => true
-  validates_inclusion_of :receive_texts, :in => [true, false], :message => "must be true or false"
-  validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
-  validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
+  validates_date :dob, :on_or_before => lambda { 18.years.ago }, :on_or_before_message => "Must be at least 18 years old" 
+  validates_format_of :day_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
+  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
+  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "Email is not in a valid format", :allow_blank => true, :allow_nil => true
+  validates_inclusion_of :receive_texts, :in => [true, false]
+  validates_inclusion_of :gender, :in => [true, false]
+  validates_inclusion_of :active, :in => [true, false]
   validates_uniqueness_of :email, :case_sensitive => false
   validates_numericality_of :household_id, :only_integer => true, :greater_than => 0, :allow_nil => true
 

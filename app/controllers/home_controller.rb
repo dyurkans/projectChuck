@@ -1,10 +1,10 @@
 class HomeController < ApplicationController
 
 	require 'will_paginate/array'
-
   
   def waitlist
     @brackets = Bracket.all
+    authorize! :waitlist, current_user
   end
   
 	def index

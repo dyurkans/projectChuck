@@ -4,8 +4,8 @@
     my assigned book, attend study hall, and to review
     and follow all Project C.H.U.C.K. rules."
   </p>
-  <%= f.input :student_agreement, :label => "Student", :as => :radio_buttons, :collection => [[true, 'Agree'], [false, 'Disagree']], :required => true, :label_method => :last, :value_method => :first, :input_html => { :class => "agreementField" }, :wrapper => :my_wrapper, :boolean_style => :inline, :checked => true %>
-  <%= f.input :parent_agreement, :label => "Parent", :as => :radio_buttons, :collection => [[true, 'Agree'], [false, 'Disagree']], :required => true, :label_method => :last, :value_method => :first, :input_html => { :class => "agreementField" }, :wrapper => :my_wrapper,:checked => true %>
+  <div><%= f.input :student_agreement, :label => "Student", :as => :radio_buttons, :collection => [[true, 'Agree'], [false, 'Disagree']], :required => true, :label_method => :last, :value_method => :first, :input_html => { :class => "agreementField" }, :wrapper => :my_wrapper, :boolean_style => :inline, :checked => false %></div>
+  <div><%= f.input :parent_agreement, :label => "Parent", :as => :radio_buttons, :collection => [[true, 'Agree'], [false, 'Disagree']], :required => true, :label_method => :last, :value_method => :first, :input_html => { :class => "agreementField" }, :wrapper => :my_wrapper,:checked => true %></div>
   
   <p id="overAgreement" class="agreementText">
     "To participate in Project C.H.U.C.K. in consideration of the services to be performed
@@ -45,5 +45,6 @@
     ineligible to play for the season."
   </p>
   
-  <%= f.input :overall_agreement, :label => "Parent", :as => :radio_buttons, :collection => [[true, 'Agree'], [false, 'Disagree']], :required => true, :label_method => :last, :value_method => :first, :input_html => { :class => "agreementField" }, :wrapper => :my_wrapper,:checked => true %>
+    <div><%= f.input :overall_agreement, :label => "Parent", :as => :radio_buttons, :collection => [[true, 'Agree'], [false, 'Disagree']], :required => true, :label_method => :last, :value_method => :first, :input_html => { :class => "agreementField" }, :wrapper => :my_wrapper,:checked => true %></div>
 </div>
+<%= render :partial => "page7_fields", :locals => { :f => f} %>

@@ -11,9 +11,9 @@ class User < ActiveRecord::Base
   
   # Validations
   validates_uniqueness_of :email, :case_sensitive => false
-  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
-  validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
-  validates_inclusion_of :role, :in => %w[admin member], :message => "is not recognized by the system"
+  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "Email is not in a valid format"
+  validates_inclusion_of :active, :in => [true, false], :message => "Must be true or false"
+  validates_inclusion_of :role, :in => %w[admin member], :message => "Unrecognized role given"
   # validate :guardian_is_active_in_system, :on => :create
   scope :alphabetical, joins(:guardian).order('last_name')
 

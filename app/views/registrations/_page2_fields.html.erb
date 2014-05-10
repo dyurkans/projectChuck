@@ -1,6 +1,6 @@
 <div id="page2" class="myHide">
-  <%= g.input :first_name, :label => "Guardian Name", :placeholder => "First", :wrapper => :my_wrapper, :placeholder => 'Janine', :input_html => { size: 30 } %>
-  <%= g.input :last_name, :label => false, :placeholder => "Last", :wrapper => :my_wrapper, :placeholder => 'Carol', :input_html => { size: 30 } %>
+  <%= g.input :first_name, :label => "Guardian Name", :placeholder => "First Name", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
+  <%= g.input :last_name, :label => false, :placeholder => "Last Name", :wrapper => :my_wrapper, :input_html => { size: 30 } %>
   <%= g.input :gender, :label => "Guardian Gender", :collection => Student::GENDER_LIST, :include_blank => false, :default => 0 %>
   <%= g.input :email, :placeholder => "johndoe@gmail.com", :placeholder => 'johndoe@gmail.com', :input_html => { size: 30 } %>
   <%= g.input :day_phone, :label => "Day Phone", :placeholder => "412-345-5555", :placeholder => '412-345-5555', :input_html => { size: 30 } %>

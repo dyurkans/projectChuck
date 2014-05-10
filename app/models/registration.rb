@@ -22,10 +22,10 @@ class Registration < ActiveRecord::Base
   validate :student_in_allowable_age_range
   validates_numericality_of :student_id, :only_integer => true, :greater_than => 0, :allow_nil => true
   validates_numericality_of :team_id, :only_integer => true, :greater_than => 0, :allow_nil => true 
-  validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
-  validates_date :physical_date,:allow_nil=> true, :on_or_after => lambda { Date.new(Date.today.year-1, 8, 1) }, :on_or_before => lambda { Date.today }, :on_or_before_message => "cannot be in the future"
+  validates_inclusion_of :active, :in => [true, false]
+  validates_date :physical_date,:allow_nil=> true, :on_or_after => lambda { Date.new(Date.today.year-1, 8, 1) }, :on_or_before => lambda { Date.today }, :on_or_before_message => "Physical date cannot be in the future"
   validates_numericality_of :t_shirt_size, :allow_blank => false, :allow_nil => true, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => SIZE_LIST.size
-  validates_inclusion_of :t_shirt_size, :in => SIZE_LIST.map {|s| s[1]}, :allow_nil => true, :message => "unavailable size chosen"
+  validates_inclusion_of :t_shirt_size, :in => SIZE_LIST.map {|s| s[1]}, :allow_nil => true, :message => "Unavailable size chosen"
   validate :student_in_appropriate_bracket
 
   #Scopes

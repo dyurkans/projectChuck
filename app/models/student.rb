@@ -19,12 +19,12 @@ class Student < ActiveRecord::Base
 
   #Validations (email commented out b/c not in the database)
   validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :security_response, :security_question, :grade_integer, :security_question, :dob
-  validates_date :dob, :on_or_before => 7.years.ago.to_date, :after => 19.years.ago.to_date, :message => "must be between the ages of 7 and 18 included"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
-  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
-  validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
+  validates_date :dob, :on_or_before => 7.years.ago.to_date, :after => 19.years.ago.to_date, :message => "Must be between the ages of 7 and 18 (inclusive)"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
+  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
+  validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only"
   # validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
-  validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
-  validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
+  validates_inclusion_of :gender, :in => [true, false]
+  validates_inclusion_of :active, :in => [true, false]
   #validates_inclusion_of :security_question, :in => SECURITY_QUESTIONS.map() #Need to check how mapping works
   #validates_inclusion_of :security_response, :in => SECURITY_RESPONSES.map() #Need to check how mapping works
   #Add these tests to student_test file
@@ -78,7 +78,7 @@ class Student < ActiveRecord::Base
   scope :seniors, where('grade_integer = ?', 13)
   scope :without_forms, joins(:registrations).where('students.birth_certificate IS NULL OR physical IS NULL OR proof_of_insurance IS NULL OR report_card IS NULL')
   scope :unassigned, joins(:registrations).where('team_id IS NULL')
-  scope :current, joins(:registrations).where('? <= registrations.created_at and registrations.created_at <= ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31))
+  scope :current, joins(:registrations).where('? <= registrations.created_at and registrations.created_at <= ? and registrations.active = ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31), true)
   # Other methods
 
   def self.missing_forms(stus)
