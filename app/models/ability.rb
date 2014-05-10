@@ -9,6 +9,7 @@ class Ability
         can :manage, :all
       elsif user.is_member?
         can [:create, :update], [Registration, Student, Guardian]
+        can [:survey], Registration
         can [:show, :update], User do |u|
           u.email == user.email
         end
