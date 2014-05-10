@@ -4,15 +4,14 @@ class Guardian < ActiveRecord::Base
   has_many :students, through: :household
 
   accepts_nested_attributes_for :household, :students
-  attr_accessible :household_attributes, :students_attributes, :active, :cell_phone, :day_phone, :dob, :email, :first_name, :gender, :household_id, :last_name, :receive_texts
+  attr_accessible :household_attributes, :students_attributes, :active, :cell_phone, :day_phone, :email, :first_name, :gender, :household_id, :last_name, :receive_texts
 
   
   #Callbacks
   before_save :reformat_cell
   before_save :reformat_phone
 
-  validates_presence_of :first_name, :last_name
-  validates_date :dob, :on_or_before => lambda { 18.years.ago }, :on_or_before_message => "Must be at least 18 years old" 
+  validates_presence_of :first_name, :last_name, :message => "Can't be blank"
   validates_format_of :day_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
   validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
   validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "Email is not in a valid format", :allow_blank => true, :allow_nil => true

@@ -19,7 +19,7 @@ class Registration < ActiveRecord::Base
   SIZE_LIST = [["S", 0], ["M", 1], ["L",2], ["XL",3], ["XXL",4], ["XXXL",5]]
   
   #Validations
-  validates_presence_of :t_shirt_size
+  validates_presence_of :t_shirt_size, :message => "Can't be blank"
   validate :student_in_allowable_age_range
   validates_numericality_of :student_id, :only_integer => true, :greater_than => 0, :allow_nil => true
   validates_numericality_of :team_id, :only_integer => true, :greater_than => 0, :allow_nil => true 

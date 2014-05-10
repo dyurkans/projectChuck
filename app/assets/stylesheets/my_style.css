@@ -126,8 +126,16 @@ fieldset, legend {
 }
 
 #surveyIntroduction {
-  font-size:13pt;
+  font-size:20pt;
   font-weight:900;
+}
+
+#mySurveyLink {
+  font-size:16pt;
+}
+
+#surveyPage {
+  padding-top:60px;
 }
 
 #myLogin, #myLogout, #userName {

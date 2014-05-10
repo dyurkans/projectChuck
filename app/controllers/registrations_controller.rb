@@ -2,6 +2,10 @@ class RegistrationsController < ApplicationController
 
   authorize_resource
   
+  def survey
+    
+  end
+  
   def new
     @household = Household.new
     @guardian = @household.guardians.build(:household_id => @household.id) if @household.guardians.empty?
@@ -21,7 +25,7 @@ class RegistrationsController < ApplicationController
     if @household.save
       # if saved to database
       flash[:notice] = "Successfully created a registration for #{student.proper_name}."
-      redirect_to home_path
+      redirect_to survey_path
     else
       # return to the 'new' form
       render 'new'

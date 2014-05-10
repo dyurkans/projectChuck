@@ -1,5 +1,4 @@
 class Household < ActiveRecord::Base  
-attr_accessor :medical_agreement, :permission_agreement, :student_agreement, :parent_agreement, :overall_agreement
    	# Relationships
 	has_many :students
 	has_many :guardians
@@ -22,10 +21,10 @@ attr_accessible :medical_agreement, :permission_agreement, :student_agreement, :
 
 
 	# Validations
-  validates_acceptance_of :medical_agreement, :permission_agreement, :student_agreement, :parent_agreement, :overall_agreement
-	validates_presence_of :street, :city, :family_physician, :insurance_provider, :insurance_policy_no
+  validates_acceptance_of :medical_agreement, :permission_agreement, :student_agreement, :parent_agreement, :overall_agreement, :on => :create, :message => "Must be accepted"
+	validates_presence_of :street, :city, :family_physician, :insurance_provider, :insurance_policy_no, :message => "Can't be blank"
 	validates_inclusion_of :state, :in => STATES_LIST.map {|k, v| v}, :message => "Not a recognized State"
-	validates_format_of :zip, :with => /^\d{5}$/, :message => "should be five digits long"
+	validates_format_of :zip, :with => /^\d{5}$/, :message => "Should be five digits long"
 	validates_inclusion_of :active, :in => [true, false]
   validates_format_of :home_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true
   validates_format_of :physician_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only"

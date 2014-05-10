@@ -31,6 +31,7 @@ ProjectChuck::Application.routes.draw do
   get 'guardians/:id/activate' => 'guardians#activate_guardian', :as => :activate_guardian
   get 'students/:id/activate' => 'students#activate', :as => :activate
   get 'home/waitlist' => 'home#waitlist', :as => :waitlist
+  get 'survey' => 'registrations#survey', :as => :survey
   #get 'home' => 'home#index', :as => :home
   
   # Set the root url
