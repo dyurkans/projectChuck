@@ -1,4 +1,5 @@
 class Tournament < ActiveRecord::Base
+  attr_accessor :notes
   attr_accessible :end_date, :start_date
 
   has_many :brackets
