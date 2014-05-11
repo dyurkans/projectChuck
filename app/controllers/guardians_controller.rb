@@ -6,7 +6,9 @@ class GuardiansController < ApplicationController
   
   def new
     @guardian = Guardian.new
-    @households = Household.active.by_last_name
+    households_with_guardians = Household.active.by_last_name
+    households_without_guardians = Household.all - households_with_guardians
+    @households = households_without_guardians + households_with_guardians
   end
   
   def create

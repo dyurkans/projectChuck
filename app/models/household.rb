@@ -13,7 +13,7 @@ attr_accessible :medical_agreement, :permission_agreement, :student_agreement, :
 	# Scopes
 	scope :active, where('households.active = ?', true)
 	scope :inactive, where('households.active = ?', false)
-	scope :by_last_name, joins(:guardians).order('guardians.last_name').group('guardians.household_id','guardians.last_name','households.id')
+	scope :by_last_name, joins(:guardians).order('guardians.last_name').group('households.id','guardians.last_name','guardians.household_id')
 
 
 	# Lists
@@ -27,9 +27,9 @@ attr_accessible :medical_agreement, :permission_agreement, :student_agreement, :
 	validates_format_of :zip, :with => /^\d{5}$/, :message => "Should be five digits long"
 	validates_inclusion_of :active, :in => [true, false]
   validates_format_of :home_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true
-  validates_format_of :physician_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only"
+  validates_format_of :physician_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true
   validates_inclusion_of :active, :in => [true, false]
-  validates_format_of :family_physician, :with => /((Dr\.|Dr|Doctor)\s)?([^\d\s]+\s?){2,}(\, M\.D\.)?/i
+  validates_format_of :family_physician, :with => /((Dr\.|Dr|Doctor)\s)?([^\d\s]+\s?){2,}(\, M\.D\.)?/i, :allow_blank => true
 
 
 	# Other methods
@@ -41,14 +41,18 @@ attr_accessible :medical_agreement, :permission_agreement, :student_agreement, :
 		guardians = self.guardians.alphabetical
 		name = ""
 		index = 0
-		for g in guardians
-			if index != guardians.size - 1
-				name += g.first_name + " " + g.last_name + "/"
-			else 
-				name += g.first_name + " " + g.last_name
-			end
-			index += 1
-		end
+    if guardians.size > 0
+      for g in guardians
+        if index != guardians.size - 1
+          name += g.first_name + " " + g.last_name + "/"
+        else 
+          name += g.first_name + " " + g.last_name
+        end
+        index += 1
+      end
+    else
+      name = full_address
+    end
 		name
 	end
 

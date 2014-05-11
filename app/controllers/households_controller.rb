@@ -27,7 +27,9 @@ class HouseholdsController < ApplicationController
   def index
     @active_households = Household.active.paginate(:page => params[:page]).per_page(10)
     @inactive_households = Household.inactive.paginate(:page => params[:page]).per_page(10)
-    @all_households = Household.by_last_name.paginate(:page => params[:page]).per_page(10)
+    households_with_guardians = Household.active.by_last_name
+    households_without_guardians = Household.all - households_with_guardians
+    @all_households = (households_without_guardians + households_with_guardians).paginate(:page => params[:page], :per_page => 10)
   end
   
   def show

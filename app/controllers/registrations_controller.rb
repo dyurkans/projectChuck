@@ -24,7 +24,7 @@ class RegistrationsController < ApplicationController
     student = @household.students.first
     if @household.save
       # if saved to database
-      flash[:notice] = "Successfully created a registration for #{student.proper_name}."
+      flash[:notice] = "Congratulations! You have successfully registered for Project C.H.U.C.K"
       redirect_to survey_path
     else
       # return to the 'new' form
