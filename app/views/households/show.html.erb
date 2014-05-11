@@ -6,7 +6,12 @@
 </div>
 
 <div class="form-actions">
-  <%= link_to raw("<i class='icon-list'></i> Display All Households"), households_path, :class => 'btn btn-default myDisplayAllButton'  %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-pencil'></i> Edit Household"), edit_household_path(@household), :class => 'btn btn-primary myEditButton' %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-remove icon-white'></i> Change Household Status"), household_path(@household), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  <%= link_to raw("<span class='glyphicon glyphicon-list'></span> Display All Households"), households_path, :class => 'btn btn-default myDisplayAllButton'  %>&nbsp;&nbsp;
+  <%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit Household"), edit_household_path(@household), :class => 'btn btn-primary myEditButton' %>&nbsp;&nbsp;
+  <% household_name = @household.name %>
+  <% if @household.active %>
+    <%= link_to raw("<span class='glyphicon glyphicon-remove'></span> Make #{household_name} Inactive"), household_path(@household), :method => 'delete', :confirm => 'Warning: All guardians, students, and registrations associated with those students will be made inactive. Are you sure you want to do this?', :class => 'btn btn-danger' %>
+  <% else %>
+    <%= link_to raw("<span class='glyphicon glyphicon-ok'></span> Make #{household_name} Active"), activate_household_path(@household), :class => 'btn btn-success' %>
+  <% end %>
 </div>

@@ -1,6 +1,10 @@
-<div id="home-waitlist row col-sm-12 col-md-12 col-lg-">
+<div id="home-waitlist row col-sm-12 col-md-12 col-lg-12">
   <h3>Waitlist (By Bracket)</h3>
-  <% @brackets.each do |bracket| %> 
-    <%= render :partial => "waitlist", :locals => { :b => bracket, :min => bracket.min_age, :max => bracket.max_age } %> 
+  <% if @brackets.size > 0 %>
+    <% @brackets.each do |bracket| %> 
+      <%= render :partial => "waitlist", :locals => { :b => bracket, :min => bracket.min_age, :max => bracket.max_age } %> 
+    <% end %>
+  <% else %>
+    <%= "There are currently no brackets in the Project C.H.U.C.K. system." %>
   <% end %>
 </div>

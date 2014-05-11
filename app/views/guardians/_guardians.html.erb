@@ -21,7 +21,7 @@
           <td><%= number_to_phone guardian.day_phone %></td>
           <td><%= guardian.receive_texts ? "Yes" : "No" %></td>
           <td><%= guardian.active ? "Active" : "Inactive" %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_guardian_path(guardian), :class => 'btn btn-mini' %></td>
+          <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_guardian_path(guardian), :class => 'btn btn-md' %></td>
         </tr>
       <% end %>
     </tbody>

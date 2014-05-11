@@ -60,6 +60,10 @@ label {
   font-size: 1.2em;
 }
 
+fieldset {
+  border: none;
+}
+
 fieldset, legend {
   padding-top: 2%;
 }

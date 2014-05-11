@@ -23,7 +23,7 @@
           <td><%= team.coach %></td>
           <td><%= number_of_players %></td>
           <td><%= team.remaining_spots %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_team_path(team), :class => 'btn btn-mini' %></td>
+          <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_team_path(team), :class => 'btn btn-md' %></td>
         </tr>
       <% end %>
     </tbody>

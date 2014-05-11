@@ -6,10 +6,10 @@
 </div>
 <% if current_user.is_admin? %>
 	<div class="form-actions">
-	  <%= link_to raw("<i class='icon-list'></i> Display All Users"), users_path, :class => 'btn btn-default myDisplayAllButton'  %>&nbsp;&nbsp;
-	  <%= link_to raw("<i class='icon-pencil'></i> Edit #{@guardian.proper_name}"), edit_user_path(@user), :class => 'btn btn-primary myEditButton' %>&nbsp;&nbsp;
+	  <%= link_to raw("<span class='glyphicon glyphicon-list'></span> Display All Users"), users_path, :class => 'btn btn-default myDisplayAllButton'  %>&nbsp;&nbsp;
+	  <%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit #{@guardian.proper_name}"), edit_user_path(@user), :class => 'btn btn-primary myEditButton' %>&nbsp;&nbsp;
 	  <% if @user != current_user %>
-      <%= link_to raw("<i class='icon-remove icon-white'></i> Delete #{@guardian.proper_name}"), user_path(@user), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+      <%= link_to raw("<span class='glyphicon glyphicon-remove'></span> Delete #{@guardian.proper_name}"), user_path(@user), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
     <% end %>
 	</div>
 <% end %>

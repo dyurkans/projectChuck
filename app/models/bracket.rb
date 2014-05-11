@@ -22,7 +22,7 @@ class Bracket < ActiveRecord::Base
   	"#{self.sex} #{self.min_age} - #{self.max_age}"
   end
 
-  def waitlist
+  def remaining_spots
     spots = 0
     for t in self.teams
       if t.remaining_spots > 0

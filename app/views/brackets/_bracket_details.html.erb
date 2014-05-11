@@ -27,8 +27,8 @@
           <td><%= link_to team_name(team.name), team_path(team) %></td>
           <td><%= team.coach %></td>
           <td><%= team.current_number_of_students %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_team_path(team), :class => 'btn btn-mini' %></td>
-          <td><%= link_to raw("<i class='icon-user icon-white'></i> Remove"), remove_team_path(team_id: team.id), :origin => 'teams', :class => "btn btn-mini" %></td>
+          <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_team_path(team), :class => 'btn btn-md' %></td>
+          <td><%= link_to raw("<span class='glyphicon glyphicon-trash'></span> Remove"), remove_team_path(team_id: team.id), :origin => 'teams', :class => "btn btn-md" %></td>
         </tr>
       <% end %>
     </tbody>

@@ -64,7 +64,15 @@ class HouseholdsController < ApplicationController
     end
     @household.save!
     flash[:notice] = "Successfully deactivated the  #{@household.name} Household from the Project C.H.U.C.K. System"
-    redirect_to household_url
+    redirect_to @household
+  end
+  
+  def activate_household
+    @household = Household.find(params[:id])
+    @household.active = true
+    @household.save! 
+    flash[:notice] = "Successfully reactivated #{@household.name} in the Project C.H.U.C.K. System"
+    redirect_to @household
   end
 
 end

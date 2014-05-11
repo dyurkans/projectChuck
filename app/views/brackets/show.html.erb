@@ -6,7 +6,7 @@
 </div>
 
 <div class="form-actions">
-  <%= link_to raw("<i class='icon-list'></i> Display All Brackets"), brackets_path, :class => 'btn btn-default myDisplayAllButton'  %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-pencil'></i> Edit Bracket"), edit_bracket_path(@bracket), :class => 'btn btn-primary myEditButton' %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-remove icon-white'></i> Delete Bracket"), bracket_path(@bracket), :method => 'delete', :action => 'destroy', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  <%= link_to raw("<span class='glyphicon glyphicon-list'></span> Display All Brackets"), brackets_path, :class => 'btn btn-default myDisplayAllButton'  %>&nbsp;&nbsp;
+  <%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit Bracket"), edit_bracket_path(@bracket), :class => 'btn btn-primary myEditButton' %>&nbsp;&nbsp;
+  <%= link_to raw("<span class='glyphicon glyphicon-trash'></span> Delete Bracket"), bracket_path(@bracket), :method => 'delete', :action => 'destroy', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
 </div>

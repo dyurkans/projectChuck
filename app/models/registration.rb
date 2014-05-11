@@ -44,18 +44,21 @@ class Registration < ActiveRecord::Base
   #Other Methods
 
   def student_in_appropriate_bracket
-    return false if team_id.nil?
-    team = Team.find_by_id(team_id)
-    return false if team.nil? || team.bracket_id.nil?
-    bracket = Bracket.find_by_id(team.bracket_id)
-    return false if bracket.nil? || student_id.nil?
-    student = Student.find_by_id(student_id)
-    return true if student.nil? # should be caught by other validations; no double error
-    age = student.age
-    min = bracket.min_age
-    max = bracket.max_age
-    unless age >= min && (max.nil? || age <= max)
-      errors.add(:student_id, "is not within the age range for this section")
+    if team_id.nil? then false else team = Team.find_by_id(team_id) end
+    
+    if team.nil? || team.bracket_id.nil? then false else bracket = Bracket.find_by_id(team.bracket_id) end
+    
+    if bracket.nil? || student_id.nil? then false else student = Student.find_by_id(student_id) end
+      
+    if student.nil?
+      true
+    else
+      age = student.age
+      min = bracket.min_age
+      max = bracket.max_age
+      unless age >= min && (max.nil? || age <= max)
+        errors.add(:student_id, "is not within the age range for this section")
+      end
     end
   end
 
@@ -94,14 +97,17 @@ class Registration < ActiveRecord::Base
 
   private
   def student_in_allowable_age_range
-    return false if student_id.nil?
-    student = Student.find_by_id(student_id)
-    return false if student.nil?
-    age = student.age_as_of_june_1
-    if age >= 7 or age <= 18
-      true
-    else
+    if student_id.nil? then false else student = Student.find_by_id(student_id) end
+      
+    if student.nil?
       false
+    else
+      age = student.age_as_of_june_1
+      if age >= 7 or age <= 18
+      true
+      else
+        false
+      end
     end
   end
 

@@ -61,7 +61,7 @@ class StudentsController < ApplicationController
     redirect_to @student
   end
 
-  def activate
+  def activate_student
     @student = Student.find(params[:id])
     @student.active = true
     @student.save! 
@@ -71,7 +71,7 @@ class StudentsController < ApplicationController
         reg.save!
       end      
     end
-    flash[:notice] = "Successfully reactivated #{@student.proper_name} from the Project C.H.U.C.K. System"
+    flash[:notice] = "Successfully reactivated #{@student.proper_name} in the Project C.H.U.C.K. System"
     redirect_to @student
   end
 

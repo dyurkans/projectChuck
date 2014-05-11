@@ -38,7 +38,7 @@
           <td><%= bracket.sex %></td>
           <td><%= bracket.teams.size() unless bracket.teams.nil? %></td>
           <td><%= bracket.current_number_of_students %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_bracket_path(bracket), :class => 'btn btn-mini' %></td>
+          <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_bracket_path(bracket), :class => 'btn btn-md' %></td>
         </tr>
       <% end %>
     </tbody>

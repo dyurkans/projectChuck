@@ -64,7 +64,7 @@
           <td><%= guardian.email %></td>
           <td><%= guardian.receive_texts ? "Yes" : "No" %></td>
           <td><%= guardian.active ? "Active" : "Inactive" %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_guardian_path(guardian), :class => 'btn btn-mini' %></td>
+          <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_guardian_path(guardian), :class => 'btn btn-md' %></td>
         </tr>
       <% end %>
     </tbody>
@@ -100,7 +100,7 @@
           <td><%= student.grade_integer %></td>          
           <td><%= number_to_phone student.cell_phone %></td>
           <td><%= student.active ? "Active" : "Inactive" %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
+          <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_student_path(student), :class => 'btn btn-md' %></td>
         </tr>
       <% end %>
     </tbody>

@@ -58,12 +58,13 @@
             <% registration = student.registrations.current[0] %>
             <td><%= link_to student.name, student_path(student) %></td>
             <td><%= student.dob.nil? ? "---" : student.age_as_of_june_1  %></td>
-            <td><%= registration.missing_doc %></td>
+            <% tableCellClass = registration.missing_doc == "None" ? "" : "myDanger" %>
+            <td class=<%= tableCellClass %>><%= registration.missing_doc %></td>
             <td><%= number_to_phone student.cell_phone %></td>
             <td>1          2          3</td>
             <td><%= registration.active ? "Active" : "Inactive" %></td>
-            <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
-            <td><%= link_to raw("<i class='icon-user icon-white'></i> Remove"), remove_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-mini" %></td>
+            <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_student_path(student), :class => 'btn btn-md' %></td>
+            <td><%= link_to raw("<span class='glyphicon glyphicon-remove'></span> Remove from #{@team.team_name}"), remove_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-md" %></td>
           </tr>
         <% end %>
       <% end %>
@@ -97,12 +98,13 @@
             <% registration = student.registrations.current[0] %> 
             <td><%= link_to student.name, student_path(student) %></td>
             <td><%= student.dob.nil? ? "---" : student.age  %></td>
-            <td><%= registration.missing_doc %></td>
+            <% tableCellClass = registration.missing_doc == "None" ? "" : "myDanger" %>
+            <td class=<%= tableCellClass %>><%= registration.missing_doc %></td>
             <td><%= number_to_phone student.cell_phone %></td>
             <td><%= registration.active ? "Active" : "Inactive" %></td>
-            <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
+            <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_student_path(student), :class => 'btn btn-md' %></td>
             <% if @team.remaining_spots >  0 %>
-              <td><%= link_to raw("<i class='icon-user icon-white'></i> Add to #{team_name(@team.name)} "), add_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-mini" %></td>
+              <td><%= link_to raw("<span class='glyphicon glyphicon-plus'></span> Add to #{team_name(@team.name)} "), add_student_path(student_id: student.id), :origin => 'teams', :class => "btn btn-md" %></td>
             <% end %>
           </tr>
         <% end %>

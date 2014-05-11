@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
     def show
         @user = User.find(params[:id])
-        if current_user.email != @user.email
+        if current_user.role != 'admin' && current_user.email != @user.email
             redirect_to home_path 
         end
         @guardian = Guardian.find(@user.guardian_id)
@@ -35,8 +35,8 @@ class UsersController < ApplicationController
         @guardian = Guardian.find(@user.guardian_id)
         @guardians = User.eligible_guardians(@guardian)
         if @user.save
-            session[:user_id] = @user.id
-            redirect_to root_url, notice: "Thank you for signing up!"
+          flash[:notice] = "#{@user.role == "admin" ? "An admin" : "A member" } account for #{@guardian.proper_name} has successfully been created."
+          redirect_to @user
         else
             flash[:error] = "This user could not be created."
             render "new"
@@ -48,8 +48,8 @@ class UsersController < ApplicationController
         @guardian = Guardian.find(@user.guardian_id)
         @guardians = User.eligible_guardians(@guardian)
         if @user.update_attributes(params[:user])
-        flash[:notice] = "#{@guardian.proper_name}'s user account has been updated."
-            redirect_to @user
+          flash[:notice] = "#{@guardian.proper_name}'s user account has been updated."
+          redirect_to @user
         else
             render :action => 'edit'
         end

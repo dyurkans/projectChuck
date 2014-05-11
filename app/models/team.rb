@@ -49,6 +49,10 @@ class Team < ActiveRecord::Base
     end
   end
 
+  def team_name
+    FULL_TEAM_LIST[name][0]
+  end
+  
   #def self.unassigned_teams
     #assigned_teams = self.all.map{ |t| t.name }
    # Team::FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[1]) }
@@ -57,7 +61,7 @@ class Team < ActiveRecord::Base
   def self.unassigned_teams(team_id)
     index_of_team_id = 1
     assigned_teams = self.all.map{ |t| t.name }
-    Team::FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[index_of_team_id]) ||  (team_id == t[index_of_team_id]) }
+    FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[index_of_team_id]) ||  (team_id == t[index_of_team_id]) }
   end
 
   def eligible_students
