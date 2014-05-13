@@ -9,6 +9,10 @@
     <%= remaining_spots != 1 ? "There are still #{remaining_spots} spaces available in the #{b.name} bracket." : "There is still #{remaining_spots} space available in the #{b.name} bracket." %></br>
     <%= eligible_students_arr_size != 1 ? "There are currently #{eligible_students_arr_size} eligible students for this bracket." : "There is currently #{eligible_students_arr_size} eligible student for this bracket." %>
     <!-- Insert teams that have space available and links to them. -->
+
+<% elsif b.teams.size.zero? %>
+
+    <%= "There are currently no teams registered for this bracket." %>
     
 <% else %>
 
