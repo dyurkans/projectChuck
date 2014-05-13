@@ -4,7 +4,7 @@
     <div id="home-headers" class="row col-sm-12 col-md-12 col-lg-12">
       <p>
         <h4>
-          <b>Students Registered:</b><%= Registration.active.current %>
+          <b>Students Registered:</b><%= Registration.active.current.size %>
           <%= link_to 'Register a Student', new_registration_path, :class => "btn btn-success registerStudentButton" %>
         </h4>
 <!--         <%= link_to 'Register a Student', new_registration_path, :class => "btn btn-success" %> -->
