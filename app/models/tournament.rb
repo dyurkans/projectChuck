@@ -25,13 +25,17 @@ class Tournament < ActiveRecord::Base
     end
   end
 
-  def number_of_students
-    total_number_of_students = 0
+  def number_of_assigned_students
+    total_number_of_assigned_students = 0
     brackets = Bracket.find_all_by_tournament_id(self.id)
     brackets.each do |bracket|
-      total_number_of_students += bracket.current_number_of_students
+      total_number_of_assigned_students += bracket.current_number_of_students
     end
-    total_number_of_students.zero? ? "---" : total_number_of_students
+    total_number_of_assigned_students.zero? ? "---" : total_number_of_assigned_students
   end
+  
+  def number_of_students
+    total_number_of_students = 0
+    
     
 end
