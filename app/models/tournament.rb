@@ -33,9 +33,5 @@ class Tournament < ActiveRecord::Base
     end
     total_number_of_assigned_students.zero? ? "---" : total_number_of_assigned_students
   end
-  
-  def number_of_students
-    total_number_of_students = 0
-    
     
 end
