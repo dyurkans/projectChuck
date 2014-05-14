@@ -103,7 +103,6 @@ namespace :db do
           g.last_name = household_last_name
         end
         age = (30..55).to_a.sample
-        g.dob = age.years.ago.to_date
         g.cell_phone = rand(10 ** 10).to_s.rjust(10,'0')
         g.day_phone = rand(10 ** 10).to_s.rjust(10,'0')
         g.email = "#{g.first_name.downcase}.#{g.last_name.downcase}@example.com"
