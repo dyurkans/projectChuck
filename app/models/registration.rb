@@ -13,7 +13,7 @@ class Registration < ActiveRecord::Base
   mount_uploader :proof_of_insurance, AvatarUploader
 
   accepts_nested_attributes_for :student
-  attr_accessible :student_attributes, :proof_of_insurance_cache, :physical_cache, :report_card_cache, :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
+  attr_accessible :volunteer_initials, :student_attributes, :proof_of_insurance_cache, :physical_cache, :report_card_cache, :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
   
   #Local Variables
   SIZE_LIST = [["S", 0], ["M", 1], ["L",2], ["XL",3], ["XXL",4], ["XXXL",5]]
@@ -78,16 +78,16 @@ class Registration < ActiveRecord::Base
     student = Student.find(self.student_id)
     missing_documents = ""
     if self.proof_of_insurance.path.nil?
-      missing_documents += "PI/"
+      missing_documents += "PI"
     end
     if self.physical.path.nil?
-      missing_documents += "PH/"
+      missing_documents += missing_documents == "" ? "PH" : "/PH"
     end
     if self.report_card.path.nil?
-      missing_documents += "RC/"
+      missing_documents += missing_documents == "" ? "RC" : "/RC"
     end
     if student.birth_certificate.path.nil?
-      missing_documents += "BC"
+      missing_documents += missing_documents == "" ? "BC" : "/BC"
     end
     if missing_documents == "" 
       missing_documents += "None"

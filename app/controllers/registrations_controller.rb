@@ -27,7 +27,7 @@ class RegistrationsController < ApplicationController
       flash[:notice] = "Congratulations! You have successfully registered for Project C.H.U.C.K"
       redirect_to survey_path
     else
-      # return to the 'new' form
+      # go back to the 'new' form
       render 'new'
     end
   end

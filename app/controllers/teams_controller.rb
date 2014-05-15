@@ -52,7 +52,7 @@ class TeamsController < ApplicationController
       flash[:notice] = "Successfully created the #{team_name(@team.name)}."
       redirect_to @team # go to show team page
     else
-      # return to the 'new' form
+      # go back to the 'new' form
       render :action => 'new'
     end
   end

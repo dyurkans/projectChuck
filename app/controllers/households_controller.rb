@@ -15,7 +15,7 @@ class HouseholdsController < ApplicationController
       flash[:notice] = "Successfully created #{@household.name}."
       redirect_to @household # go to show household page
     else
-      # return to the 'new' form
+      # go back to the 'new' form
       render :action => 'new'
     end
   end

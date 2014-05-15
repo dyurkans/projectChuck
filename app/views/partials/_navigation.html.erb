@@ -1,6 +1,15 @@
 <nav class="navbar navbar-default navbar-fixed-top navbar-static-top col-sm-12 col-md-12 col-lg-12" role="navigation">
-  <div class="collapse navbar-collapse container col-sm-12 col-md-12 col-lg-12">
-      <ul class="nav navbar-nav">
+  <div class="navbar-header" role="navigation">
+      <button type="button" id="myToggleNavbar" class="navbar-toggle" data-toggle="collapse" data-target=".myNavbarLinks">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+  </div>
+  
+  <div class="container col-sm-12 col-md-12 col-lg-12" role="navigation">
+      <ul  class="collapse navbar-collapse nav navbar-nav myNavbarLinks">
         <% klass = "" %>
         <% if (current_page?(:controller=>"home",:action=>"index"))%>
             <% klass = "active" %>
@@ -58,23 +67,28 @@
         <% end %>
     <!-- <li><%# link_to "Registrations", registrations_path %></li> -->
       </ul>
-      <ul class="navbar-right">
-        <li><% if logged_in? %>
-          <div id="username" class="btn-group navbar-btn">
-            <button type="button" class="btn btn-primary"><%= link_to current_user.email, user_path(current_user),:id => 'usernameLink'  %></button>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-              <span class="caret"></span>
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><%= link_to 'Change Password', edit_user_path(current_user) %></li>
-              <li class="divider"></li>
-              <li><%= link_to 'Logout', logout_path%></li>
-            </ul>
-          </div>
-        <% else %>
-          <%= link_to("Login", login_path, :class => 'btn btn-primary navbar-btn')%>
-        <% end %></li>
+      <ul class="collapse navbar-collapse nav navbar-nav navbar-right myNavbarLinks" role="navigation">
+        <li>
+          
+          <% if logged_in? %>
+            <div id="username" class="btn-group navbar-btn">
+              <%= link_to current_user.email, user_path(current_user),:id => 'usernameLink', :class => 'btn btn-primary'  %>
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-target="#myLogoutDropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul id="myLogoutDropdown" class="dropdown-menu" role="menu">
+                <li><%= link_to 'Change Password', edit_user_path(current_user) %></li>
+                <li class="divider"></li>
+                <li><%= link_to 'Logout', logout_path%></li>
+              </ul>
+            </div>
+            
+          <% else %>
+            <%= link_to("Login", login_path, :class => 'btn btn-primary navbar-btn')%>
+          <% end %>
+        
+        </li>
       </ul>
   </div>
 </nav>

@@ -25,4 +25,4 @@
 <!--   <div><%= f.input :permission_agreement, :label => "Parent", :as => :radio_buttons, :collection => [['Agree', true], ['Disagree', false]], :required => true, :input_html => { :class => "agreementField" }, :wrapper_html => { :style => 'display: inline' } %></div> -->
   <div><%= f.input :permission_agreement, :label => "Parent", :as => :boolean, :required => true, :input_html => { :class => "agreementField" } %></div>
 </div>
-<%= render :partial => "page6_fields", :locals => { :f => f} %>
+<%= render :partial => "page6_fields", :locals => { :f => f, :r => r} %>

@@ -27,7 +27,7 @@ class TournamentsController < ApplicationController
       flash[:notice] = "Successfully created #{@tournament.name}."
       redirect_to @tournament # go to show Tournament page
     else
-      # return to the 'new' form
+      # go back to the 'new' form
       render :action => 'new'
     end
   end

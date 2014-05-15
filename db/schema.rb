@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140509032921) do
+ActiveRecord::Schema.define(:version => 20140515061216) do
 
   create_table "brackets", :force => true do |t|
     t.integer  "tournament_id"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20140509032921) do
     t.boolean  "active",             :default => true
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
+    t.string   "volunteer_initials"
   end
 
   create_table "students", :force => true do |t|

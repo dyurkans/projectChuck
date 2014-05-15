@@ -39,7 +39,7 @@ class StudentsController < ApplicationController
       flash[:notice] = "Successfully created #{@student.proper_name}."
       redirect_to @student # go to show student page
     else
-      # return to the 'new' form
+      # go back to the 'new' form
       render :action => 'new'
     end
   end

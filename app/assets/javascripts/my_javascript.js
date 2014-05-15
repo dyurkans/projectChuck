@@ -9,6 +9,10 @@ $(document).ready(function(){
   }
 
   window.setTimeout(fadeAlert,3000);
-  window.setTimeout(removeAlert,7000);
+  window.setTimeout(removeAlert,10000);
 
+//   $("#myToggleNavbar").click(function() {
+//     $(.collapse).collapse("toggle");
+//   });
+  
 });

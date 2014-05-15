@@ -29,7 +29,7 @@ class BracketsController < ApplicationController
       flash[:notice] = "Successfully created #{@bracket.name} bracket."
       redirect_to @bracket # go to show bracket page
     else
-      # return to the 'new' form
+      # go back to the 'new' form
       render :action => 'new'
     end
   end
