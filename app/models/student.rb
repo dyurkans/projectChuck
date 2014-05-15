@@ -18,11 +18,11 @@ class Student < ActiveRecord::Base
 
 
   #Validations (email commented out b/c not in the database)
-  validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :security_response, :security_question, :grade_integer, :security_question, :dob, :message => "Can't be blank"
+  validates_presence_of :first_name, :last_name, :emergency_contact_name, :emergency_contact_phone, :school, :school_county, :security_response, :security_question, :grade_integer, :security_question, :dob, :message => "Can't be blank"
   validates_date :dob, :on_or_before => 7.years.ago.to_date, :after => 19.years.ago.to_date, :message => "Must be between the ages of 7 and 18 (inclusive)"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
   validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
   validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only"
-  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
+  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format", :allow_blank => true
   validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
   validates_inclusion_of :gender, :in => [true, false]
   validates_inclusion_of :active, :in => [true, false]
