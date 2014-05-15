@@ -33,11 +33,12 @@
       </div>
       
       <div class="row">
-          <div id="sidebar-left" class="col-sm-1 col-md-1 col-lg-1 sidebar">
+          <div id="sidebar-left" class="col-xs-12 col-sm-12 col-md-1 col-lg-1 sidebar">
             <!-- TITLE BAR -->
-            <div><%= image_tag('projectChuckLogo.jpg', :class => 'img-responsive' ) %></div>
+            <%= image_tag('bob_logo.png', :size => ('130x202'), :class => 'img-responsive hidden-md hidden-lg') %>
+            <%= image_tag('projectChuckLogo.jpg', :class => 'img-responsive hidden-xs hidden-sm' ) %>
           </div>
-          <div class="col-sm-1 col-med-1 col-lg-1 spacer"></div>
+          <div class="col-sm-1 col-med-1 col-lg-1 spacer hidden-xs hidden-sm"></div>
           <div id="main_content" class="col-sm-9 col-md-9 col-lg-9 main">
             <!-- flash messages -->
             <% flash.each do |name, msg| %>
@@ -49,6 +50,9 @@
         
             <!-- MAIN CONTENT -->
             <%= yield %>
+          </div>
+          <div id="sidebar-right" class="col-sm-12 col-med-12 col-lg-2">
+            <%= image_tag('bob_logo.png', :size => ('130x202'), :class => '') %>
           </div>
           <div class="col-xs-0 col-sm-0 col-md-1 col-lg-1 spacer hidden-xs hidden-sm"></div>
         

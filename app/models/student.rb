@@ -84,7 +84,7 @@ class Student < ActiveRecord::Base
   def self.missing_forms(stus)
     students_missing_docs = []
     for stu in stus
-      if stu.registrations.current.first.proof_of_insurance.blank? or stu.registrations.current.first.physical.blank? or stu.registrations.current.first.report_card.blank? or stu.birth_certificate.blank?
+      if stu.registrations.current.first.proof_of_insurance.path.nil? or stu.registrations.current.first.physical.path.nil? or stu.registrations.current.first.report_card.path.nil? or stu.birth_certificate.path.nil?
         students_missing_docs << stu
       end
     end
