@@ -121,7 +121,7 @@
     <b>Physical: </b> <%= if @registration.missing_doc.include?("PH") then "Not Submitted" else (link_to "Physical Form", @registration.physical.url) end %>
   </p>
   <p>
-    <b>Birth Certificate: </b> <%= if @student.birth_certificate.blank? then "Not Submitted" else (link_to "Birth Certificate", @student.birth_certificate.url) end %>
+    <b>Birth Certificate: </b> <%= if @student.birth_certificate.path.nil? then "Not Submitted" else (link_to "Birth Certificate", @student.birth_certificate.url) end %>
   </p>
 
   
