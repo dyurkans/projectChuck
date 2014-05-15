@@ -86,7 +86,7 @@
             </div>
             
           <% else %>
-            <%= link_to("Login", login_path, :class => 'btn btn-primary navbar-btn')%>
+            <button type="button" class="btn btn-primary navbar-btn" onclick="window.location.href='<%= login_path %>'"> Login </button>
           <% end %>
         
         </li>
