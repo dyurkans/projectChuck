@@ -28,31 +28,6 @@ body {
   padding-top:70px;
 }
 
-@media only screen and (device-width: 768px) {
-  body {
-    padding-top:100px;
-  }
-  
-  .nav li {
-    font-size:65%;
-  }
-  
-  #sidebar-left img {
-    position:inline;
-  }
-}
-
-@media only screen and (max-device-width: 767px)  {
-  #sidebar-left {
-    padding-left:32%;
-    padding-right:auto;
-  }
-  #myContinue {
-    float:right;
-    margin-right:0;
-  }
-}
-
 input, select, textarea {
   padding: 1%;
   margin:1%;
@@ -93,6 +68,13 @@ fieldset, legend {
 
 .address-county {
   margin-left:2em;
+}
+
+.navbar .in .nav li {
+  display: block;
+  float: none;
+  width:100%;
+  
 }
 
 .registerStudentButton {
@@ -164,16 +146,6 @@ fieldset, legend {
   margin-right:5%;
 }
 
-#myContinue {
-  float:right;
-  margin-right:46%;
-}
-
-#registrationNestedSubmit {
-  float:right;
-  margin-right:39%;
-}
-
 #myPrevious, #myContinue, #registrationFormCancel {
   margin-top:13px;
 }
@@ -219,9 +191,78 @@ fieldset, legend {
   position:fixed;
 }*/
 
-.navbar .in .nav li {
-  display: block;
-  float: none;
-  width:100%;
+
+@media only screen and (min-device-width: 750) and (device-width: 768px) {
+  body {
+    padding-top:100px;
+  }
   
+  .nav li {
+    font-size:65%;
+  }
+  
+  #sidebar-left img {
+    position:inline;
+  }
+}
+
+@media only screen and (min-device-width: 750) and (max-device-width: 768px)  {
+  #sidebar-left {
+    padding-left:32%;
+    padding-right:auto;
+  }
+  #myContinue {
+    float:right;
+    margin-right:46;
+  }
+}
+
+@media (max-width: 750px) {
+    #sidebar-left {
+    padding-left:32%;
+    padding-right:auto;
+  }
+  #myContinue {
+    float:right;
+    margin-right:46;
+  }
+}
+
+@media only screen and (max-device-width: 749px)  {
+  #main_content {
+  margin-right:12%;
+  margin-left:8%;
+}
+  #myContinue {
+    float:right;
+    margin-right:5%;
+  }
+
+  #registrationNestedSubmit {
+    float:right;
+    margin-right:5%;
+  }
+  
+  .address {
+    margin-left:0;
+  }
+}
+
+@media (max-width: 749px) {
+  #main_content{
+    margin-right:12%;
+    margin-left:8%;
+  }
+  #myContinue {
+    float:right;
+    margin-right:0;
+  }
+
+  #registrationNestedSubmit {
+    float:right;
+    margin-right:5%;
+  }
+    .address {
+    margin-left:5%;
+  }
 }
