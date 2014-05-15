@@ -197,35 +197,9 @@ fieldset, legend {
     }
 }
 
-@media (min-width: 768px) and (max-width: 991px), only screen and (min-device-width: 768px) and (max-device-width: 991px) {
-    body {
-      padding-top:100px;
-    }
-    
-    #sidebar-left img {
-      position:inline;
-    }
-    #sidebar-right img{
-      position:fixed;
-      right:0;
-      width:70px;
-      height:113px;
-    }
-
-    #sidebar-left img {
-      position:fixed;
-      width:70px;
-      height:178px;
-    }
-    #myContinue {
-      float:right;
-      margin-right:46%;
-    }
-}
-
 @media (max-width: 767px), only screen and (max-device-width: 767px)  {
     .nav li {
-      font-size:65%;
+      font-size:80%;
     }
     #sidebar-left {
       padding-left:40%;
@@ -258,6 +232,42 @@ fieldset, legend {
     }
 }
 
+@media (min-width: 768px) and (max-width: 991px), only screen and (min-device-width: 768px) and (max-device-width: 991px) {
+    body {
+      padding-top:100px;
+    }
+    
+    #sidebar-left img {
+      position:inline;
+    }
+    #sidebar-right img{
+      position:fixed;
+      right:0;
+      width:80px;
+      height:169px;
+    }
+
+    #sidebar-left img {
+      position:fixed;
+      width:80px;
+      height:203px;
+    }
+    #myContinue {
+      float:right;
+      margin-right:46%;
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 780px), only screen and (min-device-width: 768px) and (max-device-width: 780px) {
+    .nav li {
+      font-size:49%;
+    }
+    #usernameLink {
+      font-size:70%;
+    }
+}
+
 @media (max-width: 875px), only screen and (max-device-width: 875px) {
     .nav li {
       font-size:50%;
@@ -273,12 +283,10 @@ fieldset, legend {
     }
 }
 
-@media (min-width: 768px) and (max-width: 780px), only screen and (min-device-width: 768px) and (max-device-width: 780px) {
-    .nav li {
-      font-size:49%;
-    }
-    #usernameLink {
-      font-size:70%;
-    }
+.collapse li {
+  font-size:85%;
+}
+.collapse #usernameLink {
+  font-size:100%;
 }
 
