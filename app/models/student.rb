@@ -156,7 +156,7 @@ class Student < ActiveRecord::Base
   end
   
   def missing_report_card
-    self.registrations.current[0].report_card.blank? unless (self.registrations.current[0].nil? || self.registrations.current.empty?)
+    self.registrations.current[0].report_card.path.nil? unless (self.registrations.current[0].nil? || self.registrations.current.empty?)
   end
 
   #Currently not in use/ or not functioning. Replaced by eligible_students method in team.rb
