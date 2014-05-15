@@ -57,6 +57,7 @@ group :development do
   gem 'wirble'
   gem 'hirb'
   gem 'faker'
+  gem 'fog', '~> 1.0.0'
 end
 
 # Gems used only in testing
