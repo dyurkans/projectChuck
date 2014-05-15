@@ -73,7 +73,7 @@
           <% if logged_in? %>
           
             <div class="btn-group navbar-btn">
-              <button type="button" class="btn btn-primary" onclick="redirect_to(<%= user_path(current_user)%>)"><span id="usernameLink"><%= current_user.email %></span></button>
+              <button type="button" class="btn btn-primary" onclick="window.location.href='<%= user_path(current_user) %>'"><span id="usernameLink"><%= current_user.email %></span></button>
               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                 <span class="caret"></span>
                 <span class="sr-only">Toggle Dropdown</span>
