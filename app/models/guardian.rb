@@ -18,7 +18,7 @@ class Guardian < ActiveRecord::Base
   validates_inclusion_of :receive_texts, :in => [true, false]
   validates_inclusion_of :gender, :in => [true, false]
   validates_inclusion_of :active, :in => [true, false]
-  validates_uniqueness_of :email, :case_sensitive => false
+  validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
   validates_numericality_of :household_id, :only_integer => true, :greater_than => 0, :allow_nil => true
 
   #Scopes
