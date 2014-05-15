@@ -94,20 +94,16 @@ class Student < ActiveRecord::Base
 
   def self.school_districts
     current_registered_students = Student.current.active
-    school_districts = []
+    school_districts = Hash.new
     for stu in current_registered_students
-      if !school_districts.include?([stu.school_county,0])
-        school_districts << [stu.school_county, 0]
+      stu_school_district = SCHOOL_DISTRICT_LIST[stu.school_county.to_i][0]
+      if school_districts[stu_school_district].nil?
+        school_districts[stu_school_district] = 1
+      else
+        school_districts[stu_school_district] += 1
       end
     end
-    for student in current_registered_students
-      for district in school_districts
-        if district.first == student.school_county
-          district[1] += 1 
-        end
-      end
-    end
-    school_districts
+    school_districts.to_a
   end
 
   def self.home_counties
