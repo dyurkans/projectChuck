@@ -163,7 +163,7 @@ fieldset, legend {
 #usernameLink {
   color: white;
   text-decoration: underline;
-  cursor: auto;
+/*   cursor: auto; */
 }
 
 #main_content {
@@ -218,7 +218,7 @@ fieldset, legend {
 }
 
 @media (max-width: 750px) {
-    #sidebar-left {
+  #sidebar-left {
     padding-left:32%;
     padding-right:auto;
   }
@@ -246,6 +246,9 @@ fieldset, legend {
   .address {
     margin-left:0;
   }
+  .address-county {
+    margin-left:0;
+  }
 }
 
 @media (max-width: 749px) {
@@ -262,7 +265,10 @@ fieldset, legend {
     float:right;
     margin-right:5%;
   }
-    .address {
+  .address {
     margin-left:5%;
+  }
+  .address-county {
+    margin-left:0;
   }
 }
