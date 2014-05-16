@@ -13,17 +13,12 @@ ProjectChuck::Application.routes.draw do
   resources :sessions
   resources :users
   
-  get "households/new"
-  get "students/index"
-
-  
-  match 'home' => 'home#index', :as => :home
-  
 #   match 'user/edit' => 'users#edit', :as => :edit_current_user
 #   match 'signup' => 'users#new', :as => :signup
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
-      
+  match 'home' => 'home#index', :as => :home  
+
   # add custom routes for certain actions
   get 'teams/:id/remove' => 'teams#remove_student', :as => :remove_student  
   get 'brackets/:id/remove' => 'brackets#remove_team', :as => :remove_team
@@ -35,7 +30,12 @@ ProjectChuck::Application.routes.draw do
   get 'home/waitlist' => 'home#waitlist', :as => :waitlist
   get 'survey' => 'registrations#survey', :as => :survey
   #get 'home' => 'home#index', :as => :home
+  get "households/new"
+  get "students/index"
   
   # Set the root url
   root :to => 'home#index'
+
+  #Client Side Validations
+  mount Judge::Engine => '/judge'
 end

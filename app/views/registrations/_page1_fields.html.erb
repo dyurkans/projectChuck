@@ -25,7 +25,7 @@
           </div>
           <%= f.input :home_phone, :label => "Home Phone", :input_html => { size: 30 } %>
           <%= s.input :cell_phone, :label => "Student Cell Phone", :input_html => { size: 30 } %>
-          <%= s.input :email, :label => "Student Email", :input_html => { size: 30 } %>
+          <%= s.input :email, :label => "Student Email", :input_html => { size: 30 }, :validate => true %>
           <%= f.label "Please select a security question for the child (to be used for returning years):" %>
           <%= s.input :security_question, :label => false, :collection => Student::SECURITY_QUESTIONS, :include_blank => false %>
           <%= s.input :security_response, :label => "Security Response", :input_html => { size: 30 } %>

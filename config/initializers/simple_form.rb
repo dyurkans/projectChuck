@@ -43,6 +43,9 @@ SimpleForm.setup do |config|
     b.use :label_input
     b.use :hint,  :wrap_with => { :tag => :span, :class => :hint }
     b.use :error, :wrap_with => { :tag => :span, :class => :error }
+
+    # Using Judge-Simple-Form for client-side validations
+    b.use :judge
   end
   
   config.wrappers :my_wrapper, :tag => :span, :html => { width: '50px', display:'inline' } do |component|

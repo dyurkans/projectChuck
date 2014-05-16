@@ -17,6 +17,8 @@ gem 'cancancan', '~> 1.7'
 gem 'strong_parameters'
 gem "mini_magick"
 gem 'unicorn'
+gem 'judge'
+gem 'judge-simple_form'
 
 # Gems used only for assets and not required
 # in production environments by default.

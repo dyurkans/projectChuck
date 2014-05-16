@@ -18,3 +18,6 @@
 //= require highcharts/highcharts                                                           
 //= require highcharts/highcharts-more                                                         
 //= require highcharts/highstock
+//= require underscore.js
+//= require json2.js
+//= require judge
