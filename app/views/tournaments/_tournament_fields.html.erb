@@ -1,6 +1,6 @@
 <div class="fields">
   <div class="min_attraction">
-    <%= f.input :start_date, :order => [:month, :day, :year] %>
-    <%= f.input :end_date, :order => [:month, :day, :year] %>
+    <%= f.text_field :start_date, :label => "Start date", :class => "datepicker" %>
+    <%= f.text_field :end_date, :label => "End date", :order => [:month, :day, :year], :class => "datepicker" %>
   </div>
 </div>
