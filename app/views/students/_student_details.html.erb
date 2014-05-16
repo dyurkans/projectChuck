@@ -101,6 +101,10 @@
     <h3>Parent/Guardian Information</h3>
   </p>
 
+  <p>
+    <b>Household:</b>  <%= link_to "#{@household.name} Household", household_path(@household) %> 
+  </p>
+
   <% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
 
 

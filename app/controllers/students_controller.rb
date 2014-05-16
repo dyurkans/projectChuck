@@ -66,8 +66,8 @@ class StudentsController < ApplicationController
     @student.active = true
     @student.save! 
     unless @student.registrations.nil? || @student.registrations.empty?
-      for reg in @student.registrations.inactive
-        reg.update_attribute(:active, true)
+      for reg in @student.registrations.current
+        reg.active = true
         reg.save!
       end      
     end

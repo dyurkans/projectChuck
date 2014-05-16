@@ -12,7 +12,7 @@ class HouseholdsController < ApplicationController
     @household = Household.new(params[:household])
     if @household.save
       # if saved to database
-      flash[:notice] = "Successfully created #{@household.name}."
+      flash[:notice] = "Successfully created the #{@household.name} Household."
       redirect_to @household # go to show household page
     else
       # go back to the 'new' form
@@ -57,10 +57,14 @@ class HouseholdsController < ApplicationController
     end
     for s in @household.students
       s.active = false
-      r = s.registrations.current[0]
-      r.active = false unless r.nil?
-      r.save! unless r.nil?
       s.save!
+      regs = s.registrations.current
+      unless regs.nil? || regs.empty?
+        for r in regs
+          r.active = false
+          r.save!
+        end
+      end
     end
     @household.save!
     flash[:notice] = "Successfully deactivated the  #{@household.name} Household from the Project C.H.U.C.K. System"
@@ -71,7 +75,22 @@ class HouseholdsController < ApplicationController
     @household = Household.find(params[:id])
     @household.active = true
     @household.save! 
-    flash[:notice] = "Successfully reactivated #{@household.name} in the Project C.H.U.C.K. System"
+    for g in @household.guardians
+      g.active = true
+      g.save!
+    end
+    for s in @household.students
+      s.active = true
+      s.save!
+      regs = s.registrations.current
+      unless regs.nil? || regs.empty?
+        for r in regs
+          r.active = true
+          r.save!
+        end
+      end
+    end
+    flash[:notice] = "Successfully reactivated #{@household.name} Household in the Project C.H.U.C.K. System"
     redirect_to @household
   end
 

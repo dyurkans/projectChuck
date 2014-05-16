@@ -62,7 +62,6 @@ class GuardiansController < ApplicationController
     # not sure why this is here, but didn't want to remove and conduct regression testing
     @household = Household.select{ |h| h.id == @guardian.household_id }.first
     ######
-    @guardian.receive_texts = false
     @guardian.active = false
     @guardian.save!
     flash[:notice] = "Successfully deactivated #{@guardian.name} from the Project C.H.U.C.K. System"
