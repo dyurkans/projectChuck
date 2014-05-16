@@ -16,7 +16,7 @@ CarrierWave.configure do |config|
   }
  
   # For testing, upload files to local `tmp` folder.
-  if Rails.env.test? || Rails.env.cucumber?
+  if Rails.env.test? || Rails.env.development? || Rails.env.cucumber?
     config.storage = :file
     config.enable_processing = false
     config.root = "#{Rails.root}/tmp"

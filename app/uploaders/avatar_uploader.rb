@@ -1,11 +1,11 @@
 # encoding: utf-8
-# require 'carrierwave/processing/mini_magick'
+require 'carrierwave/processing/mini_magick'
 
 class AvatarUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
   # include Sprockets::Helpers::RailsHelper
@@ -41,33 +41,33 @@ class AvatarUploader < CarrierWave::Uploader::Base
 #   end
 
   # Create different versions of your uploaded files:
-#   version :thumb do
-#     process :scale => [50, 50]
-#   end
-#   
-#   version :print do
-#     version :thumb do
-#       process :scale => [32, 32]
-#     end
-#     version :preview do
-#       process :scale => [256, 256]
-#     end
-#     version :full do
-#       process :scale => [2048, 2048]
-#     end
-#   end
-#  
-#   version :web do
-#     version :thumb do
-#       process :scale => [32, 32]
-#     end
-#     version :preview do 
-#       process :scale => [128, 128]
-#     end
-#     version :full do 
-#       process :scale => [1024, 768]
-#     end
-#   end
+  version :thumb do
+    process :resize_to_fit => [50, 50]
+  end
+  
+  version :print do
+    version :thumb do
+      process :resize_to_fit => [32, 32]
+    end
+    version :preview do
+      process :resize_to_fit => [256, 256]
+    end
+    version :full do
+      process :resize_to_fit => [2048, 2048]
+    end
+  end
+ 
+  version :web do
+    version :thumb do
+      process :resize_to_fit => [32, 32]
+    end
+    version :preview do 
+      process :resize_to_fit => [128, 128]
+    end
+    version :full do 
+      process :resize_to_fit => [1024, 768]
+    end
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
