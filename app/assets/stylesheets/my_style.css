@@ -181,22 +181,6 @@ fieldset, legend {
   position:static;
 }
 
-
-@media (min-width: 992px), only screen and (min-device-width: 992px) {
-    #sidebar-right img{
-      position:fixed;
-      right:0;
-      width:120px;
-      height:194px;
-    }
-
-    #sidebar-left img {
-      position:fixed;
-      width:120px;
-      height:305px;
-    }
-}
-
 @media (max-width: 767px), only screen and (max-device-width: 767px)  {
     .nav li {
       font-size:80%;
@@ -243,14 +227,14 @@ fieldset, legend {
     #sidebar-right img{
       position:fixed;
       right:0;
-      width:80px;
-      height:169px;
+      width:100px;
+      height:208px;
     }
 
     #sidebar-left img {
       position:fixed;
-      width:80px;
-      height:203px;
+      width:100px;
+      height:255px;
     }
     #myContinue {
       float:right;
@@ -283,10 +267,46 @@ fieldset, legend {
     }
 }
 
-.collapse li {
-  font-size:85%;
+
+@media (min-width: 992px), only screen and (min-device-width: 992px) {
+    #sidebar-right img{
+      position:fixed;
+      right:0;
+      width:120px;
+      height:194px;
+    }
+
+    #sidebar-left img {
+      position:fixed;
+      width:120px;
+      height:305px;
+    }
 }
-.collapse #usernameLink {
-  font-size:100%;
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait)
+and ((-webkit-min-device-pixel-ratio: 2),(-webkit-min-device-pixel-ratio: 2))
+{ 
+    .nav li {
+      font-size:53%;
+    }
 }
+
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape)
+and ((-webkit-min-device-pixel-ratio: 2),(-webkit-min-device-pixel-ratio: 2))
+{ 
+   .collapse li {
+      font-size:85%;
+    }
+    .collapse #usernameLink {
+      font-size:100%;
+    }
+}
+
 
