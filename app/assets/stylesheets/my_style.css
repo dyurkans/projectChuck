@@ -291,6 +291,18 @@ and (orientation : portrait)
     .nav li {
       font-size:53%;
     }
+    #sidebar-right img{
+      position:fixed;
+      right:0;
+      width:80px;
+      height:169px;
+    }
+
+    #sidebar-left img {
+      position:fixed;
+      width:80px;
+      height:203px;
+    }
 }
 
 

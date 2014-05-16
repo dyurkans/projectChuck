@@ -8,6 +8,11 @@
       <%= r.input :physical, :as => :file, :label => "Last Physical" %>
       <%= r.input :physical_date, :label => "Date of Last Physical", :as => :date, :start_year => Date.today.year, :end_year => Date.today.year - 1,  :order => [:month, :day, :year], :include_blank => true %>
       <%= r.input :t_shirt_size, :collection => Registration::SIZE_LIST %>
+      <% if isEdit %>
+        <label>Volunteer Initials: </label><%="   " + if (@registration.nil? || @registration.volunteer_initials.nil? || @registrtaion.volunteer_initials.length == 0) then "Student registered without a volunteer" else @registration.volunteer_initials end %></p>
+      <% else %>
+        <%= f.input :volunteer_initials %>  
+      <% end %>
       <%= r.input :active %>
   </div>
 </div>

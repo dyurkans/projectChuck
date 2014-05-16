@@ -135,6 +135,6 @@
     <b>Current Status:</b> <%= @student.active ? "Active" : "Inactive" %>
   </p>
   <p>
-    <b>Registered by:</b> <%= if (@registration.nil? || @registration.volunteer_initials.length == 0) then "No volunteer recorded" else @registration.volunteer_initials end %>
+    <b>Registered by:</b> <%= if (@registration.nil? || @registration.volunteer_initials.nil? || @registration.volunteer_initials.length == 0) then "No volunteer recorded" else @registration.volunteer_initials end %>
   </p>
 </div>
