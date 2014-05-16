@@ -45,7 +45,7 @@
   </p>
 
   <p>
-    <b>School District:</b> <%= @student.school_county %>
+    <b>School District:</b> <%= Student::SCHOOL_DISTRICT_LIST[@student.school_county][1] %>
   </p>
 
 
