@@ -71,6 +71,11 @@ class StudentsController < ApplicationController
         reg.save!
       end      
     end
+    @household = Household.find(@student.household_id)
+    if !@household.active
+      @household.active = true
+      @household.save!
+    end
     flash[:notice] = "Successfully reactivated #{@student.proper_name} in the Project C.H.U.C.K. System"
     redirect_to @student
   end
