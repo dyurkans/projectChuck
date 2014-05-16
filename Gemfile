@@ -56,7 +56,6 @@ group :development do
   gem 'meta_request'
   gem 'wirble'
   gem 'hirb'
-  gem 'faker'
 end
 
 # Gems used only in testing
