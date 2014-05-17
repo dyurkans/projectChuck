@@ -8,11 +8,13 @@ class Student < ActiveRecord::Base
   mount_uploader :birth_certificate, AvatarUploader
 
   accepts_nested_attributes_for :registrations, :household
+  #Change school county field to school district
   attr_accessible :registrations_attributes, :household_attributes, :birth_certificate_cache, :email, :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :school_county, :security_question, :security_response
   
   #Callbacks
   before_save :reformat_cell
   before_save :reformat_emergency_phone
+  before_save :reformat_text
   before_destroy :check_if_destroyable
   #after_rollback :deactivate_student_and_registrations, :on => :destory
 
@@ -218,4 +220,12 @@ class Student < ActiveRecord::Base
     phone.gsub!(/[^0-9]/,"") # strip all non-digits
     self.cell_phone = phone       # reset self.phone to new string
   end
+
+  def reformat_text
+    self.first_name = self.first_name.downcase.squish.titleize
+    self.last_name = self.last_name.downcase.squish.titleize
+    self.emergency_contact_name = self.emergency_contact_name.downcase.squish.titleize
+    self.school = self.school.downcase.squish.titleize
+  end
+
 end

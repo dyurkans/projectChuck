@@ -10,6 +10,7 @@ class Guardian < ActiveRecord::Base
   #Callbacks
   before_save :reformat_cell
   before_save :reformat_phone
+  before_save :reformat_text
 
   validates_presence_of :first_name, :last_name, :message => "Can't be blank"
   validates_format_of :day_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
@@ -52,6 +53,11 @@ class Guardian < ActiveRecord::Base
     phone = self.cell_phone.to_s  # change to string in case input as all numbers 
     phone.gsub!(/[^0-9]/,"") # strip all non-digits
     self.cell_phone = phone       # reset self.phone to new string
+  end
+
+  def reformat_text
+    self.first_name = self.first_name.downcase.squish.titleize
+    self.last_name = self.last_name.downcase.squish.titleize
   end
 
 end
