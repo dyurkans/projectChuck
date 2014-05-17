@@ -222,10 +222,10 @@ class Student < ActiveRecord::Base
   end
 
   def reformat_text
-    self.first_name.downcase.squish.titleize
-    self.last_name.downcase.squish.titleize
-    self.emergency_contact_name.downcase.squish.titleize
-    self.school.downcase.squish.titleize
+    self.first_name = self.first_name.downcase.squish.titleize
+    self.last_name = self.last_name.downcase.squish.titleize
+    self.emergency_contact_name = self.emergency_contact_name.downcase.squish.titleize
+    self.school = self.school.downcase.squish.titleize
   end
 
 end
