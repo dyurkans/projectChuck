@@ -118,7 +118,20 @@
   </p>
 
   <p>
-    <b>Report Card: </b> <%= if @student.missing_report_card then "Not Submitted" else (link_to "Report Card", @registration.report_card.url) end %>
+    <b>Report Card: </b>
+      <% if @student.missing_report_card %>
+        <%= "Not Submitted" %>
+      <% else %>
+        <button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <%= image_tag @registration.report_card.url %>
+            </div>
+          </div>
+        </div>
+      <% end %>
   </p>
   <p>
     <b>Insurance Card: </b> <%= if @registration.missing_doc.include?("PI") then "Not Submitted" else (link_to "Insurance Card", @registration.proof_of_insurance.url) end %>
