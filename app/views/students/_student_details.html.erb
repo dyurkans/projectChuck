@@ -56,12 +56,14 @@
     <h3>Medical Information</h3>
   </p>
 
+  <% allergyClass = (@student.nil? || @student.allergies.nil? || @student.allergies.empty?) ? "" : "myDanger" %>
   <p>
-    <b>Allergies:</b> <%= (@student.nil? || @student.allergies.nil? || @student.allergies.empty?) ? "None" : @student.allergies %>
+    <b>Allergies:</b> <span class="<%= allergyClass %>"><%= (@student.nil? || @student.allergies.nil? || @student.allergies.empty?) ? "None" : @student.allergies %></span>
   </p>
 
+  <% medicationClass = (@student.nil? || @student.medications.nil? || @student.medications.empty?) ? "" : "myDanger" %>
   <p>
-    <b>Medication(s):</b> <%= (@student.nil? || @student.medications.nil? || @student.medications.empty?) ? "None" : @student.medications %>
+    <b>Medication(s):</b> <span class="<%= medicationClass %>"><%= (@student.nil? || @student.medications.nil? || @student.medications.empty?) ? "None" : @student.medications %></span>
   </p>
 
   <p>
