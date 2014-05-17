@@ -9,6 +9,7 @@ attr_accessible :medical_agreement, :permission_agreement, :student_agreement, :
 	# Callbacks
 	before_save :reformat_phone
 	before_save :reformat_physician_phone
+  before_save :reformat_text
 
 	# Scopes
 	scope :active, where('households.active = ?', true)
@@ -70,9 +71,10 @@ attr_accessible :medical_agreement, :permission_agreement, :student_agreement, :
     self.physician_phone = phone       # reset self.phone to new string
   end
 
-
+  def reformat_text
+    self.city.downcase.squish.titleize
+    self.county.downcase.squish.titleize
+    self.family_physician.downcase.squish.titleize
+  end
 
 end
-
-#Other Notes
-#Should insurance information actually be required? What if a family doesn't have insurance?""
