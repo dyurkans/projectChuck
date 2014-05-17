@@ -15,10 +15,10 @@
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    
+    <script src="js/bootstrap-datepicker.js"></script>
     <script>
       $(function() {
-        $( "#datepicker" ).datepicker();
+        $( "input.datepicker" ).datepicker({"dateFormat": "yy-mm-dd"}).val;
       });
     </script>
   </head>

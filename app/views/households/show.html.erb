@@ -10,8 +10,8 @@
   <%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit Household"), edit_household_path(@household), :class => 'btn btn-primary myEditButton' %>&nbsp;&nbsp;
   <% household_name = @household.name %>
   <% if @household.active %>
-    <%= link_to raw("<span class='glyphicon glyphicon-remove'></span> Make #{household_name} Inactive"), household_path(@household), :method => 'delete', :confirm => 'Warning: All guardians, students, and registrations associated with those students will be made inactive. Are you sure you want to do this?', :class => 'btn btn-danger' %>
+    <%= link_to raw("<span class='glyphicon glyphicon-remove'></span> Make #{household_name} Household Inactive"), household_path(@household), :method => 'delete', :confirm => 'Warning: All guardians, students, and current registrations associated with those students will be made inactive. Are you sure you want to do this?', :class => 'btn btn-danger' %>
   <% else %>
-    <%= link_to raw("<span class='glyphicon glyphicon-ok'></span> Make #{household_name} Active"), activate_household_path(@household), :class => 'btn btn-success' %>
+    <%= link_to raw("<span class='glyphicon glyphicon-ok'></span> Make #{household_name} Household Active"), activate_household_path(@household), :confirm => 'Warning: All guardians, students, and current registrations associated with those students will be made active. Are you sure you want to do this?', :class => 'btn btn-success' %>
   <% end %>
 </div>

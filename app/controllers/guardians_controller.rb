@@ -59,7 +59,9 @@ class GuardiansController < ApplicationController
   
   def destroy
     @guardian = Guardian.find(params[:id])
+    # not sure why this is here, but didn't want to remove and conduct regression testing
     @household = Household.select{ |h| h.id == @guardian.household_id }.first
+    ######
     @guardian.active = false
     @guardian.save!
     flash[:notice] = "Successfully deactivated #{@guardian.name} from the Project C.H.U.C.K. System"
@@ -70,6 +72,11 @@ class GuardiansController < ApplicationController
     @guardian = Guardian.find(params[:id])
     @guardian.active = true
     @guardian.save!
+    @household = Household.find(@guardian.household_id)
+    if !@household.active
+      @household.active = true
+      @household.save!
+    end
     flash[:notice] = "Successfully reactivated #{@guardian.name} from the Project C.H.U.C.K. System"
     redirect_to @guardian
   end
