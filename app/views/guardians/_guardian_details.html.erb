@@ -7,10 +7,6 @@
 </p>
 
 <p>
-  <b>Date of Birth:</b>  <%= @guardian.dob.strftime("%m/%d/%y") %> 
-</p>
-
-<p>
   <b>Gender:</b>  <%= @guardian.sex %> 
 </p>
 
@@ -19,19 +15,19 @@
 </p>
 
 <p>
-  <b>Day Phone:</b>  <%= number_to_phone @guardian.day_phone unless @guardian.day_phone.nil?%> 
+  <b>Day Phone:</b>  <%= @guardian.day_phone.nil? || @guardian.day_phone.empty? ? "Not Provided" : "#{number_to_phone @guardian.day_phone}" %> 
 </p>
 
 <p>
-  <b>Cell Phone:</b> <%= number_to_phone @guardian.cell_phone unless @guardian.cell_phone.nil? %>
+  <b>Cell Phone:</b> <%= @guardian.cell_phone.nil? || @guardian.cell_phone.empty? ? "Not Provided" : "#{number_to_phone @guardian.cell_phone}" %>
 </p>
 
 <p>
-  <b>Home Phone:</b> <%= number_to_phone @household.home_phone unless @household.home_phone.nil? %>
+  <b>Home Phone:</b> <%= @household.home_phone.nil? || @household.home_phone.empty? ? "Not Provided" : "#{number_to_phone @household.home_phone}" %>
 </p>
 
 <p>
-  <b>Email:</b> <%= @guardian.email unless @guardian.email.nil? %>
+  <b>Email:</b> <%= @guardian.email.nil? || @guardian.email.empty? ? "Not Provided" : "#{@guardian.email}" %>
 </p>
 
 <p>

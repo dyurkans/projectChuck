@@ -9,12 +9,12 @@
 </div>
 
 <div class="form-actions">
-  <%= link_to raw("<i class='icon-list'></i> Display All Students"), students_path, :class => 'btn'  %>&nbsp;&nbsp;
-  <%= link_to raw("<i class='icon-pencil'></i> Edit #{@student.proper_name}"), edit_student_path(@student), :class => 'btn' %>&nbsp;&nbsp;
+  <%= link_to raw("<span class='glyphicon glyphicon-list'></span> Display All Students"), students_path, :class => 'btn btn-default myDisplayAllButton'  %>&nbsp;&nbsp;
+  <%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit #{@student.proper_name}"), edit_student_path(@student), :class => 'btn btn-primary myEditButton' %>&nbsp;&nbsp;
   <% if @student.active %>
-  	<%= link_to raw("<i class='icon-remove icon-white'></i> Make #{@student.proper_name} Inactive"), student_path(@student), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  	<%= link_to raw("<span class='glyphicon glyphicon-remove'></span> Make #{@student.proper_name} Inactive"), student_path(@student), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
   <% else %>
-    <%= link_to raw("<i class='icon-remove icon-white'></i> Make #{@student.proper_name} Active"), activate_path(@student), :confirm => 'Are you sure?', :class => 'btn btn-success' %>
+    <%= link_to raw("<span class='glyphicon glyphicon-ok'></span> Make #{@student.proper_name} Active"), activate_student_path(@student), :class => 'btn btn-success' %>
   <% end %>
 
 </div>

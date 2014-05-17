@@ -7,11 +7,13 @@ class User < ActiveRecord::Base
   # Relationships
   belongs_to :guardian
   
+  before_save :reformat_email
+  
   # Validations
   validates_uniqueness_of :email, :case_sensitive => false
-  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
-  validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
-  validates_inclusion_of :role, :in => %w[admin member], :message => "is not recognized by the system"
+  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "Email is not in a valid format"
+  validates_inclusion_of :active, :in => [true, false], :message => "Must be true or false"
+  validates_inclusion_of :role, :in => %w[admin member], :message => "Unrecognized role given"
   # validate :guardian_is_active_in_system, :on => :create
   scope :alphabetical, joins(:guardian).order('last_name')
 
@@ -19,8 +21,7 @@ class User < ActiveRecord::Base
   ROLES = [['Administrator', :admin], ['Member', :member]]
 
   def role?(authorized_role)
-    return false if role.nil?
-    role.downcase.to_sym == authorized_role
+    if role.nil? then false else role.downcase.to_sym == authorized_role end
   end
 
   def self.eligible_guardians(guard)
@@ -49,6 +50,11 @@ class User < ActiveRecord::Base
   end
   
   private
+  def reformat_email
+    email = self.email.downcase  # change email to be all lowercase 
+    self.email = email       # reset self.email to new lowercase email
+  end
+  
   def guardian_is_active_in_system
     # get an array of all active guardians in the system
     active_guardian_ids = Guardian.active.all.map{|g| g.id}

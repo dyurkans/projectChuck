@@ -7,23 +7,22 @@ class Bracket < ActiveRecord::Base
   GENDER_LIST = [["Male", true], ["Female", false]]
 
   validates_numericality_of :tournament_id, :only_integer => true, :greater_than => 0
-  validates_numericality_of :min_age, :only_integer => true, :greater_than_or_equal_to => 7 
+  validates_numericality_of :min_age, :only_integer => true, :greater_than_or_equal_to => 7, :less_than_or_equal_to => :max_age 
   validates_numericality_of :max_age, :only_integer => true, :less_than_or_equal_to => 18
-  validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
+  validates_inclusion_of :gender, :in => [true, false], :message => "Must be true or false"
 
   scope :by_gender, order('gender')
   scope :by_age, order('min_age, max_age')
 
   def sex
-    return "Male" if gender == true
-    "Female"
+    if gender == true then "Male" else "Female" end
   end
 
   def name
   	"#{self.sex} #{self.min_age} - #{self.max_age}"
   end
 
-  def waitlist
+  def remaining_spots
     spots = 0
     for t in self.teams
       if t.remaining_spots > 0
@@ -31,12 +30,22 @@ class Bracket < ActiveRecord::Base
       end
     end
     if spots > 0 
-      return spots
+      spots
     else
-      return 0
+      0
     end
   end
 
+  def current_number_of_students
+    total_number_of_students = 0
+    if not self.teams.nil?
+      self.teams.each do |team|
+        total_number_of_students += team.current_number_of_students
+      end
+    end
+    total_number_of_students
+  end
+  
   def eligible_students(min,max)
     unassigned_regs = Registration.current.active.by_date.select { |reg| reg.team_id == nil }
     eligible_regs = []

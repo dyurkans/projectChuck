@@ -5,43 +5,44 @@
     <title>Project C.H.U.C.K.</title>
     <%= stylesheet_link_tag    "reset" %>
     <%= stylesheet_link_tag    "bootstrap" %>
+    <%= stylesheet_link_tag "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" %>
     <%= stylesheet_link_tag    "my_style" %>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <%= javascript_include_tag "bootstrap" %>
     <%= javascript_include_tag "application" %>    
+    <%= javascript_include_tag "my_javascript" %>    
     <%= csrf_meta_tags %>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    
+    <script src="js/bootstrap-datepicker.js"></script>
     <script>
       $(function() {
-        $( "#datepicker" ).datepicker();
+        $( "input.datepicker" ).datepicker({"dateFormat": "yy-mm-dd"}).val;
       });
     </script>
   </head>
   <body>
 
 
-  <div class="container row col-sm-12 col-md-12 col-lg-12" style="margin:0 auto;">
+  <div class="container row col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin:0 auto;">
     
-      <div class="row">
           <!-- NAV BAR -->
-          <div class="col-sm-10 col-md-10 col-lg-12">
-            <%= render :partial => "partials/navigation" %>
-          </div>
+      <div class="col-xs-12 row col-sm-12 col-md-12 col-lg-12">
+        <%= render :partial => "partials/navigation" %>
       </div>
       
       <div class="row">
-          <div id="sidebar-left" class="col-sm-1 col-med-1 col-lg-1 sidebar">
+          <div id="sidebar-left" class="col-xs-12 col-sm-1 col-md-1 col-lg-1 sidebar">
             <!-- TITLE BAR -->
-            <div><%= image_tag('projectChuckLogo.jpg') %></div>
+            <%= image_tag('bob_logo.png', :size => ('130x202'), :class => 'img-responsive hidden-sm hidden-md hidden-lg') %>
+            <%= image_tag('projectChuckLogo.jpg', :class => 'img-responsive hidden-xs' ) %>
           </div>
-
-          <div id="main_content" class="col-sm-9 col-med-9 col-lg-9 main">
+          <div class="col-sm-1 col-med-1 col-lg-1 spacer hidden-xs"></div>
+          <div id="main_content" class="col-xs-12 col-sm-9 col-md-8 col-lg-8 main">
             <!-- flash messages -->
             <% flash.each do |name, msg| %>
-              <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+              <div class="alert-temp alert fade in alert-<%= name == :notice ? "success" : "error" %>">
                 <a class="close" data-dismiss="alert">&times;</a>
                 <%= msg %>
               </div>
@@ -50,10 +51,11 @@
             <!-- MAIN CONTENT -->
             <%= yield %>
           </div>
-          
-          <div id="sidebar-right" class="col-sm-2 col-med-2 col-lg-2">
-            <%= image_tag('bob_logo.png', :size => ('167x260')) %>
+          <div class="col-md-1 col-lg-1 spacer hidden-xs hidden-sm"></div>
+          <div id="sidebar-right" class="col-sm-1 col-med-1 col-lg-1 hidden-xs">
+            <%= image_tag('bob_logo.png', :class => 'img-responsive hidden-xs') %>
           </div>
+        
       </div>
 
   </div>

@@ -10,12 +10,12 @@ class HouseholdsController < ApplicationController
   
   def create
     @household = Household.new(params[:household])
-    if @household.save!
+    if @household.save
       # if saved to database
-      flash[:notice] = "Successfully created #{@household.name}."
+      flash[:notice] = "Successfully created the #{@household.name} Household."
       redirect_to @household # go to show household page
     else
-      # return to the 'new' form
+      # go back to the 'new' form
       render :action => 'new'
     end
   end
@@ -27,7 +27,9 @@ class HouseholdsController < ApplicationController
   def index
     @active_households = Household.active.paginate(:page => params[:page]).per_page(10)
     @inactive_households = Household.inactive.paginate(:page => params[:page]).per_page(10)
-    @all_households = Household.by_last_name.paginate(:page => params[:page]).per_page(10)
+    households_with_guardians = Household.active.by_last_name
+    households_without_guardians = Household.all - households_with_guardians
+    @all_households = (households_without_guardians + households_with_guardians).paginate(:page => params[:page], :per_page => 10)
   end
   
   def show
@@ -55,14 +57,41 @@ class HouseholdsController < ApplicationController
     end
     for s in @household.students
       s.active = false
-      r = s.registrations.current[0]
-      r.active = false unless r.nil?
-      r.save! unless r.nil?
       s.save!
+      regs = s.registrations.current
+      unless regs.nil? || regs.empty?
+        for r in regs
+          r.active = false
+          r.save!
+        end
+      end
     end
     @household.save!
     flash[:notice] = "Successfully deactivated the  #{@household.name} Household from the Project C.H.U.C.K. System"
-    redirect_to household_url
+    redirect_to @household
+  end
+  
+  def activate_household
+    @household = Household.find(params[:id])
+    @household.active = true
+    @household.save! 
+    for g in @household.guardians
+      g.active = true
+      g.save!
+    end
+    for s in @household.students
+      s.active = true
+      s.save!
+      regs = s.registrations.current
+      unless regs.nil? || regs.empty?
+        for r in regs
+          r.active = true
+          r.save!
+        end
+      end
+    end
+    flash[:notice] = "Successfully reactivated #{@household.name} Household in the Project C.H.U.C.K. System"
+    redirect_to @household
   end
 
 end

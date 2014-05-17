@@ -1,10 +1,15 @@
 <% if logged_in? && current_user.role == "admin" %>
   <div id="home-main-content">
   
-    <div class="row col-sm-12 col-md-12 col-lg-12">
-      <%= link_to 'Register a Student', new_registration_path, :class => "btn btn-success" %>
+    <div id="home-headers" class="row col-sm-12 col-md-12 col-lg-12">
       <p>
-        <h4><b>Students Registered:</b><%= @tournament.number_of_students unless @tournament.nil? %></h4>
+        <h4>
+          <b>Students Registered:</b><%= Registration.active.current.size %>
+          <%= link_to 'Register a Student', new_registration_path, :class => "btn btn-success registerStudentButton" %>
+          <%= link_to "Add Student to Household", new_student_path,:class => 'btn btn-primary'  %>
+          <%= link_to "Add Guardian to Household", new_guardian_path, :class => 'btn btn-primary' %>
+        </h4>
+<!--         <%= link_to 'Register a Student', new_registration_path, :class => "btn btn-success" %> -->
       </p>
       <p>
         <h4><b>Jersey Sizes:</b> Small-<%= Registration.active.current.jersey_size(0).size %>, Medium-<%= Registration.active.current.jersey_size(1).size %>, Large-<%= Registration.active.current.jersey_size(2).size %>, X-Large-<%= Registration.active.current.jersey_size(3).size %>, XX-Large-<%= Registration.active.current.jersey_size(4).size %>, XXX-Large-<%= Registration.active.current.jersey_size(5).size %></h4>
@@ -14,9 +19,9 @@
   
     <div id="home-missing-docs-waitlist" class="row col-sm-12 col-md-12 col-lg-12">
     
-      <div class="col-sm-7 col-md-7 col-lg-7">
-        <div><%= render :partial => "students_missing_docs" %></div>
-        <div>
+      <div class="col-sm-12 col-md-12 col-lg-7">
+        <div id="home-missing_docs"><%= render :partial => "students_missing_docs" %></div>
+        <div id="home-demographics">
           <h3>Demographics</h3>
           <% if (@male_students.size + @female_students.size) > 2 %>
               <%= high_chart("my_id1", @gender_chart) %>
@@ -28,15 +33,11 @@
         </div>
       </div>
       
-      <div class="col-sm-5 col-md-5 col-lg-5">
-        <div>
-          <h3>Waitlist (By Bracket)</h3>
-          <% @brackets.each do |bracket| %> 
-            <%= render :partial => "waitlist", :locals => { :b => bracket, :min => bracket.min_age, :max => bracket.max_age } %> 
-          <% end %>
-        </div>
-        <div>
+      <div class="col-sm-12 col-md-12 col-lg-5">
+        <div id="home-unassigned-students">
           <%= render :partial => "unassigned_students" %>
+        </div>
+        <div id="home-receive-texts">
           <%= render :partial => "guardians_receiving_texts" %>
         </div>
       </div>

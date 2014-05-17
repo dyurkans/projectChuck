@@ -17,6 +17,7 @@ gem 'cancancan', '~> 1.7'
 gem 'strong_parameters'
 gem "mini_magick"
 gem 'unicorn'
+gem 'bootstrap-datepicker-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -56,7 +57,6 @@ group :development do
   gem 'meta_request'
   gem 'wirble'
   gem 'hirb'
-  gem 'faker'
 end
 
 # Gems used only in testing
@@ -67,6 +67,11 @@ group :test do
   gem 'simplecov'
   gem 'turn'
   gem 'single_test'
+end
+
+group :development, :production do
+  gem 'faker'
+  gem 'fog', '~> 1.0.0'
 end
 
 group :development, :test do

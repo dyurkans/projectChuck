@@ -18,13 +18,14 @@ class Student < ActiveRecord::Base
 
 
   #Validations (email commented out b/c not in the database)
-  validates_presence_of :first_name, :last_name, :emergency_contact_name, :school, :school_county, :security_response, :security_question, :grade_integer
-  validates_date :dob, :on_or_before => 7.years.ago.to_date, :after => 19.years.ago.to_date, :message => "must be between the ages of 7 and 18 included"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
-  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
-  validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only"
-  # validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format"
-  validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
-  validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
+  validates_presence_of :first_name, :last_name, :emergency_contact_name, :emergency_contact_phone, :school, :school_county, :security_response, :security_question, :grade_integer, :security_question, :dob, :message => "Can't be blank"
+  validates_date :dob, :on_or_before => lambda { Date.new(7.years.ago.to_date, 6, 1) }, :after => lambda { Date.new(19.years.ago.to_date, 6, 1) }, :on_or_before_message => "Must be between the ages of 7 and 18 (inclusive) to participate", :on_or_after_message => "Must be between the ages of 7 and 18 (inclusive) to participate"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
+  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
+  validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only"
+  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format", :allow_blank => true
+  validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
+  validates_inclusion_of :gender, :in => [true, false]
+  validates_inclusion_of :active, :in => [true, false]
   #validates_inclusion_of :security_question, :in => SECURITY_QUESTIONS.map() #Need to check how mapping works
   #validates_inclusion_of :security_response, :in => SECURITY_RESPONSES.map() #Need to check how mapping works
   #Add these tests to student_test file
@@ -40,27 +41,27 @@ class Student < ActiveRecord::Base
                  ["Freshman",9],["Sophomore",10],["Junior",11],["Senior",12],["Graduated Senior",13]]
 
   
-  SCHOOL_DISTRICT_LIST = [["Allegheny Valley School District",0],["Avonworth School District",1],
-                          ["Baldwin-Whitehall School District",2],["Bethel Park School District",3],
-                          ["Brentwood Borough School District",4],["Carlynton School District",5],
-                          ["Chartiers Valley School District",6],["Clairton City School District",7],
-                          ["Cornell School District",8],["Deer Lakes School District",9],
-                          ["Duquesne City School District",10],["East Allegheny School District",11],
-                          ["Elizabeth Forward School District",12],["Fox Chapel Area School District",13],
-                          ["Gateway School District",14],["Hampton Township School District",15],
-                          ["Highlands School District",16],["Keystone Oaks School District",17],
-                          ["McKeesport Area School District",18],["Montour School District",19],
-                          ["Moon Area School District",20],["Mt. Lebanon School District",21],
-                          ["North Allegheny School District",22],["North Hills School District",23],
-                          ["Northgate School District",24],["Penn Hills School District",25],
-                          ["Pine-Richland School District",26],["Plum Borough School District",27],
-                          ["Quaker Valley School District",28],["Riverview School District",29],
-                          ["Shaler Area School District",30],["South Allegheny School District",31],
-                          ["South Fayette Township School District",32], ["Steel Valley School District",33],
-                          ["Sto-Rox School District",34],["Upper St. Clair School District",35],
-                          ["West Allegheny School District",36],["West Jefferson Hills School District",37],
-                          ["West Mifflin Area School District",38],["Wilkinsburg School District",39],
-                          ["Woodland Hills School District",40]]
+  SCHOOL_DISTRICT_LIST = [["Other",0],["Allegheny Valley School District",1],["Avonworth School District",2],
+                          ["Baldwin-Whitehall School District",3],["Bethel Park School District",4],
+                          ["Brentwood Borough School District",5],["Carlynton School District",6],
+                          ["Chartiers Valley School District",7],["Clairton City School District",8],
+                          ["Cornell School District",9],["Deer Lakes School District",10],
+                          ["Duquesne City School District",11],["East Allegheny School District",12],
+                          ["Elizabeth Forward School District",13],["Fox Chapel Area School District",14],
+                          ["Gateway School District",15],["Hampton Township School District",16],
+                          ["Highlands School District",17],["Keystone Oaks School District",18],
+                          ["McKeesport Area School District",19],["Montour School District",20],
+                          ["Moon Area School District",21],["Mt. Lebanon School District",22],
+                          ["North Allegheny School District",23],["North Hills School District",24],
+                          ["Northgate School District",25],["Penn Hills School District",26],
+                          ["Pine-Richland School District",27],["Plum Borough School District",28],
+                          ["Quaker Valley School District",29],["Riverview School District",30],
+                          ["Shaler Area School District",31],["South Allegheny School District",32],
+                          ["South Fayette Township School District",33], ["Steel Valley School District",34],
+                          ["Sto-Rox School District",35],["Upper St. Clair School District",36],
+                          ["West Allegheny School District",37],["West Jefferson Hills School District",38],
+                          ["West Mifflin Area School District",39],["Wilkinsburg School District",40],
+                          ["Woodland Hills School District",41]]
   
   # Scopes
   scope :alphabetical, order('last_name, first_name')
@@ -78,35 +79,31 @@ class Student < ActiveRecord::Base
   scope :seniors, where('grade_integer = ?', 13)
   scope :without_forms, joins(:registrations).where('students.birth_certificate IS NULL OR physical IS NULL OR proof_of_insurance IS NULL OR report_card IS NULL')
   scope :unassigned, joins(:registrations).where('team_id IS NULL')
-  scope :current, joins(:registrations).where('? <= registrations.created_at and registrations.created_at <= ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31))
+  scope :current, joins(:registrations).where('? <= registrations.created_at and registrations.created_at <= ? and registrations.active = ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31), true)
   # Other methods
 
   def self.missing_forms(stus)
     students_missing_docs = []
     for stu in stus
-      if stu.registrations.current.first.proof_of_insurance.blank? or stu.registrations.current.first.physical.blank? or stu.registrations.current.first.report_card.blank? or stu.birth_certificate.blank?
+      if stu.registrations.current.first.proof_of_insurance.path.nil? or stu.registrations.current.first.physical.path.nil? or stu.registrations.current.first.report_card.path.nil? or stu.birth_certificate.path.nil?
         students_missing_docs << stu
       end
     end
-    return students_missing_docs
+    students_missing_docs
   end
 
   def self.school_districts
     current_registered_students = Student.current.active
-    school_districts = []
+    school_districts = Hash.new
     for stu in current_registered_students
-      if !school_districts.include?([stu.school_county,0])
-        school_districts << [stu.school_county, 0]
+      stu_school_district = SCHOOL_DISTRICT_LIST[stu.school_county.to_i][0]
+      if school_districts[stu_school_district].nil?
+        school_districts[stu_school_district] = 1
+      else
+        school_districts[stu_school_district] += 1
       end
     end
-    for student in current_registered_students
-      for district in school_districts
-        if district.first == student.school_county
-          district[1] += 1 
-        end
-      end
-    end
-    school_districts
+    school_districts.to_a
   end
 
   def self.home_counties
@@ -130,7 +127,7 @@ class Student < ActiveRecord::Base
   end
 
   def check_if_destroyable
-    return true
+    true
   end
 
   # def self.current_registered_students
@@ -155,7 +152,7 @@ class Student < ActiveRecord::Base
   end
   
   def missing_report_card
-    self.registrations.current[0].report_card.blank? unless (self.registrations.current[0].nil? || self.registrations.current.empty?)
+    self.registrations.current[0].report_card.path.nil? unless (self.registrations.current[0].nil? || self.registrations.current.empty?)
   end
 
   #Currently not in use/ or not functioning. Replaced by eligible_students method in team.rb
@@ -185,14 +182,18 @@ class Student < ActiveRecord::Base
   end
 
   def age
-    return nil if dob.blank?
-    (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i
+    if dob.blank? then nil else (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i end
   end
 
   def sex
-    return "Male" if gender == true
-    "Female"
+    if gender == true then "Male" else "Female" end
   end
+  
+  def proper_grade
+    index_of_grade_name = 0
+    GRADES_LIST[grade_integer-1][index_of_grade_name]
+  end
+    
 
   # Method to find student's registration for this year (if there is one)
   def current_reg
@@ -201,8 +202,7 @@ class Student < ActiveRecord::Base
   
   #insert age as of june 1 method
   def age_as_of_june_1
-    return nil if self.dob.blank? #should never be blank
-    (Date.new(Date.today.year, 6, 1).to_time.to_s(:number).to_i - self.dob.to_time.to_s(:number).to_i)/10e9.to_i
+    if self.dob.blank? then nil else (Date.new(Date.today.year, 6, 1).to_time.to_s(:number).to_i - self.dob.to_time.to_s(:number).to_i)/10e9.to_i end
   end
 
   # Private methods

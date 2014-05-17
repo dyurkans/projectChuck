@@ -21,11 +21,11 @@
   </p>
 
   <p>
-    <b>Cell Phone:</b> <%= number_to_phone @student.cell_phone unless @student.cell_phone.nil? %>
+    <b>Cell Phone:</b> <%= @student.cell_phone.nil? || @student.cell_phone.empty? ? " Not Provided" : "#{number_to_phone @student.cell_phone}" %>
   </p>
 
   <p>
-    <b>Jersey Size:</b> <%= if !@registration.nil? then Registration::SIZE_LIST.map{ |t| t[0]}[@registration.t_shirt_size - 1]  else "---" end %>
+    <b>Jersey Size:</b> <%= if !@registration.nil? then Registration::SIZE_LIST.map{ |t| t[0]}[@registration.t_shirt_size]  else "---" end %>
   </p>
 
   
@@ -41,11 +41,11 @@
   </p>
 
   <p>
-    <b>Grade (as of August <%= @registration.created_at.year unless @registration.nil? %>):</b> <%= @student.grade_integer %>
+    <b>Grade <%= "(as of August " + @registration.created_at.year.to_s + "):" unless @registration.nil? %></b> <%= @student.proper_grade %>
   </p>
 
   <p>
-    <b>School District:</b> <%= @student.school_county %>
+    <b>School District:</b> <%= Student::SCHOOL_DISTRICT_LIST[@student.school_county.to_i][0] %>
   </p>
 
 
@@ -56,16 +56,18 @@
     <h3>Medical Information</h3>
   </p>
 
+  <% allergyClass = (@student.nil? || @student.allergies.nil? || @student.allergies.empty?) ? "" : "myDanger" %>
   <p>
-    <b>Allergies:</b> <%= @student.allergies %>
+    <b>Allergies:</b> <span class="<%= allergyClass %>"><%= (@student.nil? || @student.allergies.nil? || @student.allergies.empty?) ? "None" : @student.allergies %></span>
+  </p>
+
+  <% medicationClass = (@student.nil? || @student.medications.nil? || @student.medications.empty?) ? "" : "myDanger" %>
+  <p>
+    <b>Medication(s):</b> <span class="<%= medicationClass %>"><%= (@student.nil? || @student.medications.nil? || @student.medications.empty?) ? "None" : @student.medications %></span>
   </p>
 
   <p>
-    <b>Medication(s):</b> <%= @student.medications %>
-  </p>
-
-  <p>
-    <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") unless @registration.nil? %>
+    <b>Last Physical:</b> <%= (@registration.nil? || @registration.physical_date.nil? || @registration.physical_date.blank?) ? "Not Provided" : @registration.physical_date.strftime("%m/%d/%y") %>
   </p>
 
   <p>
@@ -78,7 +80,7 @@
 </div>  
 
 <!--              Team                         -->
-<div class="col-sm-6 col-md-6 col-lg-6">
+<div class="col-sm-5 col-md-5 col-lg-6">
 <p>
 	<h3>Team Information</h3>
 </p>
@@ -101,6 +103,10 @@
     <h3>Parent/Guardian Information</h3>
   </p>
 
+  <p>
+    <b>Household:</b>  <%= link_to "#{@household.name} Household", household_path(@household) %> 
+  </p>
+
   <% @guardians.each do |guardian| %> <%= render :partial => "guardian_details", :locals => { :g => guardian, :h => @household, :r => @registration } %> <% end %>
 
 
@@ -115,13 +121,13 @@
     <b>Report Card: </b> <%= if @student.missing_report_card then "Not Submitted" else (link_to "Report Card", @registration.report_card.url) end %>
   </p>
   <p>
-    <b>Insurance Card: </b> <%= if @registration.missing_doc.include?("IC") then "Not Submitted" else (link_to "Insurance Card", @registration.proof_of_insurance.url) end %>
+    <b>Insurance Card: </b> <%= if @registration.missing_doc.include?("PI") then "Not Submitted" else (link_to "Insurance Card", @registration.proof_of_insurance.url) end %>
   </p>
   <p>
     <b>Physical: </b> <%= if @registration.missing_doc.include?("PH") then "Not Submitted" else (link_to "Physical Form", @registration.physical.url) end %>
   </p>
   <p>
-    <b>Birth Certificate: </b> <%= if @student.birth_certificate.blank? then "Not Submitted" else (link_to "Birth Certificate", @student.birth_certificate.url) end %>
+    <b>Birth Certificate: </b> <%= if @student.birth_certificate.path.nil? then "Not Submitted" else (link_to "Birth Certificate", @student.birth_certificate.url) end %>
   </p>
 
   
@@ -133,5 +139,8 @@
 
   <p>
     <b>Current Status:</b> <%= @student.active ? "Active" : "Inactive" %>
+  </p>
+  <p>
+    <b>Registered by:</b> <%= if (@registration.nil? || @registration.volunteer_initials.nil? || @registration.volunteer_initials.length == 0) then "No volunteer recorded" else @registration.volunteer_initials end %>
   </p>
 </div>

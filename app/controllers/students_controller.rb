@@ -12,6 +12,7 @@ class StudentsController < ApplicationController
   
   def edit
     @student = Student.find(params[:id])
+    @households = Household.active
   end
   
   def index
@@ -38,13 +39,14 @@ class StudentsController < ApplicationController
       flash[:notice] = "Successfully created #{@student.proper_name}."
       redirect_to @student # go to show student page
     else
-      # return to the 'new' form
+      # go back to the 'new' form
       render :action => 'new'
     end
   end
   
   def update
     @student = Student.find(params[:id])
+    @households = Household.active
     if @student.update_attributes(params[:student])
       flash[:notice] = "Successfully updated #{@student.name}."
       redirect_to @student
@@ -60,17 +62,22 @@ class StudentsController < ApplicationController
     redirect_to @student
   end
 
-  def activate
+  def activate_student
     @student = Student.find(params[:id])
     @student.active = true
     @student.save! 
     unless @student.registrations.nil? || @student.registrations.empty?
-      for reg in @student.registrations.inactive
-        reg.update_attribute(:active, true)
+      for reg in @student.registrations.current
+        reg.active = true
         reg.save!
       end      
     end
-    flash[:notice] = "Successfully reactivated #{@student.proper_name} from the Project C.H.U.C.K. System"
+    @household = Household.find(@student.household_id)
+    if !@household.active
+      @household.active = true
+      @household.save!
+    end
+    flash[:notice] = "Successfully reactivated #{@student.proper_name} in the Project C.H.U.C.K. System"
     redirect_to @student
   end
 

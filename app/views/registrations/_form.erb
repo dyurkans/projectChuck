@@ -1,0 +1,25 @@
+<%= simple_nested_form_for @household, :url => { :controller => 'registrations', :action => 'create' }, :html => { :multipart => true } do |household_form| %>
+  <% if @household.errors.any? %>
+    <div>
+      <h3><%= pluralize(@household.errors.count, "error") %> prohibited this form from being saved:</h3>
+
+      <ul>
+        <% @household.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend><h3 id="registrationFormLegend">Student Information</h3></legend>
+    <%= render :partial => "page1_fields", :locals => { :f => household_form } %>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= link_to 'Cancel', students_path, :id => 'registrationFormCancel', :class => 'btn btn-danger' %>
+    <span id="myPrevious" class="btn btn-default myHide">Previous</span>
+    <span id="myContinue" class="btn btn-default">Continue</span>
+    <%= household_form.submit "Submit", :class => 'btn btn-success myHide', :id => 'registrationNestedSubmit' %>
+  </div>
+<% end %>

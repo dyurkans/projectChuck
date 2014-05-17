@@ -22,12 +22,12 @@ class TournamentsController < ApplicationController
   
   def create
     @tournament = Tournament.new(params[:tournament])
-    if @tournament.save
+    if @tournament.save!
       # if saved to database
       flash[:notice] = "Successfully created #{@tournament.name}."
       redirect_to @tournament # go to show Tournament page
     else
-      # return to the 'new' form
+      # go back to the 'new' form
       render :action => 'new'
     end
   end

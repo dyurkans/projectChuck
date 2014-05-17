@@ -11,6 +11,7 @@ ProjectChuck::Application.routes.draw do
   resources :users
   resources :tournaments
   resources :sessions
+  resources :users
   
   get "households/new"
   get "students/index"
@@ -18,8 +19,8 @@ ProjectChuck::Application.routes.draw do
   
   match 'home' => 'home#index', :as => :home
   
-  match 'user/edit' => 'users#edit', :as => :edit_current_user
-  match 'signup' => 'users#new', :as => :signup
+#   match 'user/edit' => 'users#edit', :as => :edit_current_user
+#   match 'signup' => 'users#new', :as => :signup
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'login' => 'sessions#new', :as => :login
       
@@ -29,7 +30,10 @@ ProjectChuck::Application.routes.draw do
   get 'teams/:id/add' => 'teams#add_student', :as => :add_student
   get 'brackets/:id/add' => 'brackets#add_team', :as => :add_team
   get 'guardians/:id/activate' => 'guardians#activate_guardian', :as => :activate_guardian
-  get 'students/:id/activate' => 'students#activate', :as => :activate
+  get 'students/:id/activate' => 'students#activate_student', :as => :activate_student
+  get 'households/:id/activate' => 'households#activate_household', :as => :activate_household
+  get 'home/waitlist' => 'home#waitlist', :as => :waitlist
+  get 'survey' => 'registrations#survey', :as => :survey
   #get 'home' => 'home#index', :as => :home
   
   # Set the root url

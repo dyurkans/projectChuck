@@ -16,7 +16,7 @@
           <td><%= link_to tournament.name, tournament_path(tournament) %></td>
   				<td><%= tournament.start_date.strftime("%B %d, %Y") %></td>
           <td><%= tournament.end_date.strftime("%B %d, %Y") %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_tournament_path(tournament), :class => 'btn btn-mini' %></td>
+          <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_tournament_path(tournament), :class => 'btn btn-md' %></td>
         </tr>
       <% end %>
     </tbody>

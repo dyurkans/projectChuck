@@ -11,7 +11,7 @@
 </p>
 
 <p>
-  <b>Students Registered:</b><%= @tournament.number_of_students %>
+  <b>Students Registered:</b><%= @tournament.number_of_assigned_students %>
 </p>
   
 <p>
@@ -27,6 +27,7 @@
         <th>Ages</th>
         <th>Gender</th>
         <th>Number of Teams</th>
+        <th>Number of Active Players<th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -35,8 +36,9 @@
         <tr>
           <td><%= link_to "#{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket) %></td>
           <td><%= bracket.sex %></td>
-          <td><%= bracket.teams.size() unless bracket.teams.nil? %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_bracket_path(bracket), :class => 'btn btn-mini' %></td>
+          <td><%= bracket.teams.nil? ? "None at this time" : bracket.teams.size() %></td>
+          <td><%= bracket.current_number_of_students %></td>
+          <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_bracket_path(bracket), :class => 'btn btn-md' %></td>
         </tr>
       <% end %>
     </tbody>

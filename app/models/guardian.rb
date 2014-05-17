@@ -4,22 +4,21 @@ class Guardian < ActiveRecord::Base
   has_many :students, through: :household
 
   accepts_nested_attributes_for :household, :students
-  attr_accessible :household_attributes, :students_attributes, :active, :cell_phone, :day_phone, :dob, :email, :first_name, :gender, :household_id, :last_name, :receive_texts
+  attr_accessible :household_attributes, :students_attributes, :active, :cell_phone, :day_phone, :email, :first_name, :gender, :household_id, :last_name, :receive_texts
 
   
   #Callbacks
   before_save :reformat_cell
   before_save :reformat_phone
 
-  validates_presence_of :first_name, :last_name
-  validates_date :dob, :on_or_before => lambda { 18.years.ago }, :on_or_before_message => "must be at least 18 years old" 
-  validates_format_of :day_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
-  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
-  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format", :allow_blank => true, :allow_nil => true
-  validates_inclusion_of :receive_texts, :in => [true, false], :message => "must be true or false"
-  validates_inclusion_of :gender, :in => [true, false], :message => "must be true or false"
-  validates_inclusion_of :active, :in => [true, false], :message => "must be true or false"
-  validates_uniqueness_of :email, :case_sensitive => false
+  validates_presence_of :first_name, :last_name, :message => "Can't be blank"
+  validates_format_of :day_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
+  validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
+  validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "Email is not in a valid format", :allow_blank => true, :allow_nil => true
+  validates_inclusion_of :receive_texts, :in => [true, false]
+  validates_inclusion_of :gender, :in => [true, false]
+  validates_inclusion_of :active, :in => [true, false]
+  validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
   validates_numericality_of :household_id, :only_integer => true, :greater_than => 0, :allow_nil => true
 
   #Scopes
@@ -37,14 +36,8 @@ class Guardian < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def age
-    return nil if dob.blank?
-    (Time.now.to_s(:number).to_i - dob.to_time.to_s(:number).to_i)/10e9.to_i
-  end
-
   def sex
-    return "Male" if gender == true
-    "Female"
+    if gender == true then "Male" else "Female" end
   end
 
   # Private methods

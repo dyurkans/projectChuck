@@ -1,7 +1,12 @@
 class HomeController < ApplicationController
 
 	require 'will_paginate/array'
-
+  
+  def waitlist
+    @brackets = Bracket.all
+    authorize! :waitlist, current_user
+  end
+  
 	def index
 		if  !current_user.nil? && current_user.is_admin?
 			@tournament = Tournament.by_date.first
@@ -11,11 +16,11 @@ class HomeController < ApplicationController
 			@current_registered_students = Student.alphabetical.current.active
 			#@students_missing_docs = Student.alphabetical.missing_forms(@current_registered_students).paginate(:page => params[:missing_docs_page], :per_page => 10)
 			@students_missing_docs = Student.alphabetical.current.without_forms.active.paginate(:page => params[:missing_docs_page], :per_page => 10)			
-			@male_students = @current_registered_students.select { |x| x.gender == true }.size 
-			@female_students = @current_registered_students.select { |x| x.gender == false }.size
+			@male_students = @current_registered_students.male.size 
+			@female_students = @current_registered_students.female.size
 			@school_districts = Student.school_districts
 			@unassigned_students = Student.active.alphabetical.unassigned.paginate(:page => params[:unassigned_student_page], :per_page => 10)
-			@brackets = Bracket.all
+# 			@brackets = Bracket.all
 			@home_counties = Student.home_counties
 			# for reg in Registration.current.active.by_date.select { |reg| reg.team_id == nil }
 			# 	@eligible_students = lambda {|bracket| where(Student.find(reg.student_id).age_as_of_june_1 >= min and Student.find(reg.student_id).age_as_of_june_1 <= max) }
@@ -28,8 +33,8 @@ class HomeController < ApplicationController
 			               :type=> 'pie',
 			               :name=> 'Gender',
 			               :data=> [
-			                  ['Female',   @male_students ],
-			                  ['Male',     @female_students ]
+			                  ['Male',   @male_students ],
+			                  ['Female',     @female_students ]
 			               ]
 			      }
 			      f.series(series)

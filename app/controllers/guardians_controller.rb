@@ -6,19 +6,21 @@ class GuardiansController < ApplicationController
   
   def new
     @guardian = Guardian.new
-    @households = Household.active.by_last_name
+    households_with_guardians = Household.active.by_last_name
+    households_without_guardians = Household.all - households_with_guardians
+    @households = households_without_guardians + households_with_guardians
   end
   
   def create
     @guardian = Guardian.new(params[:guardian])
     @household = Household.find(@guardian.household_id)
     @households = Household.active.by_last_name
-    if @guardian.save!
+    if @guardian.save
       # if saved to database
       flash[:notice] = "Successfully created #{@guardian.name}."
       redirect_to @guardian # go to show student page
     else
-      # return to the 'new' form
+      # go back to the 'new' form
       render :action => 'new'
     end
   end
@@ -57,7 +59,9 @@ class GuardiansController < ApplicationController
   
   def destroy
     @guardian = Guardian.find(params[:id])
+    # not sure why this is here, but didn't want to remove and conduct regression testing
     @household = Household.select{ |h| h.id == @guardian.household_id }.first
+    ######
     @guardian.active = false
     @guardian.save!
     flash[:notice] = "Successfully deactivated #{@guardian.name} from the Project C.H.U.C.K. System"
@@ -68,6 +72,11 @@ class GuardiansController < ApplicationController
     @guardian = Guardian.find(params[:id])
     @guardian.active = true
     @guardian.save!
+    @household = Household.find(@guardian.household_id)
+    if !@household.active
+      @household.active = true
+      @household.save!
+    end
     flash[:notice] = "Successfully reactivated #{@guardian.name} from the Project C.H.U.C.K. System"
     redirect_to @guardian
   end

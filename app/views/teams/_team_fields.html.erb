@@ -1,15 +1,15 @@
 <div class="fields">
   <div class="min_attraction">
     <%= f.input :bracket_id, :collection => Bracket.all, :include_blank => false, :selected => (@bracket.id unless @bracket.nil?), :required => true, :message => "Please create a bracket first" %>
-	<%= f.input :name, :collection => @teams, :include_blank => false, :selected => @team.name %>
+    <%= f.input :name, :collection => @teams, :include_blank => false, :selected => @team.name %>
     <%= f.input :coach, :placeholder => "Full Name" %>
     <% if !@team.id.nil? %>
-	    <% min_selection = 5 %>
-	    <% if @team.current_number_of_students > 5 then min_selection = @team.current_number_of_students end %>
-	<% else %>
-		<% min_selection = 5 %>
-	<% end %>
+      <% min_selection = 5 %>
+      <% if @team.current_number_of_students > 5 then min_selection = @team.current_number_of_students end %>
+    <% else %>
+      <% min_selection = 5 %>
+    <% end %>
     <%= f.input :max_students, collection: (min_selection..10), :include_blank => false %>
-    <%= f.input :notes %>
+    <%= f.input :notes, :input_html => { :rows => 6 , :cols => 50} %>
   </div>
 </div>

@@ -7,6 +7,7 @@
       <tr>
         <th>Name</th>
         <th>Age(as of June 1)</th>
+        <th>Time Submitted</th>
       </tr>
     </thead>
     <tbody>
@@ -14,6 +15,7 @@
         <tr>
           <td><%= link_to student.name, student_path(student) %></td>
           <td><%= student.age_as_of_june_1 %></td>
+          <th><%= student.registrations.current.first.created_at.strftime("%m/%d @ %I:%M%p") %></td>
         </tr>
       <% end %>
     </tbody>

@@ -7,23 +7,23 @@
 </p>
 
 <p>
-  <b>Home Phone: </b> <%= number_to_phone @household.home_phone %>
+  <b>Home Phone: </b> <%= @household.home_phone.nil? || @household.home_phone.empty? ? "Not Provided" : "#{number_to_phone @household.home_phone}" %>
 </p>
 
 <p>
-  <b>Household Insurance Provider: </b> <%= @household.insurance_provider %>
+  <b>Household Insurance Provider: </b> <%= @household.insurance_provider.nil? || @household.insurance_provider.empty? ? "Not Provided" : "#{@household.insurance_provider}" %>
 </p>
 
 <p>
-  <b>Insurance Policy Number: </b> <%= @household.insurance_policy_no %>
+  <b>Insurance Policy Number: </b> <%= @household.insurance_policy_no.nil? || @household.insurance_policy_no.empty? ? "Not Provided" : "#{@household.insurance_policy_no}" %>
 </p>
 
 <p>
-  <b>Family Physician: </b> <%= @household.family_physician %>
+  <b>Family Physician: </b> <%= @household.family_physician.nil? || @household.family_physician.empty? ? "Not Provided" : "#{@household.family_physician}" %>
 </p>
 
 <p>
-  <b>Physician Phone: </b> <%= number_to_phone @household.physician_phone %>
+  <b>Physician Phone: </b> <%= @household.physician_phone.nil? || @household.physician_phone.empty? ? "Not Provided" : "#{number_to_phone @household.physician_phone}" %>
 </p>
 
 <p>
@@ -64,7 +64,7 @@
           <td><%= guardian.email %></td>
           <td><%= guardian.receive_texts ? "Yes" : "No" %></td>
           <td><%= guardian.active ? "Active" : "Inactive" %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_guardian_path(guardian), :class => 'btn btn-mini' %></td>
+          <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_guardian_path(guardian), :class => 'btn btn-md' %></td>
         </tr>
       <% end %>
     </tbody>
@@ -100,7 +100,7 @@
           <td><%= student.grade_integer %></td>          
           <td><%= number_to_phone student.cell_phone %></td>
           <td><%= student.active ? "Active" : "Inactive" %></td>
-          <td><%= link_to raw("<i class='icon-pencil'></i> Edit"), edit_student_path(student), :class => 'btn btn-mini' %></td>
+          <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_student_path(student), :class => 'btn btn-md' %></td>
         </tr>
       <% end %>
     </tbody>

@@ -1,11 +1,10 @@
 <div id="page2" class="myHide">
-  <%= g.input :first_name, :label => "Guardian Name", :placeholder => "First", :wrapper => :my_wrapper, :input_html => { :value => 'Janine', size: 30 } %>
-  <%= g.input :last_name, :label => false, :placeholder => "Last", :wrapper => :my_wrapper, :input_html => { :value => 'Carol', size: 30 } %>
-  <%= g.input :gender, :label => "Guardian Gender", :collection => Student::GENDER_LIST, :default => 0 %>
-  <%= g.input :dob, :label => "Date of Birth", :as => :date, :start_year => Date.today.year-19, :end_year => Date.today.year-100,  :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' }, :required => false %>
-  <%= g.input :email, :placeholder => "johndoe@gmail.com", :input_html => { :value => 'johndoe@gmail.com', size: 30 } %>
-  <%= g.input :day_phone, :label => "Day Phone", :placeholder => "412-345-5555", :input_html => { :value => '412-345-5555', size: 30 } %>
-  <%= g.input :cell_phone, :label => "Guardian Cell Phone", :placeholder => "412-567-9999", :input_html => { :value => '412-567-9999', size: 30 } %>
-  <%= g.input :receive_texts, :label => "Opt-in to Receive Text Messages" %>
+  <%= g.input :first_name, :label => "Guardian Name", :placeholder => "First Name", :wrapper => :my_wrapper, :input_html => { autcorrect: "off", size: 30 } %>
+  <%= g.input :last_name, :label => false, :placeholder => "Last Name", :wrapper => :my_wrapper, :input_html => { autcorrect: "off", size: 30 } %>
+  <%= g.input :gender, :label => "Guardian Gender", :collection => Student::GENDER_LIST, :include_blank => false, :default => 0 %>
+  <%= g.input :email, :input_html => { size: 30 } %>
+  <%= g.input :day_phone, :label => "Day Phone", :input_html => { size: 30 } %>
+  <%= g.input :cell_phone, :label => "Guardian Cell Phone", :input_html => { size: 30 } %>
+  <%= g.input :receive_texts, :label => "Would you like to receive text message alerts about cancelled or delayed games?", :as => :radio_buttons, :selected => :false %>
 </div>
 <%= render :partial => "page3_fields", :locals => { :f => f, :s => s, :r => r} %>
