@@ -75,6 +75,7 @@ attr_accessible :medical_agreement, :permission_agreement, :student_agreement, :
     self.city = self.city.downcase.squish.titleize
     self.county = self.county.downcase.squish.titleize
     self.family_physician = self.family_physician.downcase.squish.titleize
+    self.insurance_provider = self.insurance_provider.downcase.squish.titleize
   end
 
 end
