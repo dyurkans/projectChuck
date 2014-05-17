@@ -3,9 +3,10 @@
     <% editingUser = controller.action_name == "edit" ? true : false %>
     <legend><%= controller.action_name.capitalize %> User</legend>
       <%= render :partial => "user_fields", :locals => { :f => user_form, :isEdit => editingUser } %>
-    <div class="form-actions">
-      <%= link_to 'Cancel', users_path, :class => 'btn btn-danger' %>
-      <%= user_form.submit nil, :class => 'btn btn-primary' %>
-    </div>
   </fieldset>
+  
+  <div class="form-actions">
+    <%= link_to 'Cancel', users_path, :class => 'btn btn-danger' %>
+    <%= user_form.submit nil, :class => 'btn btn-primary' %>
+  </div>
 <% end %>

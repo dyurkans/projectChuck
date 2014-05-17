@@ -6,22 +6,22 @@
         <%= render :partial => "student_fields", :locals => { :f => student_form } %>
       </fieldset>
     </div>
-  <div class="col-xs-12 col-sm-5 col-med-5 col-lg-5">
-    <% editingUser = controller.action_name == "edit" ? true : false %>
-    <legend>Registration Information</legend>
-    <div id="student_registrations">
-      <%= student_form.simple_fields_for :registrations do |registration_form| %>
-        <%= render :partial => "registration_fields", :locals => { :r => registration_form, :isEdit => editingUser } %>
-      <% end %> 
-    </div> 
-  </div>
-  <div class="form-actions">
-    <%= student_form.submit nil, :class => 'btn btn-primary' %>
-    <% if current_user.role == 'member' %>
-      <%= link_to 'Cancel', home_path, :class => 'btn btn-danger' %>
-    <% else %>
-      <%= link_to 'Cancel', students_path, :class => 'btn btn-danger' %>
-    <% end %>
-  </div>
+    <div class="col-xs-12 col-sm-5 col-med-5 col-lg-5">
+      <% editingUser = controller.action_name == "edit" ? true : false %>
+      <legend>Registration Information</legend>
+      <div id="student_registrations">
+        <%= student_form.simple_fields_for :registrations do |registration_form| %>
+          <%= render :partial => "registration_fields", :locals => { :r => registration_form, :isEdit => editingUser } %>
+        <% end %> 
+      </div> 
+    </div>
+    <div class="form-actions">
+      <%= student_form.submit nil, :class => 'btn btn-primary' %>
+      <% if current_user.role == 'member' %>
+        <%= link_to 'Cancel', home_path, :class => 'btn btn-danger' %>
+      <% else %>
+        <%= link_to 'Cancel', students_path, :class => 'btn btn-danger' %>
+      <% end %>
+    </div>
   </div>
 <% end %>

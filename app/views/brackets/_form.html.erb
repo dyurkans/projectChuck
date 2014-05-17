@@ -1,14 +1,10 @@
 <%= simple_form_for @bracket do |bracket_form| %>
-  <div class="row">
-    <div class="span12">
-      <fieldset>
-        <legend><%= controller.action_name.capitalize %> Bracket </legend>
-        <%= render :partial => "bracket_fields", :locals => { :f => bracket_form } %>
-      </fieldset>
-    </div>
-  <div>
-  
-    <div class="form-actions">
+  <fieldset>
+    <legend><%= controller.action_name.capitalize %> Bracket </legend>
+    <%= render :partial => "bracket_fields", :locals => { :f => bracket_form } %>
+  </fieldset>
+
+  <div class="form-actions">
     <%= bracket_form.submit nil, :class => 'btn btn-primary' %>
     <%= link_to 'Cancel', brackets_path, :class => 'btn btn-danger' %>
   </div>

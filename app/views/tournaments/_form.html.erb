@@ -1,14 +1,10 @@
 <%= simple_form_for @tournament do |tournament_form| %>
-  <div class="row">
-    <div class="span12">
-      <fieldset>
-        <legend><%= controller.action_name.capitalize %> Tournament </legend>
-        <%= render :partial => "tournament_fields", :locals => { :f => tournament_form } %>
-      </fieldset>
-    </div>
-  <div>
+  <fieldset>
+    <legend><%= controller.action_name.capitalize %> Tournament </legend>
+    <%= render :partial => "tournament_fields", :locals => { :f => tournament_form } %>
+  </fieldset>
   
-    <div class="form-actions">
+  <div class="form-actions">
     <%= link_to 'Cancel', tournaments_path, :class => 'btn btn-danger' %>
     <%= tournament_form.submit nil, :class => 'btn btn-primary' %>
   </div>

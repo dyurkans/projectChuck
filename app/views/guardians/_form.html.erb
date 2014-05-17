@@ -1,14 +1,10 @@
 <%= simple_form_for @guardian do |guardian_form| %>
-  <div class="row">
-    <div class="span7">
-      <fieldset>
-        <legend><%= controller.action_name.capitalize %> Parent/Guardian </legend>
-        <%= render :partial => "guardian_fields", :locals => { :f => guardian_form } %>
-      </fieldset>
-    </div>
-  <div>
+  <fieldset>
+    <legend><%= controller.action_name.capitalize %> Parent/Guardian </legend>
+    <%= render :partial => "guardian_fields", :locals => { :f => guardian_form } %>
+  </fieldset>
   
-    <div class="form-actions">
+  <div class="form-actions">
     <%= guardian_form.submit nil, :class => 'btn btn-primary' %>
     <% if current_user.role == 'member' %>
       <%= link_to 'Cancel', home_path, :class => 'btn' %>

@@ -11,7 +11,7 @@
       <% if isEdit %>
         <label>Volunteer Initials: </label><%="   " + if (@registration.nil? || @registration.volunteer_initials.nil? || @registration.volunteer_initials.length == 0) then "Student registered without a volunteer" else @registration.volunteer_initials end %></p>
       <% else %>
-        <%= f.input :volunteer_initials %>  
+        <%= r.input :volunteer_initials %>  
       <% end %>
       <%= r.input :active %>
   </div>
