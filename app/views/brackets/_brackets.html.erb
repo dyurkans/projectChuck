@@ -15,7 +15,7 @@
         <tr>
           <td><%= link_to "#{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket) %></td>
   				<td><%= bracket.sex %></td>
-          <td><%= bracket.teams.nil? ? "None at this time" : "#{bracket.teams.size} %></td>
+          <td><%= bracket.teams.nil? ? "None at this time" : "#{bracket.teams.size}" %></td>
           <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span></i> Edit"), edit_bracket_path(bracket), :class => 'btn btn-md' %></td>
         </tr>
       <% end %>
