@@ -10,17 +10,16 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <%= javascript_include_tag "bootstrap" %>
     <%= javascript_include_tag "application" %>    
-    <%= javascript_include_tag "my_javascript" %>
-    <%= javascript_include_tag "bootstrap-datepicker" %>    
+    <%= javascript_include_tag "my_javascript" %>    
     <%= csrf_meta_tags %>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $('[data-behaviour~=datepicker]').datepicker();
-      })
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script>
+      $(function() {
+        $( "input.datepicker" ).datepicker();
+      });
     </script>
   </head>
   <body>

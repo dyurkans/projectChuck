@@ -22,7 +22,9 @@ class TournamentsController < ApplicationController
   
   def create
     @tournament = Tournament.new(params[:tournament])
-    if @tournament.save
+    @tournament.start_date = DateTime.strptime(params[:tournament][:start_date], '%m/%d/%Y').to_date
+    @tournament.end_date = DateTime.strptime(params[:tournament][:end_date], '%m/%d/%Y').to_date
+    if @tournament.save!
       # if saved to database
       flash[:notice] = "Successfully created #{@tournament.name}."
       redirect_to @tournament # go to show Tournament page
