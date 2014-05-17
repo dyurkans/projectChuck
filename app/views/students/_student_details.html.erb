@@ -167,7 +167,7 @@
     </p>
   <p>
     <b>Birth Certificate: </b>
-    <% if @registration.birth_certificate.path.nil? %>
+    <% if @student.birth_certificate.path.nil? %>
       <%= "Not Submitted" %>
     <% else %>
       <button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">View Birth Certificate</button>
