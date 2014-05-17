@@ -2,7 +2,7 @@
   <div class="min_attraction">
   
     <% if isEdit %>
-      <label>Guardian: </label><p><%="   " + Guardian.find_by_id(@guardian.id).proper_name unless @guardian.nil? %></p>
+      <label>Guardian: </label><%="   " + Guardian.find_by_id(@guardian.id).proper_name unless @guardian.nil? %>
     <% else %>
       <%= f.input :guardian_id, :collection => @guardians, :selected => (@guardian.id unless @guardian.nil?), :include_blank => false %>  
     <% end %>
@@ -14,7 +14,7 @@
     <% if logged_in? && current_user.role == "admin" %>
       <%= f.input :role, :collection => User::ROLES, :include_blank => false, :selected => (@user.role unless @user.nil?) %>
     <% else %>
-      <label>Role: </label><p><%="   " + @user.role unless @user.nil? %></p>
+      <label>Role: </label><%="   " + @user.role unless @user.nil? %>
     <% end %>
     
     <%= f.input :active %>
