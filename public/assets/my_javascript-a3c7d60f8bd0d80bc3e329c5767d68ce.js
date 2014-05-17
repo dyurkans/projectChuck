@@ -1,0 +1,1 @@
+$(document).ready(function(){function e(){$(".alert-temp").removeClass("in")}function t(){$(".alert-temp").remove()}window.setTimeout(e,3e3),window.setTimeout(t,1e4)});
