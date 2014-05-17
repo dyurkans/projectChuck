@@ -10,7 +10,8 @@
   <div><%= f.input :medical_agreement, :label => "Parent", :as => :boolean, :required => true, :input_html => { :class => "agreementField" } %></div>
   <%= f.input :family_physician, :label => "Physician Name", :input_html => { autcorrect: "off" }  %>
   <%= f.input :physician_phone, :label => "Physician Phone" %>
-  <%= r.input :physical_date, :label => "Date of Last Physical Exam: ", :as => :date, :start_year => Date.today.year-2, :end_year => Date.today.year,  :order => [:month, :day, :year], :prompt => { :day => 'Day', :month => 'Month', :year => 'Year' } %>    
+
+  <%= r.input :physical_date, :label => "Date of Last Physical Exam: ", :as => :string, :input_html => { :class => 'datepicker' } %>    
   <%= r.input :physical, :as => :file, :label => "Physical Form Upload: " %>
   <%= r.input :physical_cache, :as => :hidden %>
   <%= s.input :allergies, :label => "Allergies ", :input_html => { :rows => 3 , :cols => 30} %>
