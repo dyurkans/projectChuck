@@ -46,6 +46,7 @@ class StudentsController < ApplicationController
   
   def update
     @student = Student.find(params[:id])
+    @households = Household.active
     if @student.update_attributes(params[:student])
       flash[:notice] = "Successfully updated #{@student.name}."
       redirect_to @student

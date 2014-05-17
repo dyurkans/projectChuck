@@ -17,6 +17,7 @@ gem 'cancancan', '~> 1.7'
 gem 'strong_parameters'
 gem "mini_magick"
 gem 'unicorn'
+gem 'bootstrap-datepicker-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
