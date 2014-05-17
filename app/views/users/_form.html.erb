@@ -1,6 +1,6 @@
 <%= simple_form_for @user do |user_form| %>
   <fieldset>
-    <% editingUser = controller.action_name == "edit" ? true : false %>
+    <% editingUser = controller.action_name == "edit" || controller.action_name == "update" ? true : false %>
     <legend><%= controller.action_name.capitalize %> User</legend>
       <%= render :partial => "user_fields", :locals => { :f => user_form, :isEdit => editingUser } %>
     <div class="form-actions">

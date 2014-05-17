@@ -21,7 +21,7 @@
   </p>
 
   <p>
-    <b>Cell Phone:</b> <%= number_to_phone @student.cell_phone unless @student.cell_phone.nil? %>
+    <b>Cell Phone:</b> <%= @student.cell_phone.nil? ? " Not Provided" : "#{number_to_phone @student.cell_phone}" %>
   </p>
 
   <p>
@@ -65,7 +65,7 @@
   </p>
 
   <p>
-    <b>Last Physical:</b> <%= @registration.physical_date.strftime("%m/%d/%y") unless @registration.nil? || @registration.physical_date.nil? %>
+    <b>Last Physical:</b> <%= (@registration.nil? || @registration.physical_date.nil? || @registration.physical_date.blank?) ? "Not Provided" : @registration.physical_date.strftime("%m/%d/%y") %>
   </p>
 
   <p>
