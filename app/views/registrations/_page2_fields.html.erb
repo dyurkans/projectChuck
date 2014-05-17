@@ -5,6 +5,6 @@
   <%= g.input :email, :input_html => { size: 30 } %>
   <%= g.input :day_phone, :label => "Day Phone", :input_html => { size: 30 } %>
   <%= g.input :cell_phone, :label => "Guardian Cell Phone", :input_html => { size: 30 } %>
-  <%= g.input :receive_texts, :label => "Would you like to receive text message alerts about cancelled or delayed games?", :as => :radio_buttons, :selected => :false %>
+  <%= g.input :receive_texts, :label => "Would you like to receive text message alerts about cancelled or delayed games?", :as => :radio_buttons, :checked => false %>
 </div>
 <%= render :partial => "page3_fields", :locals => { :f => f, :s => s, :r => r} %>
