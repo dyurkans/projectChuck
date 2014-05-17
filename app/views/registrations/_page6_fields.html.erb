@@ -48,8 +48,8 @@
   </p>
   
   <div><%= f.input :overall_agreement, :label => "Parent", :as => :boolean, :required => true, :input_html => { :class => "agreementField"} %></div>
-  <%= f.label "For Official Use Only:", :as => :boolean, :required => true, :input_html => { :class => "agreementField"} %>
   <% if logged_in? %>
+    <%= f.label "For Official Use Only:", :as => :boolean, :required => true, :input_html => { :class => "agreementField"} %>
     <%= r.input :volunteer_initials, :label => "Volunteer Initials", :required => true, :input_html => { autcorrect: "off", size: 5 } %>
   <% else %>
     <%= r.input :volunteer_initials, :as => :hidden %>
