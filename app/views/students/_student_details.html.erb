@@ -21,7 +21,7 @@
   </p>
 
   <p>
-    <b>Cell Phone:</b> <%= @student.cell_phone.nil? ? " Not Provided" : "#{number_to_phone @student.cell_phone}" %>
+    <b>Cell Phone:</b> <%= @student.cell_phone.nil? || @student.cell_phone.empty? ? " Not Provided" : "#{number_to_phone @student.cell_phone}" %>
   </p>
 
   <p>
@@ -41,7 +41,7 @@
   </p>
 
   <p>
-    <b>Grade (as of August <%= @registration.created_at.year unless @registration.nil? %>):</b> <%= @student.proper_grade %>
+    <b>Grade <%= "(as of August " + @registration.created_at.year.to_s + "):" unless @registration.nil? %></b> <%= @student.proper_grade %>
   </p>
 
   <p>
@@ -57,11 +57,11 @@
   </p>
 
   <p>
-    <b>Allergies:</b> <%= @student.allergies %>
+    <b>Allergies:</b> <%= (@student.nil? || @student.allergies.nil? || @student.allergies.empty?) ? "None" : @student.allergies %>
   </p>
 
   <p>
-    <b>Medication(s):</b> <%= @student.medications %>
+    <b>Medication(s):</b> <%= (@student.nil? || @student.medications.nil? || @student.medications.empty?) ? "None" : @student.medications %>
   </p>
 
   <p>
