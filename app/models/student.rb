@@ -41,27 +41,27 @@ class Student < ActiveRecord::Base
                  ["Freshman",9],["Sophomore",10],["Junior",11],["Senior",12],["Graduated Senior",13]]
 
   
-  SCHOOL_DISTRICT_LIST = [["Allegheny Valley School District",0],["Avonworth School District",1],
-                          ["Baldwin-Whitehall School District",2],["Bethel Park School District",3],
-                          ["Brentwood Borough School District",4],["Carlynton School District",5],
-                          ["Chartiers Valley School District",6],["Clairton City School District",7],
-                          ["Cornell School District",8],["Deer Lakes School District",9],
-                          ["Duquesne City School District",10],["East Allegheny School District",11],
-                          ["Elizabeth Forward School District",12],["Fox Chapel Area School District",13],
-                          ["Gateway School District",14],["Hampton Township School District",15],
-                          ["Highlands School District",16],["Keystone Oaks School District",17],
-                          ["McKeesport Area School District",18],["Montour School District",19],
-                          ["Moon Area School District",20],["Mt. Lebanon School District",21],
-                          ["North Allegheny School District",22],["North Hills School District",23],
-                          ["Northgate School District",24],["Penn Hills School District",25],
-                          ["Pine-Richland School District",26],["Plum Borough School District",27],
-                          ["Quaker Valley School District",28],["Riverview School District",29],
-                          ["Shaler Area School District",30],["South Allegheny School District",31],
-                          ["South Fayette Township School District",32], ["Steel Valley School District",33],
-                          ["Sto-Rox School District",34],["Upper St. Clair School District",35],
-                          ["West Allegheny School District",36],["West Jefferson Hills School District",37],
-                          ["West Mifflin Area School District",38],["Wilkinsburg School District",39],
-                          ["Woodland Hills School District",40],["Other",41]]
+  SCHOOL_DISTRICT_LIST = [["Other",0],["Allegheny Valley School District",1],["Avonworth School District",2],
+                          ["Baldwin-Whitehall School District",3],["Bethel Park School District",4],
+                          ["Brentwood Borough School District",5],["Carlynton School District",6],
+                          ["Chartiers Valley School District",7],["Clairton City School District",8],
+                          ["Cornell School District",9],["Deer Lakes School District",10],
+                          ["Duquesne City School District",11],["East Allegheny School District",12],
+                          ["Elizabeth Forward School District",13],["Fox Chapel Area School District",14],
+                          ["Gateway School District",15],["Hampton Township School District",16],
+                          ["Highlands School District",17],["Keystone Oaks School District",18],
+                          ["McKeesport Area School District",19],["Montour School District",20],
+                          ["Moon Area School District",21],["Mt. Lebanon School District",22],
+                          ["North Allegheny School District",23],["North Hills School District",24],
+                          ["Northgate School District",25],["Penn Hills School District",26],
+                          ["Pine-Richland School District",27],["Plum Borough School District",28],
+                          ["Quaker Valley School District",29],["Riverview School District",30],
+                          ["Shaler Area School District",31],["South Allegheny School District",32],
+                          ["South Fayette Township School District",33], ["Steel Valley School District",34],
+                          ["Sto-Rox School District",35],["Upper St. Clair School District",36],
+                          ["West Allegheny School District",37],["West Jefferson Hills School District",38],
+                          ["West Mifflin Area School District",39],["Wilkinsburg School District",40],
+                          ["Woodland Hills School District",41]]
   
   # Scopes
   scope :alphabetical, order('last_name, first_name')
