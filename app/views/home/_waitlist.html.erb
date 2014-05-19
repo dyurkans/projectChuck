@@ -5,20 +5,14 @@
 
 <h4> <%= "#{b.name}" %></h4>
 <% if remaining_spots > 0 %>
-
     <%= remaining_spots != 1 ? "There are still #{remaining_spots} spaces available in the #{b.name} bracket." : "There is still #{remaining_spots} space available in the #{b.name} bracket." %></br>
     <%= eligible_students_arr_size != 1 ? "There are currently #{eligible_students_arr_size} eligible students for this bracket." : "There is currently #{eligible_students_arr_size} eligible student for this bracket." %>
     <!-- Insert teams that have space available and links to them. -->
-
 <% elsif b.teams.size.zero? %>
-
     <%= "There are currently no teams registered for this bracket." %>
-    
 <% else %>
-
     <% if eligible_students_arr_size > 0 %>
-    
-        <table class="table table-striped">
+        <table class="table table-striped tournTable">
           <thead>
             <tr>
               <th>Position</th>
@@ -39,14 +33,7 @@
             <% end %>
           </tbody>
         </table>
-        <div class="digg_pagination">
-          <div class="page_info">
-            <%= will_paginate eligible_students_paginate, :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
-          </div>
-        </div>
-        
     <% else %>
       <%= "There are currently no spaces left in this bracket and no unassigned eligible students." %>
     <% end %>
-
 <% end %>

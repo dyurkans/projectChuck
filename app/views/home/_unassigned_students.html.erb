@@ -2,7 +2,7 @@
 <% if @unassigned_students.empty? %>
   &nbsp;&nbsp;<em>None at this time</em>
 <% else %>
-  <table class="table table-striped">
+  <table class="table table-striped tournTable">
     <thead>
       <tr>
         <th>Name</th>
@@ -20,10 +20,4 @@
       <% end %>
     </tbody>
   </table>
-  <div class="digg_pagination">
-    <div clas="page_info">
-      <%= page_entries_info @unassigned_students %>
-    </div>
-    <%= will_paginate @unassigned_students, :param_name => 'unassigned_student_page', :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
-  </div>
 <% end %>

@@ -25,19 +25,13 @@
     </script>
     <script> 
       $(function() { 
-          var table = $('.tournTable').dataTable();
-          var tableTools = new $.fn.dataTable.TableTools( oTable, {
-              "buttons": [
-                  "copy",
-                  "csv",
-                  "xls",
-                  "pdf",
-                  { "type": "print", "buttonText": "Print me!" }
-              ]
-          } );  
-        $( tableTools.fnContainer() ).insertAfter('div.search');
-            });
-    </script>
+        $('.tournTable').dataTable({
+          "aoColumnDefs" : [ {
+          "bSortable" : false,
+          "aTargets" : [ "no-sort" ]
+          } ],
+        }); 
+      });</script>
   </head>
   <body>
 
