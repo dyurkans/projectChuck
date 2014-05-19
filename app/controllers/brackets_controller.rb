@@ -20,6 +20,7 @@ class BracketsController < ApplicationController
   	@bracket = Bracket.find(params[:id])
   	@teams = @bracket.teams.alphabetical
     @unassigned_teams = Team.select{ |t| t.bracket_id.nil? }
+    @all_eligible_students =  @bracket.all_eligible_students
   end
   
   def create

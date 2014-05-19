@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery_nested_form
 //= require bootstrap-datepicker
+//= require dataTables/jquery.dataTables
 //= require_tree .
 //= require bootstrap.js
 //= require highcharts/highcharts                                                           
