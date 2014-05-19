@@ -2,17 +2,28 @@ class HomeController < ApplicationController
 
 	require 'will_paginate/array'
   
-  def waitlist
-    @brackets = Bracket.all
-    authorize! :waitlist, current_user
-  end
+	def waitlist
+		@brackets = Bracket.all
+		authorize! :waitlist, current_user
+	end
+
+	def export
+		@guardians_receiving_texts = Guardian.active.alphabetical.receive_text_notifications
+		document_columns = [:first_name, :last_name, :cell_phone]
+		document_headers = ["First Name", "Last Name", "Cell Phone"]
+		file = @guardians_receiving_texts.to_xls(columns: document_columns, headers: document_headers)
+		respond_to do |format|
+	      format.html
+	      format.xls { send_data file, :filename => "Text Notifcations List.xls" }
+	    end
+	end
   
 	def index
 		if  !current_user.nil? && current_user.is_admin?
 			@tournament = Tournament.by_date.first
 			@guardians_receiving_texts = Guardian.active.alphabetical.receive_text_notifications.paginate(:page => params[:page]).per_page(10)
-	# 		@registrations = Registration.active
-	# 		@students = Student.active.alphabetical.paginate(:page => params[:missing_docs_page]).per_page(10)
+			# @registrations = Registration.active
+			# @students = Student.active.alphabetical.paginate(:page => params[:missing_docs_page]).per_page(10)
 			@current_registered_students = Student.alphabetical.current.active
 			#@students_missing_docs = Student.alphabetical.missing_forms(@current_registered_students).paginate(:page => params[:missing_docs_page], :per_page => 10)
 			@students_missing_docs = Student.alphabetical.current.without_forms.active.paginate(:page => params[:missing_docs_page], :per_page => 10)			
@@ -20,10 +31,11 @@ class HomeController < ApplicationController
 			@female_students = @current_registered_students.female.size
 			@school_districts = Student.school_districts
 			@unassigned_students = Student.active.alphabetical.unassigned.paginate(:page => params[:unassigned_student_page], :per_page => 10)
-# 			@brackets = Bracket.all
+			# @brackets = Bracket.all
 			@home_counties = Student.home_counties
 			# for reg in Registration.current.active.by_date.select { |reg| reg.team_id == nil }
 			# 	@eligible_students = lambda {|bracket| where(Student.find(reg.student_id).age_as_of_june_1 >= min and Student.find(reg.student_id).age_as_of_june_1 <= max) }
+
 
 			# Documentation can be found at https://github.com/michelson/lazy_high_charts
 			

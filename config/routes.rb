@@ -34,6 +34,7 @@ ProjectChuck::Application.routes.draw do
   get 'households/:id/activate' => 'households#activate_household', :as => :activate_household
   get 'home/waitlist' => 'home#waitlist', :as => :waitlist
   get 'survey' => 'registrations#survey', :as => :survey
+  get 'home/export' => 'home#export', :as => :export_home
   #get 'home' => 'home#index', :as => :home
   
   # Set the root url

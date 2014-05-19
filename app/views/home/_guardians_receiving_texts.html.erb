@@ -1,4 +1,4 @@
-  <h3> Guardians Signed Up for Text Notifications </h3>
+<h3> Guardians Signed Up for Text Notifications </h3>
 <% if @guardians_receiving_texts.empty? %>
   &nbsp;&nbsp;<em>None at this time</em>
 <% else %>
@@ -25,4 +25,7 @@
     </div>
     <%= will_paginate @guardians_receiving_texts, :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
   </div>
+  <p>
+    <%= link_to "Download as Excel Spreadsheet", export_home_path(format: "xls") %>
+  </p>
 <% end %>
