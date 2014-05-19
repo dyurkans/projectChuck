@@ -25,8 +25,18 @@
     </script>
     <script> 
       $(function() { 
-        $('.tournTable').dataTable(); 
-      });
+          var table = $('.tournTable').dataTable();
+          var tableTools = new $.fn.dataTable.TableTools( oTable, {
+              "buttons": [
+                  "copy",
+                  "csv",
+                  "xls",
+                  "pdf",
+                  { "type": "print", "buttonText": "Print me!" }
+              ]
+          } );  
+        $( tableTools.fnContainer() ).insertAfter('div.search');
+            });
     </script>
   </head>
   <body>

@@ -16,9 +16,9 @@ class StudentsController < ApplicationController
   end
   
   def index
-    @students = Student.active.alphabetical.paginate(:page => params[:page]).per_page(10)
-    @inactive_students = Student.inactive.alphabetical.paginate(:page => params[:page]).per_page(10)
-    @all_students = Student.alphabetical.paginate(:page => params[:page]).per_page(15)
+    @students = Student.active.alphabetical
+    @inactive_students = Student.inactive.alphabetical
+    @all_students = Student.alphabetical
   end
   
   def show
