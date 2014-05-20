@@ -22,6 +22,14 @@ namespace :db do
     tourn.end_date = tourn.start_date + 3.months
     tourn.save!
     
+    #Create a default user
+    u = User.new
+    u.guardian_id = nil
+    u.email = "test@example.com"
+    u.password = "secret"
+    u.role = "admin"
+    u.save!
+    
     # Create 70 households with no more than 280 students
     70.times do |i|
       h = Household.new
