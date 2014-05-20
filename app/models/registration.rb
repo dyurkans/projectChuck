@@ -16,7 +16,7 @@ class Registration < ActiveRecord::Base
   attr_accessible :volunteer_initials, :student_attributes, :proof_of_insurance_cache, :physical_cache, :report_card_cache, :active, :physical, :physical_date, :proof_of_insurance, :report_card, :student_id, :t_shirt_size, :team_id, :created_at
   
   #Local Variables
-  SIZE_LIST = [["Youth Large", 6],["Youth XLarge", 7],["S", 0], ["M", 1], ["L",2], ["XL",3], ["XXL",4], ["XXXL",5]]
+  SIZE_LIST = [["Youth Large", 6],["Youth X-Large", 7],["S", 0], ["M", 1], ["L",2], ["XL",3], ["XXL",4], ["XXXL",5]]
   
   #Validations
   validates_presence_of :t_shirt_size, :message => "Can't be blank"
