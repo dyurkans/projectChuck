@@ -211,7 +211,7 @@ namespace :db do
           if r._team_id.nil?
             puts "Left #{student.proper_name} unregistered!"
           else
-            puts "Registered #{student.proper_name} to the #{t.name}"
+            puts "Registered #{student.proper_name} to the #{Team::FULL_TEAM_LIST[t.name][1]}"
           end
         end
       end
@@ -287,7 +287,7 @@ namespace :db do
           if r._team_id.nil?
             puts "Left #{student.proper_name} unregistered!"
           else
-            puts "Registered #{student.proper_name} to the #{t.name}"
+            puts "Registered #{student.proper_name} to the #{Team::FULL_TEAM_LIST[t.name][1]}"
           end
         end
       end
