@@ -16,12 +16,13 @@
         <% if !student.registrations.current[0].nil? %>
           <tr>
             <% registration = student.registrations.current[0] %>
+            <% team = Team.find(registration.team_id) unless registration.team_id.nil? %>
             <td><%= link_to student.name, student_path(student) %></td>
             <td><%= student.dob.nil? ? "---" : student.age_as_of_june_1  %></td>
             <% tableCellClass = registration.missing_doc == "None" ? "" : "myDanger" %>
             <td class=<%= tableCellClass %>><%= registration.missing_doc %></td>
             <td><%= (student.cell_phone.nil? || student.cell_phone.empty?) ? "Not Provided" : (number_to_phone student.cell_phone) %></td>
-            <td><%= registration.team_id.nil? ? "Not Yet Assigned" : (link_to Team.find(registration.team_id).name, team_path(Team.find(registration.team_id))) %></td>
+            <td><%= registration.team_id.nil? ? "Not Yet Assigned" : (link_to team_name(team.name), team_path(team)) %></td>
           </tr>
         <% end %>
       <% end %>
