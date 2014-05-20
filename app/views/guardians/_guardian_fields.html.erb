@@ -7,7 +7,7 @@
       <%= f.input :cell_phone %>
       <%= f.input :day_phone %>
       <%= f.input :email %>
-      <%= f.input :receive_texts, :label => "Would you like to receive text message alerts about cancelled or delayed games?", :as => :radio_buttons, :selected => (@guardian.receive_texts unless @guardian.nil?) %>
+      <%= f.input :receive_texts, :label => "Would you like to receive text message alerts about cancelled or delayed games?", :as => :radio_buttons, :checked => (if (@guardian.nil? || @guardian.receive_texts.nil? || @guardian.receive_texts == false) then false else true end ) %>
       <%= f.input :active %>
   </div>
 </div>
