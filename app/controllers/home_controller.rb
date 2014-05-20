@@ -21,16 +21,16 @@ class HomeController < ApplicationController
 	def index
 		if  !current_user.nil? && current_user.is_admin?
 			@tournament = Tournament.by_date.first
-			@guardians_receiving_texts = Guardian.active.alphabetical.receive_text_notifications.paginate(:page => params[:page]).per_page(10)
+			@guardians_receiving_texts = Guardian.active.alphabetical.receive_text_notifications
 			# @registrations = Registration.active
-			# @students = Student.active.alphabetical.paginate(:page => params[:missing_docs_page]).per_page(10)
+			# @students = Student.active.alphabetical
 			@current_registered_students = Student.alphabetical.current.active
-			#@students_missing_docs = Student.alphabetical.missing_forms(@current_registered_students).paginate(:page => params[:missing_docs_page], :per_page => 10)
-			@students_missing_docs = Student.alphabetical.current.without_forms.active.paginate(:page => params[:missing_docs_page], :per_page => 10)			
+			#@students_missing_docs = Student.alphabetical.missing_forms(@current_registered_students)
+			@students_missing_docs = Student.alphabetical.current.without_forms.active			
 			@male_students = @current_registered_students.male.size 
 			@female_students = @current_registered_students.female.size
 			@school_districts = Student.school_districts
-			@unassigned_students = Student.active.alphabetical.unassigned.paginate(:page => params[:unassigned_student_page], :per_page => 10)
+			@unassigned_students = Student.active.alphabetical.unassigned
 			# @brackets = Bracket.all
 			@home_counties = Student.home_counties
 			# for reg in Registration.current.active.by_date.select { |reg| reg.team_id == nil }

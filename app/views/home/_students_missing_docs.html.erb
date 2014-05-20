@@ -2,7 +2,7 @@
 <% if @students_missing_docs.empty? %>
   &nbsp;&nbsp;<em>None at this time</em>
 <% else %>
-  <table class="table table-striped">
+  <table class="table table-striped tournTable">
     <thead>
       <tr>
         <th>Name</th>
@@ -26,10 +26,4 @@
       <% end %>
     </tbody>
   </table>
-  <div class="digg_pagination">
-    <div clas="page_info">
-      <%= page_entries_info @students_missing_docs %>
-    </div>
-    <%= will_paginate @students_missing_docs, :param_name => 'missing_docs_page', :container => true, :previous_label => "Previous", :next_label => "Next", :inner_window => 2 %>
-  </div>
 <% end %>
