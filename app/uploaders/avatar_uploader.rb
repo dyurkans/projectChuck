@@ -41,11 +41,11 @@ class AvatarUploader < CarrierWave::Uploader::Base
 #   end
 
   # Create different versions of your uploaded files:
-  version :thumb do
+  version :thumb, :if => :image? do
     process :resize_to_fit => [50, 50]
   end
   
-  version :print do
+  version :print, :if => :image? do
     version :thumb do
       process :resize_to_fit => [32, 32]
     end
@@ -57,7 +57,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
     end
   end
  
-  version :web do
+  version :web,:if => :image? do
     version :thumb do
       process :resize_to_fit => [32, 32]
     end
@@ -72,7 +72,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
    def extension_white_list
-     %w(jpg jpeg gif png pdf)
+     %w(jpg jpeg png pdf)
    end
 
   # Override the filename of the uploaded files:
@@ -80,5 +80,18 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+   
+   protected
+    def image?(my_file)
+      if my_file.content_type.include? 'png'
+        true
+      elsif my_file.content_type.include? 'jpg'
+        true
+      elsif my_file.content_type.include? 'jpeg'
+        true
+      else
+        false
+      end
+    end
 
 end

@@ -123,12 +123,12 @@
 
   <p>
     <b>Report Card: </b>
-      <% if @student.missing_report_card %>
+      <% if @student.missing_report_card || @registration.nil? %>
         <%= "Not Submitted" %>
       <% else %>
-        <button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">View Report Card</button>
+        <button class="btn btn-default" data-toggle="modal" data-target="#report-card-modal">View Report Card</button>
 
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div id="report-card-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <%= image_tag @registration.report_card.url(:print) %>
@@ -139,12 +139,12 @@
   </p>
   <p>
     <b>Insurance Card: </b>
-    <% if @registration.proof_of_insurance.path.nil? %>
+    <% if @registration.nil? || @registration.proof_of_insurance.path.nil? %>
       <%= "Not Submitted" %>
     <% else %>
-      <button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">View Insurance Card</button>
+      <button class="btn btn-default" data-toggle="modal" data-target="#insurance-card-modal">View Insurance Card</button>
 
-      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div id="insurance-card-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <%= image_tag @registration.proof_of_insurance.url(:print) %>
@@ -155,12 +155,12 @@
   </p>
   <p>
     <b>Physical: </b>
-    <% if @registration.physical.path.nil? %>
+    <% if @registration.nil? || @registration.physical.path.nil? %>
       <%= "Not Submitted" %>
     <% else %>
-      <button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">View Physical Form</button>
+      <button class="btn btn-default" data-toggle="modal" data-target="#physical-modal">View Physical Form</button>
 
-      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div id="physical-modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <%= image_tag @registration.physical.url(:print) %>
@@ -171,12 +171,12 @@
     </p>
   <p>
     <b>Birth Certificate: </b>
-    <% if @student.birth_certificate.path.nil? %>
+    <% if @registration.nil? || @student.birth_certificate.path.nil? %>
       <%= "Not Submitted" %>
     <% else %>
-      <button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">View Birth Certificate</button>
+      <button class="btn btn-default" data-toggle="modal" data-target="#birth-certificate-modal">View Birth Certificate</button>
 
-      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div id="birth-certificate-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <%= image_tag @student.birth_certificate.url(:print) %>
