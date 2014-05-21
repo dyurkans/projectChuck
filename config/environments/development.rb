@@ -29,6 +29,11 @@ ProjectChuck::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  config.assets.enabled = true
+  config.assets.compile = true
+  config.assets.precompile += ['*.js', '*.css', '*.ico', '*.png', '*.jpg']
+  config.assets.initialize_on_precompile = true
+  
   # Do not compress assets
   config.assets.compress = false
 

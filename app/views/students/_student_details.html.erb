@@ -29,7 +29,7 @@
   </p>
   
   <p>
-    <b>Jersey Size:</b> <%= if !@registration.nil? then Registration::SIZE_LIST.map{ |t| t[0]}[@registration.t_shirt_size]  else "---" end %>
+    <b>Jersey Size:</b> <%= if !@registration.nil? then @registration.jersey_size  else "---" end %>
   </p>
 
   
@@ -133,11 +133,11 @@
             <div class="modal-content">
             
               <% if @registration.report_card.url.include? ".pdf" %>
-                <object data="<%= @registration.report_card.url %>" type="application/pdf">
-                  <embed src="<%= @registration.report_card.url %>" type="application/pdf" />
+                <object data="<%= @registration.report_card.url %>" width="500" height="800" type="application/pdf">
+                  <embed src="<%= @registration.report_card.url %>" width="500" height="800" type="application/pdf" />
                 </object>
               <% else %>
-                <%= image_tag @registration.report_card.url(:print) %>
+                <%= image_tag @registration.report_card.url(:web, :full) %>
               <% end %>
               
             </div>
@@ -157,11 +157,9 @@
           <div class="modal-content">
           
             <% if @registration.proof_of_insurance.url.include? ".pdf" %>
-              <object data="<%= @registration.proof_of_insurance.url %>" type="application/pdf">
-                <embed src="<%= @registration.proof_of_insurance.url %>" type="application/pdf" />
-              </object>
+              <iframe src="http://docs.google.com/gview?url=<%= @registration.proof_of_insurance.url %>&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>
             <% else %>
-              <%= image_tag @registration.proof_of_insurance.url(:print) %>
+              <%= image_tag @registration.proof_of_insurance.url(:web, :full) %>
             <% end %>
             
           </div>
@@ -180,11 +178,9 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <% if @registration.physical.url.include? ".pdf" %>
-              <object data="<%= @registration.physical.url %>" type="application/pdf">
-                <embed src="<%= @registration.physical.url %>" type="application/pdf" />
-              </object>
+              <iframe src="http://docs.google.com/gview?url=<%= @registration.physical.url %>&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>
             <% else %>
-              <%= image_tag @registration.physical.url(:print) %>
+              <%= image_tag @registration.physical.url(:web, :full) %>
             <% end %>
           </div>
         </div>
@@ -203,11 +199,9 @@
           <div class="modal-content">
             
             <% if @student.birth_certificate.url.include? ".pdf" %>
-              <object data="<%= @student.birth_certificate.url %>" type="application/pdf">
-                <embed src="<%= @student.birth_certificate.url %>" type="application/pdf" />
-              </object>
+              <iframe src="http://docs.google.com/gview?url=<%= @student.birth_certificate.url %>&embedded=true" style="width:718px; height:700px;" frameborder="0"></iframe>
             <% else %>
-              <%= image_tag @student.birth_certificate.url(:print) %>
+              <%= image_tag @student.birth_certificate.url(:web,:full) %>
             <% end %>
             
           </div>

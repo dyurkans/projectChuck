@@ -7,7 +7,7 @@
       <%= r.input :proof_of_insurance, :as => :file, :label => "Insurance Card" %>
       <%= r.input :physical, :as => :file, :label => "Last Physical" %>
       <%= r.input :physical_date, :as => :string, :input_html => { :class => 'datepicker' }, :include_blank => true %>
-      <%= r.input :t_shirt_size, :collection => Registration::SIZE_LIST %>
+      <%= r.input :t_shirt_size, :collection => Registration::SIZE_LIST, :include_blank => false %>
       <% if isEdit %>
         <label>Volunteer Initials: </label><%="   " + if (@registration.nil? || @registration.volunteer_initials.nil? || @registration.volunteer_initials.length == 0) then "Student registered without a volunteer" else @registration.volunteer_initials end %></p>
       <% else %>

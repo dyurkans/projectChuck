@@ -10,13 +10,8 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
 //= require jquery_nested_form
 //= require bootstrap-datepicker
 //= require dataTables/jquery.dataTables
 //= require_tree .
 //= require bootstrap.js
-//= require highcharts/highcharts                                                           
-//= require highcharts/highcharts-more                                                         
-//= require highcharts/highstock

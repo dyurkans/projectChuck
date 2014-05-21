@@ -42,7 +42,10 @@ class Registration < ActiveRecord::Base
   scope :by_name, joins(:student).order('last_name')
   
   #Other Methods
-
+  def jersey_size
+    SIZE_LIST.select{ |s| s[1] == t_shirt_size }.first[0]
+  end
+  
   def student_in_appropriate_bracket
     if team_id.nil? then false else team = Team.find_by_id(team_id) end
     
