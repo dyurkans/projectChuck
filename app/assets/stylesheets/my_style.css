@@ -1,8 +1,7 @@
-/* ------------------------------------------------------------------------  */
-/* ------------------ http://stackoverflow.com/a/10143018 ----------------- */
-/* ------------------------------------------------------------------------  */
-
-
+/*  ------------------------------------------------------------------------  */
+/*  ---------------- on hover dropdown for "Tournaments" nav ---------------  */
+/*  ---------------- http://stackoverflow.com/a/10143018     ---------------  */
+/*  ------------------------------------------------------------------------  */
 .sidebar-nav {
     padding: 9px 0;
 }
@@ -18,8 +17,6 @@
 .nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
     margin-top: 0;
 }
-
-/* --------------------------------------------------------------------------  */
 /* --------------------------------------------------------------------------  */
 /* --------------------------------------------------------------------------  */
 
@@ -99,9 +96,6 @@ fieldset, legend {
 }
 
 .teamNotes {
-/*   position:absolute; */
-/*   border:2px solid; */
-/*   border-color:#f4f4f4; */
   font-size:12pt;
   font-weight:100;
   font-style:italic;
@@ -181,6 +175,10 @@ fieldset, legend {
   position:static;
 }
 
+/*  -------------------------------------------------------------- */
+/*  --------  resizing elements according to screen size  -------- */
+/*  -------------------------------------------------------------- */
+
 @media (min-width: 768px) and (max-width: 991px), only screen and (min-device-width: 768px) and (max-device-width: 991px) {
     body {
       padding-top:100px;
@@ -203,8 +201,6 @@ fieldset, legend {
       margin-right:46%;
     }
 }
-
-
 @media (min-width: 768px) and (max-width: 780px), only screen and (min-device-width: 768px) and (max-device-width: 780px) {
     .nav li {
       font-size:49%;
@@ -213,7 +209,6 @@ fieldset, legend {
       font-size:70%;
     }
 }
-
 @media (max-width: 875px), only screen and (max-device-width: 875px) {
     .nav li {
       font-size:50%;
@@ -222,14 +217,11 @@ fieldset, legend {
       font-size:80%;
     }
 }
-
 @media (min-width: 876px) and (max-width: 1119px), only screen and (min-device-width: 876px) and (max-device-width: 1119px) {
     .nav li {
       font-size:60%;
     }
 }
-
-
 @media (min-width: 992px), only screen and (min-device-width: 992px) {
     #sidebar-right img{
       position:fixed;
@@ -244,7 +236,6 @@ fieldset, legend {
       height:305px;
     }
 }
-
 @media only screen 
 and (min-device-width : 768px) 
 and (max-device-width : 1024px) 
@@ -266,8 +257,6 @@ and (orientation : portrait)
       height:203px;
     }
 }
-
-
 @media only screen 
 and (min-device-width : 768px) 
 and (max-device-width : 1024px) 
@@ -280,7 +269,6 @@ and (orientation : landscape)
       font-size:100%;
     }
 }
-
 @media (max-width: 767px), only screen and (max-device-width: 767px)  {
     .nav li {
       font-size:80%;

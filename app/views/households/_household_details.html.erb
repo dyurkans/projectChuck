@@ -7,6 +7,10 @@
 </p>
 
 <p>
+  <b>Home County: </b> <%= @household.county %>
+</p>
+
+<p>
   <b>Home Phone: </b> <%= @household.home_phone.nil? || @household.home_phone.empty? ? "Not Provided" : "#{number_to_phone @household.home_phone}" %>
 </p>
 
