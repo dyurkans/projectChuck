@@ -133,7 +133,7 @@
             <div class="modal-content">
             
               <% if @registration.report_card.url.include? ".pdf" %>
-                <iframe src="http://docs.google.com/gview?url=<%= @registration.proof_of_insurance.url %>&embedded=true" style="width:900px; height:700px;" frameborder="0"></iframe>
+                <iframe src="http://docs.google.com/gview?url=<%= @registration.proof_of_insurance.url %>&embedded=true" style="width:100%; height:100%;" frameborder="0"></iframe>
               <% else %>
                 <%= image_tag @registration.report_card.url(:web, :full) %>
               <% end %>
@@ -155,7 +155,7 @@
           <div class="modal-content">
           
             <% if @registration.proof_of_insurance.url.include? ".pdf" %>
-              <iframe src="http://docs.google.com/gview?url=<%= @registration.proof_of_insurance.url %>&embedded=true" style="width:900px; height:700px;" frameborder="0"></iframe>
+              <iframe src="http://docs.google.com/gview?url=<%= @registration.proof_of_insurance.url %>&embedded=true" style="width:100%; height:100%;" frameborder="0"></iframe>
             <% else %>
               <%= image_tag @registration.proof_of_insurance.url(:web, :full) %>
             <% end %>
@@ -176,7 +176,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <% if @registration.physical.url.include? ".pdf" %>
-              <iframe src="http://docs.google.com/gview?url=<%= @registration.physical.url %>&embedded=true" style="width:900px; height:700px;" frameborder="0"></iframe>
+              <iframe src="http://docs.google.com/gview?url=<%= @registration.physical.url %>&embedded=true" style="width:100%; height:100%;" frameborder="0"></iframe>
             <% else %>
               <%= image_tag @registration.physical.url(:web, :full) %>
             <% end %>
@@ -197,7 +197,7 @@
           <div class="modal-content">
             
             <% if @student.birth_certificate.url.include? ".pdf" %>
-              <iframe src="http://docs.google.com/gview?url=<%= @student.birth_certificate.url %>&embedded=true" style="width:900px; height:700px;" frameborder="0"></iframe>
+              <iframe src="http://docs.google.com/gview?url=<%= @student.birth_certificate.url %>&embedded=true" style="width:100%; height:100%;" frameborder="0"></iframe>
             <% else %>
               <%= image_tag @student.birth_certificate.url(:web,:full) %>
             <% end %>
