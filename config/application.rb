@@ -58,8 +58,7 @@ module ProjectChuck
     # Enable the asset pipeline
     config.assets.enabled = true
 
-    config.assets.paths << "#{Rails}/app/assets/fonts"
-    config.assets.paths << "#{Rails}/vendor/assets/fonts"
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
     config.assets.precompile += ['bootstrap-datepicker.js']
     
     # Version of your assets, change this if you want to expire all your assets

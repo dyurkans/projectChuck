@@ -32,6 +32,7 @@ ProjectChuck::Application.configure do
   config.assets.enabled = true
   config.assets.compile = true
   config.assets.precompile += ['*.js', '*.css', '*.ico', '*.png', '*.jpg']
+  config.assets.precompile += %w( .svg .eot .woff .ttf )
   config.assets.initialize_on_precompile = true
   
   # Do not compress assets
