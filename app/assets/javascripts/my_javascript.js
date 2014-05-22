@@ -1,4 +1,5 @@
-$(document).ready(function(){
+$(function(){
+  $( "input.datepicker" ).datepicker({"dateFormat": "DD, d MM, yy"}).val;
   
   // styling for dataTables
   $( "div[id*='DataTables_Table'][id$='info']" ).css("float", "right");
