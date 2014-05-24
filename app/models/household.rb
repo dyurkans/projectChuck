@@ -75,6 +75,7 @@ attr_accessible :medical_agreement, :permission_agreement, :student_agreement, :
   end
 
   def reformat_text
+    self.street = self.street.downcase.squish.titleize
     self.city = self.city.downcase.squish.titleize
     self.county = self.county.downcase.squish.titleize
     self.family_physician = self.family_physician.downcase.squish.titleize
