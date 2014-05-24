@@ -2,6 +2,10 @@ class HomeController < ApplicationController
 
 	require 'will_paginate/array'
   
+  def loaderio
+    render 'loaderio', :layout => false
+  end
+  
 	def waitlist
 		@brackets = Bracket.all
 		authorize! :waitlist, current_user
