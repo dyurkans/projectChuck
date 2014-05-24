@@ -57,16 +57,18 @@ class Bracket < ActiveRecord::Base
     eligible_regs
   end
 
+  def old_all_eligible_students
+    Student.current.active.old_ages_between(self.min_age, self.max_age)
+  end
+  
   def all_eligible_students
-    current_regs = Registration.current.active.by_date
-    active_students = Student.active
-    eligible_regs = []
-    for reg in current_regs 
-      if active_students.find(reg.student_id).age_as_of_june_1 >= self.min_age and active_students.find(reg.student_id).age_as_of_june_1 <= self.max_age
-        eligible_regs << Student.find(reg.student_id)
-      end
+    male = true
+    female = false
+    if self.gender == male
+      Student.current.male.active.ages_between(self.min_age, self.max_age)
+    else
+      Student.current.female.active.ages_between(self.min_age, self.max_age)
     end
-    eligible_regs
   end
 
 end

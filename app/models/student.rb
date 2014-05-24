@@ -8,7 +8,7 @@ class Student < ActiveRecord::Base
   mount_uploader :birth_certificate, AvatarUploader
 
   accepts_nested_attributes_for :registrations, :household
-  #Change school county field to school district
+  # school_county field should be renamed as school_district
   attr_accessible :registrations_attributes, :household_attributes, :birth_certificate_cache, :email, :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :school_county, :security_question, :security_response
   
   #Callbacks
@@ -132,15 +132,16 @@ class Student < ActiveRecord::Base
     true
   end
 
-  # def self.current_registered_students
-  #   active_regs = Registration.current.active.by_name
-  #   students = Student.active
-  #   current_registered_students = []
-  #   for r in active_regs
-  #     current_registered_students << students.find(r.student_id)
-  #   end
-  #   current_registered_students
-  # end   
+#   # this was turned into a scope instead
+#   def self.current_registered_students
+#     active_regs = Registration.current.active.by_name
+#     students = Student.active
+#     current_registered_students = []
+#     for r in active_regs
+#       current_registered_students << students.find(r.student_id)
+#     end
+#     current_registered_students
+#   end   
 
   def deactivate_student_and_registrations
     self.active = false
@@ -157,11 +158,17 @@ class Student < ActiveRecord::Base
     self.registrations.current[0].report_card.path.nil? unless (self.registrations.current[0].nil? || self.registrations.current.empty?)
   end
 
-  #Currently not in use/ or not functioning. Replaced by eligible_students method in team.rb
+  # calculates ages between according to June 1 start date
+  # give a weeks leeway on low side
   def self.ages_between(low_age,high_age)
-    Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
+    Student.where("dob between ? and ?", (Date.new(Date.today.year-(high_age+1), 6, 2)),(Date.new(Date.today.year-low_age, 6, 7)))
   end
 
+#   # returns all students of age according to today's date
+#   def self.appropriate_ages_between(low_age,high_age)
+#     Student.where("dob between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
+#   end
+  
   def self.qualifies_for_bracket(bracket_id)
     bracket = Bracket.find(bracket_id)
     if (bracket.gender)

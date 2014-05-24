@@ -34,7 +34,7 @@ class Registration < ActiveRecord::Base
   scope :for_team, joins(:team).order('name')
   scope :reg_order, order('created_at DESC')
   scope :current, where('? <= registrations.created_at and registrations.created_at <= ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31)).order('created_at DESC')
-  scope :active, where('registrations.active = ?', true)
+  scope :active, joins(:student).where('students.active = ? and registrations.active = ?', true, true)
   scope :inactive, where('registrations.active = ?', false)
   scope :incomplete, where('proof_of_insurance IS NULL OR physical IS NULL OR report_card IS NULL')
   scope :jersey_size, lambda {|size| where("t_shirt_size = ?", size) }
