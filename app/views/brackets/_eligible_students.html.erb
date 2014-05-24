@@ -25,7 +25,7 @@
             <% if (guardian.nil? || (guardian.cell_phone.empty? && guardian.day_phone.empty?) ) %>
               <td>Not provided</td>
             <% else %>
-              <td><%= guardian.cell_phone.empty? ? (number_to_phone guardian.day_phone) : (number_to_phone guardian.cell_phone) %></td>
+              <td><%= guardian.cell_phone.empty? ? (number_to_phone guardian.day_phone)+" (day)" : (number_to_phone guardian.cell_phone)+" (cell)" %></td>
             <% end %>
             <td><%= registration.team_id.nil? ? "Not Yet Assigned" : (link_to team_name(team.name), team_path(team)) %></td>
           </tr>
