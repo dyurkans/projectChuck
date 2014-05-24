@@ -5,6 +5,7 @@
     <%= f.input :city, :label => "City: " %>
     <%= f.input :state, :label => "State: ", :collection => Household::STATES_LIST, :selected => "PA", :required => true %>
     <%= f.input :zip, :label=> "Zip Code: ", :required => true %>
+    <%= f.input :county, :label => "County", :placeholder => "County" %>
     <%= f.input :insurance_provider, :label => "Insurance Provider: " %>
     <%= f.input :insurance_policy_no, :label => "Insurance Policy Number: " %>
     <%= f.input :family_physician, :label => "Family Physician: " %>
