@@ -7,13 +7,13 @@
         <th>Name</th>
   		  <th>Age (as of June 1)</th>
         <th>Missing Document(s)</th>
-        <th>Phone Number</th>
+        <th>Guardian Phone Number</th>
         <th>Team</th> 
       </tr>
     </thead>
     <tbody>
       <% @all_eligible_students.each do |student| %>
-        <% if !student.registrations.current[0].nil? %>
+        <% if !student.nil? && !student.registrations.current[0].nil? %>
           <tr>
             <% registration = student.registrations.current[0] %>
             <% team = Team.find(registration.team_id) unless registration.team_id.nil? %>
@@ -21,7 +21,12 @@
             <td><%= student.dob.nil? ? "---" : student.age_as_of_june_1  %></td>
             <% tableCellClass = registration.missing_doc == "None" ? "" : "myDanger" %>
             <td class=<%= tableCellClass %>><%= registration.missing_doc %></td>
-            <td><%= (student.cell_phone.nil? || student.cell_phone.empty?) ? "Not Provided" : (number_to_phone student.cell_phone) %></td>
+            <% guardian = student.guardians.first %>
+            <% if (guardian.nil? || (guardian.cell_phone.empty? && guardian.day_phone.empty?) ) %>
+              <td>Not provided</td>
+            <% else %>
+              <td><%= guardian.cell_phone.empty? ? (number_to_phone guardian.day_phone) : (number_to_phone guardian.cell_phone) %></td>
+            <% end %>
             <td><%= registration.team_id.nil? ? "Not Yet Assigned" : (link_to team_name(team.name), team_path(team)) %></td>
           </tr>
         <% end %>
