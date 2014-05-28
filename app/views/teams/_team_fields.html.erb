@@ -3,11 +3,11 @@
     <%= f.input :bracket_id, :collection => Bracket.all, :include_blank => false, :selected => (@bracket.id unless @bracket.nil?), :required => true, :message => "Please create a bracket first" %>
     <%= f.input :name, :collection => @teams, :include_blank => false, :selected => @team.name %>
     <%= f.input :coach, :placeholder => "Full Name" %>
-    <%= f.input :coach_cell, :label => "Coach Cell" %>
-    <%= f.input :coach_email, :label => "Coach Email" %>
-    <%= f.input :assistant_coach, :placeholder => "Full Name" %>
-    <%= f.input :assistant_coach_cell, :label => "Assistant Coach Cell" %>
-    <%= f.input :assistant_coach_email, :label => "Assistant Coach Email" %>
+    <%= f.input :coach_cell, :label => "Coach Cell", :placeholder => "Cell Phone"  %>
+    <%= f.input :coach_email, :label => "Coach Email", :placeholder => "Email" %>
+    <%= f.input :assistant_coach, :placeholder => "Full Name", :label => "Assistant Coach" %>
+    <%= f.input :assistant_coach_cell, :label => "Assistant Coach Cell", :placeholder => "Cell Phone" %>
+    <%= f.input :assistant_coach_email, :label => "Assistant Coach Email", :placeholder => "Email" %>
     <% if !@team.id.nil? %>
       <% min_selection = 5 %>
       <% if @team.current_number_of_students > 5 then min_selection = @team.current_number_of_students end %>
