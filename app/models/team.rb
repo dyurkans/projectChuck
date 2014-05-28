@@ -21,12 +21,17 @@ class Team < ActiveRecord::Base
   
   FULL_TEAM_LIST = BOYS_TEAM_LIST + GIRLS_TEAM_LIST
   
+  before_save :reformat_cell
+  
   belongs_to :bracket
   has_many :registrations
   has_many :students, :through => :registrations
   validates_numericality_of :bracket_id, :only_integer => true, :greater_than => 0, :allow_nil => false, :message => "Please create a bracket first."
   validates_inclusion_of :name, :in => FULL_TEAM_LIST.map{ |t| t[1]}, :message => "must be proper team name"
   validates_numericality_of :max_students, :only_integer => true, :greater_than => 4, :less_than_or_equal_to => 10
+  validates_format_of :coach_cell, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
+  validates_format_of :assistant_coach_cell, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
+
   # max may not always be 10
   validate :max
 
@@ -78,4 +83,15 @@ class Team < ActiveRecord::Base
     end
   end
 
+  
+  private
+  def reformat_cell
+    phone1 = self.coach_cell.to_s  # change to string in case input as all numbers 
+    phone2 = self.assistant_coach_cell.to_s 
+    phone1.gsub!(/[^0-9]/,"") # strip all non-digits
+    phone2.gsub!(/[^0-9]/,"")
+    self.coach_cell = phone1       # reset self.phone to new string
+    self.assistant_coach_cell = phone2
+  end
+  
 end
