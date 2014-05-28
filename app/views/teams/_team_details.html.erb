@@ -14,11 +14,11 @@
     </p>
     
     <p>
-      <b>Coach Cell:</b><%= @team.coach_cell %>
+      <b>Coach Cell:</b><%= @team.coach_cell.nil? || @team.coach_cell.empty? ? " Not Provided" : "#{number_to_phone @team.coach_cell}" %>
     </p>
     
     <p>
-      <b>Coach Email:</b><%= @team.coach_email %>
+      <b>Coach Email:</b><%= @team.coach_email.nil? || @team.coach_email.empty? ? " Not Provided" : @team.coach_email %>
     </p>
 
     <p>
@@ -26,11 +26,11 @@
     </p>
     
     <p>
-      <b>Assistant Coach Cell:</b><%= @team.assistant_coach_cell %>
+      <b>Assistant Coach Cell:</b><%= @team.assistant_coach_cell.nil? || @team.assistant_coach_cell.empty? ? " Not Provided" : "#{number_to_phone @team.assistant_coach_cell}" %>
     </p>
     
     <p>
-      <b>Assistant Coach Email:</b><%= @team.assistant_coach_email %>
+      <b>Assistant Coach Email:</b><%= @team.assistant_coach_email.nil? || @team.assistant_coach_email.empty? ? " Not Provided" : @team.assistant_coach_email %>
     </p>
     
     <p>
