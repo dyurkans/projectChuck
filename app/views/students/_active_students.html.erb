@@ -6,6 +6,7 @@
       <tr>
         <th>Name</th>
         <th>Age (as of June 1)</th>
+        <th>Gender</th>
         <th>Team</th>
         <th>Bracket</th>
         <th>Missing Document(s)</th>
@@ -22,6 +23,7 @@
           <% bracket = Bracket.find_by_id(team.bracket_id) unless team.nil? %>
           <td><%= link_to student.name, student_path(student) %></td>
           <td><%= student.dob.nil? ? "---" : student.age_as_of_june_1  %></td>
+          <td><%= student.sex %></td>
           <td><%= team.nil? ? "---" : (link_to team_name(team.name), team_path(team))  %></td>
           <td><%= bracket.nil? ? "---" : (link_to "#{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket)) %></td>
           <% tableCellClass = if registration.nil? then "" else registration.missing_doc == "None" ? "" : "myDanger" end %>
