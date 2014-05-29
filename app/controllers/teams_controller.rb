@@ -17,12 +17,12 @@ class TeamsController < ApplicationController
   end
   
   def index
-    @teams = Team.alphabetical.by_bracket  
+    @teams = Team.alphabetical.by_bracket.paginate(:page => params[:page], :per_page => 10)  
   end
   
   def show
   	@team = Team.find(params[:id])
-    @eligible_students = @team.eligible_students
+    @eligible_students = @team.eligible_students.paginate(:page => params[:page], :per_page => 10)
   	@bracket = Bracket.find_by_id(@team.bracket_id) unless @team.nil?
   	@registrations = @team.registrations
   	@students = @team.students
