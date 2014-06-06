@@ -17,7 +17,7 @@ class TeamsController < ApplicationController
   end
   
   def index
-    @teams = Team.alphabetical.by_bracket.paginate(:page => params[:page], :per_page => 10)  
+    @teams = Team.alphabetical.by_bracket
   end
   
   def show
