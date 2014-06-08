@@ -7,12 +7,12 @@ class StudentsController < ApplicationController
     @student = Student.new
     @student.registrations.build
     @household = Household.new
-    @households = Household.active
+    @households = Household.active.by_last_name
   end
   
   def edit
     @student = Student.find(params[:id])
-    @households = Household.active
+    @households = Household.active.by_last_name
   end
   
   def index
