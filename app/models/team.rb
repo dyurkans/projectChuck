@@ -76,8 +76,7 @@ class Team < ActiveRecord::Base
       min_age =  bracket.min_age
       max_age = bracket.max_age
       team_gender = bracket.gender
-      registered_students = Student.active.alphabetical.select{ |s| ((s.registrations.empty? ||  s.registrations.nil?) || (!s.registrations.current[0].nil? and s.registrations.current[0].active == true and s.registrations.current[0].team_id.nil?)) }
-      eligible_students = registered_students.select { |s| s.age_as_of_june_1 >= min_age and s.age_as_of_june_1 <= max_age and s.gender == team_gender }
+      eligible_students = Student.current.unassigned.qualifies_for_bracket(bracket.id)
     else
       eligible_students = Student.active.alphabetical.select{ |s| ((s.registrations.empty? ||  s.registrations.nil?) || (!s.registrations.current[0].nil? and registrations.current[0].active == true and s.registrations.current[0].team_id.nil?)) }
     end

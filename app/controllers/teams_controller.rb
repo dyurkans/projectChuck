@@ -22,7 +22,7 @@ class TeamsController < ApplicationController
   
   def show
   	@team = Team.find(params[:id])
-    @eligible_students = @team.eligible_students.paginate(:page => params[:page], :per_page => 10)
+    @eligible_students = @team.eligible_students
   	@bracket = Bracket.find_by_id(@team.bracket_id) unless @team.nil?
   	@registrations = @team.registrations
   	@students = @team.students
