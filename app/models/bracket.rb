@@ -36,6 +36,7 @@ class Bracket < ActiveRecord::Base
     end
   end
 
+  #Use this to produce the total number of students assigned to teams on a specific bracket
   def current_number_of_students
     total_number_of_students = 0
     if not self.teams.nil?
@@ -46,21 +47,20 @@ class Bracket < ActiveRecord::Base
     total_number_of_students
   end
   
-  def eligible_students(min,max)
-    unassigned_regs = Registration.current.active.by_date.select { |reg| reg.team_id == nil }
-    eligible_regs = []
-    for reg in unassigned_regs 
-      if Student.find(reg.student_id).age_as_of_june_1 >= min and Student.find(reg.student_id).age_as_of_june_1 <= max
-        eligible_regs << Student.find(reg.student_id)
-      end
-    end
-    eligible_regs
+  #Use the eligible_students method to produce a 
+  #list of eligible unassigned students for a specific bracket
+  def eligible_students
+    min = self.min_age
+    max = self.max_age
+    Student.current.unassigned.select { |stu| stu.gender == self.gender and stu.age_as_of_june_1 >= min and stu.age_as_of_june_1 <= max}
   end
 
+  #Use this to produce a list of eligible students given an age range, but without regards to gender
   def old_all_eligible_students
-    Student.current.active.old_ages_between(self.min_age, self.max_age)
+    Student.current.active.ages_between(self.min_age, self.max_age)
   end
   
+  #This produces a list of all eligible students, both assigned and unassigned
   def all_eligible_students
     male = true
     female = false

@@ -25,7 +25,7 @@ class TeamsController < ApplicationController
     @eligible_students = @team.eligible_students
   	@bracket = Bracket.find_by_id(@team.bracket_id) unless @team.nil?
   	@registrations = @team.registrations
-  	@students = @team.students
+  	@students = @team.students.alphabetical
   end
 
   def remove_student

@@ -2,7 +2,7 @@
   <h3>Waitlist (By Bracket)</h3>
   <% if @brackets.size > 0 %>
     <% @brackets.each do |bracket| %> 
-      <%= render :partial => "waitlist", :locals => { :b => bracket, :min => bracket.min_age, :max => bracket.max_age } %> 
+      <%= render :partial => "waitlist", :locals => { :b => bracket} %> 
     <% end %>
   <% else %>
     <%= "There are currently no brackets in the Project C.H.U.C.K. system." %>

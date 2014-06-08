@@ -1,5 +1,4 @@
-<% eligible_students_arr = b.eligible_students(min, max) %>
-<% eligible_students_paginate = eligible_students_arr.paginate(:page => params[:page], :per_page => 10) %>
+<% eligible_students_arr = b.eligible_students %>
 <% eligible_students_arr_size = eligible_students_arr.size %>
 <% remaining_spots = b.remaining_spots %>
 
@@ -22,10 +21,9 @@
             </tr>
           </thead>
           <tbody>
-            <% eligible_students_paginate.each_with_index do |student, i| %>
+            <% eligible_students_arr.each_with_index do |student, i| %>
               <tr>
-                <% position = eligible_students_arr.index(student)+1 %>
-                <td><%= eligible_students_arr.index(student) %></td>
+                <td><%= i + 1 %></td>
                 <td><%= link_to student.name, student_path(student) %></td>
                 <td><%= student.age_as_of_june_1 %></td>
                 <td><%= student.registrations.current.first.created_at.strftime("%m/%d @ %I:%M%p") %></td>
