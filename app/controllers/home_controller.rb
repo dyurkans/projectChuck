@@ -58,7 +58,8 @@ class HomeController < ApplicationController
 			      f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
 			      f.plot_options(:pie=>{
 			        :allowPointSelect=>true, 
-			        :cursor=>"pointer" , 
+			        :cursor=>"pointer" ,
+			        :size=>150, 
 			        :dataLabels=>{
 			          :enabled=>true,
 			          :color=>"black",
@@ -81,7 +82,8 @@ class HomeController < ApplicationController
 			      f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
 			      f.plot_options(:pie=>{
 			        :allowPointSelect=>true, 
-			        :cursor=>"pointer" , 
+			        :cursor=>"pointer" ,
+			        :size=>150,  
 			        :dataLabels=>{
 			          :enabled=>true,
 			          :color=>"black",
@@ -105,6 +107,7 @@ class HomeController < ApplicationController
 			      f.plot_options(:pie=>{
 			        :allowPointSelect=>true, 
 			        :cursor=>"pointer" , 
+			        :size=>150, 
 			        :dataLabels=>{
 			          :enabled=>true,
 			          :color=>"black",
