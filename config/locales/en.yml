@@ -6,10 +6,5 @@
 #  
 
 en:
-  date:
-    order:
-      - :day
-      - :month
-      - :year
   hello: "Hello world"
   

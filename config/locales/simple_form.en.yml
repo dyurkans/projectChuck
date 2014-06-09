@@ -1,10 +1,5 @@
 en:
   simple_form:
-    date:
-    order:
-      - :day
-      - :month
-      - :year
     "yes": 'Yes'
     "no": 'No'
     required:

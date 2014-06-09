@@ -1,9 +1,4 @@
 en:
-  date:
-    order:
-      - :day
-      - :month
-      - :year
   errors:
     messages:
       invalid_date: "is not a valid date"
