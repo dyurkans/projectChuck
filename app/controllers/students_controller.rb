@@ -17,6 +17,7 @@ class StudentsController < ApplicationController
   
   def index
     @students = Student.active.alphabetical
+    @active_students = Student.active.alphabetical
     @inactive_students = Student.inactive.alphabetical
     @all_students = Student.alphabetical
   end

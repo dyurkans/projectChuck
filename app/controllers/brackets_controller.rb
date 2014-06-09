@@ -13,7 +13,7 @@ class BracketsController < ApplicationController
   end
   
   def index
-    @brackets = Bracket.by_gender.by_age.paginate(:page => params[:page]).per_page(10)  
+    @brackets = Bracket.by_age
   end
   
   def show

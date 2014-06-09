@@ -175,6 +175,10 @@ fieldset, legend {
   position:static;
 }
 
+.myDefaultButton {
+  background-color: #F0F0F0;
+}
+
 /*  -------------------------------------------------------------- */
 /*  --------  resizing elements according to screen size  -------- */
 /*  -------------------------------------------------------------- */

@@ -1,8 +1,31 @@
-<div class="row">
+<span id="activeStudents" class="btn btn-default myDefaultButton">Active Students List</span>
+<span id="inactiveStudents" class="btn btn-default myDefaultButton">Inactive Students List</span>
+
+<div class="row activeStudents">
 	<div class="span12">
-		<h3>Students</h3>
+		<h3>Active Students</h3>
 		<%= render :partial => "active_students" %>
+		<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Student"), new_registration_path, :class => 'btn btn-primary', :id => 'Create Student' %>
 	</div>
 </div>
 
-<%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Student"), new_registration_path, :class => 'btn btn-primary', :id => 'Create Student' %>
+<div class="row inactiveStudents">
+	<div class="span12">
+		<h3>Inactive Students</h3>
+		<%= render :partial => "inactive_students" %>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function(){
+	  $(".inactiveStudents").hide();	
+	  $("#activeStudents").click(function(){
+	    $(".activeStudents").show();
+	    $(".inactiveStudents").hide();
+	  });
+	  $("#inactiveStudents").click(function(){
+	    $(".activeStudents").hide();
+	    $(".inactiveStudents").show();
+	  });
+	});
+</script>

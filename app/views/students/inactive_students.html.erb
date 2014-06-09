@@ -1,4 +1,4 @@
-<% if @active_students.empty? %>
+<% if @inactive_students.empty? %>
   &nbsp;&nbsp;<em>None at this time</em>
 <% else %>
   <table class="table table-striped tournTable">
@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @active_students.each do |stu| %>
+      <% @inactive_students.each do |stu| %>
         <tr>
           <% student = Student.find(stu.id) %>
           <% registration = student.registrations.current[0] unless student.registrations.current[0].nil? %>
