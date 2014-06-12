@@ -10,7 +10,6 @@
         <th>Team</th>
         <th>Bracket</th>
         <th>Missing Document(s)</th>
-        <th>Current Status</th>
         <th class="no-sort">&nbsp;</th>
       </tr>
     </thead>
@@ -28,7 +27,6 @@
           <td><%= bracket.nil? ? "---" : (link_to "#{bracket.min_age} - #{bracket.max_age}", bracket_path(bracket)) %></td>
           <% tableCellClass = if registration.nil? then "" else registration.missing_doc == "None" ? "" : "myDanger" end %>
           <td class=<%= tableCellClass %>><%= registration.nil? ? "----" : registration.missing_doc %></td>
-          <td><%= if stu.nil? then "Inactive" else stu.active ? "Active" : "Inactive" end %></td>
           <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_student_path(student), :class => 'btn btn-md' %></td>
         </tr>
       <% end %>

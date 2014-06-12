@@ -1,8 +1,32 @@
-<div class="row">
+<span id="activeHouseholds" class="btn btn-default myDefaultButton">Active Households List</span>
+<span id="inactiveHouseholds" class="btn btn-default myDefaultButton">Inactive Households List</span>
+
+<div class="row activeHouseholds">
 	<div class="span12">
-		<h3>Households</h3>
+		<h3>Active Households</h3>
 		<%= render :partial => "households" %>
 	</div>
 </div>
 
+<div class="row inactiveHouseholds">
+	<div class="span12">
+		<h3>Inactive Households</h3>
+		<%= render :partial => "inactive_households" %>
+	</div>
+</div>
+
 <%= link_to raw("<i class='icon-plus icon-white'></i> Add a New Household"), new_household_path, :class => 'btn btn-primary', :id => 'Create Household' %>
+
+<script>
+	$(document).ready(function(){
+	  $(".inactiveHouseholds").hide();	
+	  $("#activeHouseholds").click(function(){
+	    $(".activeHouseholds").show();
+	    $(".inactiveHouseholds").hide();
+	  });
+	  $("#inactiveHouseholds").click(function(){
+	    $(".activeHouseholds").hide();
+	    $(".inactiveHouseholds").show();
+	  });
+	});
+</script>

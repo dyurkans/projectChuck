@@ -1,4 +1,4 @@
- <% if @all_households.empty? %>
+ <% if @inactive_households.empty? %>
   &nbsp;&nbsp;<em>None at this time</em>
 <% else %>
   <table class="table table-striped tournTable">
@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @active_households.each do |household| %>
+      <% @inactive_households.each do |household| %>
         <tr>
           <td><%= link_to household.name, household_path(household) %></td>
           <td><%= household.full_address %></td>
