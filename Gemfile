@@ -69,6 +69,7 @@ group :test do
   gem 'simplecov'
   gem 'turn'
   gem 'single_test'
+  gem 'factory_girl_rails'
 end
 
 group :development, :production do

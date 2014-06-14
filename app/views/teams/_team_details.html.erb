@@ -63,7 +63,7 @@
         <th>Name</th>
   		<th>Age (as of June 1)</th>
         <th>Missing Document(s)</th>
-        <th>Phone Number</th>
+        <th>Parent/Guardian Day Phone</th>
         <th>Study Halls</th> 
         <th>Current Registration Status</th>
         <th class="no-sort">&nbsp;</th>
@@ -79,7 +79,7 @@
             <td><%= student.dob.nil? ? "---" : student.age_as_of_june_1  %></td>
             <% tableCellClass = registration.missing_doc == "None" ? "" : "myDanger" %>
             <td class=<%= tableCellClass %>><%= registration.missing_doc %></td>
-            <td><%= number_to_phone student.cell_phone %></td>
+            <td><%= number_to_phone student.guardians.first.day_phone %></td>
             <td>1          2          3</td>
             <td><%= registration.active ? "Active" : "Inactive" %></td>
             <td><%= link_to raw("<span class='glyphicon glyphicon-pencil'></span> Edit"), edit_student_path(student), :class => 'btn btn-md' %></td>

@@ -91,10 +91,14 @@ class ActiveSupport::TestCase
 
   def create_tournament_context
     @tourn = FactoryGirl.create(:tournament)
+    @tourn2 = FactoryGirl.create(:tournament, start_date: 10.weeks.from_now, end_date: 15.weeks.from_now)
+    @tourn3 = FactoryGirl.create(:tournament, start_date: 10.weeks.from_now, end_date: 18.weeks.from_now)
   end
 
   def remove_tournament_context
     @tourn.delete
+    @tourn2.delete
+    @tourn3.delete
   end
 
   def create_bracket_context

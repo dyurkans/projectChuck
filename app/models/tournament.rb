@@ -9,7 +9,7 @@ class Tournament < ActiveRecord::Base
   validates_date :end_date, :message => "Must be a valid date"
   validate :valid_dates, :message => "End date must be later than start date"
 
-  scope :by_date, order('start_date DESC')
+  scope :by_date, order('start_date DESC, end_date DESC')
 
   def name
   	"Project C.H.U.C.K. #{self.start_date.year}"
