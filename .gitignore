@@ -22,4 +22,5 @@
 # Ignore all uploaded files
 /public/uploads
 /public/assets
+/coverage
 .env

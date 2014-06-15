@@ -7,7 +7,7 @@ class Tournament < ActiveRecord::Base
 
   validates_date :start_date, :message => "Must be a valid date"
   validates_date :end_date, :message => "Must be a valid date"
-  validate :valid_dates, :message => "End date must be later than start date"
+  #validate :valid_dates, :message => "End date must be later than start date"
 
   scope :by_date, order('start_date DESC, end_date DESC')
 
