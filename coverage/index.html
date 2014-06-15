@@ -14,27 +14,27 @@
       <img src="./assets/0.8.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2014-06-14T22:35:56-04:00">2014-06-14T22:35:56-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2014-06-14T22:45:15-04:00">2014-06-14T22:45:15-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">40.17%</span></span>
+    (<span class="covered_percent"><span class="red">40.51%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.51
+         0.56
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>32</b> files in total.
-    <b>931</b> relevant lines. 
-    <span class="green"><b>374</b> lines covered</span> and
-    <span class="red"><b>557</b> lines missed </span>
+    <b>933</b> relevant lines. 
+    <span class="green"><b>378</b> lines covered</span> and
+    <span class="red"><b>555</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -342,12 +342,12 @@
       
       <tr>
         <td class="strong"><a href="#3bc30fca4a807f3835b03fc205b1457cd8483cff" class="src_link" title="app/models/tournament.rb">app/models/tournament.rb</a></td>
-        <td class="red strong">57.89 %</td>
+        <td class="red strong">71.43 %</td>
         <td>37</td>
-        <td>19</td>
-        <td>11</td>
-        <td>8</td>
-        <td>0.9</td>
+        <td>21</td>
+        <td>15</td>
+        <td>6</td>
+        <td>2.8</td>
       </tr>
       
       <tr>
@@ -526,20 +526,20 @@
           <div class="file_list_container" id="Models">
   <h2>
     <span class="group_name">Models</span>
-    (<span class="covered_percent"><span class="red">53.0%</span></span>
+    (<span class="covered_percent"><span class="red">53.67%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.76
+         0.85
        </span>
     </span> hits/line)
   </h2>
   <a name="Models"></a>
   <div>
     <b>9</b> files in total.
-    <b>434</b> relevant lines. 
-    <span class="green"><b>230</b> lines covered</span> and
-    <span class="red"><b>204</b> lines missed </span>
+    <b>436</b> relevant lines. 
+    <span class="green"><b>234</b> lines covered</span> and
+    <span class="red"><b>202</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -627,12 +627,12 @@
       
       <tr>
         <td class="strong"><a href="#3bc30fca4a807f3835b03fc205b1457cd8483cff" class="src_link" title="app/models/tournament.rb">app/models/tournament.rb</a></td>
-        <td class="red strong">57.89 %</td>
+        <td class="red strong">71.43 %</td>
         <td>37</td>
-        <td>19</td>
-        <td>11</td>
-        <td>8</td>
-        <td>0.9</td>
+        <td>21</td>
+        <td>15</td>
+        <td>6</td>
+        <td>2.8</td>
       </tr>
       
       <tr>
@@ -10513,11 +10513,11 @@
         <div class="source_table" id="3bc30fca4a807f3835b03fc205b1457cd8483cff">
   <div class="header">
     <h3>app/models/tournament.rb</h3>
-    <h4><span class="red">57.89 %</span> covered</h4>
+    <h4><span class="red">71.43 %</span> covered</h4>
     <div>
-      <b>19</b> relevant lines. 
-      <span class="green"><b>11</b> lines covered</span> and
-      <span class="red"><b>8</b> lines missed.</span>
+      <b>21</b> relevant lines. 
+      <span class="green"><b>15</b> lines covered</span> and
+      <span class="red"><b>6</b> lines missed.</span>
     </div>
   </div>
   
@@ -10554,10 +10554,10 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="6">
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">  #before_save :valid_dates</code>
+          <code class="ruby">  before_save :valid_dates</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="7">
@@ -10578,10 +10578,10 @@
           <code class="ruby">  validates_date :end_date, :message =&gt; &quot;Must be a valid date&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="10">
+        <li class="covered" data-hits="1" data-linenumber="10">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">  #validate :valid_dates, :message =&gt; &quot;End date must be later than start date&quot;</code>
+          <code class="ruby">  validate :valid_dates, :message =&gt; &quot;End date must be later than start date&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="11">
@@ -10638,14 +10638,14 @@
           <code class="ruby">  def valid_dates</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="20">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="29" data-linenumber="20">
+          <span class="hits">29</span>
           
           <code class="ruby">  	if self.end_date &gt; self.start_date</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="21">
-          <span class="hits">4</span>
+        <li class="covered" data-hits="15" data-linenumber="21">
+          <span class="hits">15</span>
           
           <code class="ruby">      true</code>
         </li>
@@ -10656,14 +10656,14 @@
           <code class="ruby">    else</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="23">
-          
+        <li class="covered" data-hits="2" data-linenumber="23">
+          <span class="hits">2</span>
           
           <code class="ruby">      errors.add(:end_date, &quot;End date must be later than the start date&quot;)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="24">
-          
+        <li class="covered" data-hits="2" data-linenumber="24">
+          <span class="hits">2</span>
           
           <code class="ruby">      false</code>
         </li>
