@@ -14,27 +14,27 @@
       <img src="./assets/0.8.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2014-06-14T23:19:13-04:00">2014-06-14T23:19:13-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2014-06-15T01:01:21-04:00">2014-06-15T01:01:21-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">40.28%</span></span>
+    (<span class="covered_percent"><span class="red">40.37%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.55
+         0.52
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>32</b> files in total.
-    <b>931</b> relevant lines. 
+    <b>929</b> relevant lines. 
     <span class="green"><b>375</b> lines covered</span> and
-    <span class="red"><b>556</b> lines missed </span>
+    <span class="red"><b>554</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -342,12 +342,12 @@
       
       <tr>
         <td class="strong"><a href="#3bc30fca4a807f3835b03fc205b1457cd8483cff" class="src_link" title="app/models/tournament.rb">app/models/tournament.rb</a></td>
-        <td class="red strong">63.16 %</td>
-        <td>34</td>
-        <td>19</td>
+        <td class="red strong">70.59 %</td>
+        <td>32</td>
+        <td>17</td>
         <td>12</td>
-        <td>7</td>
-        <td>2.5</td>
+        <td>5</td>
+        <td>1.5</td>
       </tr>
       
       <tr>
@@ -526,20 +526,20 @@
           <div class="file_list_container" id="Models">
   <h2>
     <span class="group_name">Models</span>
-    (<span class="covered_percent"><span class="red">53.23%</span></span>
+    (<span class="covered_percent"><span class="red">53.47%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.83
+         0.78
        </span>
     </span> hits/line)
   </h2>
   <a name="Models"></a>
   <div>
     <b>9</b> files in total.
-    <b>434</b> relevant lines. 
+    <b>432</b> relevant lines. 
     <span class="green"><b>231</b> lines covered</span> and
-    <span class="red"><b>203</b> lines missed </span>
+    <span class="red"><b>201</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -627,12 +627,12 @@
       
       <tr>
         <td class="strong"><a href="#3bc30fca4a807f3835b03fc205b1457cd8483cff" class="src_link" title="app/models/tournament.rb">app/models/tournament.rb</a></td>
-        <td class="red strong">63.16 %</td>
-        <td>34</td>
-        <td>19</td>
+        <td class="red strong">70.59 %</td>
+        <td>32</td>
+        <td>17</td>
         <td>12</td>
-        <td>7</td>
-        <td>2.5</td>
+        <td>5</td>
+        <td>1.5</td>
       </tr>
       
       <tr>
@@ -10513,11 +10513,11 @@
         <div class="source_table" id="3bc30fca4a807f3835b03fc205b1457cd8483cff">
   <div class="header">
     <h3>app/models/tournament.rb</h3>
-    <h4><span class="red">63.16 %</span> covered</h4>
+    <h4><span class="red">70.59 %</span> covered</h4>
     <div>
-      <b>19</b> relevant lines. 
+      <b>17</b> relevant lines. 
       <span class="green"><b>12</b> lines covered</span> and
-      <span class="red"><b>7</b> lines missed.</span>
+      <span class="red"><b>5</b> lines missed.</span>
     </div>
   </div>
   
@@ -10578,10 +10578,10 @@
           <code class="ruby">  validates_date :end_date, :message =&gt; &quot;Must be a valid date&quot;</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="10">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="10">
           
-          <code class="ruby">  validate :valid_dates</code>
+          
+          <code class="ruby">  #validate :valid_dates, :message =&gt; &quot;End date must be later than start date&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="11">
@@ -10608,8 +10608,8 @@
           <code class="ruby">  def name</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="15">
-          
+        <li class="covered" data-hits="2" data-linenumber="15">
+          <span class="hits">2</span>
           
           <code class="ruby">  	&quot;Project C.H.U.C.K. #{self.start_date.year}&quot;</code>
         </li>
@@ -10638,91 +10638,79 @@
           <code class="ruby">  def valid_dates</code>
         </li>
       
-        <li class="covered" data-hits="37" data-linenumber="20">
-          <span class="hits">37</span>
+        <li class="covered" data-hits="14" data-linenumber="20">
+          <span class="hits">14</span>
           
-          <code class="ruby">  	if :end_date &gt; :start_date</code>
+          <code class="ruby">  	self.end_date &gt; self.start_date</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="21">
+        <li class="never" data-hits="" data-linenumber="21">
           
           
-          <code class="ruby">      errors.add(:end_date, &quot;End date must be later than the start date&quot;)</code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="22">
           
           
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="23">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="24">
-          
-          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="25">
+        <li class="covered" data-hits="1" data-linenumber="23">
           <span class="hits">1</span>
           
           <code class="ruby">  def number_of_assigned_students</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="26">
+        <li class="missed" data-hits="0" data-linenumber="24">
           
           
           <code class="ruby">    total_number_of_assigned_students = 0</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="27">
+        <li class="missed" data-hits="0" data-linenumber="25">
           
           
           <code class="ruby">    brackets = Bracket.find_all_by_tournament_id(self.id)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="28">
+        <li class="missed" data-hits="0" data-linenumber="26">
           
           
           <code class="ruby">    brackets.each do |bracket|</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="29">
+        <li class="missed" data-hits="0" data-linenumber="27">
           
           
           <code class="ruby">      total_number_of_assigned_students += bracket.current_number_of_students</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="30">
+        <li class="never" data-hits="" data-linenumber="28">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="31">
+        <li class="missed" data-hits="0" data-linenumber="29">
           
           
           <code class="ruby">    total_number_of_assigned_students.zero? ? &quot;---&quot; : total_number_of_assigned_students</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="32">
+        <li class="never" data-hits="" data-linenumber="30">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="33">
+        <li class="never" data-hits="" data-linenumber="31">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="34">
+        <li class="never" data-hits="" data-linenumber="32">
           
           
           <code class="ruby">end</code>

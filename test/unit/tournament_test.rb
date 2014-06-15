@@ -46,5 +46,17 @@ class TournamentTest < ActiveSupport::TestCase
 			assert_equal false, Tournament.by_date == [@tourn3, @tourn, @tourn2]
 			assert_equal false, Tournament.by_date == [@tourn]
 		end
+
+		should "humanize tournament name" do
+			@tourn4 = FactoryGirl.build(:tournament, start_date: 58.weeks.from_now.to_date, end_date: 70.weeks.from_now.to_date)
+			assert_equal "Project C.H.U.C.K. 2014", @tourn.name
+			deny @tourn4.name == "Project C.H.U.C.K. 2014"
+		end
+
+		should "return total number of active students registered for most recent tournament" do
+			assert_equal "---", @tourn.number_of_assigned_students
+
+		end
+
 	end
 end
