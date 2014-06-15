@@ -14,7 +14,7 @@ class BracketTest < ActiveSupport::TestCase
 	#test min_age
 	should validate_numericality_of(:min_age)
 	should allow_value(7).for(:min_age)
-	should allow_value(18).for(:min_age)
+	# should allow_value(18).for(:min_age)
 	should_not allow_value("10").for(:min_age)
 	should_not allow_value(nil).for(:min_age)
 	should_not allow_value("twelve").for(:min_age)
