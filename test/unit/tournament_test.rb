@@ -25,9 +25,19 @@ class TournamentTest < ActiveSupport::TestCase
 	context "Creating tournament context" do
 		setup do
 			create_tournament_context
+			create_bracket_context
+			create_team_context
+			create_household_context
+			create_student_context
+			create_registration_context
 		end
 
 		teardown do
+			remove_registration_context
+			remove_student_context
+			remove_household_context
+			remove_team_context
+			remove_bracket_context
 			remove_tournament_context
 		end
 
@@ -54,8 +64,12 @@ class TournamentTest < ActiveSupport::TestCase
 		end
 
 		should "return total number of active students registered for most recent tournament" do
-			assert_equal "---", @tourn.number_of_assigned_students
-
+			assert_equal "---", @tourn2.number_of_assigned_students
+			assert_equal 5, @tourn.number_of_assigned_students
+			#@reg6 = FactoryGirl.build(:registration, student_id: @howard.id, team_id: @heat.id, active: false)
+			deny @tourn.number_of_assigned_students == 6
+			# @reg6 = FactoryGirl.build(:registration, student_id: @howard.id, team_id: @heat.id)
+			# assert_equal 6, @tourn.number_of_assigned_students
 		end
 
 	end

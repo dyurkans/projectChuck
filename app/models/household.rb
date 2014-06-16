@@ -75,11 +75,11 @@ attr_accessible :medical_agreement, :permission_agreement, :student_agreement, :
   end
 
   def reformat_text
-    self.street = self.street.downcase.squish.titleize
-    self.city = self.city.downcase.squish.titleize
-    self.county = self.county.downcase.squish.titleize
-    self.family_physician = self.family_physician.downcase.squish.titleize
-    self.insurance_provider = self.insurance_provider.downcase.squish.titleize
+    self.street = self.street.downcase.squish.titleize unless self.street.nil?
+    self.city = self.city.downcase.squish.titleize unless self.city.nil?
+    self.county = self.county.downcase.squish.titleize unless self.county.nil?
+    self.family_physician = self.family_physician.downcase.squish.titleize unless self.family_physician.nil?
+    self.insurance_provider = self.insurance_provider.downcase.squish.titleize unless self.insurance_provider.nil?
   end
 
 end

@@ -7,12 +7,22 @@ class Bracket < ActiveRecord::Base
   GENDER_LIST = [["Male", true], ["Female", false]]
 
   validates_numericality_of :tournament_id, :only_integer => true, :greater_than => 0
-  validates_numericality_of :min_age, :only_integer => true, :greater_than_or_equal_to => 7, :less_than_or_equal_to => :max_age 
-  validates_numericality_of :max_age, :only_integer => true, :less_than_or_equal_to => 18
+  validates_numericality_of :min_age, :only_integer => true
+  validates_numericality_of :max_age, :only_integer => true
   validates_inclusion_of :gender, :in => [true, false], :message => "Must be true or false"
+  validate :valid_age_limits, :message => "Min age must be at least 7. Max age must be no greater than 18. Min age can't be larger than max age."
 
   scope :by_gender, order('gender')
   scope :by_age, order('brackets.max_age')
+
+
+  def valid_age_limits
+    unless self.min_age.nil? || self.max_age.nil?  
+      return ((self.min_age >= 7) && (self.max_age <= 18))
+    else
+      false
+    end 
+  end
 
   def sex
     if gender == true then "Male" else "Female" end

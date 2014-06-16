@@ -2,6 +2,7 @@ include ActionDispatch::TestProcess
 FactoryGirl.define do
 	
 	factory :student do
+		association :household_id, :factory => :household
 		first_name "Ed"
 		last_name "Gruberman"
 		dob 14.years.ago.to_date
@@ -10,6 +11,7 @@ FactoryGirl.define do
 		school_county "Allegheny"
 		grade_integer 10
 		gender true
+		email "mg@example.com"
 		emergency_contact_name "Mary Gruberman"
 		emergency_contact_phone { rand(10 ** 10).to_s.rjust(10,'0') }
 		birth_certificate { fixture_file_upload(Rails.root.join('public', 'example_files', 'birth_certificate.pdf'), "application/pdf") }
@@ -21,20 +23,32 @@ FactoryGirl.define do
 	end
 
 	factory :registration do
-		report_card { fixture_file_upload(Rails.root.join('public', 'example_files', 'report_card.pdf'), "application/pdf") }
-		proof_of_insurance { fixture_file_upload(Rails.root.join('public', 'example_files', 'insurance.pdf'), "application/pdf") }
+		association :student_id, :factory => :student
+		association :team_id, :factory => :team
+		report_card { fixture_file_upload(Rails.root.join('public', 'example_files', 'report_card.jpg'), "application/jpg") }
+		proof_of_insurance { fixture_file_upload(Rails.root.join('public', 'example_files', 'insurance.png'), "application/png") }
 		physical { fixture_file_upload(Rails.root.join('public', 'example_files', 'physical.pdf'), "application/pdf") }
 		physical_date 3.months.ago.to_date
 		t_shirt_size 2
 		active true
+		volunteer_initials "DY"
 	end
 
 	factory :team do 
+		association :bracket_id, :factory => :bracket
 		name "New York Knicks"
 		max_students 10
+		notes "This is where notes about a team should go."
+		coach "Coach Dima"
+		coach_email "dima@example.com"
+		coach_cell { rand(10 ** 10).to_s.rjust(10,'0') }
+		assistant_coach "Assistant Name"
+		assistant_coach_cell { rand(10 ** 10).to_s.rjust(10,'0') }
+		assistant_coach_email "assistant@example.com"
 	end
 
 	factory :bracket do
+		association :tournament_id, :factory => :tournament
 		gender true
 		min_age 16
 		max_age 18
@@ -45,6 +59,7 @@ FactoryGirl.define do
 		city "Pittsburgh"
 		state "PA"
 		zip "15213"
+		county "Allegheny"
 		home_phone { rand(10 ** 10).to_s.rjust(10,'0') }
 		insurance_provider "AIG"
 		insurance_policy_no "1938475069"
@@ -59,7 +74,6 @@ FactoryGirl.define do
 		dob 40.years.ago.to_date
 		cell_phone { rand(10 ** 10).to_s.rjust(10,'0') } 
 		day_phone { rand(10 ** 10).to_s.rjust(10,'0') }
-    household_id 3
 		receive_texts true
 		email "marygruberman@example.com"
 		gender false

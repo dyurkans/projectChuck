@@ -58,23 +58,23 @@ class ActiveSupport::TestCase
 
   def create_student_context
     #14 y.o. Ed Gruberman (10th grade)
-    @ed = FactoryGirl.create(:student, household: @grub)
+    @ed = FactoryGirl.create(:student, household: @grub, email: "ed@example.com")
     #14 y.o. Ted Gruberman (10th grade)
-    @ted = FactoryGirl.create(:student, household: @grub, first_name: "Ted", cell_phone: "412-268-2323", school_county:"Philadelphia")
+    @ted = FactoryGirl.create(:student, household: @grub, first_name: "Ted", cell_phone: "412-268-2323", school_county:"Philadelphia", email: "ted@example.com")
     #11 y.o. Fred Gruberman (7th grade)
-    @fred = FactoryGirl.create(:student, household: @grub, first_name: "Fred", grade_integer:7, dob:11.years.ago.to_date, school_county:"Orange")
+    @fred = FactoryGirl.create(:student, household: @grub, first_name: "Fred", grade_integer:7, dob:11.years.ago.to_date, school_county:"Orange", email: "fred@example.com")
     #13 y.o. Ned Gruberman (10th grade)
-    @ned = FactoryGirl.create(:student, household: @grub, first_name: "Ned", dob: 13.years.ago.to_date, school:"Maryland High School", school_county:"Prince George's")
+    @ned = FactoryGirl.create(:student, household: @grub, first_name: "Ned", dob: 13.years.ago.to_date, school:"Maryland High School", school_county:"Prince George's", email: "ned@example.com")
     #9 y.o. Noah Ark (5th grade)
-    @noah = FactoryGirl.create(:student, household: @mill, first_name: "Noah", last_name: "Ark", grade_integer:5, dob: 9.years.ago.to_date, emergency_contact_name: "Hannah Ark")
+    @noah = FactoryGirl.create(:student, household: @mill, first_name: "Noah", last_name: "Ark", grade_integer:5, dob: 9.years.ago.to_date, emergency_contact_name: "Hannah Ark", email: "noah@example.com")
     #14 y.o. Howard Marcus (10th grade)
-    @howard = FactoryGirl.create(:student, household: @mill, first_name: "Howard", last_name: "Marcus", dob:169.months.ago.to_date, emergency_contact_phone: "412-555-5555")
+    @howard = FactoryGirl.create(:student, household: @mill, first_name: "Howard", last_name: "Marcus", dob:169.months.ago.to_date, emergency_contact_phone: "412-555-5555", email: "howard@example.com")
     #13 y.o Jen Hanson (10th grade)
-    @jen = FactoryGirl.create(:student, household: @mill, first_name: "Jen", last_name: "Hanson", gender:false, allergies:"nuts,shrimp,lemons", dob: 167.months.ago.to_date, school_county:"Philadelphia")
+    @jen = FactoryGirl.create(:student, household: @mill, first_name: "Jen", last_name: "Hanson", gender: false, allergies: "nuts,shrimp,lemons", dob: 167.months.ago.to_date, school_county:"Philadelphia", email: "jen@example.com")
     #18 y.o. Julie Henderson (10th grade)
-    @julie = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender:false, medications:"insulin", dob: 941.weeks.ago.to_date, grade_integer: 13)
+    @julie = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: 941.weeks.ago.to_date, grade_integer: 13, email: "julie@example.com")
     #10 y.o Jason Hoover (6th grade)
-    @jason = FactoryGirl.create(:student, first_name: "Jason", last_name: "Hoover", gender:true, medications:"theophyline", active: false, grade_integer:6, dob: 10.years.ago.to_date)
+    @jason = FactoryGirl.create(:student, household: @suth, first_name: "Jason", last_name: "Hoover", gender: true, medications: "theophyline", active: false, grade_integer:6, dob: 10.years.ago.to_date, email: "jason@example.com")
   end
     
   def remove_student_context
@@ -144,11 +144,27 @@ class ActiveSupport::TestCase
   end
 
   def create_registration_context
-
+    @reg1 = FactoryGirl.create(:registration, student: @ed, team: @heat)
+    @reg2 = FactoryGirl.create(:registration, student: @ted, team: @heat)
+    @reg3 = FactoryGirl.create(:registration, student: @fred, team: @wizards)
+    @reg4 = FactoryGirl.create(:registration, student: @ned, team: @heat)
+    @reg5 = FactoryGirl.create(:registration, student: @noah, team: @pistons)
+    @reg6 = FactoryGirl.create(:registration, student: @howard, team: @heat)
+    @reg7 = FactoryGirl.create(:registration, student: @jen, team: @mavs)
+    @reg8 = FactoryGirl.create(:registration, student: @julie, team: @mavs)
+    @reg9 = FactoryGirl.create(:registration, student: @jason, team: @wizards)
   end 
 
   def remove_registration_context
-
+    @reg1.delete
+    @reg2.delete
+    @reg3.delete
+    @reg4.delete
+    @reg5.delete
+    @reg6.delete
+    @reg7.delete
+    @reg8.delete
+    @reg9.delete
   end
 
   def create_user_context
