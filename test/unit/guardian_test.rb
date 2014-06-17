@@ -13,16 +13,6 @@ class GuardianTest < ActiveSupport::TestCase
   #test last_name
   should validate_presence_of(:last_name)
 
-  # test dob
-  should allow_value(29.years.ago.to_date).for(:dob)
-  should allow_value(18.years.ago.to_date).for(:dob)
-  should_not allow_value(17.years.ago.to_date).for(:dob)
-  should_not allow_value(9.years.ago.to_date).for(:dob)
-  should_not allow_value(5.years.ago.to_date).for(:dob)
-  should_not allow_value(4.years.ago).for(:dob)
-  should_not allow_value("bad").for(:dob)
-  should_not allow_value(nil).for(:dob)
-
   # tests for day_phone
   should allow_value("4122683259").for(:day_phone)
   should allow_value("412-268-3259").for(:day_phone)
@@ -100,7 +90,6 @@ class GuardianTest < ActiveSupport::TestCase
       should "have working factories" do
         assert_equal "Mary", @mary.first_name
         assert_equal "Gruberman", @eric.last_name
-        assert_equal 28.years.ago.to_date, @alex.dob
         assert_equal false, @leo.receive_texts
         assert_equal "james@hotmail.com", @james.email
         assert_equal false, @james.active
@@ -120,12 +109,6 @@ class GuardianTest < ActiveSupport::TestCase
       
     should "have working proper_name method" do 
       assert_equal "Eric Gruberman", @eric.proper_name
-    end
-      
-    should "have working age method" do 
-      assert_equal 45, @eric.age
-      assert_equal 20, @leo.age
-      assert_equal 37, @james.age
     end
       
     should "strip non-digits from phone" do 

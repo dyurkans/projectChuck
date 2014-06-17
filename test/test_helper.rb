@@ -28,31 +28,24 @@ class ActiveSupport::TestCase
   end
 
   def remove_household_context
-    @grub.destroy
-    @mill.destroy
-    @suth.destroy
-    @bam.destroy
+    Household.delete_all
   end
 
   def create_guardian_context
     #40 y.o. Mary Gruberman
     @mary = FactoryGirl.create(:guardian, household: @grub)
     #45 y.o. Eric Gruberman
-    @eric = FactoryGirl.create(:guardian, household: @grub, first_name:"Eric", email: "eric.grub@gmail.com", dob:45.years.ago.to_date, cell_phone:"412-666-7890")
+    @eric = FactoryGirl.create(:guardian, household: @grub, first_name:"Eric", email: "eric.grub@gmail.com", cell_phone:"412-666-7890")
     #28 y.o. Alexandra Mill
-    @alex = FactoryGirl.create(:guardian, household: @mill, first_name: "Alexandra", last_name:"Mill", email: "amill@yahoo.com", dob:28.years.ago.to_date, cell_phone:nil, day_phone:"412-281-8080")
+    @alex = FactoryGirl.create(:guardian, household: @mill, first_name: "Alexandra", last_name:"Mill", email: "amill@yahoo.com", cell_phone:nil, day_phone:"412-281-8080")
     #20 y.o. Leo Sutherland
-    @leo = FactoryGirl.create(:guardian, household: @suth, first_name:"Leo", last_name:"Sutherland", email: "leoSuth@andrew.cmu.edu", dob:20.years.ago.to_date, receive_texts:false)
+    @leo = FactoryGirl.create(:guardian, household: @suth, first_name:"Leo", last_name:"Sutherland", email: "leoSuth@andrew.cmu.edu", receive_texts:false)
     #37 y.o. James Bambridge
-    @james = FactoryGirl.create(:guardian, household: @bam, first_name: "James", last_name:"Bambridge", dob: 1982.weeks.ago.to_date, email:"james@hotmail.com", active:false)
+    @james = FactoryGirl.create(:guardian, household: @bam, first_name: "James", last_name:"Bambridge", email:"james@hotmail.com", active:false)
   end
 
   def remove_guardian_context
-    @mary.destroy
-    @eric.destroy
-    @alex.destroy
-    @leo.destroy
-    @james.destroy
+    Guardian.delete_all
   end
 
   def create_student_context
@@ -61,31 +54,23 @@ class ActiveSupport::TestCase
     #14 y.o. Ted Gruberman (10th grade)
     @ted = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Ted", cell_phone: "412-268-2323", school_county:"Philadelphia", email: "ted@example.com")
     #11 y.o. Fred Gruberman (7th grade)
-    @fred = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Fred", grade_integer:7, dob:11.years.ago.to_date, school_county:"Orange", email: "fred@example.com")
+    @fred = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Fred", grade_integer:7, dob: 11.years.ago.to_date, school_county:"Orange", email: "fred@example.com")
     #13 y.o. Ned Gruberman (10th grade)
     @ned = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Ned", dob: 13.years.ago.to_date, school:"Maryland High School", school_county:"Prince George's", email: "ned@example.com")
     #9 y.o. Noah Ark (5th grade)
     @noah = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Noah", last_name: "Ark", grade_integer:5, dob: 9.years.ago.to_date, emergency_contact_name: "Hannah Ark", email: "noah@example.com")
     #14 y.o. Howard Marcus (10th grade)
-    @howard = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Howard", last_name: "Marcus", dob:169.months.ago.to_date, emergency_contact_phone: "412-555-5555", email: "howard@example.com")
+    @howard = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Howard", last_name: "Marcus", dob: 14.years.ago.to_date, emergency_contact_phone: "412-555-5555", email: "howard@example.com")
     #13 y.o Jen Hanson (10th grade)
-    @jen = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Jen", last_name: "Hanson", gender: false, allergies: "nuts,shrimp,lemons", dob: 167.months.ago.to_date, school_county:"Philadelphia", email: "jen@example.com")
+    @jen = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Jen", last_name: "Hanson", gender: false, allergies: "nuts,shrimp,lemons", dob: 13.years.ago.to_date, school_county:"Philadelphia", email: "jen@example.com")
     #18 y.o. Julie Henderson (10th grade)
-    @julie = FactoryGirl.create(:student, household_id: @bam.id, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: 941.weeks.ago.to_date, grade_integer: 13, email: "julie@example.com")
+    @julie = FactoryGirl.create(:student, household_id: @bam.id, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: 18.years.ago.to_date, grade_integer: 13, email: "julie@example.com")
     #10 y.o Jason Hoover (6th grade)
     @jason = FactoryGirl.create(:student, household_id: @suth.id, first_name: "Jason", last_name: "Hoover", gender: true, medications: "theophyline", active: false, grade_integer:6, dob: 10.years.ago.to_date, email: "jason@example.com")
   end
     
   def remove_student_context
-    @ed.delete
-    @ted.delete
-    @fred.delete
-    @ned.delete
-    @noah.delete
-    @howard.delete
-    @jen.delete
-    @julie.delete
-    @jason.delete
+    Student.delete_all
   end
 
   def create_tournament_context
@@ -95,9 +80,7 @@ class ActiveSupport::TestCase
   end
 
   def remove_tournament_context
-    @tourn.delete
-    @tourn2.delete
-    @tourn3.delete
+    Tournament.delete_all
   end
 
   def create_bracket_context
@@ -110,12 +93,7 @@ class ActiveSupport::TestCase
   end
 
   def remove_bracket_context
-    @boys7to9.delete
-    @boys10to12.delete
-    @boys13to15.delete
-    @boys16to18.delete
-    @littlegirls.delete
-    @youngwomen.delete
+    Bracket.delete_all
   end
 
   def create_team_context
@@ -134,12 +112,7 @@ class ActiveSupport::TestCase
   end
 
   def remove_team_context
-    @pistons.delete
-    @wizards.delete
-    @heat.delete
-    @lakers.delete
-    @knicks.delete
-    @mavs.delete
+    Team.delete_all
   end
 
   def create_registration_context
@@ -155,15 +128,7 @@ class ActiveSupport::TestCase
   end 
 
   def remove_registration_context
-    @reg1.delete
-    @reg2.delete
-    @reg3.delete
-    @reg4.delete
-    @reg5.delete
-    @reg6.delete
-    @reg7.delete
-    @reg8.delete
-    @reg9.delete
+    Registration.delete_all
   end
 
   def create_user_context

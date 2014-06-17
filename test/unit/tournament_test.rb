@@ -21,6 +21,7 @@ class TournamentTest < ActiveSupport::TestCase
 	should_not allow_value("bad").for(:end_date)
 	should_not allow_value(3).for(:end_date)
 
+	
 	#Unit tests
 	context "Creating tournament context" do
 		setup do
