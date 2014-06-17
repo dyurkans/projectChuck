@@ -25,7 +25,6 @@ class ActiveSupport::TestCase
     @suth = FactoryGirl.create(:household, street: "1000 Morewood Ave")
     #Bambridge household, children Henderson and Hoover
     @bam = FactoryGirl.create(:household, street: "2 Main St")
-
   end
 
   def remove_household_context
@@ -58,23 +57,23 @@ class ActiveSupport::TestCase
 
   def create_student_context
     #14 y.o. Ed Gruberman (10th grade)
-    @ed = FactoryGirl.create(:student, household: @grub, email: "ed@example.com")
+    @ed = FactoryGirl.create(:student, household_id: @grub.id, email: "ed@example.com")
     #14 y.o. Ted Gruberman (10th grade)
-    @ted = FactoryGirl.create(:student, household: @grub, first_name: "Ted", cell_phone: "412-268-2323", school_county:"Philadelphia", email: "ted@example.com")
+    @ted = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Ted", cell_phone: "412-268-2323", school_county:"Philadelphia", email: "ted@example.com")
     #11 y.o. Fred Gruberman (7th grade)
-    @fred = FactoryGirl.create(:student, household: @grub, first_name: "Fred", grade_integer:7, dob:11.years.ago.to_date, school_county:"Orange", email: "fred@example.com")
+    @fred = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Fred", grade_integer:7, dob:11.years.ago.to_date, school_county:"Orange", email: "fred@example.com")
     #13 y.o. Ned Gruberman (10th grade)
-    @ned = FactoryGirl.create(:student, household: @grub, first_name: "Ned", dob: 13.years.ago.to_date, school:"Maryland High School", school_county:"Prince George's", email: "ned@example.com")
+    @ned = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Ned", dob: 13.years.ago.to_date, school:"Maryland High School", school_county:"Prince George's", email: "ned@example.com")
     #9 y.o. Noah Ark (5th grade)
-    @noah = FactoryGirl.create(:student, household: @mill, first_name: "Noah", last_name: "Ark", grade_integer:5, dob: 9.years.ago.to_date, emergency_contact_name: "Hannah Ark", email: "noah@example.com")
+    @noah = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Noah", last_name: "Ark", grade_integer:5, dob: 9.years.ago.to_date, emergency_contact_name: "Hannah Ark", email: "noah@example.com")
     #14 y.o. Howard Marcus (10th grade)
-    @howard = FactoryGirl.create(:student, household: @mill, first_name: "Howard", last_name: "Marcus", dob:169.months.ago.to_date, emergency_contact_phone: "412-555-5555", email: "howard@example.com")
+    @howard = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Howard", last_name: "Marcus", dob:169.months.ago.to_date, emergency_contact_phone: "412-555-5555", email: "howard@example.com")
     #13 y.o Jen Hanson (10th grade)
-    @jen = FactoryGirl.create(:student, household: @mill, first_name: "Jen", last_name: "Hanson", gender: false, allergies: "nuts,shrimp,lemons", dob: 167.months.ago.to_date, school_county:"Philadelphia", email: "jen@example.com")
+    @jen = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Jen", last_name: "Hanson", gender: false, allergies: "nuts,shrimp,lemons", dob: 167.months.ago.to_date, school_county:"Philadelphia", email: "jen@example.com")
     #18 y.o. Julie Henderson (10th grade)
-    @julie = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: 941.weeks.ago.to_date, grade_integer: 13, email: "julie@example.com")
+    @julie = FactoryGirl.create(:student, household_id: @bam.id, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: 941.weeks.ago.to_date, grade_integer: 13, email: "julie@example.com")
     #10 y.o Jason Hoover (6th grade)
-    @jason = FactoryGirl.create(:student, household: @suth, first_name: "Jason", last_name: "Hoover", gender: true, medications: "theophyline", active: false, grade_integer:6, dob: 10.years.ago.to_date, email: "jason@example.com")
+    @jason = FactoryGirl.create(:student, household_id: @suth.id, first_name: "Jason", last_name: "Hoover", gender: true, medications: "theophyline", active: false, grade_integer:6, dob: 10.years.ago.to_date, email: "jason@example.com")
   end
     
   def remove_student_context
@@ -83,8 +82,8 @@ class ActiveSupport::TestCase
     @fred.delete
     @ned.delete
     @noah.delete
-    @jen.delete
     @howard.delete
+    @jen.delete
     @julie.delete
     @jason.delete
   end
@@ -102,12 +101,12 @@ class ActiveSupport::TestCase
   end
 
   def create_bracket_context
-    @boys7to9 = FactoryGirl.create(:bracket, tournament: @tourn, gender: true, min_age: 7, max_age: 9)
-    @boys10to12 = FactoryGirl.create(:bracket, tournament: @tourn, gender: true, min_age: 10, max_age: 12)
-    @boys13to15 = FactoryGirl.create(:bracket, tournament: @tourn, gender: true, min_age: 13, max_age: 15)
-    @boys16to18 = FactoryGirl.create(:bracket, tournament: @tourn, gender: true, min_age: 16, max_age: 18)
-    @littlegirls = FactoryGirl.create(:bracket, tournament: @tourn, gender: false, min_age: 7, max_age:12)
-    @youngwomen = FactoryGirl.create(:bracket, tournament: @tourn, gender: false, min_age: 13, max_age: 18)
+    @boys7to9 = FactoryGirl.create(:bracket, tournament_id: @tourn.id, gender: true, min_age: 7, max_age: 9)
+    @boys10to12 = FactoryGirl.create(:bracket, tournament_id: @tourn.id, gender: true, min_age: 10, max_age: 12)
+    @boys13to15 = FactoryGirl.create(:bracket, tournament_id: @tourn.id, gender: true, min_age: 13, max_age: 15)
+    @boys16to18 = FactoryGirl.create(:bracket, tournament_id: @tourn.id, gender: true, min_age: 16, max_age: 18)
+    @littlegirls = FactoryGirl.create(:bracket, tournament_id: @tourn.id, gender: false, min_age: 7, max_age:12)
+    @youngwomen = FactoryGirl.create(:bracket, tournament_id: @tourn.id, gender: false, min_age: 13, max_age: 18)
   end
 
   def remove_bracket_context
@@ -121,17 +120,17 @@ class ActiveSupport::TestCase
 
   def create_team_context
     # Boys 7 to 9 team
-    @pistons = FactoryGirl.create(:team, bracket: @boys7to9, name: "Detroit Pistons")
+    @pistons = FactoryGirl.create(:team, bracket_id: @boys7to9.id, name: "Detroit Pistons")
     # Boys 10 to 12 team
-    @wizards = FactoryGirl.create(:team, bracket: @boys10to12, name: "Washington Wizards")
+    @wizards = FactoryGirl.create(:team, bracket_id: @boys10to12.id, name: "Washington Wizards")
     # Boys 13 to 15 team
-    @heat = FactoryGirl.create(:team, bracket: @boys13to15, name: "Miami Heat")
+    @heat = FactoryGirl.create(:team, bracket_id: @boys13to15.id, name: "Miami Heat")
     # Boys 16 to 18 team
-    @lakers = FactoryGirl.create(:team, bracket: @boys16to18, name: "Los Angeles Lakers")
+    @lakers = FactoryGirl.create(:team, bracket_id: @boys16to18.id, name: "Los Angeles Lakers")
     # Little Girls team
-    @knicks = FactoryGirl.create(:team, bracket: @littlegirls, name: "New York Knicks")
+    @knicks = FactoryGirl.create(:team, bracket_id: @littlegirls.id, name: "New York Knicks")
     # Young Women team
-    @mavs = FactoryGirl.create(:team, bracket: @youngwomen, name: "Dallas Mavericks")
+    @mavs = FactoryGirl.create(:team, bracket_id: @youngwomen.id, name: "Dallas Mavericks")
   end
 
   def remove_team_context
