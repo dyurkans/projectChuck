@@ -2,7 +2,6 @@ include ActionDispatch::TestProcess
 FactoryGirl.define do
 	
 	factory :student do
-		association :household_id, :factory => :household
 		first_name "Ed"
 		last_name "Gruberman"
 		dob 14.years.ago.to_date
@@ -23,8 +22,6 @@ FactoryGirl.define do
 	end
 
 	factory :registration do
-		association :student_id, :factory => :student
-		association :team_id, :factory => :team
 		report_card { fixture_file_upload(Rails.root.join('public', 'example_files', 'report_card.jpg'), "application/jpg") }
 		proof_of_insurance { fixture_file_upload(Rails.root.join('public', 'example_files', 'insurance.png'), "application/png") }
 		physical { fixture_file_upload(Rails.root.join('public', 'example_files', 'physical.pdf'), "application/pdf") }
@@ -35,7 +32,6 @@ FactoryGirl.define do
 	end
 
 	factory :team do 
-		association :bracket_id, :factory => :bracket
 		name "New York Knicks"
 		max_students 10
 		notes "This is where notes about a team should go."
@@ -48,7 +44,6 @@ FactoryGirl.define do
 	end
 
 	factory :bracket do
-		association :tournament_id, :factory => :tournament
 		gender true
 		min_age 16
 		max_age 18
@@ -71,7 +66,6 @@ FactoryGirl.define do
 	factory :guardian do
 		first_name "Mary"
 		last_name "Gruberman"
-		dob 40.years.ago.to_date
 		cell_phone { rand(10 ** 10).to_s.rjust(10,'0') } 
 		day_phone { rand(10 ** 10).to_s.rjust(10,'0') }
 		receive_texts true

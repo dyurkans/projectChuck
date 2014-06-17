@@ -144,15 +144,15 @@ class ActiveSupport::TestCase
   end
 
   def create_registration_context
-    @reg1 = FactoryGirl.create(:registration, student: @ed, team: @heat)
-    @reg2 = FactoryGirl.create(:registration, student: @ted, team: @heat)
-    @reg3 = FactoryGirl.create(:registration, student: @fred, team: @wizards)
-    @reg4 = FactoryGirl.create(:registration, student: @ned, team: @heat)
-    @reg5 = FactoryGirl.create(:registration, student: @noah, team: @pistons)
-    @reg6 = FactoryGirl.create(:registration, student: @howard, team: @heat)
-    @reg7 = FactoryGirl.create(:registration, student: @jen, team: @mavs)
-    @reg8 = FactoryGirl.create(:registration, student: @julie, team: @mavs)
-    @reg9 = FactoryGirl.create(:registration, student: @jason, team: @wizards)
+    @reg1 = FactoryGirl.create(:registration, student_id: @ed.id, team_id: @heat.id)
+    @reg2 = FactoryGirl.create(:registration, student_id: @ted.id, team_id: @heat.id)
+    @reg3 = FactoryGirl.create(:registration, student_id: @fred.id, team_id: @wizards.id)
+    @reg4 = FactoryGirl.create(:registration, student_id: @ned.id, team_id: @heat.id)
+    @reg5 = FactoryGirl.create(:registration, student_id: @noah.id, team_id: @pistons.id)
+    @reg6 = FactoryGirl.create(:registration, student_id: @howard.id, team_id: @heat.id)
+    @reg7 = FactoryGirl.create(:registration, student_id: @jen.id, team_id: @mavs.id)
+    @reg8 = FactoryGirl.create(:registration, student_id: @julie.id, team_id: @mavs.id)
+    @reg9 = FactoryGirl.create(:registration, student_id: @jason.id, team_id: @wizards.id)
   end 
 
   def remove_registration_context

@@ -38,6 +38,7 @@ class BracketTest < ActiveSupport::TestCase
 	context "Creating a bracket context" do
 	    setup do
 			create_household_context
+			create_guardian_context
 			create_student_context
 			create_tournament_context
 			create_bracket_context
@@ -51,6 +52,7 @@ class BracketTest < ActiveSupport::TestCase
 			remove_bracket_context
 			remove_tournament_context
 			remove_student_context
+			remove_guardian_context
 			remove_household_context
 	    end
 

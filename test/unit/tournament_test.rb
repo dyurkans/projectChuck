@@ -58,7 +58,7 @@ class TournamentTest < ActiveSupport::TestCase
 		end
 
 		should "humanize tournament name" do
-			@tourn4 = FactoryGirl.build(:tournament, start_date: 58.weeks.from_now.to_date, end_date: 70.weeks.from_now.to_date)
+			@tourn4 = FactoryGirl.create(:tournament, start_date: 58.weeks.from_now.to_date, end_date: 70.weeks.from_now.to_date)
 			assert_equal "Project C.H.U.C.K. 2014", @tourn.name
 			deny @tourn4.name == "Project C.H.U.C.K. 2014"
 		end
