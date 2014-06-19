@@ -15,7 +15,7 @@ class Bracket < ActiveRecord::Base
   scope :by_gender, order('gender')
   scope :by_age, order('brackets.max_age')
 
-
+  #restricts valid max and min bracket ages and ensures max is never less than min
   def valid_age_limits
     unless self.min_age.nil? || self.max_age.nil?  
       return ((self.min_age >= 7) && (self.max_age <= 18))
@@ -24,14 +24,17 @@ class Bracket < ActiveRecord::Base
     end 
   end
 
+  #Humanized bracket gender
   def sex
     if gender == true then "Male" else "Female" end
   end
 
+  #humanized bracket name
   def name
   	"#{self.sex} #{self.min_age} - #{self.max_age}"
   end
 
+  #num of spots available in all teams in bracket. Used for waitlist.
   def remaining_spots
     spots = 0
     for t in self.teams
@@ -66,15 +69,14 @@ class Bracket < ActiveRecord::Base
   end
 
   #Use this to produce a list of eligible students given an age range, but without regards to gender
+  #Not currently used anywhere
   def old_all_eligible_students
     Student.current.active.ages_between(self.min_age, self.max_age)
   end
   
   #This produces a list of all eligible students, both assigned and unassigned
   def all_eligible_students
-    male = true
-    female = false
-    if self.gender == male
+    if self.gender == true
       Student.current.male.active.ages_between(self.min_age, self.max_age)
     else
       Student.current.female.active.ages_between(self.min_age, self.max_age)

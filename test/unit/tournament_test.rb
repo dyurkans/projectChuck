@@ -21,7 +21,7 @@ class TournamentTest < ActiveSupport::TestCase
 	should_not allow_value("bad").for(:end_date)
 	should_not allow_value(3).for(:end_date)
 
-	
+
 	#Unit tests
 	context "Creating tournament context" do
 		setup do
@@ -66,11 +66,8 @@ class TournamentTest < ActiveSupport::TestCase
 
 		should "return total number of active students registered for most recent tournament" do
 			assert_equal "---", @tourn2.number_of_assigned_students
-			assert_equal 5, @tourn.number_of_assigned_students
-			#@reg6 = FactoryGirl.build(:registration, student_id: @howard.id, team_id: @heat.id, active: false)
+			assert_equal 8, @tourn.number_of_assigned_students
 			deny @tourn.number_of_assigned_students == 6
-			# @reg6 = FactoryGirl.build(:registration, student_id: @howard.id, team_id: @heat.id)
-			# assert_equal 6, @tourn.number_of_assigned_students
 		end
 
 	end

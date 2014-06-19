@@ -28,7 +28,10 @@ class ActiveSupport::TestCase
   end
 
   def remove_household_context
-    Household.delete_all
+    @grub.destroy
+    @mill.destroy
+    @suth.destroy
+    @bam.destroy
   end
 
   def create_guardian_context
@@ -45,7 +48,11 @@ class ActiveSupport::TestCase
   end
 
   def remove_guardian_context
-    Guardian.delete_all
+    @mary.destroy
+    @eric.destroy
+    @alex.destroy
+    @leo.destroy
+    @james.destroy
   end
 
   def create_student_context
@@ -70,7 +77,15 @@ class ActiveSupport::TestCase
   end
     
   def remove_student_context
-    Student.delete_all
+    @ed.destroy
+    @ted.destroy
+    @fred.destroy
+    @ned.destroy
+    @noah.destroy
+    @howard.destroy
+    @jen.destroy
+    @julie.destroy
+    @jason.destroy
   end
 
   def create_tournament_context
@@ -80,7 +95,9 @@ class ActiveSupport::TestCase
   end
 
   def remove_tournament_context
-    Tournament.delete_all
+    @tourn.destroy
+    @tourn2.destroy
+    @tourn3.destroy
   end
 
   def create_bracket_context
@@ -93,7 +110,12 @@ class ActiveSupport::TestCase
   end
 
   def remove_bracket_context
-    Bracket.delete_all
+    @boys7to9.destroy
+    @boys10to12.destroy
+    @boys13to15.destroy
+    @boys16to18.destroy
+    @littlegirls.destroy
+    @youngwomen.destroy
   end
 
   def create_team_context
@@ -112,7 +134,12 @@ class ActiveSupport::TestCase
   end
 
   def remove_team_context
-    Team.delete_all
+    @pistons.destroy
+    @wizards.destroy
+    @heat.destroy
+    @lakers.destroy
+    @knicks.destroy
+    @mavs.destroy
   end
 
   def create_registration_context
@@ -128,7 +155,15 @@ class ActiveSupport::TestCase
   end 
 
   def remove_registration_context
-    Registration.delete_all
+    @reg1.destroy
+    @reg2.destroy
+    @reg3.destroy
+    @reg4.destroy
+    @reg5.destroy
+    @reg6.destroy
+    @reg7.destroy
+    @reg8.destroy
+    @reg9.destroy
   end
 
   def create_user_context

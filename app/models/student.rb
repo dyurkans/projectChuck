@@ -158,7 +158,7 @@ class Student < ActiveRecord::Base
   # calculates ages between according to June 1 start date
   # give a weeks leeway on low side
   def self.ages_between(low_age,high_age)
-    Student.where("dob between ? and ?", (Date.new(Date.today.year-(high_age+1), 6, 2)),(Date.new(Date.today.year-low_age, 6, 7)))
+    Student.where("dob between ? and ?", (Date.new(Date.today.year-(high_age+1), 6, 1)),(Date.new(Date.today.year-low_age, 6, 7)))
   end
 
 #   # returns all students of age according to today's date
