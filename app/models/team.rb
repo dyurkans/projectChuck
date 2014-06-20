@@ -26,9 +26,10 @@ class Team < ActiveRecord::Base
   belongs_to :bracket
   has_many :registrations
   has_many :students, :through => :registrations
+
   validates_numericality_of :bracket_id, :only_integer => true, :greater_than => 0, :allow_nil => false, :message => "Please create a bracket first."
   validates_inclusion_of :name, :in => FULL_TEAM_LIST.map{ |t| t[1]}, :message => "must be proper team name"
-  validates_numericality_of :max_students, :only_integer => true, :greater_than => 4, :less_than_or_equal_to => 10
+  validates_numericality_of :max_students, :only_integer => true, :greater_than => 4, :less_than_or_equal_to => 10, :allow_blank => false, :allow_nil => false
   validates_format_of :coach_cell, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
   validates_format_of :assistant_coach_cell, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
 
@@ -44,7 +45,11 @@ class Team < ActiveRecord::Base
   end
   
   def max
-    if self.nil? || self.registrations.nil? || self.registrations.empty? || max_students.nil? then false else current_number_of_students <= max_students end
+    if self.nil? || self.registrations.nil? || self.registrations.empty? || max_students.nil? then 
+      false 
+    else 
+      current_number_of_students <= max_students 
+    end
   end
 
   def remaining_spots
@@ -54,15 +59,6 @@ class Team < ActiveRecord::Base
       "---"
     end
   end
-
-  def team_name
-    FULL_TEAM_LIST[name][0]
-  end
-  
-  #def self.unassigned_teams
-    #assigned_teams = self.all.map{ |t| t.name }
-   # Team::FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[1]) }
-  #end
 
   def self.unassigned_teams(team_id)
     index_of_team_id = 1
