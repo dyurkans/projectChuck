@@ -79,4 +79,91 @@ class TeamTest < ActiveSupport::TestCase
 	should_not allow_value("my fred@fred.com").for(:assistant_coach_email)
 	should_not allow_value("fred@fred.con").for(:assistant_coach_email)
 
+	context "Creating a team context" do
+	    setup do
+			create_household_context
+			create_student_context
+			create_tournament_context
+			create_bracket_context
+			create_team_context
+			create_registration_context
+	    end
+	      
+	    teardown do
+			remove_registration_context
+			remove_team_context
+			remove_bracket_context
+			remove_tournament_context
+			remove_student_context
+			remove_household_context
+	    end
+
+	    should "have working factories" do
+	    	@grub.valid?
+	    	@mill.valid?
+	    	@suth.valid?
+	    	@bam.valid?
+	    	@ed.valid?
+			@ted.valid?
+			@fred.valid?
+			@ned.valid?
+			@noah.valid?
+			@howard.valid?
+			@jen.valid?
+			@julie.valid?
+			@jason.valid?
+			@tourn.valid? 
+			@tourn2.valid? 
+			@tourn3.valid? 
+			@boys7to9.valid? 
+			@boys10to12.valid? 
+			@boys13to15.valid? 
+			@boys16to18.valid? 
+			@littlegirls.valid? 
+			@youngwomen.valid?	
+			@pistons.valid? 
+			@wizards.valid? 
+			@heat.valid? 
+			@lakers.valid? 
+			@knicks.valid? 
+			@mavs.valid? 
+			@reg1.valid? 
+			@reg2.valid? 
+			@reg3.valid? 
+			@reg4.valid? 
+			@reg5.valid? 
+			@reg6.valid? 
+			@reg7.valid? 
+			@reg8.valid? 
+			@reg9.valid? 
+	    end
+
+	    #This groups by gender as a result of the hardcoded list. This grouping is useful for separation in team dropdowns.
+	    should "sort teams alphabetically by team name and groups by gender" do
+
+	    end
+
+	    should "return total number of active students assigned to a team" do
+
+	    end
+
+	    should "Ensure max_students is greater than current number of students in a team" do
+
+	    end
+
+	    should "return the number of remaining spots on a team" do
+
+	    end
+
+	    should "return a list of teams that have not yet been assinged to a bracket" do
+
+	    end
+
+	    should "return a list of unassigned active eligible students for a team" do
+
+	    end
+
+
+
+	end
 end

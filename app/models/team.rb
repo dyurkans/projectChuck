@@ -32,42 +32,44 @@ class Team < ActiveRecord::Base
   validates_numericality_of :max_students, :only_integer => true, :greater_than => 4, :less_than_or_equal_to => 10, :allow_blank => false, :allow_nil => false
   validates_format_of :coach_cell, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
   validates_format_of :assistant_coach_cell, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
-  validates_format_of :coach_email, with: /\A[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))\z/i, :message => "is not a valid format"
-  validates_format_of :assistant_coach_email, with: /\A[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))\z/i, :message => "is not a valid format"
-
-  # max may not always be 10
-  validate :max
+  validates_format_of :coach_email, with: /\A[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))\z/i, :message => "is not a valid format", :allow_blank => true
+  validates_format_of :assistant_coach_email, with: /\A[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))\z/i, :message => "is not a valid format", :allow_blank => true
+  validate :max # max may not always be 10
 
   scope :alphabetical, order('name')
   scope :by_bracket, joins(:bracket).order('min_age, name')
 
-
+  #Number of assigned active students on a team
   def current_number_of_students
     self.registrations.active.size
   end
   
+  #Ensure :max_students is not set below current # of assigned students
   def max
     if self.nil? || self.registrations.nil? || self.registrations.empty? || max_students.nil? then 
       false 
     else 
-      current_number_of_students <= max_students 
+      current_number_of_students <= self.max_students 
     end
   end
 
+  #Number of spots left on a team
   def remaining_spots
-    if !max_students.nil? 
-      (max_students - current_number_of_students) 
+    if !self.max_students.nil? 
+      (self.max_students - current_number_of_students) 
     else 
       "---"
     end
   end
 
+  #List of teams not yet assigned to a bracket. Used in team form dropdown.
   def self.unassigned_teams(team_id)
     index_of_team_id = 1
     assigned_teams = self.all.map{ |t| t.name }
     FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[index_of_team_id]) ||  (team_id == t[index_of_team_id]) }
   end
 
+  #List of unassigned, active students eligible for a specific team
   def eligible_students
     if !self.bracket_id.nil?
       bracket = Bracket.find(self.bracket_id)

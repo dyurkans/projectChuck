@@ -4,7 +4,7 @@ FactoryGirl.define do
 	factory :student do
 		first_name "Ed"
 		last_name "Gruberman"
-		dob 14.years.ago.to_date
+		dob Date.new(14.years.ago.year,8,1)
 		cell_phone { rand(10 ** 10).to_s.rjust(10,'0') }
 		school "Brentwood High School"
 		school_county "Allegheny"
@@ -36,7 +36,7 @@ FactoryGirl.define do
 		max_students 10
 		notes "This is where notes about a team should go."
 		coach "Coach Dima"
-		coach_email "dima@example.com"
+		coach_email "coach@example.com"
 		coach_cell { rand(10 ** 10).to_s.rjust(10,'0') }
 		assistant_coach "Assistant Name"
 		assistant_coach_cell { rand(10 ** 10).to_s.rjust(10,'0') }
