@@ -139,31 +139,79 @@ class TeamTest < ActiveSupport::TestCase
 	    end
 
 	    #This groups by gender as a result of the hardcoded list. This grouping is useful for separation in team dropdowns.
+	    #Given the harcoded list, the alphabetical order is based on the index number, so any unlikely additions or 
+	    #modifications to maintain the order desired according to index for this scope to function properly
 	    should "sort teams alphabetically by team name and groups by gender" do
-
+	    	assert_equal [@pistons, @wizards, @heat, @lakers, @knicks, @mavs], Team.alphabetical
+	     	@newTeam = FactoryGirl.create(:team, bracket: @boys7to9, name: "Atlanta Hawks")
+		    assert_equal false, [@newTeam, @pistons, @wizards, @heat, @lakers, @knicks, @mavs] == Team.alphabetical
+	     	assert_equal true, [@pistons, @wizards, @heat, @lakers, @knicks, @mavs, @newTeam] == Team.alphabetical
+	     	@newTeam.destroy
 	    end
 
 	    should "return total number of active students assigned to a team" do
-
+	    	#Team with many student
+	    	assert_equal 3, @heat.current_number_of_students
+	    	#Team with zero students
+	    	@newTeam = FactoryGirl.create(:team, bracket: @boys7to9, name: "Atlanta Hawks")
+	    	assert_equal 0, @newTeam.current_number_of_students
+	    	#Team with inactive registrations
+	    	@newStu = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, dob: Date.new(8.years.ago.year, 8, 1), grade_integer: 13, email: "newStu@example.com")
+    		@inactiveReg = FactoryGirl.create(:registration, student: @newStu, team: @newTeam, active: false)
+    		@newStu2 = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, dob: Date.new(8.years.ago.year, 8, 1), grade_integer: 13, email: "newStu2@example.com")
+    		@activeReg2 = FactoryGirl.create(:registration, student: @newStu2, team: @newTeam, active: true)
+    		assert_equal 1, @newTeam.current_number_of_students
+	    	@newTeam.destroy
+	    	@newStu.destroy
+			@inactiveReg.destroy
+			@newStu2.destroy
+			@activeReg2.destroy
 	    end
 
 	    should "Ensure max_students is greater than current number of students in a team" do
-
+	    	assert_equal true, @heat.max
+	    	@mavs.max_students = 5
+	    	@newStu = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: Date.new(14.years.ago.year,8,1), grade_integer: 13, email: "newStu@example.com")
+    		@newStu2 = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: Date.new(14.years.ago.year,8,1), grade_integer: 13, email: "newStu2@example.com")
+    		@activeReg = FactoryGirl.create(:registration, student: @newStu, team: @heat, active: true)
+    		@activeReg2 = FactoryGirl.create(:registration, student: @newStu2, team: @heat, active: true)
+	    	assert_equal false, @heat.max 
 	    end
 
 	    should "return the number of remaining spots on a team" do
-
+	    	#Multiple active students on team
+	    	assert_equal 8, @wizards.remaining_spots
+	    	#Active and inactive students on a team
+	    	assert_equal 9, @pistons.remaining_spots
+	    	#Empty team with lowered max students
+	    	@newTeam = FactoryGirl.create(:team, bracket: @boys7to9, name: "Atlanta Hawks", max_students: 5)
+	    	assert_equal 5, @newTeam.remaining_spots
+	    	@newTeam.destroy
 	    end
 
 	    should "return a list of teams that have not yet been assinged to a bracket" do
+	    	assert_equal [["Atlanta Hawks",0],["Brooklyn Nets",1],["Boston Celtics",2],["Charlotte Bobcats",3],["Chicago Bulls",4],["Cleveland Cavaliers",5],["Denver Nuggets",7],["Golden State Warriors",9],["Houston Rockets",10],["Indiana Pacers",11],["Los Angeles Clippers",12],["Memphis Grizzlies",14],["Milwaukee Bucks",16],["Minnesota Timberwolves",17],["New Orleans Pelicans",18],["Oklahoma City Thunder",20],["Orlando Magic",21],["Philadelphia 76ers",22],["Phoenix Suns",23],["Portland Trail Blazers",24],["Sacramento Kings",25],["San Antonio Spurs",26],["Toronto Raptors",27],["Utah Jazz",28],["Atlanta Dream",30],["Chicago Sky",31],["Connecticut Sun",32],["Indiana Fever",33],["Los Angeles Sparks",34],["Minnesota Lynx",35],["New York Liberty",36], ["Washington Mystics",37],["Phoenix Mercury",38],["San Antonio Stars",39],["Seattle Storm Seattle",40],["Tulsa Shock",41]], Team.unassigned_teams(@mavs.name)
 
 	    end
 
 	    should "return a list of unassigned active eligible students for a team" do
-
+	    	#Full team with no more eligible students
+	    	assert_equal [], @heat.eligible_students
+	    	#Active and Inactive eligible students
+	    	@newStu = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, dob: Date.new(14.years.ago.year,8,1), grade_integer: 13, email: "newStu@example.com")
+    		@newStu2 = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, dob: Date.new(14.years.ago.year,8,1), grade_integer: 13, email: "newStu2@example.com")
+    		@activeReg = FactoryGirl.create(:registration, student: @newStu, team: nil, active: true)
+    		@activeReg2 = FactoryGirl.create(:registration, student: @newStu2, team: nil, active: false)
+    		assert_equal [@newStu], @heat.eligible_students
+    		#Multiple Active Students
+    		@activeReg2.active = true
+    		@activeReg2.save!
+    		assert_equal [@newStu, @newStu2], @heat.eligible_students
+    		#Male and Female sudents eligible by age, but not gender. Should not include female in result for male team
+    		@newStu2.gender = false
+    		@activeReg2.save!
+    		assert_equal [@newStu], @heat.eligible_students
 	    end
-
-
 
 	end
 end

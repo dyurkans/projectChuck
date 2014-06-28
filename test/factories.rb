@@ -4,7 +4,7 @@ FactoryGirl.define do
 	factory :student do
 		first_name "Ed"
 		last_name "Gruberman"
-		dob Date.new(14.years.ago.year,8,1)
+		dob Date.new(14.years.ago.year, 8, 1)
 		cell_phone { rand(10 ** 10).to_s.rjust(10,'0') }
 		school "Brentwood High School"
 		school_county "Allegheny"

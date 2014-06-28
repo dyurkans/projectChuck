@@ -36,7 +36,11 @@ class Team < ActiveRecord::Base
   validates_format_of :assistant_coach_email, with: /\A[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))\z/i, :message => "is not a valid format", :allow_blank => true
   validate :max # max may not always be 10
 
+  #This groups by gender and alphabetically as a result of the hardcoded list. This grouping is useful for separation in team dropdowns.
+  #Given the harcoded list, the alphabetical order is based on the index number, so any unlikely additions or 
+  #modifications to maintain the order desired according to index for this scope to function properly 
   scope :alphabetical, order('name')
+  #This doesnt really work on the view right now, maybe as a result of dataTables
   scope :by_bracket, joins(:bracket).order('min_age, name')
 
   #Number of assigned active students on a team
@@ -62,7 +66,8 @@ class Team < ActiveRecord::Base
     end
   end
 
-  #List of teams not yet assigned to a bracket. Used in team form dropdown.
+  #List of teams not yet assigned to a bracket. Used in team form dropdown. 
+  #Additional teams must be added to the Teams Arrays appropriately for this to work.
   def self.unassigned_teams(team_id)
     index_of_team_id = 1
     assigned_teams = self.all.map{ |t| t.name }

@@ -116,13 +116,13 @@ class BracketTest < ActiveSupport::TestCase
 
     	should "sum the total remaining spots in a bracket" do
     		assert_equal 9, @boys7to9.remaining_spots
-    		assert_equal 6, @boys13to15.remaining_spots
+    		assert_equal 7, @boys13to15.remaining_spots
     		# needs a test for 
     	end
 
     	should "sum the total number of students assigned to a teams on a specific bracket" do
     		assert_equal 1, @boys7to9.current_number_of_students
-    		assert_equal 4, @boys13to15.current_number_of_students
+    		assert_equal 3, @boys13to15.current_number_of_students
     		@newBracket = FactoryGirl.create(:bracket, tournament:@tourn, min_age: 8, max_age: 12)
     		assert_equal 0, @newBracket.current_number_of_students
     		@newBracket.destroy
@@ -131,9 +131,9 @@ class BracketTest < ActiveSupport::TestCase
 #This test could fail a a result of the age_as_of_june_1 method depending on the date on which you run this test. 
 #If run before june 1st, results will be different. Correct, but will cause these tests to possibly fail.
     	should "provide a list of eligible unnassigned students for a specific bracket" do
-    		@newStu = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: 17.years.ago.to_date, grade_integer: 13, email: "newStu@example.com")
+    		@newStu = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: Date.new(17.years.ago.year,8,1), grade_integer: 13, email: "newStu@example.com")
     		@newReg = FactoryGirl.create(:registration, student: @newStu, team: nil)
-    		@newStu2 = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: 17.years.ago.to_date, grade_integer: 13, email: "newStu2@example.com")
+    		@newStu2 = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: Date.new(17.years.ago.year,8,1), grade_integer: 13, email: "newStu2@example.com")
     		@newReg2 = FactoryGirl.create(:registration, student: @newStu2, team: nil)
     		assert_equal [@newStu, @newStu2], @youngwomen.eligible_students
     		assert_equal [], @boys7to9.eligible_students
@@ -146,11 +146,11 @@ class BracketTest < ActiveSupport::TestCase
 #This test could fail a a result of the age_as_of_june_1 method depending on the date on which you run this test. 
 #If run before june 1st, results will be different. Correct, but will cause these tests to possibly fail.
     	should "provide list of eligible students for a bracket, w/o regards to the gender of bracket" do
-    		@newStu = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: 17.years.ago.to_date, grade_integer: 13, email: "newStu@example.com")
+    		@newStu = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: Date.new(17.years.ago.year,8,1), grade_integer: 13, email: "newStu@example.com")
     		@newReg = FactoryGirl.create(:registration, student: @newStu, team: nil)
-    		@newStu2 = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: 17.years.ago.to_date, grade_integer: 13, email: "newStu2@example.com")
+    		@newStu2 = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: Date.new(17.years.ago.year,8,1), grade_integer: 13, email: "newStu2@example.com")
     		@newReg2 = FactoryGirl.create(:registration, student: @newStu2, team: nil)
-    		@newStu3 = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: 16.years.ago.to_date, grade_integer: 13, email: "newStu3@example.com")
+    		@newStu3 = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: Date.new(16.years.ago.year,8,1), grade_integer: 13, email: "newStu3@example.com")
     		@inactiveReg3 = FactoryGirl.create(:registration, student: @newStu3, team: nil, active: false)
    			@emptyBracket = FactoryGirl.create(:bracket, tournament: @tourn, min_age: 7, max_age: 7)
    			assert_equal [@julie, @newStu, @newStu2], @boys16to18.old_all_eligible_students
@@ -167,11 +167,11 @@ class BracketTest < ActiveSupport::TestCase
 #This test could fail a a result of the age_as_of_june_1 method depending on the date on which you run this test. 
 #If run before june 1st, results will be different. Correct, but will cause these tests to possibly fail.
     	should "provide a list of eligible students, both assigned and unassigned, for a specific bracket" do
-    		@newStu = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: 17.years.ago.to_date, grade_integer: 13, email: "newStu@example.com")
+    		@newStu = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: Date.new(17.years.ago.year,8,1), grade_integer: 13, email: "newStu@example.com")
     		@newReg = FactoryGirl.create(:registration, student: @newStu, team: nil)
-    		@newStu2 = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: 17.years.ago.to_date, grade_integer: 13, email: "newStu2@example.com")
+    		@newStu2 = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: Date.new(17.years.ago.year,8,1), grade_integer: 13, email: "newStu2@example.com")
     		@newReg2 = FactoryGirl.create(:registration, student: @newStu2, team: nil)
-    		@newStu3 = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: 16.years.ago.to_date, grade_integer: 13, email: "newStu3@example.com")
+    		@newStu3 = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: Date.new(16.years.ago.year,8,1), grade_integer: 13, email: "newStu3@example.com")
     		@inactiveReg3 = FactoryGirl.create(:registration, student: @newStu3, team: nil, active: false)
     		assert_equal [@newStu], @boys16to18.all_eligible_students
     		assert_equal [@fred, @ned], @boys10to12.all_eligible_students
