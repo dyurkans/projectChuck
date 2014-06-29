@@ -70,7 +70,9 @@ class Team < ActiveRecord::Base
   #Additional teams must be added to the Teams Arrays appropriately for this to work.
   def self.unassigned_teams(team_id)
     index_of_team_id = 1
+    #List of teams that have been created
     assigned_teams = self.all.map{ |t| t.name }
+    #Select from full list of teams, teams that not yet been created, and the current team you are editing/updating. None if nil.
     FULL_TEAM_LIST.select{ |t| !assigned_teams.include?(t[index_of_team_id]) ||  (team_id == t[index_of_team_id]) }
   end
 

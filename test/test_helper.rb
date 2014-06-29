@@ -77,6 +77,7 @@ class ActiveSupport::TestCase
   end
 
   #Alphabetized by last name: @fred, @noah, @ed, @jen, @julie, @howard, @jason, @ted, @ned
+  #Alphabetized by last name mapped by last name: "Applehouse", "Ark", "Gruberman", "Hanson", "Henderson", "Hoover", "Marcus", "Smog", "Staton"
   #Alphabetized by_school_district: @ted, @noah, @ed, @julie, @jason, @howard, @jen, @fred, @ned
 
   def remove_student_context
@@ -120,20 +121,21 @@ class ActiveSupport::TestCase
     @littlegirls.destroy
     @youngwomen.destroy
   end
-
-  def create_team_context
+  
+  #IDs: 8,29,15,13,19,6
+  def create_team_context 
     # Boys 7 to 9 team
-    @pistons = FactoryGirl.create(:team, bracket_id: @boys7to9.id, name: "Detroit Pistons")
+    @pistons = FactoryGirl.create(:team, bracket_id: @boys7to9.id, name: 8)
     # Boys 10 to 12 team
-    @wizards = FactoryGirl.create(:team, bracket_id: @boys10to12.id, name: "Washington Wizards")
+    @wizards = FactoryGirl.create(:team, bracket_id: @boys10to12.id, name: 29)
     # Boys 13 to 15 team
-    @heat = FactoryGirl.create(:team, bracket_id: @boys13to15.id, name: "Miami Heat")
+    @heat = FactoryGirl.create(:team, bracket_id: @boys13to15.id, name: 15)
     # Boys 16 to 18 team
-    @lakers = FactoryGirl.create(:team, bracket_id: @boys16to18.id, name: "Los Angeles Lakers")
+    @lakers = FactoryGirl.create(:team, bracket_id: @boys16to18.id, name: 13)
     # Little Girls team
-    @knicks = FactoryGirl.create(:team, bracket_id: @littlegirls.id, name: "New York Knicks")
+    @knicks = FactoryGirl.create(:team, bracket_id: @littlegirls.id)
     # Young Women team
-    @mavs = FactoryGirl.create(:team, bracket_id: @youngwomen.id, name: "Dallas Mavericks")
+    @mavs = FactoryGirl.create(:team, bracket_id: @youngwomen.id, name: 6)
   end
 
   def remove_team_context

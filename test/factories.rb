@@ -32,7 +32,7 @@ FactoryGirl.define do
 	end
 
 	factory :team do 
-		name "New York Knicks"
+		name 19
 		max_students 10
 		notes "This is where notes about a team should go."
 		coach "Coach Dima"

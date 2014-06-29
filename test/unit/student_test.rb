@@ -268,7 +268,7 @@ class StudentTest < ActiveSupport::TestCase
     
     # start testing scopes...
     should "have scope for alphabetical listing" do 
-      assert_equal ["Applehouse", "Ark", "Gruberman", "Hanson", "Hoover", "Henderson", "Marcus", "Smog", "Staton"], Student.alphabetical.map(&:last_name)
+      assert_equal ["Applehouse", "Ark", "Gruberman", "Hanson", "Henderson", "Hoover", "Marcus", "Smog", "Staton"], Student.alphabetical.map(&:last_name)
     end
     
   #   should "have a scope for students without all of their forms" do
