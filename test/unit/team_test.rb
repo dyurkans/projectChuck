@@ -61,6 +61,7 @@ class TeamTest < ActiveSupport::TestCase
 	should allow_value("my_fred@fred.org").for(:coach_email)
 	should allow_value("fred123@fred.gov").for(:coach_email)
 	should allow_value("my.fred@fred.net").for(:coach_email)
+	should allow_value(nil).for(:coach_email)
 	should_not allow_value("fred").for(:coach_email)
 	should_not allow_value("fred@fred,com").for(:coach_email)
 	should_not allow_value("fred@fred.uk").for(:coach_email)
@@ -73,6 +74,7 @@ class TeamTest < ActiveSupport::TestCase
 	should allow_value("my_fred@fred.org").for(:assistant_coach_email)
 	should allow_value("fred123@fred.gov").for(:assistant_coach_email)
 	should allow_value("my.fred@fred.net").for(:assistant_coach_email)
+	should allow_value(nil).for(:assistant_coach_email)
 	should_not allow_value("fred").for(:assistant_coach_email)
 	should_not allow_value("fred@fred,com").for(:assistant_coach_email)
 	should_not allow_value("fred@fred.uk").for(:assistant_coach_email)
@@ -211,6 +213,8 @@ class TeamTest < ActiveSupport::TestCase
     		@activeReg2.save!
     		assert_equal [@newStu], @heat.eligible_students
 	    end
+
+	    #Add strip digits test from student_test for coach and asst coach phones
 
 	end
 end

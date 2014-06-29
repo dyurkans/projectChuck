@@ -59,23 +59,26 @@ class ActiveSupport::TestCase
     #13 y.o. Ed Gruberman (10th grade)
     @ed = FactoryGirl.create(:student, household_id: @grub.id, email: "ed@example.com")
     #13 y.o. Ted Gruberman (10th grade)
-    @ted = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Ted", cell_phone: "412-268-2323", school_county: 0, email: "ted@example.com")
+    @ted = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Ted", last_name: "Smog", cell_phone: "412-268-2323", school_county: 0, email: "ted@example.com")
     #12 y.o. Fred Gruberman (7th grade)
-    @fred = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Fred", grade_integer:7, dob: Date.new(11.years.ago.year,8,1), school_county: 13, email: "fred@example.com")
+    @fred = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Fred", last_name: "Applehouse", grade_integer:7, dob: Date.new(11.years.ago.year,8,1), school_county: 13, email: "fred@example.com")
     #12 y.o. Ned Gruberman (10th grade)
-    @ned = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Ned", dob: Date.new(13.years.ago.year, 8, 1), school:"Maryland High School", school_county: 24, email: "ned@example.com")
+    @ned = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Ned", last_name: "Staton", dob: Date.new(13.years.ago.year, 8, 1), school:"Maryland High School", school_county: 24, email: "ned@example.com")
     #8 y.o. Noah Ark (5th grade)
     @noah = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Noah", last_name: "Ark", grade_integer:5, dob: Date.new(9.years.ago.year, 8, 1), emergency_contact_name: "Hannah Ark", email: "noah@example.com")
     #13 y.o. Howard Marcus (10th grade)
     @howard = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Howard", last_name: "Marcus", dob: Date.new(14.years.ago.year, 8, 1), emergency_contact_phone: "412-555-5555", email: "howard@example.com")
     #12 y.o Jen Hanson (10th grade)
     @jen = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Jen", last_name: "Hanson", gender: false, allergies: "nuts,shrimp,lemons", dob: Date.new(13.years.ago.year, 8, 1), school_county: 4, email: "jen@example.com")
-    #17 y.o. Julie Henderson (10th grade)
+    #17 y.o. Julie Henderson (Senior)
     @julie = FactoryGirl.create(:student, household_id: @bam.id, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: Date.new(18.years.ago.year, 8, 1), grade_integer: 13, email: "julie@example.com")
     #9 y.o Jason Hoover (6th grade)
     @jason = FactoryGirl.create(:student, household_id: @suth.id, first_name: "Jason", last_name: "Hoover", gender: true, medications: "theophyline", active: false, grade_integer:6, dob: Date.new(10.years.ago.year, 8, 1), email: "jason@example.com")
   end
-    
+
+  #Alphabetized by last name: @fred, @noah, @ed, @jen, @julie, @howard, @jason, @ted, @ned
+  #Alphabetized by_school_district: @ted, @noah, @ed, @julie, @jason, @howard, @jen, @fred, @ned
+
   def remove_student_context
     @ed.destroy
     @ted.destroy

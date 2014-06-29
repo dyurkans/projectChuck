@@ -36,6 +36,19 @@ class StudentTest < ActiveSupport::TestCase
   should_not allow_value("412/268/3259").for(:cell_phone)
   should_not allow_value("412-2683-259").for(:cell_phone)
 
+  # tests for student's email
+  should allow_value("fred@fred.com").for(:email)
+  should allow_value("fred@andrew.cmu.edu").for(:email)
+  should allow_value("my_fred@fred.org").for(:email)
+  should allow_value("fred123@fred.gov").for(:email)
+  should allow_value("my.fred@fred.net").for(:email)
+  should allow_value(nil).for(:email)
+  should_not allow_value("fred").for(:email)
+  should_not allow_value("fred@fred,com").for(:email)
+  should_not allow_value("fred@fred.uk").for(:email)
+  should_not allow_value("my fred@fred.com").for(:email)
+  should_not allow_value("fred@fred.con").for(:email)
+
   #test emergency_contact_name
   should validate_presence_of(:emergency_contact_name)
 
@@ -53,7 +66,7 @@ class StudentTest < ActiveSupport::TestCase
   should_not allow_value("412-2683-259").for(:emergency_contact_phone)
 
   #test grade
-
+  should validate_numericality_of(:grade_integer)
   should allow_value(13).for(:grade_integer)
   should allow_value(2).for(:grade_integer)
   should_not allow_value("Sixth").for(:grade_integer)
@@ -122,9 +135,11 @@ class StudentTest < ActiveSupport::TestCase
       create_tournament_context
       create_bracket_context
       create_team_context
+      create_registration_context
     end
     
     teardown do
+      remove_registration_context
       remove_team_context
       remove_bracket_context
       remove_tournament_context
@@ -135,60 +150,108 @@ class StudentTest < ActiveSupport::TestCase
       
     # quick test of factories
     should "have working factories" do
-      # assert_equal "Gruberman", @ed.last_name
-      # assert_equal "Ted", @ted.first_name
-      # assert_equal Date.new(9.years.ago.year,8,1), @noah.dob
-      # assert_equal 7, @fred.grade_integer
-      # assert_equal false, @jen.gender
-      # assert @julie.active
-      # deny @jason.active
+      assert_equal "Gruberman", @ed.last_name
+      assert_equal "Ted", @ted.first_name
+      assert_equal Date.new(9.years.ago.year,8,1), @noah.dob
+      assert_equal 7, @fred.grade_integer
+      assert_equal false, @jen.gender
+      assert @julie.active
+      deny @jason.active
+      #Households
+      @grub.valid?
+      @mill.valid?
+      @suth.valid?
+      @bam.valid?
+      #Guardians
+      @mary.valid?
+      @eric.valid?
+      @alex.valid?
+      @leo.valid?
+      @james.valid?
+      #Students
+      @ed.valid?
+      @ted.valid?
+      @fred.valid?
+      @ned.valid?
+      @noah.valid?
+      @howard.valid?
+      @jen.valid?
+      @julie.valid?
+      @jason.valid?
+      #Tournament
+      @tourn.valid? 
+      @tourn2.valid? 
+      @tourn3.valid? 
+      #Bracket
+      @boys7to9.valid? 
+      @boys10to12.valid? 
+      @boys13to15.valid? 
+      @boys16to18.valid? 
+      @littlegirls.valid? 
+      @youngwomen.valid?  
+      #Teams
+      @pistons.valid? 
+      @wizards.valid? 
+      @heat.valid? 
+      @lakers.valid? 
+      @knicks.valid? 
+      @mavs.valid? 
+      #Registrations
+      @reg1.valid? 
+      @reg2.valid? 
+      @reg3.valid? 
+      @reg4.valid? 
+      @reg5.valid? 
+      @reg6.valid? 
+      @reg7.valid? 
+      @reg8.valid? 
+      @reg9.valid? 
     end
 
-  #   should "allow an existing student to be edited" do
-  #     @jason.active = true
-  #     assert @jason.valid?
-      
-  #     #undo
-  #     @jason.active = false
-  #   end
+    should "allow an existing student to be edited" do
+      @jason.active = true
+      assert @jason.valid?
+      #undo
+      @jason.active = false
+    end
     
-  #   should "have working name method" do 
-  #     assert_equal "Gruberman, Ed", @ed.name
-  #   end
+    should "have working name method" do 
+      assert_equal "Gruberman, Ed", @ed.name
+      deny @ted.name == "Gruberman, Ed"
+    end
     
-  #   should "have working proper_name method" do 
-  #     assert_equal "Ed Gruberman", @ed.proper_name
-  #   end
+    should "have working proper_name method" do 
+      assert_equal "Ed Gruberman", @ed.proper_name
+      deny @ted.proper_name == "Ed Gruberman"
+    end
     
-  #   should "have working age method" do 
-  #     assert_equal 14, @howard.age
-  #     assert_equal 9, @noah.age
-  #     assert_equal 18, @julie.age
-  #   end
+    should "have working age method" do 
+      @newStu = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, dob: 14.years.ago.to_date, email: "newStu@example.com")
+      @newStu2 = FactoryGirl.create(:student, household: @grub, first_name: "Julie", last_name: "Henderson", gender: true, dob: 10.years.ago.to_date, email: "newStu2@example.com")
+      @newStu3 = FactoryGirl.build(:student, household: @grub, first_name: "Julie", last_name: "Henderson", gender: true, dob: nil, email: "newStu2@example.com")
+      assert_equal 14, @newStu.age
+      assert_equal 10, @newStu2.age
+      assert_equal nil, @newStu3.age
+      @newStu.destroy
+      @newStu2.destroy
+    end
     
-  #   should "strip non-digits from phone" do 
-  #     assert_equal "4122682323", @ted.cell_phone
-  #     assert_equal "4125555555", @howard.emergency_contact_phone
-  #   end
-    
-  #   should "not allow student to be added without a parent" do
-  #     # a student without a household cannot have a guardian
-  #     # thus a student without a household should also not be a valid student
-  #     @brent = FactoryGirl.build(:student)
-  #     deny @brent.valid?
-      
-  #     @household1 = FactoryGirl.build(:household)
-  #     @household2 = FactoryGirl.build(:household, street:"5032 Forbes Ave")
-  #     @henry = FactoryGirl.build(:guardian, household:@household1, first_name:"Henry", last_name:"Michaels", email: "hmichaels@gmail.com")
-  #     @laura = FactoryGirl.build(:student, gender:false, household:@household2)
-  #     @tina = FactoryGirl.build(:student, gender:false, household:@household2, first_name: "Tina")
+    should "strip non-digits from phone" do 
+      assert_equal "4122682323", @ted.cell_phone
+      assert_equal "4125555555", @howard.emergency_contact_phone
+      deny @ned.cell_phone == "(412) 555-5555"
+      deny @ned.emergency_contact_phone == "(412) 555-5555"
+    end
 
-  #     # @brent.household = @household2
-  #     assert_equal true, @laura.valid?
-  #     # deny @brent.valid?
+    should "calculate a student's age as of june 1st of the current year" do
+      @newStu = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: Date.new(14.years.ago.year,6,1), grade_integer: 13, email: "newStu@example.com")
+      assert_equal 8, @noah.age_as_of_june_1
+      assert_equal 17, @julie.age_as_of_june_1
+      assert_equal 14, @newStu.age_as_of_june_1
+      deny @jason.age_as_of_june_1 == 10
+      @newStu.destroy
+    end
 
-  #   end
-    
   #   should "have class method for finding students eligible for a particular team" do
   #     assert_equal 0, Student.qualifies_for_team(@knicks.id).size
   #     assert_equal 4, Student.qualifies_for_team(@heat.id).size
@@ -203,10 +266,10 @@ class StudentTest < ActiveSupport::TestCase
   #     assert_equal ["Gruberman","Gruberman","Gruberman","Marcus"], Student.qualifies_for_bracket(@boys13to15.id).alphabetical.all.map(&:last_name)
   #   end
     
-  #   # start testing scopes...
-  #   should "have scope for alphabetical listing" do 
-  #     assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Hoover","Marcus"], Student.alphabetical.map(&:last_name)
-  #   end
+    # start testing scopes...
+    should "have scope for alphabetical listing" do 
+      assert_equal ["Applehouse", "Ark", "Gruberman", "Hanson", "Hoover", "Henderson", "Marcus", "Smog", "Staton"], Student.alphabetical.map(&:last_name)
+    end
     
   #   should "have a scope for students without all of their forms" do
   #     #create temporary factories
@@ -260,14 +323,21 @@ class StudentTest < ActiveSupport::TestCase
   #     assert_equal ["Ark","Hoover","Gruberman","Gruberman","Hanson", "Gruberman","Gruberman","Marcus","Henderson"], Student.by_age.alphabetical.map(&:last_name)
   #   end
 
-  #   ###might be useful for demographics?
-  #   should "have scope for listing all seniors" do 
-  #     assert_equal ["Henderson"], Student.seniors.by_age.map(&:last_name)
-  #   end
+    should "have scope for listing all seniors" do 
+      #One Senior
+      assert_equal [@julie], Student.seniors.alphabetical
+      #Many Seniors
+      @newStu = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Chang", gender: true, medications: "insulin", dob: Date.new(14.years.ago.year,8,1), grade_integer: 13, email: "newStu@example.com")
+      @newStu2 = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Raptor", gender: true, medications: "insulin", dob: Date.new(14.years.ago.year,8,1), grade_integer: 13, email: "newStu2@example.com")
+      assert_equal [@newStu, @julie, @newStu2], Student.seniors.alphabetical
+      #Destroy
+      @newStu.destroy
+      @newStu2.destroy
+    end
     
-  #   should "have scope for ordering by county" do
-  #     assert_equal ["Ark", "Gruberman", "Henderson", "Hoover", "Marcus", "Gruberman", "Gruberman", "Hanson", "Gruberman"], Student.by_county.alphabetical.map(&:last_name)
-  #   end
+    should "have scope for ordering by school district" do
+      assert_equal [@ted, @noah, @ed, @julie, @jason, @howard, @jen, @fred, @ned], Student.by_school_district.alphabetical
+    end
     
   #   should "have scope for ordering by grade" do 
   #     assert_equal ["Ark","Hoover", "Gruberman","Gruberman","Gruberman","Gruberman", "Hanson","Marcus","Henderson"], Student.by_grade.alphabetical.map(&:last_name)
@@ -289,13 +359,13 @@ class StudentTest < ActiveSupport::TestCase
   #     assert_equal true, @ed.missing_report_card
   #   end
 
-  #   should "deactivate not destroy student and associated registrations" do
-  #     @ed.destroy
-  #     @ed.reload
-  #     deny @ed.active
-  #     deny @ed_reg1.active
-  #     deny @ed_reg2.active
-  #   end
+    # should "deactivate not destroy student and associated registrations" do
+    #   @ed.destroy
+    #   @ed.reload
+    #   deny @ed.active
+    #   deny @ed_reg1.active
+    #   deny @ed_reg2.active
+    # end
 
   #   should "deactivate student but not err if no registrations" do
   #     @julie.destroy

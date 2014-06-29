@@ -32,8 +32,6 @@ class Student < ActiveRecord::Base
   validates_numericality_of :security_question, :only_integer => true,  :greater_than_or_equal_to => 0, :less_than => 3, :allow_blank => false
   validates_inclusion_of :gender, :in => [true, false]
   validates_inclusion_of :active, :in => [true, false]
-  validates_inclusion_of :school_county, :in => 0..41
-  validates_inclusion_of :security_question, :in => 0..2  
 
   #security questions: "What was the name of your first pet", ""
   SECURITY_QUESTIONS = [["What was the name of your first pet?",0], ["What is your mother's maiden name?",1],
@@ -76,7 +74,7 @@ class Student < ActiveRecord::Base
   scope :by_grade, order('grade_integer')
   scope :grade, lambda {|grade_integer| where("grade_integer = ?", grade_integer)}
   scope :by_school, order('school')
-  scope :by_county, order('school_county')
+  scope :by_school_district, order('school_county')
   scope :has_allergies, where('allergies <> ""')
   scope :needs_medication, where('medications <> ""')
   scope :seniors, where('grade_integer = ?', 13)
