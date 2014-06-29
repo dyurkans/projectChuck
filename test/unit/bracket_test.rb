@@ -117,7 +117,7 @@ class BracketTest < ActiveSupport::TestCase
     	should "sum the total remaining spots in a bracket" do
     		assert_equal 9, @boys7to9.remaining_spots
     		assert_equal 7, @boys13to15.remaining_spots
-    		# needs a test for 
+    		#needs a test for something, dont remember what right now.
     	end
 
     	should "sum the total number of students assigned to a teams on a specific bracket" do
@@ -128,8 +128,6 @@ class BracketTest < ActiveSupport::TestCase
     		@newBracket.destroy
     	end
 
-#This test could fail a a result of the age_as_of_june_1 method depending on the date on which you run this test. 
-#If run before june 1st, results will be different. Correct, but will cause these tests to possibly fail.
     	should "provide a list of eligible unnassigned students for a specific bracket" do
     		@newStu = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: false, medications: "insulin", dob: Date.new(17.years.ago.year,8,1), grade_integer: 13, email: "newStu@example.com")
     		@newReg = FactoryGirl.create(:registration, student: @newStu, team: nil)
@@ -143,8 +141,6 @@ class BracketTest < ActiveSupport::TestCase
     		@newReg2.destroy
     	end
 
-#This test could fail a a result of the age_as_of_june_1 method depending on the date on which you run this test. 
-#If run before june 1st, results will be different. Correct, but will cause these tests to possibly fail.
     	should "provide list of eligible students for a bracket, w/o regards to the gender of bracket" do
     		@newStu = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: Date.new(17.years.ago.year,8,1), grade_integer: 13, email: "newStu@example.com")
     		@newReg = FactoryGirl.create(:registration, student: @newStu, team: nil)
@@ -164,8 +160,6 @@ class BracketTest < ActiveSupport::TestCase
     		@emptyBracket.destroy
     	end
 
-#This test could fail a a result of the age_as_of_june_1 method depending on the date on which you run this test. 
-#If run before june 1st, results will be different. Correct, but will cause these tests to possibly fail.
     	should "provide a list of eligible students, both assigned and unassigned, for a specific bracket" do
     		@newStu = FactoryGirl.create(:student, household: @bam, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: Date.new(17.years.ago.year,8,1), grade_integer: 13, email: "newStu@example.com")
     		@newReg = FactoryGirl.create(:registration, student: @newStu, team: nil)

@@ -191,7 +191,6 @@ class TeamTest < ActiveSupport::TestCase
 
 	    should "return a list of teams that have not yet been assinged to a bracket" do
 	    	assert_equal [["Atlanta Hawks",0],["Brooklyn Nets",1],["Boston Celtics",2],["Charlotte Bobcats",3],["Chicago Bulls",4],["Cleveland Cavaliers",5],["Denver Nuggets",7],["Golden State Warriors",9],["Houston Rockets",10],["Indiana Pacers",11],["Los Angeles Clippers",12],["Memphis Grizzlies",14],["Milwaukee Bucks",16],["Minnesota Timberwolves",17],["New Orleans Pelicans",18],["Oklahoma City Thunder",20],["Orlando Magic",21],["Philadelphia 76ers",22],["Phoenix Suns",23],["Portland Trail Blazers",24],["Sacramento Kings",25],["San Antonio Spurs",26],["Toronto Raptors",27],["Utah Jazz",28],["Atlanta Dream",30],["Chicago Sky",31],["Connecticut Sun",32],["Indiana Fever",33],["Los Angeles Sparks",34],["Minnesota Lynx",35],["New York Liberty",36], ["Washington Mystics",37],["Phoenix Mercury",38],["San Antonio Stars",39],["Seattle Storm Seattle",40],["Tulsa Shock",41]], Team.unassigned_teams(@mavs.name)
-
 	    end
 
 	    should "return a list of unassigned active eligible students for a team" do

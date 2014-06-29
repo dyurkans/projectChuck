@@ -9,7 +9,7 @@ class Student < ActiveRecord::Base
 
   accepts_nested_attributes_for :registrations, :household
   # school_county field should be renamed as school_district
-  attr_accessible :registrations_attributes, :household_attributes, :birth_certificate_cache, :email, :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :school_county, :security_question, :security_response
+  attr_accessible :registrations_attributes, :household_attributes, :birth_certificate_cache, :email, :active, :allergies, :birth_certificate, :cell_phone, :dob, :emergency_contact_name, :emergency_contact_phone, :first_name, :gender, :grade_integer, :household_id, :last_name, :medications, :school, :security_response
   
   #Callbacks
   before_save :reformat_cell
@@ -19,17 +19,21 @@ class Student < ActiveRecord::Base
   #after_rollback :deactivate_student_and_registrations, :on => :destory
 
 
-  validates_presence_of :first_name, :last_name, :emergency_contact_name, :emergency_contact_phone, :school, :school_county, :security_response, :security_question, :grade_integer, :security_question, :dob, :message => "Can't be blank"
-  validates_date :dob, :on_or_before => lambda { Date.new(7.years.ago.to_date.year.to_i, 6, 1) }, :on_or_after => lambda { Date.new(18.years.ago.to_date.year.to_i, 6, 1) }, :on_or_before_message => "Must be between the ages of 7 and 18 (inclusive) to participate", :on_or_after_message => "Must be between the ages of 7 and 18 (inclusive) to participate"  # Documentation didn't show proper syntax for  between message. #:on_or_before_message => "must 
+  validates_presence_of :first_name, :last_name, :emergency_contact_name, :emergency_contact_phone, :school, :school_county, :security_response, :security_question, :grade_integer, :security_question, :security_question, :dob
+  validates_date :dob, :on_or_before => lambda { Date.new(7.years.ago.to_date.year.to_i, 6, 1) }, :on_or_after => lambda { Date.new(18.years.ago.to_date.year.to_i, 6, 1) }
   validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
-  validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only"
+  validates_format_of :emergency_contact_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
   validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "is not a valid format", :allow_blank => true
   #This will cause failures in year 2+. Should create login.
   validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
-  validates_inclusion_of :gender, :in => [true, false]
-  validates_inclusion_of :active, :in => [true, false]
   validates_numericality_of :household_id, :only_integer => true, :greater_than => 0, :allow_nil => true
   validates_numericality_of :grade_integer, :only_integer => true, :greater_than => 0, :less_than => 14
+  validates_numericality_of :school_county, :only_integer => true,  :greater_than_or_equal_to => 0, :less_than => 42, :allow_blank => false
+  validates_numericality_of :security_question, :only_integer => true,  :greater_than_or_equal_to => 0, :less_than => 3, :allow_blank => false
+  validates_inclusion_of :gender, :in => [true, false]
+  validates_inclusion_of :active, :in => [true, false]
+  validates_inclusion_of :school_county, :in => 0..41
+  validates_inclusion_of :security_question, :in => 0..2  
 
   #security questions: "What was the name of your first pet", ""
   SECURITY_QUESTIONS = [["What was the name of your first pet?",0], ["What is your mother's maiden name?",1],

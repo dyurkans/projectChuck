@@ -70,9 +70,9 @@ namespace :db do
         s.cell_phone = rand(10 ** 10).to_s.rjust(10,'0')
         s.school = "#{h.city} School"
         if rand(4).zero?
-          s.school_county = "Howard"
+          s.school_county = "12"
         else
-          s.school_county = "Allegheny"
+          s.school_county = "1"
         end
         s.gender = rand(2).zero? # i.e., can only 0 or 1 so 50-50 chance boy or girl
         s.grade_integer = (months_old/12) - 5

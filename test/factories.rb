@@ -7,7 +7,7 @@ FactoryGirl.define do
 		dob Date.new(14.years.ago.year, 8, 1)
 		cell_phone { rand(10 ** 10).to_s.rjust(10,'0') }
 		school "Brentwood High School"
-		school_county "Allegheny"
+		school_county 1
 		grade_integer 10
 		gender true
 		email "mg@example.com"
