@@ -148,7 +148,7 @@ class ActiveSupport::TestCase
   end
 
   def create_registration_context
-    #13,13,10,12,8,13,12
+    #ages: 13,13,10,12,8,13,12
     @reg1 = FactoryGirl.create(:registration, student_id: @ed.id, team_id: @heat.id)
     @reg2 = FactoryGirl.create(:registration, student_id: @ted.id, team_id: @heat.id)
     @reg3 = FactoryGirl.create(:registration, student_id: @fred.id, team_id: @wizards.id)
