@@ -224,6 +224,24 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal "Ed Gruberman", @ed.proper_name
       deny @ted.proper_name == "Ed Gruberman"
     end
+
+    should "have humanize grade integer" do
+      assert_equal "Sophomore", @jen.proper_grade
+      assert_equal "Graduated Senior", @julie.proper_grade
+      assert_equal "Seventh", @fred.proper_grade
+    end
+
+    should "Properly titleize text inputs" do
+
+    end
+
+    should "List all school districts of registered students" do
+
+    end
+
+    should "List all home counties of registered Households" do
+
+    end
     
     should "have working age method" do 
       @newStu = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, dob: 14.years.ago.to_date, email: "newStu@example.com")
@@ -252,10 +270,10 @@ class StudentTest < ActiveSupport::TestCase
       @newStu.destroy
     end
 
-  #   should "have class method for finding students eligible for a particular team" do
-  #     assert_equal 0, Student.qualifies_for_team(@knicks.id).size
-  #     assert_equal 4, Student.qualifies_for_team(@heat.id).size
-  #   end
+    should "have class method for finding students eligible for a particular team" do
+      assert_equal [@jen], Student.qualifies_for_team(@knicks.id).alphabetical
+      assert_equal [@ed, @howard, @ted], Student.qualifies_for_team(@heat.id).alphabetical
+    end
     
     should "have class method for finding students between two ages" do 
       assert_equal ["Applehouse", "Ark", "Gruberman", "Hanson", "Henderson", "Hoover", "Marcus", "Smog", "Staton"], Student.ages_between(8,17).alphabetical.map(&:last_name)
@@ -340,6 +358,10 @@ class StudentTest < ActiveSupport::TestCase
       @newStu2.destroy
     end
     
+    should "have scope for ordering by school name" do
+
+    end
+
     should "have scope for ordering by school district" do
       assert_equal [@ted, @noah, @ed, @julie, @jason, @howard, @jen, @fred, @ned], Student.by_school_district.alphabetical
     end
@@ -353,11 +375,25 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal "Female", @jen.sex
     end
 
-  #   should "have a method to display a student's registration for the current year" do
-  #     assert_equal "Miami Heat", @ed.current_reg.team.name
-  #     assert_equal nil, @julie.current_reg
-  #     assert_equal nil, @fred.current_reg
-  #   end
+    should "have a method to display a student's registration for the current year" do
+      assert_equal 15, @ed.current_reg.team.name
+      assert_equal @reg8, @julie.current_reg
+      @activeReg = FactoryGirl.create(:registration, student: @fred, team: @wizards, active: true)
+      @activeReg2 = FactoryGirl.create(:registration, student: @fred, team: nil, active: true)
+      @activeReg3 = FactoryGirl.create(:registration, student: @fred, team: @wizards, active: true, created_at: 3.months.ago.to_date)
+      assert_equal @activeReg2, @fred.current_reg
+      @activeReg.destroy
+      @activeReg2.destroy
+      @activeReg3.destroy
+    end
+
+    should "have scope unassigned for retrieving all students who have not yet been assigned to a team" do
+
+    end
+
+    should "have a scope for getting all the current registrations" do
+
+    end 
 
     # should "have a method to show if a student has submitted their report card" do
     #   assert_equal false, @noah.missing_report_card
@@ -370,15 +406,15 @@ class StudentTest < ActiveSupport::TestCase
     #   @ed.destroy
     #   @ed.reload
     #   deny @ed.active
-    #   deny @ed_reg1.active
-    #   deny @ed_reg2.active
+    #   deny @reg1.active
     # end
 
-  #   should "deactivate student but not err if no registrations" do
-  #     @julie.destroy
-  #     @julie.reload
-  #     deny @julie.active
-  #   end
+    # should "deactivate student but not err if no registrations" do
+    #   @julie.destroy
+    #   @julie.reload
+    #   deny @julie.active
+    # end
+
   end
   
 end
