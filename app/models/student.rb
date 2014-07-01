@@ -75,8 +75,8 @@ class Student < ActiveRecord::Base
   scope :grade, lambda {|grade_integer| where("grade_integer = ?", grade_integer)}
   scope :by_school, order('school')
   scope :by_school_district, order('school_county')
-  scope :has_allergies, where('allergies <> ""')
-  scope :needs_medication, where('medications <> ""')
+  scope :has_allergies, where('allergies IS NOT NULL')
+  scope :needs_medication, where('medications IS NOT NULL')
   scope :seniors, where('grade_integer = ?', 13)
   scope :without_forms, joins(:registrations).where('students.birth_certificate IS NULL OR physical IS NULL OR proof_of_insurance IS NULL OR report_card IS NULL')
   scope :unassigned, joins(:registrations).where('team_id IS NULL').order('registrations.created_at')

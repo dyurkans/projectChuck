@@ -257,14 +257,15 @@ class StudentTest < ActiveSupport::TestCase
   #     assert_equal 4, Student.qualifies_for_team(@heat.id).size
   #   end
     
-  #   should "have class method for finding students between two ages" do 
-  #     assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Hoover","Marcus"], Student.ages_between(9,15).alphabetical.all.map(&:last_name)
-  #     assert_equal ["Gruberman","Gruberman","Gruberman","Gruberman","Hanson", "Marcus"], Student.ages_between(11,14).alphabetical.all.map(&:last_name)
-  #   end
+    should "have class method for finding students between two ages" do 
+      assert_equal ["Applehouse", "Ark", "Gruberman", "Hanson", "Henderson", "Hoover", "Marcus", "Smog", "Staton"], Student.ages_between(8,17).alphabetical.map(&:last_name)
+      assert_equal [@jason], Student.ages_between(9,9).alphabetical
+    end
     
-  #   should "have class method for finding students qualified for a bracket" do 
-  #     assert_equal ["Gruberman","Gruberman","Gruberman","Marcus"], Student.qualifies_for_bracket(@boys13to15.id).alphabetical.all.map(&:last_name)
-  #   end
+    should "have class method for finding students qualified for a bracket" do 
+      assert_equal ["Gruberman", "Marcus", "Smog",], Student.qualifies_for_bracket(@boys13to15.id).alphabetical.map(&:last_name)
+      assert_equal ["Henderson"], Student.qualifies_for_bracket(@youngwomen.id).alphabetical.map(&:last_name)      
+    end
     
     # start testing scopes...
     should "have scope for alphabetical listing" do 
@@ -295,33 +296,37 @@ class StudentTest < ActiveSupport::TestCase
   #     @tourn.destroy
   #   end
     
-  #   should "have scope for active students" do 
-  #     assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hanson","Henderson","Marcus"], Student.active.alphabetical.map(&:last_name)
-  #   end
+    should "have scope for active students" do 
+      assert_equal ["Applehouse", "Ark", "Gruberman", "Hanson", "Henderson", "Marcus", "Smog", "Staton"], Student.active.alphabetical.map(&:last_name)
+    end
     
-  #   should "have scope for inactive students" do 
-  #     assert_equal ["Hoover"], Student.inactive.alphabetical.map(&:last_name)
-  #   end
+    should "have scope for inactive students" do 
+      @newStu = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Chang", active: false, email: "newStu@example.com")
+      assert_equal ["Chang", "Hoover"], Student.inactive.alphabetical.map(&:last_name)
+      @newStu.destroy
+    end
     
-  #   should "have scope for male students" do 
-  #     assert_equal ["Ark","Gruberman","Gruberman","Gruberman","Gruberman","Hoover","Marcus"], Student.male.alphabetical.map(&:last_name)
-  #   end
+    should "have scope for male students" do 
+      assert_equal ["Applehouse", "Ark", "Gruberman", "Hoover", "Marcus", "Smog", "Staton"], Student.male.alphabetical.map(&:last_name)
+    end
     
-  #   should "have scope for female students" do 
-  #     assert_equal ["Hanson","Henderson"], Student.female.alphabetical.map(&:last_name)
-  #   end
+    should "have scope for female students" do 
+      assert_equal ["Hanson","Henderson"], Student.female.alphabetical.map(&:last_name)
+    end
     
-  #   should "have scope for students with allergies" do 
-  #     assert_equal ["Hanson"], Student.has_allergies.alphabetical.map(&:last_name)
-  #   end
+    should "have scope for students with allergies" do 
+      @newStu = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Chang", allergies: "Pollen and Dust", email: "newStu@example.com")
+      assert_equal ["Chang", "Hanson"], Student.has_allergies.alphabetical.map(&:last_name)
+      @newStu.destroy
+    end
     
-  #   should "have scope for students who need medications" do 
-  #     assert_equal ["Henderson","Hoover"], Student.needs_medication.alphabetical.map(&:last_name)
-  #   end
+    should "have scope for students who need medications" do 
+      assert_equal ["Henderson","Hoover"], Student.needs_medication.alphabetical.map(&:last_name)
+    end
     
-  #   should "have scope for ordering by age" do 
-  #     assert_equal ["Ark","Hoover","Gruberman","Gruberman","Hanson", "Gruberman","Gruberman","Marcus","Henderson"], Student.by_age.alphabetical.map(&:last_name)
-  #   end
+    should "have scope for ordering by age" do 
+      assert_equal [@noah, @jason, @fred, @jen, @ned, @ed, @howard, @ted, @julie ], Student.by_age.alphabetical
+    end
 
     should "have scope for listing all seniors" do 
       #One Senior
@@ -339,14 +344,14 @@ class StudentTest < ActiveSupport::TestCase
       assert_equal [@ted, @noah, @ed, @julie, @jason, @howard, @jen, @fred, @ned], Student.by_school_district.alphabetical
     end
     
-  #   should "have scope for ordering by grade" do 
-  #     assert_equal ["Ark","Hoover", "Gruberman","Gruberman","Gruberman","Gruberman", "Hanson","Marcus","Henderson"], Student.by_grade.alphabetical.map(&:last_name)
-  #   end
+    should "have scope for ordering by grade" do 
+      assert_equal [@noah, @jason, @fred, @ed, @jen, @howard, @ted, @ned, @julie], Student.by_grade.alphabetical
+    end
 
-  #   should "have a method to display a student's gender as a string" do
-  #     assert_equal "Male", @noah.sex
-  #     assert_equal "Female", @jen.sex
-  #   end
+    should "have a method to display a student's gender as a string" do
+      assert_equal "Male", @noah.sex
+      assert_equal "Female", @jen.sex
+    end
 
   #   should "have a method to display a student's registration for the current year" do
   #     assert_equal "Miami Heat", @ed.current_reg.team.name
@@ -354,10 +359,12 @@ class StudentTest < ActiveSupport::TestCase
   #     assert_equal nil, @fred.current_reg
   #   end
 
-  #   should "have a method to show if a student has submitted their report card" do
-  #     assert_equal false, @noah.missing_report_card
-  #     assert_equal true, @ed.missing_report_card
-  #   end
+    # should "have a method to show if a student has submitted their report card" do
+    #   assert_equal false, @noah.missing_report_card
+    #   @ed.report_card = fixture_file_upload(Rails.root.join('public', 'example_files', 'physical.pdf'), "application/pdf")
+    #   @ed.save!
+    #   assert_equal true, @ed.missing_report_card
+    # end
 
     # should "deactivate not destroy student and associated registrations" do
     #   @ed.destroy

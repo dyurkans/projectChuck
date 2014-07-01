@@ -58,11 +58,11 @@ class ActiveSupport::TestCase
   def create_student_context
     #13 y.o. Ed Gruberman (10th grade)
     @ed = FactoryGirl.create(:student, household_id: @grub.id, email: "ed@example.com")
-    #13 y.o. Ted Gruberman (10th grade)
+    #13 y.o. Ted Smog (10th grade)
     @ted = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Ted", last_name: "Smog", cell_phone: "412-268-2323", school_county: 0, email: "ted@example.com")
-    #12 y.o. Fred Gruberman (7th grade)
+    #10 y.o. Fred Applehouse (7th grade)
     @fred = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Fred", last_name: "Applehouse", grade_integer:7, dob: Date.new(11.years.ago.year,8,1), school_county: 13, email: "fred@example.com")
-    #12 y.o. Ned Gruberman (10th grade)
+    #12 y.o. Ned Staton (10th grade)
     @ned = FactoryGirl.create(:student, household_id: @grub.id, first_name: "Ned", last_name: "Staton", dob: Date.new(13.years.ago.year, 8, 1), school:"Maryland High School", school_county: 24, email: "ned@example.com")
     #8 y.o. Noah Ark (5th grade)
     @noah = FactoryGirl.create(:student, household_id: @mill.id, first_name: "Noah", last_name: "Ark", grade_integer:5, dob: Date.new(9.years.ago.year, 8, 1), emergency_contact_name: "Hannah Ark", email: "noah@example.com")
@@ -77,9 +77,11 @@ class ActiveSupport::TestCase
   end
 
   #Alphabetized by last name: @fred, @noah, @ed, @jen, @julie, @howard, @jason, @ted, @ned
+  #Ordered by age and alphbetized: @noah, @jason, @fred, @jen, @ned, @ed, @howard, @ted, @julie 
   #Alphabetized by last name mapped by last name: "Applehouse", "Ark", "Gruberman", "Hanson", "Henderson", "Hoover", "Marcus", "Smog", "Staton"
   #Alphabetized by_school_district: @ted, @noah, @ed, @julie, @jason, @howard, @jen, @fred, @ned
-
+  #Ordered by grade and alphabetized: @noah, @jason, @fred, @ed, @jen, @howard, @ted, @ned, @julie
+  
   def remove_student_context
     @ed.destroy
     @ted.destroy
