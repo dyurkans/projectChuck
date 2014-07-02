@@ -12,13 +12,14 @@ class Guardian < ActiveRecord::Base
   before_save :reformat_phone
   before_save :reformat_text
 
-  validates_presence_of :first_name, :last_name, :message => "Can't be blank"
+  validates_presence_of :first_name, :last_name
   validates_format_of :day_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
   validates_format_of :cell_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true, :allow_nil => true
   validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "Email is not in a valid format", :allow_blank => true, :allow_nil => true
   validates_inclusion_of :receive_texts, :in => [true, false]
   validates_inclusion_of :gender, :in => [true, false]
   validates_inclusion_of :active, :in => [true, false]
+  validates_inclusion_of :receive_texts, :in => [true,false]
   validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
   validates_numericality_of :household_id, :only_integer => true, :greater_than => 0, :allow_nil => true
 

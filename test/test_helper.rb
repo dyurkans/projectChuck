@@ -38,13 +38,13 @@ class ActiveSupport::TestCase
     #40 y.o. Mary Gruberman
     @mary = FactoryGirl.create(:guardian, household: @grub, first_name:"Mary")
     #45 y.o. Eric Gruberman
-    @eric = FactoryGirl.create(:guardian, household: @grub, first_name:"Eric", email: "eric.grub@gmail.com", cell_phone:"412-666-7890")
+    @eric = FactoryGirl.create(:guardian, household: @grub, first_name:"Eric", gender: true, email: "eric.grub@gmail.com", cell_phone:"412-666-7890", receive_texts:false)
     #28 y.o. Alexandra Mill
-    @alex = FactoryGirl.create(:guardian, household: @mill, first_name: "Alexandra", last_name:"Mill", email: "amill@yahoo.com", cell_phone:nil, day_phone:"412-281-8080")
+    @alex = FactoryGirl.create(:guardian, household: @mill, first_name: "Alexandra", last_name:"Mill", gender: true, email: "amill@yahoo.com", cell_phone:nil, day_phone:"412-281-8080")
     #20 y.o. Leo Sutherland
-    @leo = FactoryGirl.create(:guardian, household: @suth, first_name:"Leo", last_name:"Sutherland", email: "leoSuth@andrew.cmu.edu", receive_texts:false)
+    @leo = FactoryGirl.create(:guardian, household: @suth, first_name:"Leo", last_name:"Sutherland", gender: true, email: "leoSuth@andrew.cmu.edu", receive_texts:false)
     #37 y.o. James Bambridge
-    @james = FactoryGirl.create(:guardian, household: @bam, first_name: "James", last_name:"Bambridge", email:"james@hotmail.com", active:false)
+    @james = FactoryGirl.create(:guardian, household: @bam, first_name: "James", last_name:"Bambridge", gender: true, email:"james@hotmail.com", active:false)
   end
 
   def remove_guardian_context
