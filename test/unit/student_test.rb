@@ -211,7 +211,6 @@ class StudentTest < ActiveSupport::TestCase
     should "allow an existing student to be edited" do
       @jason.active = true
       assert @jason.valid?
-      #undo
       @jason.active = false
     end
     
@@ -232,15 +231,25 @@ class StudentTest < ActiveSupport::TestCase
     end
 
     should "Properly titleize text inputs" do
-
+      @newStu = FactoryGirl.create(:student, household: @mill, first_name: "julie", last_name: "HEnderSon", school: "Allegheny high    SchooL", emergency_contact_name: "MARY BETH", email: "newStu@example.com")
+      assert_equal "Julie", @newStu.first_name
+      assert_equal "Henderson", @newStu.last_name
+      assert_equal "Allegheny High School", @newStu.school
+      assert_equal "Mary Beth", @newStu.emergency_contact_name
+      @newStu.destroy
     end
 
-    should "List all school districts of registered students" do
-
+    should "List all school districts and number of students in each of active registered students" do
+      assert_equal [["Allegheny Valley School District", 4],["Other", 1],["Elizabeth Forward School District", 1],
+      ["North Hills School District", 1],["Bethel Park School District", 1]], Student.school_districts
     end
 
     should "List all home counties of registered Households" do
-
+      @grub.county = "Humbolt"
+      @grub.save!
+      assert_equal [["Humbolt", 4], ["Allegheny",4]], Student.home_counties
+      @grub.county = "Allegheny"
+      @grub.save!
     end
     
     should "have working age method" do 
@@ -270,50 +279,25 @@ class StudentTest < ActiveSupport::TestCase
       @newStu.destroy
     end
 
-    should "have class method for finding students eligible for a particular team" do
-      assert_equal [@jen], Student.qualifies_for_team(@knicks.id).alphabetical
-      assert_equal [@ed, @howard, @ted], Student.qualifies_for_team(@heat.id).alphabetical
-    end
-    
     should "have class method for finding students between two ages" do 
       assert_equal ["Applehouse", "Ark", "Gruberman", "Hanson", "Henderson", "Hoover", "Marcus", "Smog", "Staton"], Student.ages_between(8,17).alphabetical.map(&:last_name)
       assert_equal [@jason], Student.ages_between(9,9).alphabetical
     end
-    
+
+    should "have class method for finding students eligible for a particular team" do
+      assert_equal [@jen], Student.qualifies_for_team(@knicks.id).alphabetical
+      assert_equal [@ed, @howard, @ted], Student.qualifies_for_team(@heat.id).alphabetical
+    end    
+ 
     should "have class method for finding students qualified for a bracket" do 
       assert_equal ["Gruberman", "Marcus", "Smog",], Student.qualifies_for_bracket(@boys13to15.id).alphabetical.map(&:last_name)
       assert_equal ["Henderson"], Student.qualifies_for_bracket(@youngwomen.id).alphabetical.map(&:last_name)      
     end
-    
-    # start testing scopes...
+
     should "have scope for alphabetical listing" do 
       assert_equal ["Applehouse", "Ark", "Gruberman", "Hanson", "Henderson", "Hoover", "Marcus", "Smog", "Staton"], Student.alphabetical.map(&:last_name)
     end
-    
-  #   should "have a scope for students without all of their forms" do
-  #     #create temporary factories
-  #     @tourn = FactoryGirl.create(:tournament)
-  #     @bracket = FactoryGirl.create(:bracket, min_age:11, max_age:13, tournament_id:@tourn.id)
-  #     @celtics = FactoryGirl.create(:team, name:"Boston Celtics", bracket:@bracket)
-  #     @bad_steve = FactoryGirl.create(:student, first_name:"Steve", dob:12.years.ago)
-  #     @bad_steve.remove_birth_certificate!
-  #     @bad_steve.save!
-  #     @reg_fred = FactoryGirl.create(:registration, student:@fred, team:@celtics)
-  #     @reg_fred.remove_physical!
-  #     @reg_fred.save!
-  #     @reg_ned = FactoryGirl.create(:registration, student:@ned, team:@celtics)
-  #     @reg_ned.remove_proof_of_insurance!
-  #     @reg_ned.save!
-  #     assert_equal ["Fred","Ned","Steve"], Student.alphabetical.without_forms.map(&:first_name)
-      
-  #     @reg_fred.destroy
-  #     @reg_ned.destroy
-  #     @bad_steve.destroy
-  #     @celtics.destroy
-  #     @bracket.destroy
-  #     @tourn.destroy
-  #   end
-    
+
     should "have scope for active students" do 
       assert_equal ["Applehouse", "Ark", "Gruberman", "Hanson", "Henderson", "Marcus", "Smog", "Staton"], Student.active.alphabetical.map(&:last_name)
     end
@@ -359,7 +343,12 @@ class StudentTest < ActiveSupport::TestCase
     end
     
     should "have scope for ordering by school name" do
-
+      assert_equal [@fred, @noah, @ed, @jen, @julie, @jason, @howard, @ted, @ned], Student.by_school.alphabetical
+      @newStu = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Chang", gender: true, school: "Able High School", medications: "insulin", dob: Date.new(14.years.ago.year,8,1), grade_integer: 13, email: "newStu@example.com")
+      @newStu2 = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Raptor", gender: true, school: "Zynga Middle School", medications: "insulin", dob: Date.new(14.years.ago.year,8,1), grade_integer: 13, email: "newStu2@example.com")
+      assert_equal [@newStu, @fred, @noah, @ed, @jen, @julie, @jason, @howard, @ted, @ned, @newStu2], Student.by_school.alphabetical
+      @newStu.destroy
+      @newStu2.destroy
     end
 
     should "have scope for ordering by school district" do
@@ -388,31 +377,43 @@ class StudentTest < ActiveSupport::TestCase
     end
 
     should "have scope unassigned for retrieving all students who have not yet been assigned to a team" do
-
+      assert_equal [], Student.unassigned
+      @newStu = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Apple", gender: true, dob: Date.new(8.years.ago.year, 8, 1), grade_integer: 13, email: "newStu@example.com")
+      @activeReg = FactoryGirl.create(:registration, student: @newStu, team: nil, active: true)
+      @newStu2 = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, dob: Date.new(8.years.ago.year, 8, 1), grade_integer: 13, email: "newStu2@example.com")
+      @activeReg2 = FactoryGirl.create(:registration, student: @newStu2, team: nil, active: true)
+      assert_equal [@newStu, @newStu2], Student.unassigned.alphabetical
+      @newStu.destroy
+      @activeReg.destroy
+      @newStu2.destroy
+      @activeReg2.destroy
     end
 
     should "have a scope for getting all the current registrations" do
 
     end 
 
+    should "have a method to return which student is missing docs given an input of students" do
+
+    end
+
+    should "have a method to deactivate regs when a student is deactivated" do
+
+    end
+
+    should "have a scope that returns all the students missing at least one doc" do
+
+    end
+
+    should "have a scope that returns all the students in a certain grade" do
+
+    end
+
     # should "have a method to show if a student has submitted their report card" do
     #   assert_equal false, @noah.missing_report_card
     #   @ed.report_card = fixture_file_upload(Rails.root.join('public', 'example_files', 'physical.pdf'), "application/pdf")
     #   @ed.save!
     #   assert_equal true, @ed.missing_report_card
-    # end
-
-    # should "deactivate not destroy student and associated registrations" do
-    #   @ed.destroy
-    #   @ed.reload
-    #   deny @ed.active
-    #   deny @reg1.active
-    # end
-
-    # should "deactivate student but not err if no registrations" do
-    #   @julie.destroy
-    #   @julie.reload
-    #   deny @julie.active
     # end
 
   end

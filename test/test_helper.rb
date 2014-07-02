@@ -76,11 +76,15 @@ class ActiveSupport::TestCase
     @jason = FactoryGirl.create(:student, household_id: @suth.id, first_name: "Jason", last_name: "Hoover", gender: true, medications: "theophyline", active: false, grade_integer:6, dob: Date.new(10.years.ago.year, 8, 1), email: "jason@example.com")
   end
 
+  ######### I think i may have done some of these lists wrong and only fixed them in the tests so if a test fails, check these first.
+
   #Alphabetized by last name: @fred, @noah, @ed, @jen, @julie, @howard, @jason, @ted, @ned
   #Ordered by age and alphbetized: @noah, @jason, @fred, @jen, @ned, @ed, @howard, @ted, @julie 
   #Alphabetized by last name mapped by last name: "Applehouse", "Ark", "Gruberman", "Hanson", "Henderson", "Hoover", "Marcus", "Smog", "Staton"
   #Alphabetized by_school_district: @ted, @noah, @ed, @julie, @jason, @howard, @jen, @fred, @ned
   #Ordered by grade and alphabetized: @noah, @jason, @fred, @ed, @jen, @howard, @ted, @ned, @julie
+  
+  ###########
   
   def remove_student_context
     @ed.destroy

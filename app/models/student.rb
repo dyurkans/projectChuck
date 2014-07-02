@@ -79,9 +79,10 @@ class Student < ActiveRecord::Base
   scope :needs_medication, where('medications IS NOT NULL')
   scope :seniors, where('grade_integer = ?', 13)
   scope :without_forms, joins(:registrations).where('students.birth_certificate IS NULL OR physical IS NULL OR proof_of_insurance IS NULL OR report_card IS NULL')
+  #You may want to check the reg is active when using this, however, if the student is active the reg should be as well, I think
   scope :unassigned, joins(:registrations).where('team_id IS NULL').order('registrations.created_at')
   scope :current, joins(:registrations).where('? <= registrations.created_at and registrations.created_at <= ? and registrations.active = ?', Date.new(Date.today.year,1,1), Date.new(Date.today.year,12,31), true)
-  # Other methods
+
 
   def self.missing_forms(stus)
     students_missing_docs = []
@@ -93,6 +94,8 @@ class Student < ActiveRecord::Base
     students_missing_docs
   end
 
+  #Returs 2d array of all active student's schools districts. [[district, # of students in district][etc, etc]]
+  #This format is critical for the pie chart where this is used
   def self.school_districts
     current_registered_students = Student.current.active
     school_districts = Hash.new

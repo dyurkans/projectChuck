@@ -178,7 +178,7 @@ class TeamTest < ActiveSupport::TestCase
     		@activeReg = FactoryGirl.create(:registration, student: @newStu, team: @heat, active: true)
     		@activeReg2 = FactoryGirl.create(:registration, student: @newStu2, team: @heat, active: true)
 	    	@newStu3 = FactoryGirl.create(:student, household: @mill, first_name: "Julie", last_name: "Henderson", gender: true, medications: "insulin", dob: Date.new(14.years.ago.year,8,1), grade_integer: 13, email: "newStu3@example.com")
-    		@activeReg3 = FactoryGirl.build(:registration, student: @newStu, team: @heat, active: true)
+    		@activeReg3 = FactoryGirl.build(:registration, student: @newStu3, team: @heat, active: true)
 	    	assert_equal false, @heat.max 
 	    	@newStu.destroy
 	    	@newStu2.destroy
