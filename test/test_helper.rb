@@ -18,9 +18,9 @@ class ActiveSupport::TestCase
 
   def create_household_context
     #Gruberman household, 4 Gruberman children
-    @grub = FactoryGirl.create(:household)
+    @grub = FactoryGirl.create(:household, home_phone: "(412) 268-2323")
     #Mill household, children Ark Marcus and Hanson
-    @mill = FactoryGirl.create(:household, street: "5514 Wilkins Ave", zip: "15217")
+    @mill = FactoryGirl.create(:household, street: "5514 Wilkins Ave", zip: "15217", physician_phone: "(412) 555-5555")
     #Sutherland household
     @suth = FactoryGirl.create(:household, street: "1000 Morewood Ave")
     #Bambridge household, children Henderson and Hoover
@@ -36,7 +36,7 @@ class ActiveSupport::TestCase
 
   def create_guardian_context
     #40 y.o. Mary Gruberman
-    @mary = FactoryGirl.create(:guardian, household: @grub)
+    @mary = FactoryGirl.create(:guardian, household: @grub, first_name:"Mary")
     #45 y.o. Eric Gruberman
     @eric = FactoryGirl.create(:guardian, household: @grub, first_name:"Eric", email: "eric.grub@gmail.com", cell_phone:"412-666-7890")
     #28 y.o. Alexandra Mill
@@ -85,7 +85,7 @@ class ActiveSupport::TestCase
   #Ordered by grade and alphabetized: @noah, @jason, @fred, @ed, @jen, @howard, @ted, @ned, @julie
   
   ###########
-  
+
   def remove_student_context
     @ed.destroy
     @ted.destroy
