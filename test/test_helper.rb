@@ -179,10 +179,10 @@ class ActiveSupport::TestCase
   end
 
   def create_user_context
-
+    @mary_user = FactoryGirl.create(:user, guardian: @mary)
   end
 
   def remove_user_context
-
+    @mary_user.destroy
   end
 end

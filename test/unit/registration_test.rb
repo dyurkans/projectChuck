@@ -13,17 +13,19 @@ class RegistrationTest < ActiveSupport::TestCase
 
 	#test student_id
 	should validate_numericality_of(:student_id)
+	should allow_value(3).for(:student_id)
+	should allow_value(nil).for(:student_id)
 	should_not allow_value(3.14159).for(:student_id)
 	should_not allow_value(0).for(:student_id)
 	should_not allow_value(-1).for(:student_id)
 
 	#test team_id
 	should validate_numericality_of(:team_id)
+	should allow_value(3).for(:team_id)
+	should allow_value(nil).for(:team_id)
 	should_not allow_value(3.14159).for(:team_id)
 	should_not allow_value(0).for(:team_id)
 	should_not allow_value(-1).for(:team_id)
-
-	#test physical
 
 	#test physical date
 	should_not allow_value(2.years.ago.to_date).for(:physical_date)
@@ -33,17 +35,12 @@ class RegistrationTest < ActiveSupport::TestCase
 	should_not allow_value(1.month.from_now).for(:physical_date)
 	should_not allow_value("bad").for(:physical_date)
 
-	#test proof_of_insurance
-
-	#test report_card
-
 	#test t_shirt_size
-	#note that size 0=small, size 5=xxxl
 	should validate_numericality_of(:t_shirt_size)
 	should allow_value(0).for(:t_shirt_size)
-	should allow_value(5).for(:t_shirt_size)
+	should allow_value(7).for(:t_shirt_size)
 	should_not allow_value(-1).for(:t_shirt_size)
-	should_not allow_value(6).for(:t_shirt_size)
+	should_not allow_value(8).for(:t_shirt_size)
 	should_not allow_value(nil).for(:t_shirt_size)
 	should_not allow_value("small").for(:t_shirt_size)
 
@@ -80,17 +77,17 @@ class RegistrationTest < ActiveSupport::TestCase
 	    	deny @jason_reg.valid?
 	    end
 
-	    should "not allow duplicate registrations" do
-	    	@julie_reg2 = FactoryGirl.build(:registration, student: @julie, team: @pistons)
-	    	deny @julie_reg2.valid?
-	    end
+	    # should "not allow duplicate registrations" do
+	    # 	@julie_reg2 = FactoryGirl.build(:registration, student: @julie, team: @pistons)
+	    # 	deny @julie_reg2.valid?
+	    # end
 
-	    should "have a method to show if registration is missing documents" do
-	    	assert_equal true, @ed_reg2.missing_doc
-	    	assert_equal true, @julie_reg.missing_doc
-	    	assert_equal true, @noah_reg.missing_doc
-	    	deny @ed_reg1.missing_doc
-	    end
+	    # should "have a method to show if registration is missing documents" do
+	    # 	assert_equal true, @ed_reg2.missing_doc
+	    # 	assert_equal true, @julie_reg.missing_doc
+	    # 	assert_equal true, @noah_reg.missing_doc
+	    # 	deny @ed_reg1.missing_doc
+	    # end
 
 	    should "not allow a student to register if outside of the tournament's age range" do
 	    	@young = FactoryGirl.build(:student, dob: 2.years.ago.to_date)
@@ -98,9 +95,15 @@ class RegistrationTest < ActiveSupport::TestCase
 	    	@old = FactoryGirl.build(:student, dob: 20.years.ago.to_date)
 	    	@old_reg = FactoryGirl.build(:registration, student: @old)
 
-	    	deny @young_reg.valid?
-	    	deny @old_reg.valid?
+	    	assert_equal false, @young_reg.valid?
+	    	assert_equal false, @old_reg.valid?
 	    end
+
+	    should "humanize jersey size" do
+
+	    end
+
+	    
 	end
 
 end

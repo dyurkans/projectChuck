@@ -33,6 +33,7 @@ attr_accessible :medical_agreement, :permission_agreement, :student_agreement, :
   validates_format_of :home_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true
   validates_format_of :physician_phone, :with => /^\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}$/, :message => "Should be 10 digits (area code needed) and separated with dashes only", :allow_blank => true
   validates_format_of :family_physician, :with => /((Dr\.|Dr|Doctor)\s)?([^\d\s]+\s?){2,}(\, M\.D\.)?/i, :allow_blank => true
+  #county validation
 
   # Other methods
   def full_address

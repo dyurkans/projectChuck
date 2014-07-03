@@ -13,8 +13,10 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :case_sensitive => false
   validates_format_of :email, :with => /^[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))$/i, :message => "Email is not in a valid format"
   validates_inclusion_of :active, :in => [true, false], :message => "Must be true or false"
-  validates_inclusion_of :role, :in => %w[admin member], :message => "Unrecognized role given"
+  validates_inclusion_of :role, :in => %w[Admin Member], :message => "Unrecognized role given"
   # validate :guardian_is_active_in_system, :on => :create
+  validates_numericality_of :guardian_id, :only_integer => true, :greater_than => 0, :allow_bank => true, :allow_nil => true
+  
   scope :alphabetical, joins(:guardian).order('last_name')
 
   # for use in authorizing with CanCan
