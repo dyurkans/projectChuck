@@ -61,10 +61,6 @@ class UserTest < ActiveSupport::TestCase
     assert new_user.valid?
   end
 
-  def test_require_guardian_id
-    assert_equal ["can't be blank"], new_user(:guardian_id => '').errors[:guardian_id]
-  end
-
   def test_require_password
     assert_equal ["can't be blank"], new_user(:password_confirmation => '').errors[:password_confirmation]
   end

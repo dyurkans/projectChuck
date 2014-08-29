@@ -185,6 +185,7 @@ class TeamTest < ActiveSupport::TestCase
 	    	@newStu3.destroy
 	    	@activeReg.destroy
 	    	@activeReg2.destroy
+	    	@activeReg3.destroy
 	    end
 
 	    should "return the number of remaining spots on a team" do
